@@ -1,0 +1,25 @@
+<div class="contenedor-encuesta d-flex flex-column w-100" #contenedorEncuesta>
+    <ul class="clasificaciones">
+        <li *ngFor="let clasificacion of encuesta.clasificaciones">
+            <app-clasificacion-encuesta 
+            #clasificacion 
+            [clasificacion]="clasificacion"
+            [soloLectura]="soloLectura"
+            [camposDeVerificacion]="camposDeVerificacion"
+            [camposDeVerificacionVisibles]="camposDeVerificacionVisibles"    
+            [idVigilado]="idVigilado"
+            [observacion]="encuesta.observacion" 
+            [camposDeVerificacion]="camposDeVerificacion"
+            [justificable]="justificable"
+            [opcionesCumplimiento]="opcionesCumplimiento"
+            [opcionesCorrespondencia]="opcionesCorrespondencia"
+            (preguntasRespondidas)="alResponderPreguntas($event)"
+            (verificacionesRespondidas)="alResponderVerificaciones($event)"
+            (archivoExcedeTamano)="manejarArchivoExcedeTamano($event)"/>
+        </li>
+    </ul>
+    <div class="d-flex mt-4" *ngIf="!soloLectura">
+        <button [disabled]="!hayCambios" class="boton primario relleno ms-auto" (click)="guardarRespuestas()">Guardar</button>
+    </div>
+</div>
+<app-popup #popup />

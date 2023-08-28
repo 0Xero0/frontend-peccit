@@ -1,0 +1,34 @@
+<swal #exitoso>
+    <div *swalPortal="undefined">
+        <div class="d-flex flex-column card-body flex-gap-10 pb-3 mt-3 mb-3">
+            <div class="d-flex justify-content-center">
+                <img src="./assets/img/modal-exito-novafianza.svg" alt="">
+            </div>
+            <h3 class="fs-20px fw-bold">{{tituloExito}}</h3>
+            <span class="fs-18px" *ngIf="claveRecurso">{{claveRecurso}}: <b>"{{valorRecurso}}"</b></span>
+            <span class="fs-18px fw-semibold" *ngIf="descripcionExito">{{descripcionExito}}</span>
+        </div>
+        <div class="card-footer">
+            <button class="boton primario relleno" (click)="this.cerrarPopupExitoso()">Aceptar</button>
+        </div>
+    </div>
+</swal>
+
+
+<swal #fallido>
+    <div *swalPortal="undefined">
+        <div class="card-header d-flex">
+            <span class="ms-auto btn-close" (click)="this.cerrarPopupFallido()"></span>
+        </div>
+        <div class="d-flex flex-column card-body flex-gap-20 pb-3">
+            <h3 class="fs-20px fw-bold">{{tituloFallido}}</h3>
+            <div class="d-flex justify-content-center">
+                <img src="./assets/img/modal-fallido.svg" alt="">
+            </div>
+            <span class="fs-18px fw-semibold" *ngIf="infoFallido">{{infoFallido}}</span>
+        </div>
+        <div class="card-footer">
+            <button class="boton primario relleno" (click)="this.cerrarPopupFallido()">Aceptar</button>
+        </div>
+    </div>
+</swal>

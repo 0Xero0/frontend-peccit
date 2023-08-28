@@ -1,0 +1,31 @@
+<div class="d-flex mb-4">
+    <fieldset class="d-flex flex-gap-10">        
+        <div class="d-flex align-items-center fs-14px fw-semibold">Mes</div>
+        <select class="form-select" [ngModel]="idMes" (ngModelChange)="manejarCambioDeMes($event)">
+            <option [value]="mes.idMes" *ngFor="let mes of meses">{{ mes.idMes }} - {{ mes.nombreMes }}</option>
+        </select>
+    </fieldset>
+</div>
+
+<ul ngbNav #nav="ngbNav" class="nav-tabs w-100" [destroyOnHide]="false">
+    <li ngbNavItem *ngFor="let formulario of encuesta.formularios" [ngbNavItem]="formulario.nombre">
+        <button ngbNavLink>{{ formulario.nombre }}</button>
+        <ng-template ngbNavContent>
+            <app-tab-encuesta-cuantitativa
+                [idVigilado]="encuesta.idVigilado"
+                [subindicadores]="formulario.subIndicador"
+                [evidencias]="formulario.evidencias"
+                [estadoRespuestas]="estadoRespuestas"
+                (evidenciaExcedeTamano)="manejarEvidenciaExcedeTamano($event)"
+                (nuevaRespuesta)="manejarNuevaRespuesta($event)" 
+                (nuevaEvidencia)="manejarNuevaEvidencia($event)"/>
+        </ng-template>
+    </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="w-100"></div>
+
+<div class="d-flex justify-content-end mt-4">
+    <button class="boton primario relleno" [disabled]="!hayCambios" (click)="guardar()">Guardar</button>
+</div>
+<app-popup #popup />
