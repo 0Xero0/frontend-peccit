@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'administrar',
     component: PlantillaComponent,
-    canActivate: [/* AutenticacionGuard */],
+    canActivate: [AutenticacionGuard],
     children: [
       {
         path: 'encuestas/:idEncuesta',
