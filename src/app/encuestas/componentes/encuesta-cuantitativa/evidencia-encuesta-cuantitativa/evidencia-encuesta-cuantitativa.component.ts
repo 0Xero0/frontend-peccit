@@ -35,7 +35,7 @@ export class EvidenciaEncuestaCuantitativaComponent implements OnInit{
 
   manejarCambioEvidenciaArchivo(file: File | null){
     if(file){
-      this.servicioArchivos.guardarEvidencia(file, this.idVigilado, this.evidencia.validaciones.extension)
+      this.servicioArchivos.guardarEvidencia(file, this.idVigilado, this.evidencia.validacionesEvidencia.extension)
       .subscribe({
         next: (infoArchivo)=>{
           this.respuesta!.ruta = infoArchivo.ruta 

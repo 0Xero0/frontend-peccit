@@ -30,7 +30,7 @@ export class ListadoEncuestasComponent implements OnInit {
   constructor(
     private servicioEncuestas: ServicioEncuestas,
     private servicioCategorizacion: CategorizacionService,
-    private servicioLocalStorage: ServicioLocalStorage, 
+    private servicioLocalStorage: ServicioLocalStorage,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
@@ -41,11 +41,11 @@ export class ListadoEncuestasComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe({
-      next: (params) =>{
-        this.idEncuesta = Number(params['idEncuesta'])
+      next: (params) => {
+        this.idEncuesta = params["idEncuesta"]
         this.servicioCategorizacion.informacionCategorizacion(this.idEncuesta).subscribe({
-          next: ( informacion )=>{
-            if(!informacion.categorizado && informacion.encuestaCategorizable){
+          next: (informacion) => {
+            if (!informacion.categorizado && informacion.encuestaCategorizable) {
               this.router.navigateByUrl('/administrar/categorizacion')
               return;
             }
@@ -56,18 +56,25 @@ export class ListadoEncuestasComponent implements OnInit {
     })
   }
 
-  obtenerEncuestas = (pagina: number, limite: number, filtros?: FiltrosReportes)=> {
+  obtenerEncuestas = (pagina: number, limite: number, filtros?: FiltrosReportes) => {
     return new Observable<Paginacion>(subscriptor => {
       this.servicioEncuestas.obtenerEncuestas(pagina, limite, this.usuario!.usuario, this.idEncuesta!, filtros).subscribe({
-        next: ( respuesta )=>{
+        next: (respuesta) => {
           this.reportes = respuesta.reportadas
+          console.log(this.reportes)
+          this.router.navigate(['/administrar', 'encuesta', this.idEncuesta], {
+            queryParams: {
+              vigilado: this.reportes[0].idVigilado,
+              reporte: this.reportes[0].numeroReporte
+            }
+          })
           subscriptor.next(respuesta.paginacion)
         }
       })
     })
   }
 
-  actualizarFiltros(){
+  actualizarFiltros() {
     this.paginador.filtrar({ termino: this.termino })
   }
 

@@ -38,13 +38,13 @@ export class EncuestaCuantitativaComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerMeses()
     this.setIdMes(this.idMesInicial, false)
-    this.encuesta.formularios.forEach(tab => {
+    /* this.encuesta.formularios.forEach(tab => {
       tab.subIndicador.forEach(subindicador => {
         subindicador.preguntas.forEach(pregunta => {
           this.estadoRespuestas.push(this.obtenerRespuesta(pregunta))
         })
       })
-    })
+    }) */
   }
 
   //Acciones

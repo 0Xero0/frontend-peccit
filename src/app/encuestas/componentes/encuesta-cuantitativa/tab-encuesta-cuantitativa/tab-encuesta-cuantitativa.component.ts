@@ -3,6 +3,8 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Evidencia, SubIndicador } from 'src/app/encuestas/modelos/EncuestaCuantitativa';
 import { Respuesta } from 'src/app/encuestas/modelos/Respuesta';
 import { RespuestaEvidencia } from 'src/app/encuestas/modelos/RespuestaEvidencia';
+import { Actividad } from 'src/app/planeacion/modelos/Actividad';
+import { Objetivo } from 'src/app/planeacion/modelos/Objetivo';
 
 @Component({
   selector: 'app-tab-encuesta-cuantitativa',
@@ -10,6 +12,9 @@ import { RespuestaEvidencia } from 'src/app/encuestas/modelos/RespuestaEvidencia
   styleUrls: ['./tab-encuesta-cuantitativa.component.css']
 })
 export class TabEncuestaCuantitativaComponent implements OnInit{
+  @Input() objetivos: Objetivo[] = []
+  @Input() cabecerasActividades: string[] = []
+  @Input() actividades: Actividad[] = []
   @Input('idVigilado') idVigilado!: string
   @Input('subindicadores') subindicadores: SubIndicador[] = []
   @Input('evidencias') evidencias: Evidencia[] = []

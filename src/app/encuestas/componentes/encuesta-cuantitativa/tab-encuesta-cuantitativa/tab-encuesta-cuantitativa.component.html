@@ -1,4 +1,4 @@
-<div class="contenedor-subindicadores mb-4">
+<!-- <div class="contenedor-subindicadores mb-4">
     <ul class="subindicadores">
         <li class="cabeceras-subindicador">
             <div class="row">
@@ -18,7 +18,7 @@
                 (nuevaRespuesta)="manejarNuevaRespuesta($event)"/>
         </li>
     </ul>
-</div>
+</div> -->
 <div class="contenedor-evidencias" *ngIf="evidencias.length > 0">
     <ul class="evidencias">
         <li class="cabeceras-evidencia">
@@ -31,7 +31,11 @@
         <li class="evidencia" *ngFor="let evidencia of evidencias" [ngClass]="{ 'bg-invalido': evidenciasFaltantes.includes(evidencia.idEvidencia) }">
             <div class="row">
                 <div class="col-3">{{ evidencia.nombre }}</div>
-                <div class="col-2">{{ evidencia.validaciones.tipoDato }}</div>
+                <div class="col-2">
+                    <ng-container *ngIf="evidencia.validacionesEvidencia">
+                        {{ evidencia.validacionesEvidencia.tipoDato }}
+                    </ng-container>
+                </div>
                 <div class="col-7 row">
                     <div class="col-4">
                         <app-evidencia-encuesta-cuantitativa
@@ -45,4 +49,10 @@
             </div>
         </li>
     </ul>
+</div>
+<div class="contenedor-objetivos">
+    <app-tabla-objetivos [objetivos]="objetivos" />
+</div>
+<div class="contenedor-calendario">
+    <app-calendario-actividades [cabeceras]="cabecerasActividades" [actividades]="actividades" />
 </div>

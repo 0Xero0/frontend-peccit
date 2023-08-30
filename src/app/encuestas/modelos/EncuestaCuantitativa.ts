@@ -1,3 +1,6 @@
+import { Actividad } from "src/app/planeacion/modelos/Actividad"
+import { Objetivo } from "src/app/planeacion/modelos/Objetivo"
+
 export interface EncuestaCuantitativa{
     formularios: Formulario[]
     idVigilado: string
@@ -10,6 +13,9 @@ export interface Formulario {
     nombre:       string;
     subIndicador: SubIndicador[];
     evidencias: Evidencia[];
+    objetivos: Objetivo[];
+    cabeceras: string[];
+    actividades: Actividad[];
     mensaje: string
 }
 
@@ -23,7 +29,7 @@ export interface Evidencia {
     idEvidencia: number
     nombre: string
     tipoEvidencia: string // puede ser "FILE"
-    validaciones: Validacion
+    validacionesEvidencia: Validacion
     respuesta: string
     documento: string
     nombreOriginal: string

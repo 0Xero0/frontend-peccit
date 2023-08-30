@@ -33,6 +33,9 @@ import { NavegacionModule } from '../navegacion/navegacion.module';
     NgbModule,
     AlertasModule,
     NavegacionModule
+  ],
+  exports: [
+    FormularioModalidadRadioOperacionComponent
   ]
 })
 export class CategorizacionModule { }

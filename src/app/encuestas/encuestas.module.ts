@@ -17,6 +17,8 @@ import { PreguntaEncuestaCuantitativaComponent } from './componentes/encuesta-cu
 import { SubindicadorEncuestaCuantitativaComponent } from './componentes/encuesta-cuantitativa/subindicador-encuesta-cuantitativa/subindicador-encuesta-cuantitativa.component';
 import { EvidenciaEncuestaCuantitativaComponent } from './componentes/encuesta-cuantitativa/evidencia-encuesta-cuantitativa/evidencia-encuesta-cuantitativa.component';
 import { ModalConfirmarEnviarComponent } from './componentes/modal-confirmar-enviar/modal-confirmar-enviar.component';
+import { PlaneacionModule } from '../planeacion/planeacion.module';
+import { CategorizacionModule } from '../categorizacion/categorizacion.module';
 
 
 
@@ -42,14 +44,17 @@ import { ModalConfirmarEnviarComponent } from './componentes/modal-confirmar-env
     NgbModule,
     InputsModule,
     AlertasModule,
-    PipesModule
+    PipesModule,
+    PlaneacionModule,
+    CategorizacionModule
   ],
   exports: [
     ListadoEncuestasComponent,
     PaginaEncuestaComponent,
     EncuestaComponent,
     PreguntaEncuestaComponent,
-    ClasificacionEncuestaComponent
+    ClasificacionEncuestaComponent,
+    ModalConfirmarEnviarComponent
   ]
 })
 export class EncuestasModule { }

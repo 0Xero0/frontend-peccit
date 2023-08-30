@@ -38,6 +38,8 @@ export interface Pregunta {
     observacionCorresponde: string
     adjuntable:             boolean;
     adjuntableObligatorio:  boolean;
+    tieneObservacion: boolean;
+    habilitaObservacion: string[];
     validaciones:           Validacion[];
     tamanio: number
 }

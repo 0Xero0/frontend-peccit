@@ -33,7 +33,7 @@ const routes: Routes = [
         component: PaginaEncuestaComponent
       },
       {
-        path: 'informacion-general',
+        path: 'inicio',
         component: PaginaInformacionGeneralVigiladoComponent
       },
       {
@@ -67,6 +67,14 @@ const routes: Routes = [
       {
         path: 'usuarios',
         loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)
+      },
+      {
+        path: 'informacion-general',
+        loadChildren: ()=> import('./informacion-general/informacion-general.module').then(m => m.InformacionGeneralModule)
+      },
+      {
+        path: 'planeacion',
+        component: ListadoEncuestasComponent
       }
     ]
   },

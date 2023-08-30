@@ -1,0 +1,39 @@
+.calendario{
+    border-collapse: collapse;
+}
+
+.calendario th, .calendario td{
+    padding: 10px;
+    border: 1px solid #dcdcdc;
+}
+.calendario th{
+    font-weight: 600;
+    font-size: 14px;
+    background-color: var(--azul-claro);
+    color: var(--azul-oscuro);
+}
+.calendario td{
+    font-size: 14px;
+}
+.calendario .cabecera-actividades{
+    max-width: 350px;
+    width: 350px;
+    overflow: hidden;
+}
+.calendario .cabecera-total{
+    max-width: 200px;
+    width: 200px;
+    overflow: hidden;
+}
+
+.calendario .actividad{
+    height: 60px;
+    overflow: hidden;
+}
+.calendario .celda-mes{
+    width: 110px;
+}
+.calendario .mes{   
+    width: 100%;
+    max-height: 60px;
+}

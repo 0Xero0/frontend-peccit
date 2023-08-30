@@ -1,13 +1,13 @@
 <ng-container *ngIf="evidencia && respuesta">
     <fieldset *ngIf="evidencia.tipoEvidencia === 'FILE'">
-        <label class="fs-12px validacion">Solo archivos {{ evidencia.validaciones.tipoDato }}</label>
+        <label class="fs-12px validacion">Solo archivos {{ evidencia.validacionesEvidencia.tipoDato }}</label>
         <app-input-archivo
         [(ngModel)]="archivo"
         [tamanoMaximoMb]="evidencia.tamanio"
         (excedeTamano)="manejarExcedeTamano()"
         (ngModelChange)="manejarCambioEvidenciaArchivo($event)"
         [nombre]="evidencia.idEvidencia.toString()"
-        [acepta]="[evidencia.validaciones.extension]" />
+        [acepta]="[evidencia.validacionesEvidencia.extension]" />
         <span (click)="descargarEvidencia()" class="hipervinculo fs-12px cursor-pointer" *ngIf="evidencia.nombreOriginal != ''">
             {{ evidencia.nombreOriginal }}
         </span>
@@ -17,7 +17,7 @@
     <fieldset *ngIf="evidencia.tipoEvidencia === 'NUMBER'">
         <app-input-numerico
         [valorInicial]="evidencia.respuesta"
-        [cantidadDecimales]="evidencia.validaciones.cantDecimal"
+        [cantidadDecimales]="evidencia.validacionesEvidencia.cantDecimal"
         [ngModel]="valor"
         (ngModelChange)="manejarCambioEvidenciaNumerica($event)"/>
     </fieldset>
