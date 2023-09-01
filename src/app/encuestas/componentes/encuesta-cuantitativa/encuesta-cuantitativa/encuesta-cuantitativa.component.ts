@@ -25,6 +25,7 @@ export class EncuestaCuantitativaComponent implements OnInit {
   hayCambios: boolean = false;
   respuestas: Respuesta[] = [];
   evidencias: RespuestaEvidencia[] = [];
+  objetivos: string[] = []
   evidenciasFaltantes: number[] = [];
   indicadoresFaltantes: number[] = [];
   meses: Mes[] = []
@@ -38,13 +39,6 @@ export class EncuestaCuantitativaComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerMeses()
     this.setIdMes(this.idMesInicial, false)
-    /* this.encuesta.formularios.forEach(tab => {
-      tab.subIndicador.forEach(subindicador => {
-        subindicador.preguntas.forEach(pregunta => {
-          this.estadoRespuestas.push(this.obtenerRespuesta(pregunta))
-        })
-      })
-    }) */
   }
 
   //Acciones
@@ -52,7 +46,8 @@ export class EncuestaCuantitativaComponent implements OnInit {
     this.servicio.guardarRespuestasIndicadores(
       Number(this.encuesta.idReporte),
       this.respuestas,
-      this.evidencias).subscribe({
+      this.evidencias,
+      this.objetivos).subscribe({
         next: () => {
           this.setHayCambios(false)
           this.popup.abrirPopupExitoso(DialogosEncuestas.GUARDAR_ENCUESTA_EXITO)
@@ -98,6 +93,10 @@ export class EncuestaCuantitativaComponent implements OnInit {
   manejarNuevaRespuesta(respuesta: Respuesta) {
     this.agregarRespuesta(respuesta)
     this.setHayCambios(true)
+  }
+
+  manejarNuevosObjetivos(objetivos: string[]){
+    this.objetivos = objetivos
   }
 
   manejarErrorAlCambiarEvidencia(error: HttpErrorResponse){

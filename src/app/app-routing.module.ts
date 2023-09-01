@@ -15,6 +15,7 @@ import { PaginaCategorizacion } from './categorizacion/paginas/pagina-categoriza
 import { SoporteAccesoComponent } from './autenticacion/componentes/soporte-acceso/soporte-acceso.component';
 import { PaginaAsignacionTamanoOrganizacionComponent } from './categorizacion/paginas/pagina-asignacion-tamano-organizacion/pagina-asignacion-tamano-organizacion.component';
 import { PaginaFormularioAspiranteProveedorTecnologicoComponent } from './formularios/paginas/pagina-formulario-aspirante-proveedor-tecnologico/pagina-formulario-aspirante-proveedor-tecnologico.component';
+import { PaginaEjecucionComponent } from './ejecucion/paginas/pagina-ejecucion/pagina-ejecucion.component';
 
 
 
@@ -75,6 +76,10 @@ const routes: Routes = [
       {
         path: 'planeacion',
         component: ListadoEncuestasComponent
+      },
+      {
+        path: 'ejecucion',
+        component: PaginaEjecucionComponent
       }
     ]
   },

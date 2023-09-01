@@ -1,3 +1,6 @@
+<app-tabla-sedes 
+[sedes]="encuesta.sedes"
+(nuevasSedes)="manejarNuevasSedes($event)" />
 <div class="contenedor-encuesta d-flex flex-column w-100" #contenedorEncuesta>
     <ul class="clasificaciones">
         <li *ngFor="let clasificacion of encuesta.clasificaciones">

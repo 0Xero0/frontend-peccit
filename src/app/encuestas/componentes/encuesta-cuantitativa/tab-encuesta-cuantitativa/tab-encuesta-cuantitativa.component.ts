@@ -23,27 +23,35 @@ export class TabEncuestaCuantitativaComponent implements OnInit{
   @Input() evidenciasFaltantes: number[] = []
   @Input() indicadoresFaltantes: number[] = []
 
-  @Output('nuevaRespuesta') nuevaRespuesta: EventEmitter<Respuesta>
-  @Output('nuevaEvidencia') nuevaEvidencia: EventEmitter<RespuestaEvidencia>
-  @Output('evidenciaExcedeTamano') evidenciaExcedeTamano: EventEmitter<number>
-  @Output('errorAlCargarEvidencia') errorAlCargarEvidencia: EventEmitter<HttpErrorResponse>
+  @Output() nuevaRespuesta: EventEmitter<Respuesta>
+  @Output() nuevaEvidencia: EventEmitter<RespuestaEvidencia>
+  @Output() nuevosObjetivos: EventEmitter<string[]>
+  @Output() evidenciaExcedeTamano: EventEmitter<number>
+  @Output() errorAlCargarEvidencia: EventEmitter<HttpErrorResponse>
   respuestas: Respuesta[] = [];
+  
   
 
   constructor(){
     this.nuevaRespuesta = new EventEmitter<Respuesta>();
     this.nuevaEvidencia = new EventEmitter<RespuestaEvidencia>();
+    this.nuevosObjetivos = new EventEmitter<string[]>();
     this.evidenciaExcedeTamano = new EventEmitter<number>();
     this.errorAlCargarEvidencia = new EventEmitter<HttpErrorResponse>();
   }
 
   ngOnInit(): void {}
 
+  manejarNuevosObjetivos(objetivos: string[]){
+    this.nuevosObjetivos.emit(objetivos)
+  }
+
   manejarEvidenciaExcedeTamano(tamano: number){
     this.evidenciaExcedeTamano.emit(tamano)
   }
 
   manejarNuevaRespuesta(respuesta: Respuesta){
+    console.log('nueva respuesta', respuesta)
     this.nuevaRespuesta.emit(respuesta)
   }
 

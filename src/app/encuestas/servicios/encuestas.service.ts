@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { Mes } from '../modelos/Mes';
 import { RespuestaEvidencia } from '../modelos/RespuestaEvidencia';
 import { FiltrosReportes } from '../modelos/FiltrosReportes';
+import { Sede } from 'src/app/informacion-general/modelos/Sede';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,7 @@ export class ServicioEncuestas extends Autenticable {
     return this.http.get<EncuestaCuantitativa>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  guardarRespuesta(idReporte: number, peticion: { respuestas: RespuestaEnviar[] })
+  guardarRespuesta(idReporte: number, peticion: { respuestas: RespuestaEnviar[], sedes: Sede[] })
   :Observable<{ mensaje: string}>{
     const enpoint = `/api/v1/respuestas/${idReporte}`
     return this.http.post<{ mensaje: string }>(
@@ -68,9 +69,9 @@ export class ServicioEncuestas extends Autenticable {
       })
   }
 
-  guardarRespuestasIndicadores(idReporte: number, respuestas: RespuestaEnviar[], evidencias: RespuestaEvidencia[]){
+  guardarRespuestasIndicadores(idReporte: number, respuestas: RespuestaEnviar[], evidencias: RespuestaEvidencia[], objetivos: string[]){
     const endpoint = `/api/v1/inidicador/respuestas`
-    return this.http.post(`${this.host}${endpoint}`, { reporteId: idReporte, respuestas, evidencias }, {
+    return this.http.post(`${this.host}${endpoint}`, { reporteId: idReporte, respuestas, evidencias, objetivos }, {
       headers: this.obtenerCabeceraAutorizacion()
     })
   }

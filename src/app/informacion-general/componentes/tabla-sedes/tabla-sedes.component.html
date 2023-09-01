@@ -1,0 +1,95 @@
+<table class="tabla-modalidad-radio table border mb-1">
+    <thead>
+        <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
+            <th class="fw-semibold"></th>
+            <th class="fw-semibold"></th>
+            <th class="fw-semibold">
+                Sede
+            </th>
+            <th class="fw-semibold">
+                Departamento
+            </th>
+            <th class="fw-semibold">
+                Municipio
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr 
+        class="fs-14px" 
+        *ngIf="sedes.length === 0 && registrosACrear.length === 0 && !formularioVisible">
+            <td colspan="2"></td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr class="fs-14px" *ngFor="let sede of sedes ; let i = index"
+            [ngClass]="{ 'bg-peligro': esRegistroAEliminar(i) }">
+            <td colspan="2">
+                <span *ngIf="esRegistroAEliminar(i)" class="text-danger cursor-pointer"
+                    (click)="cancelarEliminacionRegistro(i)">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </span>
+                <span *ngIf="!esRegistroAEliminar(i)" class="text-danger cursor-pointer"
+                    (click)="eliminarRegistro(i)">
+                    <span class="material-symbols-outlined">
+                        delete
+                    </span>
+                </span>
+            </td>
+            <td>{{ sede.nombre }}</td>
+            <td>{{ sede.departamento }}</td>
+            <td>{{ sede.municipio }}</td>
+        </tr>
+        <tr class="fs-14px bg-exitoso" *ngFor="let objetivo of registrosACrear ; let indice = index">
+            <td colspan="2">
+                <span class="text-danger cursor-pointer" (click)="retirarDeRam(indice)">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </span>
+            </td>
+            <td>{{ objetivo.nombre }}</td>
+            <td>{{ objetivo.departamento }}</td>
+            <td>{{ objetivo.municipio }}</td>
+        </tr>
+        <tr class="fs-14px" [formGroup]="formulario" *ngIf="formularioVisible">
+            <td class="align-middle">
+                <span class="text-danger cursor-pointer" (click)="ocultarFormulario()">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </span>
+            </td>
+            <td class="align-middle">
+                <span class="text-success cursor-pointer" (click)="agregarARam()">
+                    <span class="material-symbols-outlined">
+                        done
+                    </span>
+                </span>
+            </td>
+            <td>
+                <input formControlName="nombre" style="max-width: 300px;" class="form-control" />
+                <app-validacion [control]="this.formulario.controls['nombre']"
+                    [validacion]="'required'" [texto]="'El nombre es requerido..'" />
+            </td>
+            <td>
+                <input formControlName="departamento" style="max-width: 300px;" class="form-control" />
+                <app-validacion [control]="this.formulario.controls['departamento']"
+                    [validacion]="'required'" [texto]="'El departamento es requerido.'" />
+            </td>
+            <td>
+                <input formControlName="municipio" style="max-width: 300px;" class="form-control" />
+                <app-validacion [control]="this.formulario.controls['municipio']"
+                    [validacion]="'required'" [texto]="'El municipio es requerido.'" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="d-flex my-3" *ngIf="!formularioVisible">
+    <button type="button" class="boton primario relleno" (click)="mostrarFormulario()" >
+        Agregar
+    </button>
+</div>

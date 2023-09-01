@@ -1,10 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Utilidades';
-import { ModalidadRadio } from 'src/app/categorizacion/modelos/Categorizacion';
-import { Modalidad } from 'src/app/categorizacion/modelos/Modalidad';
-import { ModalidadRadioACrear } from 'src/app/categorizacion/modelos/ModalidadRadioACrear';
-import { Radio } from 'src/app/categorizacion/modelos/Radio';
 import { CategorizacionService } from 'src/app/categorizacion/servicios/categorizacion.service';
 import { Objetivo } from '../../modelos/Objetivo';
 import { ObjetivoACrear } from '../../modelos/ObjetivoACrear';
@@ -15,16 +11,13 @@ import { ObjetivoACrear } from '../../modelos/ObjetivoACrear';
   styleUrls: ['./tabla-objetivos.component.css']
 })
 export class TablaObjetivosComponent implements OnInit {
-  @Output('aCrear') aCrear                : EventEmitter<Objetivo[]>
+  @Output('aCrear') aCrear                : EventEmitter<string[]>
   @Output('aEliminar') aEliminar          : EventEmitter<number[]>
+  @Output() nuevosObjetivos: EventEmitter<string[]>
 
   @Input('objetivos') objetivos: Objetivo[] = []
 
   formulario        : FormGroup
-  modalidades       : Modalidad[] = []
-  radios            : Radio[] = []
-  idRadiosNoObligadosAPresentarPesv: number[] = [ 1, 2, 3 ]
-  nombresRadiosNoObligadosAPresentarPesv: string[] = [ 'MUNICIPAL', 'DISTRITAL', 'METROPOLITANO' ]
   registrosACrear   : ObjetivoACrear[] = []
   registrosAEliminar: number[] = []
   formularioVisible : boolean = false
@@ -32,8 +25,9 @@ export class TablaObjetivosComponent implements OnInit {
   debePresentarPesv : boolean = true
 
   constructor(private servicioCategorizacion: CategorizacionService){
-    this.aCrear = new EventEmitter<Objetivo[]>();
+    this.aCrear = new EventEmitter<string[]>();
     this.aEliminar = new EventEmitter<number[]>();
+    this.nuevosObjetivos = new EventEmitter<string[]>();
 
     this.formulario = new FormGroup({
       objetivo: new FormControl<string>("", [Validators.required]), 
@@ -41,16 +35,8 @@ export class TablaObjetivosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.obtenerModalidades()
     this.valido = this.esValido()
-/*     this.formulario.get('modalidad')!.valueChanges.subscribe({
-      next: (valor) =>{
-        this.formulario.get('idRadio')!.setValue("")
-        this.obtenerRadios(valor)
-        this.formulario.markAsPristine()
-      }
-    })
- */  }
+  }
 
   mostrarFormulario(){
     this.formularioVisible = true
@@ -74,12 +60,15 @@ export class TablaObjetivosComponent implements OnInit {
     this.mostrarMensajeDeGuardado()
     this.valido = this.esValido()
     this.limpiarFormulario()
+    this.nuevosObjetivos.emit( this.obtenerObjetivosAGuardar() )
   }
 
   retirarDeRam(indice: number){
     this.registrosACrear.splice(indice, 1)
     this.mostrarMensajeDeGuardado()
     this.valido = this.esValido()
+    this.nuevosObjetivos.emit( this.obtenerObjetivosAGuardar() )
+
   }
 
   
@@ -87,54 +76,23 @@ export class TablaObjetivosComponent implements OnInit {
     this.registrosAEliminar.push(id)
     this.mostrarMensajeDeGuardado()
     this.valido = this.esValido()
+    this.nuevosObjetivos.emit( this.obtenerObjetivosAGuardar() )
   }
 
   cancelarEliminacionRegistro(id: number){
     const indice = this.registrosAEliminar.findIndex( idEnArreglo => idEnArreglo === id)
     this.registrosAEliminar.splice(indice, 1)
     this.valido = this.esValido()
+    this.nuevosObjetivos.emit( this.obtenerObjetivosAGuardar() )
   }
 
   limpiarFormulario(){
     this.formulario.reset()
-    this.formulario.get('idRadio')!.setValue('')
-    this.formulario.get('idModalidad')!.setValue('')
-  }
-
-  obtenerModalidades(){
-    this.servicioCategorizacion.obtenerModalidades().subscribe({
-      next: (respuesta) => {
-        this.modalidades = respuesta.modalidades
-      }
-    })
-  }
-
-  obtenerRadios(idModalidad: number){
-    this.servicioCategorizacion.obtenerRadios(idModalidad).subscribe({
-      next: (respuesta) => {
-        this.radios = respuesta.radios
-      }
-    })
+    this.formulario.get('objetivo')!.setValue('')
   }
 
   esRegistroAEliminar(id: number): boolean{
     return this.registrosAEliminar.includes(id)
-  }
-
-  nombreModalidad(idModalidad: number): string{
-    const indice = this.modalidades.findIndex( modalidad => modalidad.id === idModalidad)
-    if(indice !== -1){
-      return this.modalidades[indice].nombre
-    }
-    return '-'
-  }
-
-  nombreRadio(idRadio: number): string{
-    const indice = this.radios.findIndex( radio => radio.id === idRadio)
-    if(indice !== -1){
-      return this.radios[indice].nombre
-    }
-    return '-'
   }
 
   mostrarMensajeDeGuardado(){
@@ -153,6 +111,18 @@ export class TablaObjetivosComponent implements OnInit {
       return true
     }
     return false
+  }
+
+  obtenerObjetivosAGuardar(): string[]{
+    let objetivosACrear: string[] = []
+    let objetivosAMantener: string[] = []
+    objetivosACrear = this.registrosACrear.map( registroACrear => registroACrear.nombre )
+    objetivosAMantener = this.objetivos.filter(objetivo =>  !this.registrosAEliminar.includes(objetivo.id) )
+    .map(objetivo => objetivo.nombre)
+    return [
+      ...objetivosACrear, 
+      ...objetivosAMantener
+    ]
   }
 
 }

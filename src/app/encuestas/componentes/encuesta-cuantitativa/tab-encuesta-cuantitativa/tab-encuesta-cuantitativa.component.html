@@ -51,8 +51,13 @@
     </ul>
 </div>
 <div class="contenedor-objetivos">
-    <app-tabla-objetivos [objetivos]="objetivos" />
+    <app-tabla-objetivos 
+    [objetivos]="objetivos" 
+    (nuevosObjetivos)="manejarNuevosObjetivos($event)"/>
 </div>
 <div class="contenedor-calendario">
-    <app-calendario-actividades [cabeceras]="cabecerasActividades" [actividades]="actividades" />
+    <app-calendario-actividades 
+    [cabeceras]="cabecerasActividades" 
+    [actividades]="actividades" 
+    (nuevaRespuesta)="manejarNuevaRespuesta($event)"/>
 </div>

@@ -19,6 +19,7 @@ import { EvidenciaEncuestaCuantitativaComponent } from './componentes/encuesta-c
 import { ModalConfirmarEnviarComponent } from './componentes/modal-confirmar-enviar/modal-confirmar-enviar.component';
 import { PlaneacionModule } from '../planeacion/planeacion.module';
 import { CategorizacionModule } from '../categorizacion/categorizacion.module';
+import { InformacionGeneralModule } from '../informacion-general/informacion-general.module';
 
 
 
@@ -46,6 +47,7 @@ import { CategorizacionModule } from '../categorizacion/categorizacion.module';
     AlertasModule,
     PipesModule,
     PlaneacionModule,
+    InformacionGeneralModule,
     CategorizacionModule
   ],
   exports: [

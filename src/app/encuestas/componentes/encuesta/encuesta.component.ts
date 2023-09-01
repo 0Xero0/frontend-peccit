@@ -11,6 +11,7 @@ import { RespuestaVerificacion } from '../../modelos/RespuestaVerificacion';
 import { ServicioVerificaciones } from 'src/app/verificaciones/servicios/verificaciones.service';
 import { Maestra } from 'src/app/verificaciones/modelos/Maestra';
 import { DialogosEncuestas } from '../../dialogos-encuestas';
+import { Sede } from 'src/app/informacion-general/modelos/Sede';
 
 @Component({
   selector: 'app-encuesta',
@@ -31,6 +32,7 @@ export class EncuestaComponent implements OnInit {
   @ViewChild('popup') popup!: PopupComponent
   @ViewChild('contenedorEncuesta') contenedorEncuesta!: ElementRef
   respuestas: Respuesta[] = []
+  sedes: Sede[] = []
   verificaciones: RespuestaVerificacion[] = []
   hayCambios: boolean = false
   opcionesCumplimiento: Maestra[] = []
@@ -94,6 +96,11 @@ export class EncuestaComponent implements OnInit {
     this.setHayCambios(true)
   }
 
+  manejarNuevasSedes(nuevasSedes: Sede[]){
+    this.sedes = nuevasSedes
+    this.setHayCambios(true)
+  }
+
   alResponderVerificaciones(verificacion: any){
     this.setHayCambios(true)
   }
@@ -108,7 +115,7 @@ export class EncuestaComponent implements OnInit {
 
   //Acciones
   guardarRespuestas(){
-    this.servicioEncuestas.guardarRespuesta(this.idReporte, { respuestas: this.obtenerRespuestas() }).subscribe({
+    this.servicioEncuestas.guardarRespuesta(this.idReporte, { respuestas: this.obtenerRespuestas(), sedes: this.sedes }).subscribe({
       next: ( respuesta ) =>{
         this.popup.abrirPopupExitoso(respuesta.mensaje)
         this.setHayCambios(false)

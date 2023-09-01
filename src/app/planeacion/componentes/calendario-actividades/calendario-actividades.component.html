@@ -8,16 +8,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let actividad of actividades">
+            <tr *ngFor="let actividad of actividades ; let i = index">
                 <td>
                     <div class="actividad">
                        {{ actividad.nombre }}
                     </div>
                 </td>
-                <td>Suma total de los meses (69)</td>
+                <td>Suma total de los meses ({{ totalesActividades[i] }})</td>
                 <td class="celda-mes" *ngFor="let mes of actividad.meses">
                     <div class="mes">
-                        {{ mes.respuesta }}
+                        <app-mes-calendario
+                        #mesCalendario
+                        [mes]="mes" 
+                        [indice]="i"
+                        (cambioValor)="recalcularTotal($event)" 
+                        (nuevaRespuesta)="manejarNuevaRespuesta($event)"/>
                     </div>
                 </td>
             </tr>

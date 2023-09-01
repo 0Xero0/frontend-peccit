@@ -1,0 +1,46 @@
+<div class="table-responsive">
+    <table class="table tabla-actividades">
+        <thead>
+            <tr>
+                <th>Actividades</th>
+                <th>Planeado</th>
+                <th>Ejecutado</th>
+                <th>% de cumplimiento</th>
+                <th>Tipo de evidencia</th>
+                <th>Evidencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let actividad of [1,2,3]">
+                <td>Indique la cantidad de actividades, charlas y encuestas planeadas referentes a la problemática de mobilidad</td>
+                <td>6</td>
+                <td>7</td>
+                <td>117%</td>
+                <td>Informes técnicos remitidos y demás soportes (fotografía, listados, etc)</td>
+                <td>
+                    <app-input-archivo />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table tabla-items-adicionales">
+        <thead>
+            <tr>
+                <th colspan="4">Items adicionales</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let actividad of [1,2,3]">
+                <td>¿Cuantos comparendos por infracciones de tránsito se han impuesto durante  el desarrollo de las funciones?</td>
+                <td>
+                    <input type="number" class="form-control">
+                </td>
+                <td>Informes técnicos remitidos y demás soportes (fotografías, listados, etc)</td>
+                <td>
+                    <app-input-archivo />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

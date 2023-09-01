@@ -1,3 +1,5 @@
+import { Sede } from "src/app/informacion-general/modelos/Sede";
+
 export interface Encuesta {
     tipoAccion:      number;
     observacion:     boolean;
@@ -12,6 +14,7 @@ export interface Encuesta {
     razonSocila: string
     estadoActual: string
     clasificaciones: Clasificacion[];
+    sedes: Sede[]
 }
 
 export interface Clasificacion {

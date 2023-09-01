@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertasModule } from '../alertas/alertas.module';
 import { CalendarioActividadesComponent } from './componentes/calendario-actividades/calendario-actividades.component';
+import { MesCalendarioComponent } from './componentes/mes-calendario/mes-calendario.component';
 
 
 
@@ -14,7 +15,8 @@ import { CalendarioActividadesComponent } from './componentes/calendario-activid
   declarations: [
     PaginaPlaneacionComponent,
     TablaObjetivosComponent,
-    CalendarioActividadesComponent
+    CalendarioActividadesComponent,
+    MesCalendarioComponent
   ],
   imports: [
     CommonModule,
