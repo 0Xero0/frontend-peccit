@@ -26,7 +26,6 @@ export class MesCalendarioComponent implements OnInit{
   }
 
   setValor(valor: number, emitirEvento: boolean = true){
-    console.log(valor)
     if(valor < 0){
       valor = 0;
       this.input.nativeElement.value = 0;
