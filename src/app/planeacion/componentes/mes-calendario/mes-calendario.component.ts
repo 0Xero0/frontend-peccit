@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Mes } from '../../modelos/Actividad';
 import { RespuestaEnviar } from 'src/app/encuestas/modelos/RespuestaEnviar';
 
@@ -8,6 +8,7 @@ import { RespuestaEnviar } from 'src/app/encuestas/modelos/RespuestaEnviar';
   styleUrls: ['./mes-calendario.component.css']
 })
 export class MesCalendarioComponent implements OnInit{
+  @ViewChild('input') input!: ElementRef 
   @Output() cambioValor: EventEmitter<{valor: number, indice: number}>
   @Output() nuevaRespuesta: EventEmitter<RespuestaEnviar>;
   @Input() mes!: Mes;
@@ -25,7 +26,15 @@ export class MesCalendarioComponent implements OnInit{
   }
 
   setValor(valor: number, emitirEvento: boolean = true){
-    this.valor = valor
+    console.log(valor)
+    if(valor < 0){
+      valor = 0;
+      this.input.nativeElement.value = 0;
+    }
+    if(!valor){
+      valor = 0;
+    }
+    this.valor = valor  
     if(emitirEvento){
       this.nuevaRespuesta.emit({
         preguntaId: this.mes.datoId,
