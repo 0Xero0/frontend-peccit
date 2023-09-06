@@ -61,8 +61,6 @@
         #componenteEncuestaCuantitativa
         *ngIf="idEncuesta == 2 && encuestaCuantitativa" 
         [encuesta]="encuestaCuantitativa"
-        [idMesInicial]="obtenerIdMesActual()"
-        (cambioDeMes)="obtenerEncuestaCuantitativa($event)"
         (hanHabidoCambios)="setHayCambios($event)"
         />
     </div>

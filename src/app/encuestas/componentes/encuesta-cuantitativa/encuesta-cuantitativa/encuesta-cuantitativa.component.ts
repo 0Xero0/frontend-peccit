@@ -1,11 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { DateTime } from 'luxon';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { DialogosEncuestas } from 'src/app/encuestas/dialogos-encuestas';
 import { EncuestaCuantitativa, Formulario, Pregunta } from 'src/app/encuestas/modelos/EncuestaCuantitativa';
-import { Mes } from 'src/app/encuestas/modelos/Mes';
 import { Respuesta } from 'src/app/encuestas/modelos/Respuesta';
 import { RespuestaEvidencia } from 'src/app/encuestas/modelos/RespuestaEvidencia';
 import { ServicioEncuestas } from 'src/app/encuestas/servicios/encuestas.service';
@@ -20,7 +18,6 @@ export class EncuestaCuantitativaComponent implements OnInit {
   @Input('encuesta') encuesta!: EncuestaCuantitativa
   @Input('idMesInicial') idMesInicial!: number
   @Output('hanHabidoCambios') hanHabidoCambios: EventEmitter<boolean>
-  @Output('cambioDeMes') cambioDeMes: EventEmitter<number> //Emite el id del mes
   estadoRespuestas: Respuesta[] = [];
   hayCambios: boolean = false;
   respuestas: Respuesta[] = [];
@@ -28,18 +25,12 @@ export class EncuestaCuantitativaComponent implements OnInit {
   objetivos: string[] = []
   evidenciasFaltantes: number[] = [];
   indicadoresFaltantes: number[] = [];
-  meses: Mes[] = []
-  idMes?: number
 
   constructor(private servicio: ServicioEncuestas, private router: Router) {
     this.hanHabidoCambios = new EventEmitter<boolean>()
-    this.cambioDeMes = new EventEmitter<number>()
   }
 
-  ngOnInit(): void {
-    this.obtenerMeses()
-    this.setIdMes(this.idMesInicial, false)
-  }
+  ngOnInit(): void {}
 
   //Acciones
   guardar() {
@@ -62,7 +53,11 @@ export class EncuestaCuantitativaComponent implements OnInit {
   }
 
   enviar() {
-    this.servicio.enviarRespuestaIndicadores(this.encuesta.idEncuesta, Number(this.encuesta.idReporte), this.encuesta.idVigilado, this.idMes!).subscribe({
+    this.servicio.enviarRespuestaIndicadores(
+      this.encuesta.idEncuesta, 
+      Number(this.encuesta.idReporte), 
+      this.encuesta.idVigilado
+    ).subscribe({
       next: ()=>{
         this.popup.abrirPopupExitoso(DialogosEncuestas.ENVIAR_ENCUESTA_EXITO)
         this.router.navigateByUrl(`/administrar/encuestas/${this.encuesta.idEncuesta}`)
@@ -78,11 +73,6 @@ export class EncuestaCuantitativaComponent implements OnInit {
   //Manejadores de eventos
   manejarEvidenciaExcedeTamano(tamano: number){
     this.popup.abrirPopupFallido('Limite de tamaño excedido.', `El archivo debe pesar como máximo ${tamano} megabytes.`)
-  }
-
-  manejarCambioDeMes(idMes: number) {
-    const idMesActual = this.idMes
-    this.setIdMes(idMes)
   }
 
   manejarNuevaEvidencia(respuesta: RespuestaEvidencia) {
@@ -151,25 +141,9 @@ export class EncuestaCuantitativaComponent implements OnInit {
   }
   //Obtener informacion
 
-  obtenerMeses() {
-    this.servicio.obtenerMeses().subscribe({
-      next: (respuesta) => {
-        this.meses = respuesta.meses
-      },
-      error: (e) => {
-        this.popup.abrirPopupFallido(DialogosEncuestas.ERROR_GENERICO_TITULO, DialogosEncuestas.ERROR_GENERICO_DESCRIPCION)
-      }
-    })
-  }
-
   //Setters
   setHayCambios(tocada: boolean) {
     this.hayCambios = tocada
     this.hanHabidoCambios.emit(tocada)
-  }
-
-  setIdMes(idMes: number, emitirEvento: boolean = true) {
-    this.idMes = idMes
-    if (emitirEvento) this.cambioDeMes.emit(idMes);
   }
 }

@@ -56,7 +56,7 @@ export class PaginaEncuestaComponent implements OnInit {
       next: (parametros)=>{
         this.idEncuesta = parametros['idEncuestaDiligenciada']
         if(this.idEncuesta == 2){
-          this.obtenerEncuestaCuantitativa( this.obtenerIdMesActual() )
+          this.obtenerEncuestaCuantitativa()
         }else{
           this.obtenerEncuesta()
         }
@@ -146,18 +146,14 @@ export class PaginaEncuestaComponent implements OnInit {
   }
 
   //Obtener información
-  obtenerEncuestaCuantitativa(idMes: number){
-    this.servicioEncuesta.obtenerEncuestaCuantitativa(this.idReporte!, this.idVigilado!, idMes).subscribe({
+  obtenerEncuestaCuantitativa(){
+    this.servicioEncuesta.obtenerEncuestaCuantitativa(this.idReporte!, this.idVigilado!).subscribe({
       next: (encuesta)=>{
         this.encuestaCuantitativa = encuesta
         this.soloLectura = false
         this.vigencia = encuesta.vigencia
       }
     })
-  }
-
-  obtenerIdMesActual(): number{
-    return DateTime.now().month
   }
 
   obtenerEncuesta(){

@@ -11,6 +11,7 @@ import { TablaActividadesFormEjecComponent } from './componentes/tabla-actividad
 import { TablaItemsAdicionalesFormEjecComponent } from './componentes/tabla-items-adicionales-form-ejec/tabla-items-adicionales-form-ejec.component';
 import { ActividadFormEjecComponent } from './componentes/actividad-form-ejec/actividad-form-ejec.component';
 import { AdicionalFormEjecComponent } from './componentes/adicional-form-ejec/adicional-form-ejec.component';
+import { PaginaListadoEjecucionComponent } from './paginas/pagina-listado-ejecucion/pagina-listado-ejecucion.component';
 
 
 
@@ -22,7 +23,8 @@ import { AdicionalFormEjecComponent } from './componentes/adicional-form-ejec/ad
     TablaActividadesFormEjecComponent,
     TablaItemsAdicionalesFormEjecComponent,
     ActividadFormEjecComponent,
-    AdicionalFormEjecComponent
+    AdicionalFormEjecComponent,
+    PaginaListadoEjecucionComponent
   ],
   imports: [
     CommonModule,

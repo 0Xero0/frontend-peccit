@@ -52,9 +52,9 @@ export class ServicioEncuestas extends Autenticable {
     )
   }
 
-  obtenerEncuestaCuantitativa(idReporte: number, idVigilado: string, idMes: number)
+  obtenerEncuestaCuantitativa(idReporte: number, idVigilado: string)
   :Observable<EncuestaCuantitativa>{
-    const endpoint = `/api/v1/inidicador/formularios?idReporte=${idReporte}&idVigilado=${idVigilado}&idMes=${idMes}`
+    const endpoint = `/api/v1/inidicador/formularios?idReporte=${idReporte}&idVigilado=${idVigilado}`
     return this.http.get<EncuestaCuantitativa>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 
@@ -86,11 +86,11 @@ export class ServicioEncuestas extends Autenticable {
       })
   }
 
-  enviarRespuestaIndicadores(idEncuesta: number, idReporte: number, idVigilado: string, idMes: number){
+  enviarRespuestaIndicadores(idEncuesta: number, idReporte: number, idVigilado: string){
     const enpoint = `/api/v1/inidicador/enviar`
     return this.http.post<{ mensaje: string }>(
       `${this.host}${enpoint}`,
-      { idEncuesta, idReporte, idVigilado, idMes },
+      { idEncuesta, idReporte, idVigilado },
       {
         headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` }
       })
