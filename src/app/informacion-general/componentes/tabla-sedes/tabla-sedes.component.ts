@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Utilidades';
 import { Sede } from '../../modelos/Sede';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Departamento } from 'src/app/encuestas/modelos/Departamento';
+import { Ciudad } from 'src/app/encuestas/modelos/Ciudad';
+import { ServicioDepartamentos } from 'src/app/encuestas/servicios/departamentos.service';
 
 @Component({
   selector: 'app-tabla-sedes',
@@ -21,8 +24,11 @@ export class TablaSedesComponent {
   formularioVisible : boolean = false
   valido            : boolean = true
   debePresentarPesv : boolean = true
+  departamentos: Departamento[] = []
+  ciudades: Ciudad[] = []
+  todasLasCiudades: Ciudad[] = []
 
-  constructor(){
+  constructor(private servicioDepartamento: ServicioDepartamentos){
     this.aCrear = new EventEmitter<Sede>();
     this.aEliminar = new EventEmitter<number[]>();
     this.nuevasSedes = new EventEmitter<Sede[]>();
@@ -35,6 +41,13 @@ export class TablaSedesComponent {
   }
 
   ngOnInit(): void {
+    this.obtenerTodasLasCiudades()
+    this.obtenerDepartamentos()
+    this.formulario.get('departamento')!.valueChanges.subscribe({
+      next: (departamentoId)=>{
+        this.obtenerCiudades(departamentoId)
+      }
+    })
     this.valido = this.esValido()
   }
 
@@ -127,6 +140,40 @@ export class TablaSedesComponent {
       ...sedesAMantener,
       ...sedesACrear
     ]
+  }
+
+  obtenerDepartamentos(){
+    this.servicioDepartamento.obtenerDepartamentos().subscribe({
+      next: (departamentos)=>{
+        this.departamentos = departamentos
+      }
+    })
+  }
+
+  obtenerCiudades(departamentoId: number){
+    this.servicioDepartamento.obtenerCiudades(departamentoId).subscribe({
+      next: (ciudades)=>{
+        this.ciudades = ciudades
+      }
+    })
+  }
+
+  obtenerTodasLasCiudades(){
+    this.servicioDepartamento.obtenerTodasLasCiudades().subscribe({
+      next: (ciudades)=>{
+        this.todasLasCiudades = ciudades
+      }
+    })
+  }
+
+  obtenerNombreCiudad(idCiudad: string | number): string{
+    const ciudad = this.todasLasCiudades.find(ciudad => ciudad.id == idCiudad)
+    return ciudad ? ciudad.name : idCiudad.toString()
+  }
+
+  obtenerNombreDepartamento(idDepartamento: string | number): string{
+    const departamento = this.departamentos.find(departamento => departamento.id == idDepartamento)
+    return departamento ? departamento.name : idDepartamento.toString()
   }
 
 }

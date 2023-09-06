@@ -37,8 +37,8 @@
     </div>
     <!-- Seleccionar | ver archivo -->
     <div class="col-2 columna border-top">
-        <div class="d-flex w-100 flex-column flex-gap-10">
-            <div class="w-100" [ngClass]="{'d-none': soloLectura}">
+        <div class="d-flex w-100 flex-column flex-gap-10" *ngIf="pregunta.adjuntable">
+            <div class="w-100" [ngClass]="{'d-none': soloLectura }">
                 <app-input-archivo
                 [disabled]="archivoDeshabilitado"
                 (change)="alCambiarArchivo()"

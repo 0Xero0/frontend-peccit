@@ -40,10 +40,10 @@
                 </span>
             </td>
             <td>{{ sede.nombre }}</td>
-            <td>{{ sede.departamento }}</td>
-            <td>{{ sede.municipio }}</td>
+            <td>{{  obtenerNombreDepartamento(sede.departamento) }}</td>
+            <td>{{ obtenerNombreCiudad(sede.municipio) }}</td>
         </tr>
-        <tr class="fs-14px bg-exitoso" *ngFor="let objetivo of registrosACrear ; let indice = index">
+        <tr class="fs-14px bg-exitoso" *ngFor="let sede of registrosACrear ; let indice = index">
             <td colspan="2">
                 <span class="text-danger cursor-pointer" (click)="retirarDeRam(indice)">
                     <span class="material-symbols-outlined">
@@ -51,9 +51,10 @@
                     </span>
                 </span>
             </td>
-            <td>{{ objetivo.nombre }}</td>
-            <td>{{ objetivo.departamento }}</td>
-            <td>{{ objetivo.municipio }}</td>
+            <td>{{ sede.nombre }}</td>
+            <td>{{  obtenerNombreDepartamento(sede.departamento) }}</td>
+            <td>{{ obtenerNombreCiudad(sede.municipio) }}</td>
+
         </tr>
         <tr class="fs-14px" [formGroup]="formulario" *ngIf="formularioVisible">
             <td class="align-middle">
@@ -71,17 +72,27 @@
                 </span>
             </td>
             <td>
-                <input formControlName="nombre" style="max-width: 300px;" class="form-control" />
+                <input formControlName="nombre" style="max-width: 300px;" class="form-control" placeholder="Nombre de la sede." />
                 <app-validacion [control]="this.formulario.controls['nombre']"
                     [validacion]="'required'" [texto]="'El nombre es requerido..'" />
             </td>
             <td>
-                <input formControlName="departamento" style="max-width: 300px;" class="form-control" />
+                <select formControlName="departamento" style="max-width: 300px;" class="form-select">
+                    <option value="">Selecciona un departamento.</option>
+                    <option [value]="departamento.id" *ngFor="let departamento of departamentos">
+                        {{ departamento.id }} - {{ departamento.name }}
+                    </option>
+                </select>
                 <app-validacion [control]="this.formulario.controls['departamento']"
                     [validacion]="'required'" [texto]="'El departamento es requerido.'" />
             </td>
             <td>
-                <input formControlName="municipio" style="max-width: 300px;" class="form-control" />
+                <select formControlName="municipio" style="max-width: 300px;" class="form-select">
+                    <option value="">Selecciona un municipio.</option>
+                    <option [value]="ciudad.id" *ngFor="let ciudad of ciudades">
+                        {{ ciudad.id }} - {{ ciudad.name }}
+                    </option>
+                </select>
                 <app-validacion [control]="this.formulario.controls['municipio']"
                     [validacion]="'required'" [texto]="'El municipio es requerido.'" />
             </td>
