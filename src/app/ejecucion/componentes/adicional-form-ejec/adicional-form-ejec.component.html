@@ -1,0 +1,46 @@
+<td>¿Cuantos comparendos por infracciones de tránsito se han impuesto durante el desarrollo de las funciones?</td>
+<td class="respuesta">
+    <div>
+        <ng-container *ngIf="adicional.tipoPregunta === 'SELECT'">
+            <fieldset>
+                <label class="fs-12px fw-semibold">Respuesta</label>
+                <select
+                (ngModelChange)="manejarCambioRespuesta($event)" 
+                [ngModel]="respuesta" class="form-select">
+                    <option value="">Selecciona una opción.</option>
+                    <option [value]="opcion.valor" *ngFor="let opcion of adicional.valoresPregunta">{{ opcion.clave }}
+                    </option>
+                </select>
+            </fieldset>
+        </ng-container>
+        <ng-container *ngIf="adicional.tipoPregunta === 'NUMERICO'">
+            <fieldset>
+                <label class="fs-12px fw-semibold">Respuesta</label>
+                <app-input-numerico 
+                (ngModelChange)="manejarCambioRespuesta($event)" 
+                [ngModel]="respuesta" />
+            </fieldset>
+
+        </ng-container>
+    </div>
+</td>
+<td class="observacion">
+    <div>
+        <fieldset>
+            <label class="fs-12px fw-semibold">Observación</label>
+            <textarea class="form-control" 
+                (ngModelChange)="manejarCambioObservacion($event)"
+                [ngModel]="observacion" [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta))"></textarea>
+        </fieldset>
+    </div>
+</td>
+<td>Informes técnicos remitidos y demás soportes (fotografías, listados, etc)</td>
+<td>
+    <fieldset>
+        <label class="fs-12px fw-semibold">Evidencia</label>
+        <app-input-archivo
+        (ngModelChange)="manejarCambioArchivo($event)"
+        [ngModel]="evidencia" 
+        [nombre]="adicional.idAdicional.toString()" />
+    </fieldset>
+</td>

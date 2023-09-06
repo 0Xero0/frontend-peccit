@@ -1,0 +1,20 @@
+<div class="table-responsive">
+    <table class="table tabla-actividades">
+        <thead>
+            <tr>
+                <th>Actividades</th>
+                <th>Planeado</th>
+                <th>Ejecutado</th>
+                <th>% de cumplimiento</th>
+                <th>Tipo de evidencia</th>
+                <th>Evidencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            <app-actividad-form-ejec
+            (nuevaActividad)="manejarNuevaActividad($event)"
+            [actividad]="actividad" 
+            *ngFor="let actividad of actividades"/>
+        </tbody>
+    </table>
+</div>

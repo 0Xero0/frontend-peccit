@@ -1,0 +1,24 @@
+<td class="actividad">
+    {{ actividad.nombre }}
+</td>
+<td class="text-center planeado">{{ actividad.planeado }}</td>
+<td class="text-center ejecutado">
+    <ng-container *ngIf="actividad.tipoPregunta === 'NUMBER'">
+        <app-input-numerico 
+        [cantidadDecimales]="actividad.validacionesPregunta.cantDecimal" 
+        [ngModel]="respuesta"
+        (ngModelChange)="manejarCambioRespuesta($event)"/>
+    </ng-container>
+    {{ actividad.respuesta }}
+</td>
+<td class="text-center cumplimiento">{{ +actividad.respuesta / actividad.planeado }}</td>
+<td>{{ actividad.validacionesEvidencia.tipoDato }}</td>
+<td>
+    <ng-container *ngIf="actividad.tipoEvidencia === 'FILE'">
+        <app-input-archivo
+            [ngModel]="evidencia"
+            (ngModelChange)="manejarCambioArchivo($event)" 
+            [acepta]="[actividad.validacionesEvidencia.extension]"
+            [tamanoMaximoMb]="actividad.validacionesEvidencia.tamanio" />
+    </ng-container>
+</td>

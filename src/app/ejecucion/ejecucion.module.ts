@@ -7,6 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertasModule } from '../alertas/alertas.module';
 import { InputsModule } from '../inputs/inputs.module';
 import { TabFormularioEjecucionComponent } from './componentes/tab-formulario-ejecucion/tab-formulario-ejecucion.component';
+import { TablaActividadesFormEjecComponent } from './componentes/tabla-actividades-form-ejec/tabla-actividades-form-ejec.component';
+import { TablaItemsAdicionalesFormEjecComponent } from './componentes/tabla-items-adicionales-form-ejec/tabla-items-adicionales-form-ejec.component';
+import { ActividadFormEjecComponent } from './componentes/actividad-form-ejec/actividad-form-ejec.component';
+import { AdicionalFormEjecComponent } from './componentes/adicional-form-ejec/adicional-form-ejec.component';
 
 
 
@@ -14,7 +18,11 @@ import { TabFormularioEjecucionComponent } from './componentes/tab-formulario-ej
   declarations: [
     FormularioEjecucionComponent,
     PaginaEjecucionComponent,
-    TabFormularioEjecucionComponent
+    TabFormularioEjecucionComponent,
+    TablaActividadesFormEjecComponent,
+    TablaItemsAdicionalesFormEjecComponent,
+    ActividadFormEjecComponent,
+    AdicionalFormEjecComponent
   ],
   imports: [
     CommonModule,

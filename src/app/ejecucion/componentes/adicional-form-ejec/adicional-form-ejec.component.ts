@@ -1,0 +1,81 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RespuestaAdicional } from '../../modelos/RespuestaAdicional';
+import { Adicional } from '../../modelos/FormularioEjecucion';
+import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
+
+@Component({
+  selector: 'app-adicional-form-ejec',
+  templateUrl: './adicional-form-ejec.component.html',
+  styleUrls: ['./adicional-form-ejec.component.css']
+})
+export class AdicionalFormEjecComponent {
+  @Output() nuevoAdicional: EventEmitter<RespuestaAdicional>
+  @Input() adicional!: Adicional
+  @Input() idVigilado!: string
+
+  respuesta: string = ""
+  evidencia: File | null = null
+  observacion: string = ""
+
+  respuestaAdicional?: RespuestaAdicional
+
+  constructor(private servicioArchivo: ServicioArchivos){
+    this.nuevoAdicional = new EventEmitter<RespuestaAdicional>();
+  }
+
+  ngOnInit(): void {
+    this.observacion = this.adicional.observacion
+    this.respuesta = this.adicional.respuesta
+    this.respuestaAdicional = {
+      adicionalId: this.adicional.idAdicional,
+      documento: "",
+      nombreArchivo: "",
+      ruta: "",
+      valor: "",
+      observacion: ""
+    }
+  }
+
+  manejarCambioArchivo(archivo: File | null){
+    if(!archivo){
+      return;
+    }
+    this.setEvidencia(archivo)
+  }
+
+  manejarCambioObservacion(observacion: string){
+
+  }
+
+  manejarCambioRespuesta(respuesta: string){
+    this.setRespuesta(respuesta)
+  }
+
+  setRespuesta(valor: string, emitir: boolean = true){
+    this.respuesta = valor
+    if(this.respuestaAdicional) this.respuestaAdicional.valor = valor;
+    if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional);
+  }
+
+  setObservacion(observacion: string, emitir: boolean = true){
+    this.observacion = observacion
+    if(this.respuestaAdicional) this.respuestaAdicional.observacion = observacion;
+    if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional);
+  }
+
+  setEvidencia(archivo: File, emitir: boolean = true){
+    this.servicioArchivo.guardarArchivo(archivo, 'peccit', this.idVigilado).subscribe({
+      next: (respuesta)=>{
+        this.respuestaAdicional = {
+          adicionalId: this.adicional.idAdicional,
+          documento: respuesta.nombreAlmacenado,
+          nombreArchivo: respuesta.nombreOriginalArchivo,
+          ruta: respuesta.ruta,
+          valor: this.respuesta,
+          observacion: ""
+        }
+        if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional);
+      }
+    })
+  }
+}

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Formulario } from '../../modelos/FormularioEjecucion';
 
 @Component({
   selector: 'app-tab-formulario-ejecucion',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./tab-formulario-ejecucion.component.css']
 })
 export class TabFormularioEjecucionComponent {
-  
+  @Input() tab!: Formulario
 }

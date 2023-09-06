@@ -1,0 +1,13 @@
+<table class="table tabla-items-adicionales">
+    <thead>
+        <tr>
+            <th colspan="5">Items adicionales</th>
+        </tr>
+    </thead>
+    <tbody>
+        <app-adicional-form-ejec  
+        *ngFor="let adicional of adicionales"
+        (nuevoAdicional)="manejarNuevoAdicional($event)"
+        [adicional]="adicional" />
+    </tbody>
+</table>
