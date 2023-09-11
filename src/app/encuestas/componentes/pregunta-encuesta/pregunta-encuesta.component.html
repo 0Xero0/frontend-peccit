@@ -22,7 +22,7 @@
         <div class="d-flex justify-content-start">
             <div class="d-block w-100">
                 <select [disabled]="soloLectura" [(ngModel)]="valor" class="form-select" (change)="alCambiarRespuesta(this.valor)">
-                    <option value="">Escoge una opción.</option>
+                    <option value="">Seleccione una opción.</option>
                     <option *ngFor="let opcion of pregunta.valoresPregunta" [value]="opcion.valor">
                         {{ opcion.clave }}
                     </option>
@@ -66,7 +66,7 @@
     <div class="col-2 columna border-top">
         <div class="d-flex w-100 flex-column flex-gap-10" *ngIf="pregunta.tieneObservacion">
             <textarea class="form-control fs-12px" placeholder="Observación" 
-            [ngModel]="pregunta.observacion"
+            [ngModel]="observacion"
             (ngModelChange)="alCambiarObservacion($event)"
             [disabled]="!pregunta.habilitaObservacion.includes(valor)"></textarea>
         </div>

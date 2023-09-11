@@ -200,6 +200,8 @@ export class PreguntaEncuestaComponent implements OnInit {
       this.setMotivoDeshabilitado(false)
       this.setArchivoDeshabilitado(true)
     }else{
+      console.log('moviendo valor 1')
+      this.setMotivo("");
       this.setMotivoDeshabilitado(true)
       this.setArchivoDeshabilitado(false)
     }

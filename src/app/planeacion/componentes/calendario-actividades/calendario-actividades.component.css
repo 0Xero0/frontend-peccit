@@ -16,8 +16,7 @@
     font-size: 14px;
 }
 .calendario .cabecera-actividades{
-    max-width: 350px;
-    width: 350px;
+    width: 450px;
     overflow: hidden;
 }
 .calendario .cabecera-total{
@@ -29,6 +28,7 @@
 .calendario .actividad{
     height: 60px;
     overflow: hidden;
+    font-size: 13px;
 }
 .calendario .celda-mes{
     width: 110px;
