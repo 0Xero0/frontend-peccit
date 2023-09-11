@@ -1,2 +1,4 @@
-<app-formulario-ejecucion [formulario]="formulario" *ngIf="formulario" />
+<app-formulario-ejecucion
+(cambioDeMes)="manejarCambioDeMes($event)"
+[formulario]="formulario" *ngIf="formulario" />
 <app-popup #popup />

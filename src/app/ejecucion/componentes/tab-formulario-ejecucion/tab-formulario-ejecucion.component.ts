@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Formulario } from '../../modelos/FormularioEjecucion';
+import { RespuestaActividad } from '../../modelos/RespuestaActividad';
+import { RespuestaAdicional } from '../../modelos/RespuestaAdicional';
 
 @Component({
   selector: 'app-tab-formulario-ejecucion',
@@ -8,4 +10,20 @@ import { Formulario } from '../../modelos/FormularioEjecucion';
 })
 export class TabFormularioEjecucionComponent {
   @Input() tab!: Formulario
+  @Input() idVigilado!: string
+  @Output() nuevasActividades: EventEmitter<RespuestaActividad[]>
+  @Output() nuevosAdicionales: EventEmitter<RespuestaAdicional[]>
+
+  constructor(){
+    this.nuevasActividades = new EventEmitter<RespuestaActividad[]>();
+    this.nuevosAdicionales = new EventEmitter<RespuestaAdicional[]>();
+  }
+
+  manejarNuevosAdicionales(respuestas: RespuestaAdicional[]){
+    this.nuevosAdicionales.emit(respuestas)
+  }
+
+  manejarNuevasActividades(respuestas: RespuestaActividad[]){
+    this.nuevasActividades.emit(respuestas)
+  }
 }

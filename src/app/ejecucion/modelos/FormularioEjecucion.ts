@@ -15,11 +15,14 @@ export interface Formulario {
 
 export interface Actividad {
     nombre: string
+    documento: string
+    nombreOriginal: string
+    ruta: string
     datoId: number
     obligatoria: boolean,
     planeado: number,
     respuesta: string,
-    tipoEvidencia: string,
+    tipoDeEvidencia: string,
     validacionesEvidencia: ValidacionEvidencia
     tipoPregunta: string,
     validacionesPregunta: ValidacionPregunta

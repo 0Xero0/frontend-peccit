@@ -78,4 +78,8 @@ export class AdicionalFormEjecComponent {
       }
     })
   }
+
+  descargarEvidencia(){
+    this.servicioArchivo.descargarArchivo(this.adicional.documento, this.adicional.ruta, this.adicional.nombreOriginal)
+  }
 }

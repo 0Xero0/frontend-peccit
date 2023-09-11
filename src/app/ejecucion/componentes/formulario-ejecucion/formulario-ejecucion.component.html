@@ -3,19 +3,22 @@
         <button
         type="button" 
         class="boton primario delineado" 
-        >Enviar a ST</button>
+        (click)="enviar()" [disabled]="hayCambios">Enviar a ST</button>
     
         <button 
         type="button" 
         class="boton primario relleno" 
-        >Guardar</button>
+        (click)="guardar()" [disabled]="!hayCambios">Guardar</button>
         <button type="button" class="boton primario delineado">Volver</button>
     </div>
     <div class="d-flex mb-4">
         <fieldset class="d-flex flex-gap-10">        
-            <div class="d-flex align-items-center fs-14px fw-semibold">Mes</div>
-            <select class="form-select">
-                <option value="">Septiembre</option>
+            <div class="d-flex pt-2 fs-14px fw-semibold">Periodo</div>
+            <select 
+            class="form-select"
+            (ngModelChange)="manejarCambioDeMes($event)"
+            [(ngModel)]="idMes">
+                <option [value]="mes.idMes" *ngFor="let mes of meses">{{ mes.idMes }} - {{ mes.nombreMes }}</option>
             </select>
             <span class="validacion">Al enviar a ST, se enviará la información solo del mes seleccionado.</span>
         </fieldset>
@@ -25,10 +28,16 @@
         <li ngbNavItem [ngbNavItem]="tab.nombre" *ngFor="let tab of formulario.formularios">
             <button ngbNavLink>{{ tab.nombre }}</button>
             <ng-template ngbNavContent>
-                <app-tab-formulario-ejecucion [tab]="tab" />
+                <app-tab-formulario-ejecucion
+                (nuevasActividades)="manejarNuevasActividades($event)"
+                (nuevosAdicionales)="manejarNuevosAdicionales($event)"
+                [idVigilado]="formulario.idVigilado"
+                [tab]="tab" />
             </ng-template>
         </li>
     </ul>
     <div [ngbNavOutlet]="nav" class="w-100"></div>
             
 </div>
+
+<app-popup #popup />

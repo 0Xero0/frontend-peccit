@@ -35,7 +35,6 @@ export class InputNumericoComponent implements OnInit, ControlValueAccessor {
   }
 
   alCambiarValor(valor: string) {
-    console.log('ejecutando al cambiar')
     if (!this.regex.test(valor) && valor !== "") {
       this.valor = this.valorAnterior
     }

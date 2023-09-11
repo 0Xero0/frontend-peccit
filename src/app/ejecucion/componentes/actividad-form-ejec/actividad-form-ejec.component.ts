@@ -44,6 +44,13 @@ export class ActividadFormEjecComponent implements OnInit{
     this.setEvidencia(archivo)
   }
 
+  obtenerPorcentajeDeCumplimiento(): number{
+    const ejecutadas = this.respuesta !== "" ? Number(this.respuesta) : 0;
+    const planeadas = this.actividad.planeado as any !== "" ? this.actividad.planeado : 0;
+    if(planeadas === 0) return 0;
+    return ejecutadas * 100 / planeadas;
+  }
+
   setRespuesta(valor: string, emitir: boolean = true){
     this.respuesta = valor
     if(this.respuestaActividad) this.respuestaActividad.valor = valor;

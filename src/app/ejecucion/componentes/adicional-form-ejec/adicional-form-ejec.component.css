@@ -25,7 +25,16 @@
 .cumplimiento{
     width: 175px;
 }
-/* .observacion{
-    vertical-align: top;
-
-} */
+.adicional{
+    max-width: 485px;
+    width: 485px;
+    min-width: 300px;
+}
+.tipo-evidencia{
+    font-size: 12px;
+    width: 200px;
+}
+.observacion,
+.respuesta{
+    width: 200px;
+}

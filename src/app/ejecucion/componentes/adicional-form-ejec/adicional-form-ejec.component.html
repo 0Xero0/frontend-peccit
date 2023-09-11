@@ -1,4 +1,4 @@
-<td>¿Cuantos comparendos por infracciones de tránsito se han impuesto durante el desarrollo de las funciones?</td>
+<td class="adicional">¿Cuantos comparendos por infracciones de tránsito se han impuesto durante el desarrollo de las funciones?</td>
 <td class="respuesta">
     <div>
         <ng-container *ngIf="adicional.tipoPregunta === 'SELECT'">
@@ -34,7 +34,7 @@
         </fieldset>
     </div>
 </td>
-<td>Informes técnicos remitidos y demás soportes (fotografías, listados, etc)</td>
+<td class="tipo-evidencia">Informes técnicos remitidos y demás soportes (fotografías, listados, etc)</td>
 <td>
     <fieldset>
         <label class="fs-12px fw-semibold">Evidencia</label>
@@ -43,4 +43,9 @@
         [ngModel]="evidencia" 
         [nombre]="adicional.idAdicional.toString()" />
     </fieldset>
+    <span 
+    class="fs-12px cursor-pointer" 
+    *ngIf="adicional.nombreOriginal !== ''"
+    (click)="descargarEvidencia()">{{ adicional.nombreOriginal }}</span>
+    <span class="fs-12px" *ngIf="adicional.nombreOriginal === ''">Sin evidencia adjunta.</span>
 </td>

@@ -1,4 +1,9 @@
 <div class="table-responsive">
-    <app-tabla-actividades-form-ejec [actividades]="tab.actividades"></app-tabla-actividades-form-ejec>
-    <app-tabla-items-adicionales-form-ejec [adicionales]="tab.adicionales"></app-tabla-items-adicionales-form-ejec>
+    <app-tabla-actividades-form-ejec
+    [idVigilado]="idVigilado"
+    (nuevasRespuestas)="manejarNuevasActividades($event)"
+    [actividades]="tab.actividades"></app-tabla-actividades-form-ejec>
+    <app-tabla-items-adicionales-form-ejec
+    (nuevasRespuestas)="manejarNuevosAdicionales($event)"
+    [adicionales]="tab.adicionales"></app-tabla-items-adicionales-form-ejec>
 </div>

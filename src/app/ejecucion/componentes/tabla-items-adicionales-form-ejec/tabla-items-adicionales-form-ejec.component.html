@@ -1,4 +1,4 @@
-<table class="table tabla-items-adicionales">
+<table class="table tabla-items-adicionales" *ngIf="adicionales.length > 0">
     <thead>
         <tr>
             <th colspan="5">Items adicionales</th>
@@ -7,7 +7,7 @@
     <tbody>
         <app-adicional-form-ejec  
         *ngFor="let adicional of adicionales"
-        (nuevoAdicional)="manejarNuevoAdicional($event)"
+        (nuevoAdicional)="manejarNuevaRespuesta($event)"
         [adicional]="adicional" />
     </tbody>
 </table>

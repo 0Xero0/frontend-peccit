@@ -13,6 +13,7 @@
         <tbody>
             <app-actividad-form-ejec
             (nuevaActividad)="manejarNuevaActividad($event)"
+            [idVigilado]="idVigilado"
             [actividad]="actividad" 
             *ngFor="let actividad of actividades"/>
         </tbody>
