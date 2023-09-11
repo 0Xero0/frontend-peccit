@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { Clasificacion } from '../../modelos/Encuesta';
 import { Respuesta } from '../../modelos/Respuesta';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -12,7 +12,7 @@ import { Maestra } from 'src/app/verificaciones/modelos/Maestra';
   templateUrl: './clasificacion-encuesta.component.html',
   styleUrls: ['./clasificacion-encuesta.component.css']
 })
-export class ClasificacionEncuestaComponent implements OnInit {
+export class ClasificacionEncuestaComponent implements OnInit, AfterViewInit {
   @ViewChildren('pregunta') preguntas!: QueryList<PreguntaEncuestaComponent>
   @Output('preguntasRespondidas') seHanRespondidoPreguntas: EventEmitter<Respuesta[]>
   @Output('verificacionesRespondidas') seHanRespondidoVerificaciones: EventEmitter<RespuestaVerificacion>
@@ -24,7 +24,7 @@ export class ClasificacionEncuestaComponent implements OnInit {
   @Input('soloLectura') soloLectura: boolean = true
   @Input('camposDeVerificacion') camposDeVerificacion: boolean = false
   @Input('camposDeVerificacionVisibles') camposDeVerificacionVisibles: boolean = false
-  @Input('observacion') observacion: boolean  = false
+  @Input('observacion') observacion: boolean = false
   @Input('justificable') justificable: boolean = false
   @Input('opcionesCumplimiento') opcionesCumplimiento: Maestra[] = []
   @Input('opcionesCorrespondencia') opcionesCorrespondencia: Maestra[] = []
@@ -32,7 +32,7 @@ export class ClasificacionEncuestaComponent implements OnInit {
   preguntasRespondidas: Respuesta[] = []
   verificacionesRespondidas: RespuestaVerificacion[] = []
 
-  constructor() { 
+  constructor() {
     this.seHanRespondidoPreguntas = new EventEmitter<Respuesta[]>();
     this.seHanRespondidoVerificaciones = new EventEmitter<RespuestaVerificacion>();
     this.haHabidoErrorArchivo = new EventEmitter<HttpErrorResponse>();
@@ -42,36 +42,55 @@ export class ClasificacionEncuestaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void {
+    this.preguntas.forEach(componentePregunta => {
+      const pregunta = componentePregunta.pregunta
+      const idPadre = pregunta.padre
+      if (idPadre) {
+        const preguntaPadre = this.clasificacion.preguntas.find(preg => preg.idPregunta === idPadre)
+        if (!preguntaPadre) {
+          return;
+        }
+        const valor = typeof preguntaPadre.respuesta === 'string' ? preguntaPadre.respuesta : "";
+        componentePregunta.evaluarCambioPadre({ padre: idPadre, valor: valor })
+      }
+    })
+  }
+
   //Obtener recursos
-  obtenerRespuestas(): Respuesta[]{
+  obtenerRespuestas(): Respuesta[] {
     return this.preguntasRespondidas
   }
 
-  obtenerVerificaciones(): RespuestaVerificacion[]{
+  obtenerVerificaciones(): RespuestaVerificacion[] {
     return this.verificacionesRespondidas
   }
 
   //Manejadores de eventos
-  manejarErrorCargaArchivo(error: HttpErrorResponse){
+  manejarRespuestaEstablecida({ idPregunta, valor }: { idPregunta: number, valor: string }) {
+    this.preguntas.forEach(componentePregunta => componentePregunta.evaluarCambioPadre({ padre: idPregunta, valor: valor }))
+  }
+
+  manejarErrorCargaArchivo(error: HttpErrorResponse) {
     this.haHabidoErrorArchivo.emit(error)
   }
 
-  manejarArchivoExcedeTamano(tamano: number){
+  manejarArchivoExcedeTamano(tamano: number) {
     this.archivoExcedeTamano.emit(tamano)
   }
 
-  manejarNuevaVerificacion(verificacion: RespuestaVerificacion){
+  manejarNuevaVerificacion(verificacion: RespuestaVerificacion) {
     this.agregarVerificacionRespondida(verificacion)
     this.seHanRespondidoVerificaciones.emit(verificacion)
   }
 
   //Acciones
-  alternarDesplegar(){
+  alternarDesplegar() {
     this.desplegado = !this.desplegado
   }
 
-  agregarPreguntaRespondida(respuesta: Respuesta){
-    if(this.existePreguntaRespondida(respuesta)){
+  agregarPreguntaRespondida(respuesta: Respuesta) {
+    if (this.existePreguntaRespondida(respuesta)) {
       this.eliminarPreguntaRespondida(respuesta)
       this.preguntasRespondidas.push(respuesta)
     }
@@ -79,39 +98,39 @@ export class ClasificacionEncuestaComponent implements OnInit {
     this.seHanRespondidoPreguntas.emit(this.preguntasRespondidas)
   }
 
-  agregarVerificacionRespondida(verificacion: RespuestaVerificacion){
-    if(this.existeVerificacionRespondida(verificacion)){
+  agregarVerificacionRespondida(verificacion: RespuestaVerificacion) {
+    if (this.existeVerificacionRespondida(verificacion)) {
       this.eliminarVerificacionRespondida(verificacion)
     }
     this.verificacionesRespondidas.push(verificacion)
   }
 
-  existePreguntaRespondida(respuesta: Respuesta):boolean{
-    const idPreguntasRespondidas = this.preguntasRespondidas.map( preguntaRespondida => preguntaRespondida.preguntaId )
-    return idPreguntasRespondidas.includes( respuesta.preguntaId ) ? true : false
+  existePreguntaRespondida(respuesta: Respuesta): boolean {
+    const idPreguntasRespondidas = this.preguntasRespondidas.map(preguntaRespondida => preguntaRespondida.preguntaId)
+    return idPreguntasRespondidas.includes(respuesta.preguntaId) ? true : false
   }
 
-  existeVerificacionRespondida(verificacion: RespuestaVerificacion): boolean{
-    const idVerificacionRepondida = this.verificacionesRespondidas.map( verificacionRespondida => verificacionRespondida.preguntaId )
-    return idVerificacionRepondida.includes( verificacion.preguntaId ) ? true : false
+  existeVerificacionRespondida(verificacion: RespuestaVerificacion): boolean {
+    const idVerificacionRepondida = this.verificacionesRespondidas.map(verificacionRespondida => verificacionRespondida.preguntaId)
+    return idVerificacionRepondida.includes(verificacion.preguntaId) ? true : false
   }
 
-  eliminarPreguntaRespondida(respuesta: Respuesta): void{
-    this.preguntasRespondidas = this.preguntasRespondidas.filter( preguntaRespondida => { 
+  eliminarPreguntaRespondida(respuesta: Respuesta): void {
+    this.preguntasRespondidas = this.preguntasRespondidas.filter(preguntaRespondida => {
       return preguntaRespondida.preguntaId !== respuesta.preguntaId ? true : false
     })
   }
 
-  eliminarVerificacionRespondida(verificacion: RespuestaVerificacion): void{
-    this.verificacionesRespondidas = this.verificacionesRespondidas.filter( verificacionRespondida =>{
+  eliminarVerificacionRespondida(verificacion: RespuestaVerificacion): void {
+    this.verificacionesRespondidas = this.verificacionesRespondidas.filter(verificacionRespondida => {
       return verificacionRespondida.preguntaId !== verificacion.preguntaId ? true : false
     })
   }
 
-  resaltarRespuestasInvalidas(invalidas: RespuestaInvalida[]){ //reemplazar esto por un observable
-    const idInvalidas = invalidas.map( invalida => invalida.preguntaId ) 
-    this.preguntas.forEach( pregunta =>{
-      if( idInvalidas.includes(pregunta.pregunta.idPregunta) ){
+  resaltarRespuestasInvalidas(invalidas: RespuestaInvalida[]) { //reemplazar esto por un observable
+    const idInvalidas = invalidas.map(invalida => invalida.preguntaId)
+    this.preguntas.forEach(pregunta => {
+      if (idInvalidas.includes(pregunta.pregunta.idPregunta)) {
         pregunta.marcarInvalida()
       }
     })

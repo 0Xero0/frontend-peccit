@@ -44,7 +44,9 @@ export interface Pregunta {
     tieneObservacion: boolean;
     habilitaObservacion: string[];
     validaciones:           Validacion[];
-    tamanio: number
+    tamanio: number;
+    padre: number | null
+    respuestaPadre: string[]
 }
 
 export interface Validacion {

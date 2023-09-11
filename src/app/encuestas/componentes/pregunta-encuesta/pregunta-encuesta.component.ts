@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Pregunta } from '../../modelos/Encuesta';
 import { Respuesta } from '../../modelos/Respuesta';
 import { ServicioArchivosEncuestas } from '../../servicios/archivos-encuestas.service';
@@ -14,11 +14,13 @@ import { Maestra } from 'src/app/verificaciones/modelos/Maestra';
   templateUrl: './pregunta-encuesta.component.html',
   styleUrls: ['./pregunta-encuesta.component.css']
 })
-export class PreguntaEncuestaComponent implements OnInit {
+export class PreguntaEncuestaComponent implements OnInit, AfterViewInit {
+  @Output('valorEstablecido') valorEstablecido: EventEmitter<{idPregunta: number, valor: string}>
   @Output('valorModificado') valorModificado: EventEmitter<Respuesta>
   @Output('nuevaVerificacion') nuevaVerificacion: EventEmitter<RespuestaVerificacion>
   @Output('haHabidoErrorArchivo') haHabidoErrorArchivo: EventEmitter<HttpErrorResponse>
   @Output('archivoExcedeTamano') archivoExcedeTamano: EventEmitter<number>
+  @Output() preguntaLista: EventEmitter<void>
 
   @Input('pregunta') pregunta!: Pregunta
   @Input('idVigilado') idVigilado!: string
@@ -56,8 +58,10 @@ export class PreguntaEncuestaComponent implements OnInit {
     private servicioArchivos: ServicioArchivosEncuestas,
     private servicioEncuesta: ServicioEncuestas,
     private servicioVerificaciones: ServicioVerificaciones,
-  ) { 
+  ) {
+    this.preguntaLista = new EventEmitter<void>();
     this.valorModificado = new EventEmitter<Respuesta>();
+    this.valorEstablecido = new EventEmitter<{idPregunta: number, valor: string}>();
     this.nuevaVerificacion = new EventEmitter<RespuestaVerificacion>();
     this.haHabidoErrorArchivo = new EventEmitter<HttpErrorResponse>()
     this.archivoExcedeTamano = new EventEmitter<number>();
@@ -95,6 +99,10 @@ export class PreguntaEncuestaComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+    this.preguntaLista.emit()
+  }
+
   //Obtener recursos
   obtenerMotivos(){
     this.motivos = this.servicioEncuesta.obtenerMotivos()
@@ -117,6 +125,7 @@ export class PreguntaEncuestaComponent implements OnInit {
   }
 
   alCambiarRespuesta(respuesta: string){
+    console.log('al cambiar respuesta', respuesta)
     this.setValor(respuesta)
     this.emitirValorModificado()
   }
@@ -139,6 +148,19 @@ export class PreguntaEncuestaComponent implements OnInit {
 
   alCambiarObservacionDocumentoNoCumple(observacion: string){
     this.setObservacionNoCumple(observacion)
+  }
+
+  evaluarCambioPadre({padre, valor}: {padre: number, valor: string}){
+    if(!this.pregunta.padre || this.pregunta.padre !== padre){
+      return;
+    }
+    if(this.pregunta.respuestaPadre.includes(valor)){
+      this.soloLectura = false;
+      
+    }else{
+      this.soloLectura = true;
+      this.setValor("")
+    }
   }
   //Acciones
 
@@ -172,6 +194,10 @@ export class PreguntaEncuestaComponent implements OnInit {
       ruta: this.rutaDocumento,
       observacion: this.observacion
     })
+    this.valorEstablecido.emit({
+      idPregunta: this.pregunta.idPregunta, 
+      valor: this.valor
+    })
   }
 
   private emitirVerificacion(){
@@ -200,12 +226,11 @@ export class PreguntaEncuestaComponent implements OnInit {
       this.setMotivoDeshabilitado(false)
       this.setArchivoDeshabilitado(true)
     }else{
-      console.log('moviendo valor 1')
-      this.setMotivo("");
+      this.setMotivo("", false);
       this.setMotivoDeshabilitado(true)
       this.setArchivoDeshabilitado(false)
     }
-    if(dispararEvento) this.emitirVerificacion();
+    if(dispararEvento) this.emitirValorModificado();
   }
 
   setMotivoDeshabilitado(motivoDeshabilitado: boolean){
