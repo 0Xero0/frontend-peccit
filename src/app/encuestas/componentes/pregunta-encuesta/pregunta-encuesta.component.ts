@@ -156,10 +156,9 @@ export class PreguntaEncuestaComponent implements OnInit, AfterViewInit {
     }
     if(this.pregunta.respuestaPadre.includes(valor)){
       this.soloLectura = false;
-      
     }else{
       this.soloLectura = true;
-      this.setValor("")
+      if(this.valor !== "") this.setValor("");
     }
   }
   //Acciones

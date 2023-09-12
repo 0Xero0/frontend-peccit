@@ -55,7 +55,8 @@
         [encuesta]="encuesta"
         [idEncuesta]="idEncuesta"
         [justificable]="encuesta.observacion"
-        (hanHabidoCambios)="setHayCambios($event)"/>
+        (hanHabidoCambios)="setHayCambios($event)"
+        (encuestaGuardada)="manejarEncuestaGuardada()" />
 
         <app-encuesta-cuantitativa
         #componenteEncuestaCuantitativa

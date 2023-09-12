@@ -68,6 +68,11 @@ export class PaginaEncuestaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //Manejadores de eventos
+  manejarEncuestaGuardada(){
+    this.obtenerEncuesta()
+  }
+
   //Acciones
 
   exportarPDF(){
@@ -123,6 +128,7 @@ export class PaginaEncuestaComponent implements OnInit {
       error: (error: HttpErrorResponse)=>{
         const faltantes = error.error.faltantes as RespuestaInvalida[]
         this.componenteEncuesta.resaltarRespuestasInvalidas(faltantes)
+        this.componenteEncuesta.sedeRequerida = !error.error.sedes
         this.modalConfirmar.abrir({
           respuestasInvalidas: faltantes,
           alAceptar: ()=>{

@@ -17,6 +17,8 @@ export class TablaSedesComponent {
   @Output() nuevasSedes: EventEmitter<Sede[]>
 
   @Input() sedes: Sede[] = []
+  @Input() sedeRequerida: boolean = false
+  @Input() soloLectura: boolean = false
 
   formulario        : FormGroup
   registrosACrear   : Sede[] = []
@@ -107,6 +109,11 @@ export class TablaSedesComponent {
     this.formulario.get('nombre')!.setValue('')
     this.formulario.get('departamento')!.setValue('')
     this.formulario.get('municipio')!.setValue('')
+  }
+
+  limpiarRegistrosEnRam(){
+    this.registrosACrear = []
+    this.registrosAEliminar = []
   }
 
   esRegistroAEliminar(indice: number): boolean{

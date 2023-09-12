@@ -12,6 +12,7 @@ import { ServicioVerificaciones } from 'src/app/verificaciones/servicios/verific
 import { Maestra } from 'src/app/verificaciones/modelos/Maestra';
 import { DialogosEncuestas } from '../../dialogos-encuestas';
 import { Sede } from 'src/app/informacion-general/modelos/Sede';
+import { TablaSedesComponent } from 'src/app/informacion-general/componentes/tabla-sedes/tabla-sedes.component';
 
 @Component({
   selector: 'app-encuesta',
@@ -27,8 +28,12 @@ export class EncuestaComponent implements OnInit {
   @Input('justificable') justificable: boolean = false
   @Input('camposDeVerificacion') camposDeVerificacion: boolean = false
   @Input('camposDeVerificacionVisibles') camposDeVerificacionVisibles: boolean = true
-  @Output('hanHabidoCambios') hanHabidoCambios: EventEmitter<boolean>
+
+  @Output() hanHabidoCambios: EventEmitter<boolean>
+  @Output() encuestaGuardada: EventEmitter<void> 
+
   @ViewChildren('clasificacion') clasificaciones!: QueryList<ClasificacionEncuestaComponent>
+  @ViewChild('tablaSedes') tablaSedes!: TablaSedesComponent
   @ViewChild('popup') popup!: PopupComponent
   @ViewChild('contenedorEncuesta') contenedorEncuesta!: ElementRef
   respuestas: Respuesta[] = []
@@ -37,12 +42,14 @@ export class EncuestaComponent implements OnInit {
   hayCambios: boolean = false
   opcionesCumplimiento: Maestra[] = []
   opcionesCorrespondencia: Maestra[] = []
+  sedeRequerida: boolean = false
   
   constructor(
     private servicioEncuestas: ServicioEncuestas,
     private servicioVerificacion: ServicioVerificaciones,
   ){
     this.hanHabidoCambios = new EventEmitter<boolean>();
+    this.encuestaGuardada = new EventEmitter<void>();
   }
 
   ngOnInit(): void {
@@ -118,7 +125,10 @@ export class EncuestaComponent implements OnInit {
     this.servicioEncuestas.guardarRespuesta(this.idReporte, { respuestas: this.obtenerRespuestas(), sedes: this.sedes }).subscribe({
       next: ( respuesta ) =>{
         this.popup.abrirPopupExitoso(respuesta.mensaje)
+        this.sedeRequerida = false
+        this.tablaSedes.limpiarRegistrosEnRam()
         this.setHayCambios(false)
+        this.encuestaGuardada.emit()
       },
       error: (error: HttpErrorResponse) =>{
         this.popup.abrirPopupFallido('Error', error.error.message)
