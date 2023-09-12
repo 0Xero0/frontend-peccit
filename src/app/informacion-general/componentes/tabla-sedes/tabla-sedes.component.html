@@ -2,8 +2,7 @@
     <table class="tabla-modalidad-radio table border mb-1">
         <thead>
             <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
-                <th class="fw-semibold"></th>
-                <th class="fw-semibold"></th>
+                <th *ngIf="!soloLectura" colspan="2" class="fw-semibold"></th>
                 <th class="fw-semibold">
                     Sede
                 </th>
@@ -19,14 +18,14 @@
             <tr 
             class="fs-14px" 
             *ngIf="sedes.length === 0 && registrosACrear.length === 0 && !formularioVisible">
-                <td colspan="2"></td>
+                <td colspan="2" *ngIf="!soloLectura"></td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
             </tr>
             <tr class="fs-14px" *ngFor="let sede of sedes ; let i = index"
                 [ngClass]="{ 'bg-peligro': esRegistroAEliminar(i) }">
-                <td colspan="2">
+                <td *ngIf="!soloLectura" colspan="2">
                     <span *ngIf="esRegistroAEliminar(i)" class="text-danger cursor-pointer"
                         (click)="cancelarEliminacionRegistro(i)">
                         <span class="material-symbols-outlined">
@@ -45,7 +44,7 @@
                 <td>{{ obtenerNombreCiudad(sede.municipio) }}</td>
             </tr>
             <tr class="fs-14px bg-exitoso" *ngFor="let sede of registrosACrear ; let indice = index">
-                <td colspan="2">
+                <td *ngIf="!soloLectura" colspan="2">
                     <span class="text-danger cursor-pointer" (click)="retirarDeRam(indice)">
                         <span class="material-symbols-outlined">
                             close
