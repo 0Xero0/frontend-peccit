@@ -38,7 +38,7 @@ export class PaginaEjecucionComponent implements OnInit{
       next: (respuesta)=>{
         if(respuesta.reportadas.length > 0){
           const reporte = respuesta.reportadas[0];
-          this.servicio.consultarEjecucion(reporte.idEncuestaDiligenciada, this.idVigilado, idMes).subscribe({
+          this.servicio.consultarEjecucion(reporte.numeroReporte, this.idVigilado, idMes).subscribe({
             next: (formulario)=>{
               this.formulario = formulario
             },
