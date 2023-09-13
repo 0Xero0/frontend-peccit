@@ -16,11 +16,12 @@
     <ng-container *ngIf="actividad.tipoDeEvidencia === 'FILE'">
         <fieldset class="d-flex flex-column">
             <app-input-archivo
+            [nombre]="'evidencia-actividad-actividad-' + actividad.datoId"
             [ngModel]="evidencia"
             (ngModelChange)="manejarCambioArchivo($event)" 
             [acepta]="[actividad.validacionesEvidencia.extension]"
             [tamanoMaximoMb]="actividad.validacionesEvidencia.tamanio" />
-            <span class="fs-12px" *ngIf="actividad.nombreOriginal !== ''">{{ actividad.nombreOriginal }}</span>
+            <span class="fs-12px cursor-pointer" *ngIf="actividad.nombreOriginal !== ''" (click)="descargarEvidencia()">{{ actividad.nombreOriginal }}</span>
             <span class="fs-12px" *ngIf="actividad.nombreOriginal === ''">Sin evidencia adjunta.</span>
         </fieldset>
         

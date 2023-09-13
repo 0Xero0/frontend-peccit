@@ -87,6 +87,7 @@ export class EncuestaCuantitativaComponent implements OnInit {
 
   manejarNuevosObjetivos(objetivos: string[]){
     this.objetivos = objetivos
+    this.setHayCambios(true)
   }
 
   manejarErrorAlCambiarEvidencia(error: HttpErrorResponse){

@@ -1,24 +1,3 @@
-<!-- <div class="contenedor-subindicadores mb-4">
-    <ul class="subindicadores">
-        <li class="cabeceras-subindicador">
-            <div class="row">
-                <div class="col-1">Variable del indicador</div>
-                <div class="col-4">Indicadores</div>
-                <div class="col-7">Valores</div>
-            </div>
-        </li>
-        <li class="fondo-gris-1 p-3" *ngIf="subindicadores.length < 1">
-            {{ mensaje }}
-        </li>
-        <li class="subindicador" *ngFor="let subindicador of subindicadores">
-            <app-subindicador-encuesta-cuantitativa
-                [preguntasFaltantes]="indicadoresFaltantes"
-                [subindicador]="subindicador" 
-                [estadoRespuestas]="estadoRespuestas"
-                (nuevaRespuesta)="manejarNuevaRespuesta($event)"/>
-        </li>
-    </ul>
-</div> -->
 <div class="contenedor-evidencias" *ngIf="evidencias.length > 0">
     <ul class="evidencias">
         <li class="cabeceras-evidencia">

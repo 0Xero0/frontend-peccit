@@ -33,6 +33,10 @@ export class ActividadFormEjecComponent implements OnInit{
     }
   }
 
+  descargarEvidencia(){
+    this.servicioArchivo.descargarArchivo(this.actividad.documento, this.actividad.ruta, this.actividad.nombreOriginal)
+  }
+
   manejarCambioRespuesta(respuesta: string){
     this.setRespuesta(respuesta)
   }
