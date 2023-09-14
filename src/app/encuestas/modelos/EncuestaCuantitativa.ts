@@ -7,6 +7,7 @@ export interface EncuestaCuantitativa{
     idReporte: string
     idEncuesta: number
     vigencia: string
+    soloLectura: boolean
 }
 
 export interface Formulario {

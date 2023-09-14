@@ -11,6 +11,9 @@
             <p>
                 Usted posee los siguientes ítems faltantes: {{ mensajeItemsInvalidos }}
             </p>
+            <p *ngIf="sedeRequerida">
+                Debe agregar al menos una sede.
+            </p>
             <div class="d-flex justify-content-center flex-gap-20">
                 <button class="boton primario delineado" (click)="cerrar()">Regresar al formulario</button>
                 <button class="boton primario relleno" (click)="aceptar()">Confirmar envío ST</button>

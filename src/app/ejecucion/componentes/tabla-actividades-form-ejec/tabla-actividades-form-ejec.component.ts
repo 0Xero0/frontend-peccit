@@ -9,6 +9,7 @@ import { RespuestaActividad } from '../../modelos/RespuestaActividad';
 })
 export class TablaActividadesFormEjecComponent {
   @Output() nuevasRespuestas: EventEmitter<RespuestaActividad[]>
+  @Input() actividadesFaltantes: number[] = []
   @Input() actividades: Actividad[] = []
   @Input() idVigilado!: string
   

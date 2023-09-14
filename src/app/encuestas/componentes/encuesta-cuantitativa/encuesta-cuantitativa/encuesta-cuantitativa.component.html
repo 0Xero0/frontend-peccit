@@ -3,6 +3,7 @@
         <button ngbNavLink>{{ formulario.nombre }}</button>
         <ng-template ngbNavContent>
             <app-tab-encuesta-cuantitativa
+                [soloLectura]="soloLectura"
                 [objetivos]="formulario.objetivos"
                 [cabecerasActividades]="formulario.cabeceras"
                 [actividades]="formulario.actividades"
@@ -13,6 +14,7 @@
                 [estadoRespuestas]="estadoRespuestas"
                 [indicadoresFaltantes]="indicadoresFaltantes"
                 [evidenciasFaltantes]="evidenciasFaltantes"
+                [actividadesFaltantes]="actividadesFaltantes"
                 (evidenciaExcedeTamano)="manejarEvidenciaExcedeTamano($event)"
                 (errorAlCargarEvidencia)="manejarErrorAlCambiarEvidencia($event)"
                 (nuevaRespuesta)="manejarNuevaRespuesta($event)" 

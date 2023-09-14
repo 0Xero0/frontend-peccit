@@ -1,0 +1,5 @@
+    <input class="input-mes-calendario" #input type="text"
+    [disabled]="deshabilitado"
+    [ngClass]="{ 'bg-invalido' : invalido }"
+    [(ngModel)]="valor"
+    (keyup)="alCambiarValor(input.value)">

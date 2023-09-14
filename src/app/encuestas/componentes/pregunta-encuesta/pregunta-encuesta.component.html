@@ -21,7 +21,7 @@
     [ngClass]="clasesRespuestas">
         <div class="d-flex justify-content-start">
             <div class="d-block w-100">
-                <select [disabled]="soloLectura" [(ngModel)]="valor" class="form-select" (change)="alCambiarRespuesta(this.valor)">
+                <select [disabled]="soloLectura || bloqueada" [(ngModel)]="valor" class="form-select" (change)="alCambiarRespuesta(this.valor)">
                     <option value="">Seleccione una opción.</option>
                     <option *ngFor="let opcion of pregunta.valoresPregunta" [value]="opcion.valor">
                         {{ opcion.clave }}
@@ -68,7 +68,7 @@
             <textarea class="form-control fs-12px" placeholder="Observación" 
             [ngModel]="observacion"
             (ngModelChange)="alCambiarObservacion($event)"
-            [disabled]="!pregunta.habilitaObservacion.includes(valor)"></textarea>
+            [disabled]="!pregunta.habilitaObservacion.includes(valor) || soloLectura"></textarea>
         </div>
     </div>
     <!-- Campos verificador -->

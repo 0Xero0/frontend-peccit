@@ -47,10 +47,12 @@ export class TablaSedesComponent {
     this.obtenerDepartamentos()
     this.formulario.get('departamento')!.valueChanges.subscribe({
       next: (departamentoId)=>{
+        this.formulario.get('municipio')!.setValue("")
         this.obtenerCiudades(departamentoId)
       }
     })
     this.valido = this.esValido()
+    this.nuevasSedes.emit( this.obtenerSedesAGuardar() )
   }
 
   mostrarFormulario(){

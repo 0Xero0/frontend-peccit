@@ -15,7 +15,8 @@ export class TablaObjetivosComponent implements OnInit {
   @Output('aEliminar') aEliminar          : EventEmitter<number[]>
   @Output() nuevosObjetivos: EventEmitter<string[]>
 
-  @Input('objetivos') objetivos: Objetivo[] = []
+  @Input() objetivos: Objetivo[] = []
+  @Input() soloLectura: boolean = false
 
   formulario        : FormGroup
   registrosACrear   : ObjetivoACrear[] = []

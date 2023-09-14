@@ -8,6 +8,8 @@
         <app-adicional-form-ejec  
         *ngFor="let adicional of adicionales"
         (nuevoAdicional)="manejarNuevaRespuesta($event)"
-        [adicional]="adicional" />
+        [adicional]="adicional" 
+        [ngClass]="{ 'bg-invalido' : this.adicionalesFaltantes.includes( adicional.idAdicional ) }"
+        />
     </tbody>
 </table>

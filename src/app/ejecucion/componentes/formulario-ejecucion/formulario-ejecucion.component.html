@@ -58,6 +58,8 @@
                 <app-tab-formulario-ejecucion
                 (nuevasActividades)="manejarNuevasActividades($event)"
                 (nuevosAdicionales)="manejarNuevosAdicionales($event)"
+                [actividadesFaltantes]="actividadesFaltantes"
+                [adicionalesFaltantes]="adicionalesFaltantes"
                 [idVigilado]="formulario.idVigilado"
                 [tab]="tab" />
             </ng-template>

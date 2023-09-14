@@ -75,7 +75,13 @@ export class PaginaEjecucionComponent implements OnInit{
     })
   }
 
+  // Manejadores de eventos
   manejarCambioDeMes(idMes: number){
+    this.idMes = idMes
     this.obtenerEjecucion(idMes)
+  }
+
+  manejarFormularioGuardado(){
+    this.obtenerEjecucion(this.idMes)
   }
 }

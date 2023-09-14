@@ -1,9 +1,13 @@
 <div class="table-responsive">
     <app-tabla-actividades-form-ejec
     [idVigilado]="idVigilado"
+    [actividades]="tab.actividades" 
+    [actividadesFaltantes]="actividadesFaltantes"
     (nuevasRespuestas)="manejarNuevasActividades($event)"
-    [actividades]="tab.actividades"></app-tabla-actividades-form-ejec>
+    />
     <app-tabla-items-adicionales-form-ejec
     (nuevasRespuestas)="manejarNuevosAdicionales($event)"
-    [adicionales]="tab.adicionales"></app-tabla-items-adicionales-form-ejec>
+    [adicionales]="tab.adicionales" 
+    [adicionalesFaltantes]="adicionalesFaltantes"
+    />
 </div>

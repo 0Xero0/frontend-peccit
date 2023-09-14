@@ -22,6 +22,8 @@
                         </span>
                         <app-mes-calendario
                         #mesCalendario
+                        [soloLectura]="soloLectura"
+                        [invalido]="actividadesFaltantes.includes(mes.datoId)"
                         [mes]="mes" 
                         [indice]="i"
                         (cambioValor)="recalcularTotal($event)" 

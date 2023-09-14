@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertasModule } from '../alertas/alertas.module';
 import { CalendarioActividadesComponent } from './componentes/calendario-actividades/calendario-actividades.component';
 import { MesCalendarioComponent } from './componentes/mes-calendario/mes-calendario.component';
+import { InputCalendarioComponent } from './componentes/input-calendario/input-calendario.component';
 
 
 
@@ -16,7 +17,8 @@ import { MesCalendarioComponent } from './componentes/mes-calendario/mes-calenda
     PaginaPlaneacionComponent,
     TablaObjetivosComponent,
     CalendarioActividadesComponent,
-    MesCalendarioComponent
+    MesCalendarioComponent,
+    InputCalendarioComponent
   ],
   imports: [
     CommonModule,

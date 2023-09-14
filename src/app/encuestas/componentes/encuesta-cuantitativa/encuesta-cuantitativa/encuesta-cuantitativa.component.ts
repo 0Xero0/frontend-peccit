@@ -15,18 +15,24 @@ import { ServicioEncuestas } from 'src/app/encuestas/servicios/encuestas.service
 })
 export class EncuestaCuantitativaComponent implements OnInit {
   @ViewChild('popup') popup!: PopupComponent
-  @Input('encuesta') encuesta!: EncuestaCuantitativa
-  @Input('idMesInicial') idMesInicial!: number
-  @Output('hanHabidoCambios') hanHabidoCambios: EventEmitter<boolean>
+  @Input() encuesta!: EncuestaCuantitativa
+  @Input() idMesInicial!: number
+  @Input() soloLectura: boolean = false
+
+  @Output() encuestaGuardada: EventEmitter<void>
+  @Output() hanHabidoCambios: EventEmitter<boolean>
   estadoRespuestas: Respuesta[] = [];
   hayCambios: boolean = false;
   respuestas: Respuesta[] = [];
   evidencias: RespuestaEvidencia[] = [];
   objetivos: string[] = []
+
   evidenciasFaltantes: number[] = [];
   indicadoresFaltantes: number[] = [];
+  actividadesFaltantes: number[] = [];
 
   constructor(private servicio: ServicioEncuestas, private router: Router) {
+    this.encuestaGuardada = new EventEmitter<void>()
     this.hanHabidoCambios = new EventEmitter<boolean>()
   }
 
@@ -42,6 +48,10 @@ export class EncuestaCuantitativaComponent implements OnInit {
         next: () => {
           this.setHayCambios(false)
           this.popup.abrirPopupExitoso(DialogosEncuestas.GUARDAR_ENCUESTA_EXITO)
+          this.actividadesFaltantes = []
+          this.evidenciasFaltantes = []
+          this.indicadoresFaltantes = []
+          this.encuestaGuardada.emit()
         },
         error: () => {
           this.popup.abrirPopupFallido(
@@ -65,6 +75,7 @@ export class EncuestaCuantitativaComponent implements OnInit {
       error: (error: HttpErrorResponse)=>{
         this.evidenciasFaltantes = error.error.faltantesEvidencias
         this.indicadoresFaltantes = error.error.faltantesIndicadores
+        this.actividadesFaltantes = error.error.faltantesActividades
         this.popup.abrirPopupFallido('No se han respondido todas las preguntas.', 'Hay preguntas obligatorias sin responder.')
       }
     })

@@ -18,6 +18,7 @@
                 <div class="col-7 row">
                     <div class="col-4">
                         <app-evidencia-encuesta-cuantitativa
+                        [soloLectura]="soloLectura"
                         [idVigilado]="idVigilado" 
                         [evidencia]="evidencia"
                         (evidenciaExcedeTamano)="manejarEvidenciaExcedeTamano($event)"
@@ -29,13 +30,16 @@
         </li>
     </ul>
 </div>
-<div class="contenedor-objetivos">
-    <app-tabla-objetivos 
+<div class="contenedor-objetivos mb-4">
+    <app-tabla-objetivos
     [objetivos]="objetivos" 
+    [soloLectura]="soloLectura"
     (nuevosObjetivos)="manejarNuevosObjetivos($event)"/>
 </div>
 <div class="contenedor-calendario">
-    <app-calendario-actividades 
+    <app-calendario-actividades
+    [soloLectura]="soloLectura"
+    [actividadesFaltantes]="actividadesFaltantes"
     [cabeceras]="cabecerasActividades" 
     [actividades]="actividades" 
     (nuevaRespuesta)="manejarNuevaRespuesta($event)"/>

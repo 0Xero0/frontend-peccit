@@ -1,8 +1,5 @@
-<input
-#input
-min="0"
-type="number" 
-class="input-mes-calendario" 
-placeholder="0" 
-[(ngModel)]="valor" 
-(ngModelChange)="manejarCambio($event)">
+<app-input-calendario
+[disabled]="soloLectura"
+[invalido]="invalido"
+[ngModel]="valor"
+(ngModelChange)="manejarCambio($event)" />

@@ -11,6 +11,8 @@ import { RespuestaAdicional } from '../../modelos/RespuestaAdicional';
 export class TabFormularioEjecucionComponent {
   @Input() tab!: Formulario
   @Input() idVigilado!: string
+  @Input() actividadesFaltantes: number[] = []
+  @Input() adicionalesFaltantes: number[] = []
   @Output() nuevasActividades: EventEmitter<RespuestaActividad[]>
   @Output() nuevosAdicionales: EventEmitter<RespuestaAdicional[]>
 

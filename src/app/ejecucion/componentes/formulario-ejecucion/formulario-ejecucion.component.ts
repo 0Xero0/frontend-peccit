@@ -17,7 +17,12 @@ import { Mes } from 'src/app/encuestas/modelos/Mes';
 export class FormularioEjecucionComponent implements OnInit{
   @ViewChild('popup') popup!: PopupComponent
   @Output() cambioDeMes: EventEmitter<number>
+  @Output() formularioGuardado: EventEmitter<void>
   @Input() formulario!: FormularioEjecucion
+  
+  actividadesFaltantes: number[] = []
+  adicionalesFaltantes: number[] = []
+
   respuestasActividades: RespuestaActividad[] = []
   respuestasAdicionales: RespuestaAdicional[] = []
   hayCambios: boolean = false
@@ -26,6 +31,7 @@ export class FormularioEjecucionComponent implements OnInit{
 
   constructor(private servicio: ServicioEjecucion){
     this.cambioDeMes = new EventEmitter<number>();
+    this.formularioGuardado = new EventEmitter<void>();
     this.idMes = DateTime.now().month
   }
 
@@ -42,6 +48,9 @@ export class FormularioEjecucionComponent implements OnInit{
       next: ()=>{
         this.popup.abrirPopupExitoso(DialogosEjecucion.GUARDAR_EJECUCION_EXITO)
         this.hayCambios = false;
+        this.formularioGuardado.emit()
+        this.actividadesFaltantes = []
+        this.adicionalesFaltantes = []
       },
       error: ()=>{
         this.popup.abrirPopupFallido(
@@ -53,11 +62,13 @@ export class FormularioEjecucionComponent implements OnInit{
   }
 
   enviar(){
-    this.servicio.enviarEjecucion(+this.formulario.idReporte, this.formulario.idVigilado, 9).subscribe({
+    this.servicio.enviarEjecucion(+this.formulario.idReporte, this.formulario.idVigilado, this.idMes).subscribe({
       next: ()=>{
         this.popup.abrirPopupExitoso(DialogosEjecucion.ENVIAR_EJECUCION_EXITO)
       },
       error: (error: HttpErrorResponse)=>{
+        this.actividadesFaltantes = error.error.faltantesActividades
+        this.adicionalesFaltantes = error.error.faltantesAdicionales
         this.popup.abrirPopupFallido(
           DialogosEjecucion.ENVIAR_EJECUCION_ERROR_GENERICO_TITULO, 
           DialogosEjecucion.ENVIAR_EJECUCION_ERROR_GENERICO_DESCRIPCION
@@ -75,6 +86,7 @@ export class FormularioEjecucionComponent implements OnInit{
   }
 
   manejarCambioDeMes(idMes: number){
+    this.idMes = idMes
     this.cambioDeMes.emit(idMes)
   }
 

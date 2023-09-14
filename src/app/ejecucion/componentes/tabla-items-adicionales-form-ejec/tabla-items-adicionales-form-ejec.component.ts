@@ -10,6 +10,7 @@ import { RespuestaAdicional } from '../../modelos/RespuestaAdicional';
 export class TablaItemsAdicionalesFormEjecComponent {
   @Output() nuevasRespuestas: EventEmitter<RespuestaAdicional[]>
   @Input() adicionales: Adicional[] = []
+  @Input() adicionalesFaltantes: number[] = []
 
   respuestas: RespuestaAdicional[] = []
 

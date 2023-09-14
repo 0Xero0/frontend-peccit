@@ -336,3 +336,17 @@ body{
   background-color: var(--color-scroll-hover); /* Color del thumb al pasar el cursor sobre él */
   cursor: pointer !important;
 }
+
+.tabla-informacion{
+  font-size: 14px;
+  border-collapse: collapse;
+}
+.tabla-informacion td, .tabla-informacion th{
+  border: 1px solid gainsboro;
+  padding: 7px 10px;
+}
+.tabla-informacion th{
+  font-weight: 600;
+  background-color: var(--azul-claro);
+  color: var(--azul-oscuro);
+}

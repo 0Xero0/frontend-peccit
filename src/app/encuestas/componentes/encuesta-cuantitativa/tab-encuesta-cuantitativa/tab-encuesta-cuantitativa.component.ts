@@ -15,13 +15,15 @@ export class TabEncuestaCuantitativaComponent implements OnInit{
   @Input() objetivos: Objetivo[] = []
   @Input() cabecerasActividades: string[] = []
   @Input() actividades: Actividad[] = []
-  @Input('idVigilado') idVigilado!: string
-  @Input('subindicadores') subindicadores: SubIndicador[] = []
-  @Input('evidencias') evidencias: Evidencia[] = []
-  @Input('mensaje') mensaje!: string
-  @Input('estadoRespuestas') estadoRespuestas: Respuesta[] = []
+  @Input() idVigilado!: string
+  @Input() subindicadores: SubIndicador[] = []
+  @Input() evidencias: Evidencia[] = []
+  @Input() mensaje!: string
+  @Input() estadoRespuestas: Respuesta[] = []
   @Input() evidenciasFaltantes: number[] = []
   @Input() indicadoresFaltantes: number[] = []
+  @Input() actividadesFaltantes: number[] = []
+  @Input() soloLectura: boolean = false
 
   @Output() nuevaRespuesta: EventEmitter<Respuesta>
   @Output() nuevaEvidencia: EventEmitter<RespuestaEvidencia>

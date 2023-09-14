@@ -37,6 +37,7 @@ export class PreguntaEncuestaComponent implements OnInit, AfterViewInit {
   archivoDeshabilitado:              boolean = false
   invalida:                          boolean = false
   advertencia:                       boolean = false
+  bloqueada: boolean = false;
 
   motivos         : Motivo[] = []
   valoresNegativos: string[] = ["N", "NO", "NO APLICA"]
@@ -155,9 +156,9 @@ export class PreguntaEncuestaComponent implements OnInit, AfterViewInit {
       return;
     }
     if(this.pregunta.respuestaPadre.includes(valor)){
-      this.soloLectura = false;
+      this.setBloqueada(false)
     }else{
-      this.soloLectura = true;
+      this.setBloqueada(true)
       if(this.valor !== "") this.setValor("");
     }
   }
@@ -304,6 +305,10 @@ export class PreguntaEncuestaComponent implements OnInit, AfterViewInit {
 
   setAdvertencia(advertencia: boolean){
     this.advertencia = advertencia
+  }
+
+  setBloqueada(bloqueada: boolean){
+    this.bloqueada = bloqueada
   }
 
   setMotivo(motivo: string, emitir: boolean = true){

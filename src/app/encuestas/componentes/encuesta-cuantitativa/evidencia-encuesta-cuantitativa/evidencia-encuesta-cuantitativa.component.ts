@@ -10,11 +10,15 @@ import { ServicioArchivosEncuestas } from 'src/app/encuestas/servicios/archivos-
   styleUrls: ['./evidencia-encuesta-cuantitativa.component.css']
 })
 export class EvidenciaEncuestaCuantitativaComponent implements OnInit{
-  @Input('evidencia') evidencia!: Evidencia
-  @Input('idVigilado') idVigilado!: string
-  @Output('nuevaEvidencia') nuevaEvidencia: EventEmitter<RespuestaEvidencia>
-  @Output('evidenciaExcedeTamano') evidenciaExcedeTamano: EventEmitter<number>
-  @Output('errorAlCargar') errorAlCargar: EventEmitter<HttpErrorResponse>
+  @Input() evidencia!: Evidencia
+  @Input() idVigilado!: string
+  @Input() soloLectura: boolean = false
+
+
+  @Output() nuevaEvidencia: EventEmitter<RespuestaEvidencia>
+  @Output() evidenciaExcedeTamano: EventEmitter<number>
+  @Output() errorAlCargar: EventEmitter<HttpErrorResponse>
+  
   respuesta?: RespuestaEvidencia
   archivo: File | null = null
   valor: string = ""

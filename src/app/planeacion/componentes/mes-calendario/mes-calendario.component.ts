@@ -13,6 +13,8 @@ export class MesCalendarioComponent implements OnInit{
   @Output() nuevaRespuesta: EventEmitter<RespuestaEnviar>;
   @Input() mes!: Mes;
   @Input() indice!: number;
+  @Input() invalido: boolean = false
+  @Input() soloLectura: boolean = false
   valor: number = 0
 
   constructor(){
@@ -46,7 +48,7 @@ export class MesCalendarioComponent implements OnInit{
     }
   }
 
-  manejarCambio(valor: number){
-    this.setValor(valor, true)
+  manejarCambio(valor: string){
+    this.setValor(Number(valor), true)
   }
 }

@@ -11,8 +11,11 @@ import { RespuestaEnviar } from 'src/app/encuestas/modelos/RespuestaEnviar';
 export class CalendarioActividadesComponent implements OnInit{
   @ViewChildren('mesCalendario') mesesCalendario!: QueryList<MesCalendarioComponent>
   @Output() nuevaRespuesta: EventEmitter<RespuestaEnviar>
+
   @Input() actividades: Actividad[] = []
   @Input() cabeceras: string[] = []
+  @Input() actividadesFaltantes: number[] = []
+  @Input() soloLectura: boolean = false
 
   totalesActividades: number[] = []
 

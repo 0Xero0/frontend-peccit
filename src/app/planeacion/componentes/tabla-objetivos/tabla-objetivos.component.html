@@ -1,8 +1,7 @@
 <table class="tabla-modalidad-radio table border mb-1">
     <thead>
         <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
-            <th class="fw-semibold"></th>
-            <th class="fw-semibold"></th>
+            <th colspan="2" class="fw-semibold" *ngIf="!soloLectura"></th>
             <th class="fw-semibold">
                 Objetivo
             </th>
@@ -12,12 +11,12 @@
         <tr 
         class="fs-14px" 
         *ngIf="objetivos.length === 0 && registrosACrear.length === 0 && !formularioVisible">
-            <td colspan="2"></td>
+            <td colspan="2" *ngIf="!soloLectura"></td>
             <td>-</td>
         </tr>
         <tr class="fs-14px" *ngFor="let objetivo of objetivos"
             [ngClass]="{ 'bg-peligro': esRegistroAEliminar(objetivo.id) }">
-            <td colspan="2">
+            <td colspan="2" *ngIf="!soloLectura">
                 <span *ngIf="esRegistroAEliminar(objetivo.id)" class="text-danger cursor-pointer"
                     (click)="cancelarEliminacionRegistro(objetivo.id)">
                     <span class="material-symbols-outlined">
@@ -34,7 +33,7 @@
             <td>{{ objetivo.nombre }}</td>
         </tr>
         <tr class="fs-14px bg-exitoso" *ngFor="let objetivo of registrosACrear ; let indice = index">
-            <td colspan="2">
+            <td colspan="2" *ngIf="!soloLectura">
                 <span class="text-danger cursor-pointer" (click)="retirarDeRam(indice)">
                     <span class="material-symbols-outlined">
                         close
@@ -66,7 +65,7 @@
         </tr>
     </tbody>
 </table>
-<div class="d-flex my-3" *ngIf="!formularioVisible">
+<div class="d-flex my-3" *ngIf="!formularioVisible && !soloLectura">
     <button type="button" class="boton primario relleno" (click)="mostrarFormulario()" >
         Agregar
     </button>

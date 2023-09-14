@@ -73,6 +73,10 @@ export class PaginaEncuestaComponent implements OnInit {
     this.obtenerEncuesta()
   }
 
+  manejarEncuestaCuantitativaGuardada(){
+    this.obtenerEncuestaCuantitativa()
+  }
+
   //Acciones
 
   exportarPDF(){
@@ -130,6 +134,7 @@ export class PaginaEncuestaComponent implements OnInit {
         this.componenteEncuesta.resaltarRespuestasInvalidas(faltantes)
         this.componenteEncuesta.sedeRequerida = !error.error.sedes
         this.modalConfirmar.abrir({
+          seRequiereSede: !error.error.sedes,
           respuestasInvalidas: faltantes,
           alAceptar: ()=>{
             this.servicioEncuesta.enviarRespuesta(this.idEncuesta!, this.idReporte!,  this.idVigilado!, true).subscribe({
@@ -156,7 +161,7 @@ export class PaginaEncuestaComponent implements OnInit {
     this.servicioEncuesta.obtenerEncuestaCuantitativa(this.idReporte!, this.idVigilado!).subscribe({
       next: (encuesta)=>{
         this.encuestaCuantitativa = encuesta
-        this.soloLectura = false
+        this.soloLectura = encuesta.soloLectura
         this.vigencia = encuesta.vigencia
       }
     })

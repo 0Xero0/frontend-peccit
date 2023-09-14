@@ -13,8 +13,10 @@
         <tbody>
             <app-actividad-form-ejec
             (nuevaActividad)="manejarNuevaActividad($event)"
+            [invalida]="this.actividadesFaltantes.includes( actividad.datoId )"
             [idVigilado]="idVigilado"
-            [actividad]="actividad" 
+            [actividad]="actividad"
+            [ngClass]="{ 'bg-invalido' : this.actividadesFaltantes.includes( actividad.datoId ) }"
             *ngFor="let actividad of actividades"/>
         </tbody>
     </table>

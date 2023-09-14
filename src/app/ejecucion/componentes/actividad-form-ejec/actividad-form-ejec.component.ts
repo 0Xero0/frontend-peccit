@@ -12,6 +12,7 @@ export class ActividadFormEjecComponent implements OnInit{
   @Output() nuevaActividad: EventEmitter<RespuestaActividad>
   @Input() actividad!: Actividad
   @Input() idVigilado!: string
+  @Input() invalida: boolean = false
 
   respuesta: string = ""
   evidencia: File | null = null
@@ -48,11 +49,13 @@ export class ActividadFormEjecComponent implements OnInit{
     this.setEvidencia(archivo)
   }
 
-  obtenerPorcentajeDeCumplimiento(): number{
+  obtenerPorcentajeDeCumplimiento(): string{
     const ejecutadas = this.respuesta !== "" ? Number(this.respuesta) : 0;
     const planeadas = this.actividad.planeado as any !== "" ? this.actividad.planeado : 0;
-    if(planeadas === 0) return 0;
-    return ejecutadas * 100 / planeadas;
+    if(planeadas === 0) return "0";
+    const porcentaje = (ejecutadas * 100 / planeadas)
+    const residuo = (ejecutadas * 100 % planeadas)
+    return residuo !== 0 ? porcentaje.toFixed(2) : porcentaje.toString()
   }
 
   setRespuesta(valor: string, emitir: boolean = true){
