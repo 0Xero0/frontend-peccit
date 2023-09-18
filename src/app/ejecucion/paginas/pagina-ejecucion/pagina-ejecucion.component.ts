@@ -8,6 +8,7 @@ import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 import { DialogosEjecucion } from '../../DialogosEjecucion';
 import { DateTime } from 'luxon';
 import { ActivatedRoute } from '@angular/router';
+import { Mes } from 'src/app/encuestas/modelos/Mes';
 
 @Component({
   selector: 'app-pagina-ejecucion',
@@ -21,6 +22,7 @@ export class PaginaEjecucionComponent implements OnInit{
   idReporte?: number;
   idVigilado?: string
   historico: boolean = false;
+  meses: Mes[] = []
 
   constructor(
     private servicio: ServicioEjecucion, 
@@ -47,19 +49,20 @@ export class PaginaEjecucionComponent implements OnInit{
         }else{
           this.historico = true
         }
-      }
-    })
-    this.servicio.obtenerMeses(this.historico).subscribe({
-      next: (respuesta)=>{
-        if(respuesta.meses.length > 0){
-          this.idMes = respuesta.meses[0].idMes;
-          this.obtenerEjecucion(this.idReporte!, this.idVigilado!, this.idMes)
-        }else{
-          this.popup.abrirPopupFallido('Ocurrió un error.', 'Ocurrió un error al obtener los periodos.')
-        }
-      },
-      error: ()=>{
-        this.popup.abrirPopupFallido('Ocurrió un error.', 'Ocurrió un error al obtener los periodos.')
+        this.servicio.obtenerMeses(this.historico).subscribe({
+          next: (respuesta)=>{
+            if(respuesta.meses.length > 0){
+              this.meses = respuesta.meses;
+              this.idMes = respuesta.meses[0].idMes;
+              this.obtenerEjecucion(this.idReporte!, this.idVigilado!, this.idMes)
+            }else{
+              this.popup.abrirPopupFallido('Ocurrió un error.', 'Ocurrió un error al obtener los periodos.')
+            }
+          },
+          error: ()=>{
+            this.popup.abrirPopupFallido('Ocurrió un error.', 'Ocurrió un error al obtener los periodos.')
+          }
+        })    
       }
     })
   }

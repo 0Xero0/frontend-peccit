@@ -20,9 +20,12 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   @Output() recargar: EventEmitter<void>
   @Output() cambioDeMes: EventEmitter<number>
   @Output() formularioGuardado: EventEmitter<void>
+
   @Input() formulario!: FormularioEjecucion
   @Input() historico: boolean = false
   @Input() esVigilado: boolean = true
+  @Input() meses: Mes[] = []
+  @Input() idMesInicial!: number
   
   actividadesFaltantes: number[] = []
   adicionalesFaltantes: number[] = []
@@ -30,7 +33,6 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   respuestasActividades: RespuestaActividad[] = []
   respuestasAdicionales: RespuestaAdicional[] = []
   hayCambios: boolean = false
-  meses: Mes[] = []
   idMes?: number;
 
   constructor(private servicio: ServicioEjecucion, private router: Router){
@@ -40,14 +42,13 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   }
   
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['historico']){
-      this.obtenerMeses()
-      this.recargar.emit()
+    if(changes['idMesInicial']){
+      this.idMes = changes['idMesInicial'].currentValue
     }
   }
 
   ngOnInit(): void {
-    this.obtenerMeses()
+    this.idMes = this.idMesInicial
   }
 
   guardar(){
@@ -84,17 +85,6 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
           DialogosEjecucion.ENVIAR_EJECUCION_ERROR_GENERICO_TITULO, 
           DialogosEjecucion.ENVIAR_EJECUCION_ERROR_GENERICO_DESCRIPCION
         )
-      }
-    })
-  }
-
-  obtenerMeses(){
-    this.servicio.obtenerMeses(this.historico).subscribe({
-      next: (respuesta)=>{
-        this.meses = respuesta.meses
-        if(this.meses.length > 0){
-          this.idMes = this.meses[0].idMes
-        }
       }
     })
   }
