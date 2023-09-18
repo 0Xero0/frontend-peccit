@@ -9,6 +9,7 @@ import { RespuestaActividad } from '../modelos/RespuestaActividad';
 import { RespuestaAdicional } from '../modelos/RespuestaAdicional';
 import { Observable } from 'rxjs';
 import { Mes } from 'src/app/encuestas/modelos/Mes';
+import { FiltrosReportes } from 'src/app/encuestas/modelos/FiltrosReportes';
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +22,21 @@ export class ServicioEjecucion extends Autenticable {
     super()
   }
 
-  consultarListaFormulariosEjecucion(pagina: number, limite: number, idVigilado: string) {
+  consultarListaFormulariosEjecucion(pagina: number, limite: number, idVigilado: string, filtros?: FiltrosReportes) {
     let endpoint = `/api/v1/encuestas/listar?pagina=${pagina}&limite=${limite}&idVigilado=${idVigilado}&idEncuesta=2`
+    if(filtros){
+      if(filtros.termino){
+        endpoint+= `&termino=${filtros.termino}` 
+      }
+    }
     return this.http.get<{ reportadas: ResumenReporte[], paginacion: Paginacion }>(
       `${this.host}${endpoint}`,
       { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
     )
   }
 
-  consultarEjecucion(idReporte: number, idVigilado: string, idMes: number) {
-    const endpoint = `/api/v1/inidicador/ejecucion?idReporte=${idReporte}&idVigilado=${idVigilado}&idMes=${idMes}`
+  consultarEjecucion(idReporte: number, idVigilado: string, idMes: number, historico: boolean = false) {
+    const endpoint = `/api/v1/inidicador/ejecucion?idReporte=${idReporte}&idVigilado=${idVigilado}&idMes=${idMes}&historico=${historico}`
     return this.http.get<FormularioEjecucion>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 
@@ -59,8 +65,8 @@ export class ServicioEjecucion extends Autenticable {
     )
   }
 
-  obtenerMeses():Observable<{ meses: Mes[] }>{
-    const endpoint = '/api/v1/maestras/meses'
+  obtenerMeses(historico: boolean = false):Observable<{ meses: Mes[] }>{
+    let endpoint = `/api/v1/maestras/meses?historico=${historico}`
     return this.http.get<{ meses: Mes[] }>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 }

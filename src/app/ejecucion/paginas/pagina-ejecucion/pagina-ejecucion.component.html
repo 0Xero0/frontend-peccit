@@ -1,5 +1,8 @@
 <app-formulario-ejecucion
+(recargar)="manejarRecargar()"
 (formularioGuardado)="manejarFormularioGuardado()"
 (cambioDeMes)="manejarCambioDeMes($event)"
-[formulario]="formulario" *ngIf="formulario" />
+[formulario]="formulario" *ngIf="formulario" 
+[esVigilado]="esUsuarioVigilado"
+[historico]="historico"/>
 <app-popup #popup />

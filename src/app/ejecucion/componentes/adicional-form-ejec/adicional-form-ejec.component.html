@@ -6,7 +6,8 @@
                 <label class="fs-12px fw-semibold">Respuesta</label>
                 <select
                 (ngModelChange)="manejarCambioRespuesta($event)" 
-                [ngModel]="respuesta" class="form-select">
+                [ngModel]="respuesta" class="form-select"
+                [disabled]="soloLectura">
                     <option value="">Selecciona una opción.</option>
                     <option [value]="opcion.valor" *ngFor="let opcion of adicional.valoresPregunta">{{ opcion.clave }}
                     </option>
@@ -18,7 +19,8 @@
                 <label class="fs-12px fw-semibold">Respuesta</label>
                 <app-input-numerico 
                 (ngModelChange)="manejarCambioRespuesta($event)" 
-                [ngModel]="respuesta" />
+                [ngModel]="respuesta" 
+                [disabled]="soloLectura"/>
             </fieldset>
 
         </ng-container>
@@ -30,7 +32,8 @@
             <label class="fs-12px fw-semibold">Observación</label>
             <textarea class="form-control" 
                 (ngModelChange)="manejarCambioObservacion($event)"
-                [ngModel]="observacion" [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta))"></textarea>
+                [ngModel]="observacion" [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta))"
+                [disabled]="soloLectura"></textarea>
         </fieldset>
     </div>
 </td>
@@ -41,7 +44,8 @@
         <app-input-archivo
         (ngModelChange)="manejarCambioArchivo($event)"
         [ngModel]="evidencia" 
-        [nombre]="adicional.idAdicional.toString()" />
+        [nombre]="adicional.idAdicional.toString()" 
+        [disabled]="soloLectura" />
     </fieldset>
     <span 
     class="fs-12px cursor-pointer" 

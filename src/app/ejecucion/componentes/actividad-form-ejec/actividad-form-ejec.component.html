@@ -6,6 +6,7 @@
     <ng-container *ngIf="actividad.tipoPregunta === 'NUMBER'">
         <app-input-numerico 
         [cantidadDecimales]="actividad.validacionesPregunta.cantDecimal" 
+        [disabled]="soloLectura"
         [ngModel]="respuesta"
         (ngModelChange)="manejarCambioRespuesta($event)"/>
     </ng-container>
@@ -16,6 +17,7 @@
     <ng-container *ngIf="actividad.tipoDeEvidencia === 'FILE'">
         <fieldset class="d-flex flex-column">
             <app-input-archivo
+            [disabled]="soloLectura"
             [nombre]="'evidencia-actividad-actividad-' + actividad.datoId"
             [ngModel]="evidencia"
             (ngModelChange)="manejarCambioArchivo($event)" 

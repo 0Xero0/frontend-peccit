@@ -12,6 +12,7 @@ export class AdicionalFormEjecComponent {
   @Output() nuevoAdicional: EventEmitter<RespuestaAdicional>
   @Input() adicional!: Adicional
   @Input() idVigilado!: string
+  @Input() soloLectura: boolean = false
 
   respuesta: string = ""
   evidencia: File | null = null

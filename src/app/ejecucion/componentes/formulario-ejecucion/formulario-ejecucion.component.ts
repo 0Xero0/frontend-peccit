@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormularioEjecucion } from '../../modelos/FormularioEjecucion';
 import { RespuestaActividad } from '../../modelos/RespuestaActividad';
 import { RespuestaAdicional } from '../../modelos/RespuestaAdicional';
@@ -8,17 +8,21 @@ import { DialogosEjecucion } from '../../DialogosEjecucion';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DateTime } from 'luxon';
 import { Mes } from 'src/app/encuestas/modelos/Mes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formulario-ejecucion',
   templateUrl: './formulario-ejecucion.component.html',
   styleUrls: ['./formulario-ejecucion.component.css']
 })
-export class FormularioEjecucionComponent implements OnInit{
+export class FormularioEjecucionComponent implements OnInit, OnChanges{
   @ViewChild('popup') popup!: PopupComponent
+  @Output() recargar: EventEmitter<void>
   @Output() cambioDeMes: EventEmitter<number>
   @Output() formularioGuardado: EventEmitter<void>
   @Input() formulario!: FormularioEjecucion
+  @Input() historico: boolean = false
+  @Input() esVigilado: boolean = true
   
   actividadesFaltantes: number[] = []
   adicionalesFaltantes: number[] = []
@@ -27,12 +31,19 @@ export class FormularioEjecucionComponent implements OnInit{
   respuestasAdicionales: RespuestaAdicional[] = []
   hayCambios: boolean = false
   meses: Mes[] = []
-  idMes: number;
+  idMes?: number;
 
-  constructor(private servicio: ServicioEjecucion){
+  constructor(private servicio: ServicioEjecucion, private router: Router){
     this.cambioDeMes = new EventEmitter<number>();
     this.formularioGuardado = new EventEmitter<void>();
-    this.idMes = DateTime.now().month
+    this.recargar = new EventEmitter<void>();
+  }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['historico']){
+      this.obtenerMeses()
+      this.recargar.emit()
+    }
   }
 
   ngOnInit(): void {
@@ -62,7 +73,7 @@ export class FormularioEjecucionComponent implements OnInit{
   }
 
   enviar(){
-    this.servicio.enviarEjecucion(+this.formulario.idReporte, this.formulario.idVigilado, this.idMes).subscribe({
+    this.servicio.enviarEjecucion(+this.formulario.idReporte, this.formulario.idVigilado, this.idMes!).subscribe({
       next: ()=>{
         this.popup.abrirPopupExitoso(DialogosEjecucion.ENVIAR_EJECUCION_EXITO)
       },
@@ -78,9 +89,12 @@ export class FormularioEjecucionComponent implements OnInit{
   }
 
   obtenerMeses(){
-    this.servicio.obtenerMeses().subscribe({
+    this.servicio.obtenerMeses(this.historico).subscribe({
       next: (respuesta)=>{
         this.meses = respuesta.meses
+        if(this.meses.length > 0){
+          this.idMes = this.meses[0].idMes
+        }
       }
     })
   }
@@ -98,5 +112,21 @@ export class FormularioEjecucionComponent implements OnInit{
   manejarNuevosAdicionales(respuestas: RespuestaAdicional[]){
     this.respuestasAdicionales = respuestas
     this.hayCambios = true;
+  }
+
+  irAHistorico(){
+    this.router.navigate(['/administrar', 'ejecucion'], { queryParams: {
+      reporte: this.formulario.idReporte,
+      vigilado: this.formulario.idVigilado,
+      historico: true
+    }})
+  }
+
+  salirDeHistorico(){
+    this.router.navigate(['/administrar', 'ejecucion'], { queryParams: {
+      reporte: this.formulario.idReporte,
+      vigilado: this.formulario.idVigilado,
+      historico: false
+    }})
   }
 }

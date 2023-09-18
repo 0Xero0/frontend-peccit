@@ -10,6 +10,7 @@ import { Paginador } from 'src/app/administrador/modelos/compartido/Paginador';
 import { Observable } from 'rxjs';
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { FiltrosReportes } from '../../modelos/FiltrosReportes';
+import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 
 @Component({
   selector: 'app-listado-encuestas',
@@ -26,6 +27,7 @@ export class ListadoEncuestasComponent implements OnInit {
   vigilado?: string
   idEncuesta?: number
   termino: string = ""
+  esUsuarioVigilado: boolean;
 
   constructor(
     private servicioEncuestas: ServicioEncuestas,
@@ -37,6 +39,8 @@ export class ListadoEncuestasComponent implements OnInit {
     this.paginador = new Paginador<FiltrosReportes>(this.obtenerEncuestas)
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
     this.rol = this.servicioLocalStorage.obtenerRol()
+    if(!this.rol) throw new ErrorAutorizacion();
+    this.esUsuarioVigilado = this.rol.id !== '003' ? false : true;
   }
 
   ngOnInit(): void {
@@ -61,13 +65,14 @@ export class ListadoEncuestasComponent implements OnInit {
       this.servicioEncuestas.obtenerEncuestas(pagina, limite, this.usuario!.usuario, this.idEncuesta!, filtros).subscribe({
         next: (respuesta) => {
           this.reportes = respuesta.reportadas
-          console.log(this.reportes)
-          this.router.navigate(['/administrar', 'encuesta', this.idEncuesta], {
-            queryParams: {
-              vigilado: this.reportes[0].idVigilado,
-              reporte: this.reportes[0].numeroReporte
-            }
-          })
+          if(this.esUsuarioVigilado){
+            this.router.navigate(['/administrar', 'encuesta', this.idEncuesta], {
+              queryParams: {
+                vigilado: this.reportes[0].idVigilado,
+                reporte: this.reportes[0].numeroReporte
+              }
+            })
+          }
           subscriptor.next(respuesta.paginacion)
         }
       })

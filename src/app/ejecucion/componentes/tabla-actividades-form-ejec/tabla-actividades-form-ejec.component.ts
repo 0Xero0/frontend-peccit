@@ -12,6 +12,7 @@ export class TablaActividadesFormEjecComponent {
   @Input() actividadesFaltantes: number[] = []
   @Input() actividades: Actividad[] = []
   @Input() idVigilado!: string
+  @Input() soloLectura: boolean = false;
   
   respuestas: RespuestaActividad[] = [] 
 

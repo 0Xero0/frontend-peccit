@@ -1,6 +1,7 @@
 export interface FormularioEjecucion {
     idVigilado: string
     idReporte: string
+    soloLectura: boolean
     idEncuesta: number
     vigencia: number
     mes: number

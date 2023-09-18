@@ -13,6 +13,7 @@ export class ActividadFormEjecComponent implements OnInit{
   @Input() actividad!: Actividad
   @Input() idVigilado!: string
   @Input() invalida: boolean = false
+  @Input() soloLectura: boolean = false
 
   respuesta: string = ""
   evidencia: File | null = null

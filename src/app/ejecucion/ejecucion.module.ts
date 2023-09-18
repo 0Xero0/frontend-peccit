@@ -12,6 +12,8 @@ import { TablaItemsAdicionalesFormEjecComponent } from './componentes/tabla-item
 import { ActividadFormEjecComponent } from './componentes/actividad-form-ejec/actividad-form-ejec.component';
 import { AdicionalFormEjecComponent } from './componentes/adicional-form-ejec/adicional-form-ejec.component';
 import { PaginaListadoEjecucionComponent } from './paginas/pagina-listado-ejecucion/pagina-listado-ejecucion.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -32,7 +34,9 @@ import { PaginaListadoEjecucionComponent } from './paginas/pagina-listado-ejecuc
     FormsModule,
     ReactiveFormsModule,
     AlertasModule,
-    InputsModule
+    InputsModule,
+    PipesModule,
+    RouterModule
   ]
 })
 export class EjecucionModule { }

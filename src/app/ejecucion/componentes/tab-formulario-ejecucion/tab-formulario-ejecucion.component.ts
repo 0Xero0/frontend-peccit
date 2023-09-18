@@ -13,6 +13,7 @@ export class TabFormularioEjecucionComponent {
   @Input() idVigilado!: string
   @Input() actividadesFaltantes: number[] = []
   @Input() adicionalesFaltantes: number[] = []
+  @Input() soloLectura: boolean = false;
   @Output() nuevasActividades: EventEmitter<RespuestaActividad[]>
   @Output() nuevosAdicionales: EventEmitter<RespuestaAdicional[]>
 

@@ -11,6 +11,7 @@ export class TablaItemsAdicionalesFormEjecComponent {
   @Output() nuevasRespuestas: EventEmitter<RespuestaAdicional[]>
   @Input() adicionales: Adicional[] = []
   @Input() adicionalesFaltantes: number[] = []
+  @Input() soloLectura: boolean = false;
 
   respuestas: RespuestaAdicional[] = []
 
