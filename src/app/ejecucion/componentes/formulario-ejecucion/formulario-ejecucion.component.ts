@@ -77,6 +77,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     this.servicio.enviarEjecucion(+this.formulario.idReporte, this.formulario.idVigilado, this.idMes!).subscribe({
       next: ()=>{
         this.popup.abrirPopupExitoso(DialogosEjecucion.ENVIAR_EJECUCION_EXITO)
+        this.recargar.emit()
       },
       error: (error: HttpErrorResponse)=>{
         this.actividadesFaltantes = error.error.faltantesActividades
