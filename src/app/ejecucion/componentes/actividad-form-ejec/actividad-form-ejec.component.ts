@@ -53,10 +53,10 @@ export class ActividadFormEjecComponent implements OnInit{
   obtenerPorcentajeDeCumplimiento(): string{
     const ejecutadas = this.respuesta !== "" ? Number(this.respuesta) : 0;
     const planeadas = this.actividad.planeado as any !== "" ? this.actividad.planeado : 0;
-    if(planeadas === 0) return "0";
+    if(planeadas == 0) return "Sin actividades planeadas";
     const porcentaje = (ejecutadas * 100 / planeadas)
     const residuo = (ejecutadas * 100 % planeadas)
-    return residuo !== 0 ? porcentaje.toFixed(2) : porcentaje.toString()
+    return residuo !== 0 ? `${porcentaje.toFixed(2)} %`  : `${porcentaje.toString()} %` 
   }
 
   setRespuesta(valor: string, emitir: boolean = true){

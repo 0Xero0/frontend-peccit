@@ -34,11 +34,11 @@ export class CalendarioActividadesComponent implements OnInit{
     })
   }
 
-  recalcularTotal({indice, valor}: {indice: number, valor: number}){
+  recalcularTotal({indice, valor}: {indice: number, valor: string}){
     let total = 0; 
     this.mesesCalendario.forEach( componenteMes => {
       if(componenteMes.indice === indice){
-        total = total + componenteMes.valor;
+        total = total + Number(componenteMes.valor);
       }
     })
     this.totalesActividades[indice] = total;

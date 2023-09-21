@@ -11,7 +11,7 @@
             <tr *ngFor="let actividad of actividades ; let i = index">
                 <td>
                     <div class="actividad">
-                       {{ actividad.nombre }}
+                       <span class="fw-semibold validacion" *ngIf="actividad.obligatoria">* </span>{{ actividad.nombre }}
                     </div>
                 </td>
                 <td>Suma total de los meses ({{ totalesActividades[i] }})</td>

@@ -11,7 +11,7 @@
         (ngModelChange)="manejarCambioRespuesta($event)"/>
     </ng-container>
 </td>
-<td class="text-center cumplimiento">{{ obtenerPorcentajeDeCumplimiento() }} %</td>
+<td class="text-center cumplimiento">{{ obtenerPorcentajeDeCumplimiento() }}</td>
 <td>{{ actividad.validacionesEvidencia.tipoDato }}</td>
 <td>
     <ng-container *ngIf="actividad.tipoDeEvidencia === 'FILE'">

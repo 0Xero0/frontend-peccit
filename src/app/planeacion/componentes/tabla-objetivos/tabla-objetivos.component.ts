@@ -17,6 +17,7 @@ export class TablaObjetivosComponent implements OnInit {
 
   @Input() objetivos: Objetivo[] = []
   @Input() soloLectura: boolean = false
+  @Input() objetivosRequeridos = false
 
   formulario        : FormGroup
   registrosACrear   : ObjetivoACrear[] = []
