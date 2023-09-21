@@ -3,7 +3,7 @@
         <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
             <th colspan="2" class="fw-semibold" *ngIf="!soloLectura"></th>
             <th class="fw-semibold">
-                Objetivo
+                Objetivos
             </th>
         </tr>
     </thead>
@@ -65,6 +65,7 @@
         </tr>
     </tbody>
 </table>
+<span class="validacion" *ngIf="objetivosRequeridos">Debe establecer almenos un objetivo.</span>
 <div class="d-flex my-3" *ngIf="!formularioVisible && !soloLectura">
     <button type="button" class="boton primario relleno" (click)="mostrarFormulario()" >
         Agregar

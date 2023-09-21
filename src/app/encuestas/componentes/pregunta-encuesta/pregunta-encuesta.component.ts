@@ -71,7 +71,7 @@ export class PreguntaEncuestaComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.obtenerMotivos()
 
-    if(this.pregunta.respuesta && this.valoresNegativos.includes(this.pregunta.respuesta) && !this.soloLectura){
+    if(this.pregunta.respuesta && this.valoresNegativos.includes(this.pregunta.respuesta)){
       this.setMotivoDeshabilitado(false)
       this.setMotivo(this.pregunta.observacion, false)
     }else{

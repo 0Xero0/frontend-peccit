@@ -23,14 +23,14 @@ export class InputCalendarioComponent {
   regex: RegExp
 
   constructor() {
-    this.regex = new RegExp(`^[0-9]+(\\.[0-9]{1,${3}})?$`)
+    this.regex = new RegExp(`^[0-9]*(\\.[0-9]{1,${3}})?$`)
   }
 
   ngOnInit(): void {
     if (this.cantidadDecimales > 0) {
-      this.regex = new RegExp(`^[0-9]+(\\.[0-9]{1,${this.cantidadDecimales}})?$`)
+      this.regex = new RegExp(`^[0-9]*(\\.[0-9]{1,${this.cantidadDecimales}})?$`)
     } else {
-      this.regex = new RegExp(`^[0-9]+$`)
+      this.regex = new RegExp(`^[0-9]*$`)
     }
     this.valorAnterior = this.valorInicial
   }

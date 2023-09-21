@@ -36,6 +36,7 @@ export interface Evidencia {
     nombreOriginal: string
     ruta: string
     tamanio: number
+    obligatoria: boolean
 }
 
 export interface Validacion {

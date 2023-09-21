@@ -9,31 +9,31 @@ import { RespuestaEnviar } from 'src/app/encuestas/modelos/RespuestaEnviar';
 })
 export class MesCalendarioComponent implements OnInit{
   @ViewChild('input') input!: ElementRef 
-  @Output() cambioValor: EventEmitter<{valor: number, indice: number}>
+  @Output() cambioValor: EventEmitter<{valor: string, indice: number}>
   @Output() nuevaRespuesta: EventEmitter<RespuestaEnviar>;
   @Input() mes!: Mes;
   @Input() indice!: number;
   @Input() invalido: boolean = false
   @Input() soloLectura: boolean = false
-  valor: number = 0
+  valor: string = ""
 
   constructor(){
-    this.cambioValor = new EventEmitter<{valor: number, indice: number}>();
+    this.cambioValor = new EventEmitter<{valor: string, indice: number}>();
     this.nuevaRespuesta = new EventEmitter<RespuestaEnviar>();
   }
 
   ngOnInit(): void {
-    const valor = this.mes.respuesta !== "" ? Number(this.mes.respuesta) : 0; 
+    const valor = this.mes.respuesta;
     this.setValor(valor, false)
   }
 
-  setValor(valor: number, emitirEvento: boolean = true){
-    if(valor < 0){
-      valor = 0;
-      this.input.nativeElement.value = 0;
+  setValor(valor: string, emitirEvento: boolean = true){
+    if(Number(valor) < 0){
+      valor = "";
+      this.input.nativeElement.value = "";
     }
     if(!valor){
-      valor = 0;
+      valor = "";
     }
     this.valor = valor  
     if(emitirEvento){
@@ -49,6 +49,6 @@ export class MesCalendarioComponent implements OnInit{
   }
 
   manejarCambio(valor: string){
-    this.setValor(Number(valor), true)
+    this.setValor(valor, true)
   }
 }

@@ -21,8 +21,10 @@ export class EncuestaCuantitativaComponent implements OnInit {
 
   @Output() encuestaGuardada: EventEmitter<void>
   @Output() hanHabidoCambios: EventEmitter<boolean>
+  
   estadoRespuestas: Respuesta[] = [];
   hayCambios: boolean = false;
+  objetivosRequeridos: boolean = false
   respuestas: Respuesta[] = [];
   evidencias: RespuestaEvidencia[] = [];
   objetivos: string[] = []
@@ -51,6 +53,7 @@ export class EncuestaCuantitativaComponent implements OnInit {
           this.actividadesFaltantes = []
           this.evidenciasFaltantes = []
           this.indicadoresFaltantes = []
+          this.objetivosRequeridos = false
           this.encuestaGuardada.emit()
         },
         error: () => {
@@ -73,6 +76,7 @@ export class EncuestaCuantitativaComponent implements OnInit {
         this.router.navigateByUrl(`/administrar/encuestas/${this.encuesta.idEncuesta}`)
       },
       error: (error: HttpErrorResponse)=>{
+        this.objetivosRequeridos = !error.error.objetivos
         this.evidenciasFaltantes = error.error.faltantesEvidencias
         this.indicadoresFaltantes = error.error.faltantesIndicadores
         this.actividadesFaltantes = error.error.faltantesActividades
