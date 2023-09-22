@@ -61,6 +61,7 @@ export class TablaSedesComponent {
 
   ocultarFormulario(){
     this.formularioVisible = false
+    this.limpiarFormulario()
   }
 
   agregarARam(): void{
@@ -88,8 +89,8 @@ export class TablaSedesComponent {
     this.registrosACrear.splice(indice, 1)
     this.mostrarMensajeDeGuardado()
     this.valido = this.esValido()
+    this.limpiarFormulario();
     this.nuevasSedes.emit( this.obtenerSedesAGuardar() )
-
   }
 
   
