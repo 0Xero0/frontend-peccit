@@ -33,7 +33,7 @@
             <textarea class="form-control" 
                 (ngModelChange)="manejarCambioObservacion($event)"
                 [ngModel]="observacion" [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta))"
-                [disabled]="soloLectura"></textarea>
+                [disabled]="soloLectura || !adicional.tieneObservacion"></textarea>
         </fieldset>
     </div>
 </td>
@@ -45,7 +45,7 @@
         (ngModelChange)="manejarCambioArchivo($event)"
         [ngModel]="evidencia" 
         [nombre]="adicional.idAdicional.toString()" 
-        [disabled]="soloLectura" />
+        [disabled]="soloLectura || adicional.adjuntable" />
     </fieldset>
     <span 
     class="fs-12px cursor-pointer" 
