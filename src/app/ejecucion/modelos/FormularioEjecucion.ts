@@ -49,6 +49,7 @@ export interface Adicional {
     validacionesEvidencia: ValidacionEvidencia | null,
     observacion: string,
     maxObservacion: number
+    mensaje: string
 }
 
 export interface ValidacionEvidencia {
@@ -73,4 +74,5 @@ export interface ValidacionPreguntaAdicional{
 export interface ValorPregunta{
     clave: string
     valor: string
+    tipo?: 'T' | 'N'
 }
