@@ -27,29 +27,39 @@
     </div>
 </td>
 <td class="observacion">
-    <div>
+    <div *ngIf="adicional.tieneObservacion">
         <fieldset>
             <label class="fs-12px fw-semibold">Observación</label>
-            <textarea class="form-control" 
+            <textarea class="form-control"
+                *ngIf="!esObservacionNumerica()"
+                [maxlength]="adicional.maxObservacion"
                 (ngModelChange)="manejarCambioObservacion($event)"
-                [ngModel]="observacion" [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta))"
-                [disabled]="soloLectura || !adicional.tieneObservacion"></textarea>
+                [ngModel]="observacion" 
+                [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta)) || soloLectura"></textarea>
+            <app-input-numerico
+                *ngIf="esObservacionNumerica()"
+                [ngModel]="observacion"
+                [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta)) || soloLectura"
+             />
+            <span class="fs-12px">Máximo ({{adicional.maxObservacion}}) caracteres.</span>
         </fieldset>
     </div>
 </td>
-<td class="tipo-evidencia">Informes técnicos remitidos y demás soportes (fotografías, listados, etc)</td>
+<td class="tipo-evidencia">{{ adicional.mensaje }}</td>
 <td>
-    <fieldset>
-        <label class="fs-12px fw-semibold">Evidencia</label>
-        <app-input-archivo
-        (ngModelChange)="manejarCambioArchivo($event)"
-        [ngModel]="evidencia" 
-        [nombre]="adicional.idAdicional.toString()" 
-        [disabled]="soloLectura || adicional.adjuntable" />
-    </fieldset>
-    <span 
-    class="fs-12px cursor-pointer" 
-    *ngIf="adicional.nombreOriginal !== ''"
-    (click)="descargarEvidencia()">{{ adicional.nombreOriginal }}</span>
-    <span class="fs-12px" *ngIf="adicional.nombreOriginal === ''">Sin evidencia adjunta.</span>
+    <ng-container *ngIf="adicional.adjuntable">
+        <fieldset>
+            <label class="fs-12px fw-semibold">Evidencia</label>
+            <app-input-archivo
+            (ngModelChange)="manejarCambioArchivo($event)"
+            [ngModel]="evidencia" 
+            [nombre]="adicional.idAdicional.toString()" 
+            [disabled]="soloLectura" />
+        </fieldset>
+        <span 
+        class="fs-12px cursor-pointer" 
+        *ngIf="adicional.nombreOriginal !== ''"
+        (click)="descargarEvidencia()">{{ adicional.nombreOriginal }}</span>
+        <span class="fs-12px" *ngIf="adicional.nombreOriginal === ''">Sin evidencia adjunta.</span>
+    </ng-container>
 </td>

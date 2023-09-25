@@ -52,6 +52,11 @@ export class AdicionalFormEjecComponent {
     this.setRespuesta(respuesta)
   }
 
+  esObservacionNumerica(): boolean{
+    const opcion = this.adicional.valoresPregunta!.find( valorPregunta => valorPregunta.valor === this.respuesta )
+    return opcion && opcion.tipo === 'N' ? true : false
+  }
+
   setRespuesta(valor: string, emitir: boolean = true){
     this.respuesta = valor
     if(this.respuestaAdicional) this.respuestaAdicional.valor = valor;
