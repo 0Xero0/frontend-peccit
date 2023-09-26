@@ -30,39 +30,6 @@
             </div>
         </div>
     </div>
-    <div class="col-1 columna border-top">
-        <div class="d-flex justify-content-start">
-            <span class="fs-12px">{{ pregunta.tipoDeEvidencia }}</span>
-        </div>
-    </div>
-    <!-- Seleccionar | ver archivo -->
-    <div class="col-2 columna border-top">
-        <div class="d-flex w-100 flex-column flex-gap-10" *ngIf="pregunta.adjuntable">
-            <div class="w-100" [ngClass]="{'d-none': soloLectura }">
-                <app-input-archivo
-                [disabled]="archivoDeshabilitado"
-                (change)="alCambiarArchivo()"
-                [tamanoMaximoMb]="pregunta.tamanio"
-                (excedeTamano)="manejarExcedeTamano()"
-                [nombre]="pregunta.idPregunta.toString()" 
-                [acepta]="['application/pdf']"
-                [(ngModel)]="documento"/>
-                <span class="fs-12px fw-semibold">Máximo {{ pregunta.tamanio }} Mb</span>
-            </div>
-            <div class="w-100 fs-12px cursor-pointer" (click)="descargarArchivo(pregunta.documento, pregunta.ruta, pregunta.nombreOriginal)">
-                <img src="assets/img/iconos/icono_pdf.gif">
-                <span
-                ngbPopover="{{pregunta.nombreOriginal}}"
-                popoverTitle="Descargar"
-                popoverClass="fs-12px"
-                triggers="mouseenter:mouseleave" 
-                class="nombre-original-archivo ms-2">
-                {{ pregunta.nombreOriginal }}
-                </span>
-                <span class="ms-2" *ngIf="!pregunta.documento || pregunta.documento == ''">Sin documento cargado.</span>
-            </div>
-        </div>
-    </div>
     <div class="col-2 columna border-top">
         <div class="d-flex w-100 flex-column flex-gap-10" *ngIf="pregunta.tieneObservacion">
             <textarea class="form-control fs-12px" placeholder="Justificación" 
