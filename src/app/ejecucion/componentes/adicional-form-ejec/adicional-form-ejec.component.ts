@@ -32,8 +32,8 @@ export class AdicionalFormEjecComponent {
       documento: "",
       nombreArchivo: "",
       ruta: "",
-      valor: "",
-      observacion: ""
+      valor: this.respuesta,
+      observacion: this.observacion
     }
   }
 
@@ -43,7 +43,7 @@ export class AdicionalFormEjecComponent {
   }
 
   manejarCambioObservacion(observacion: string){
-
+    this.setObservacion(observacion)
   }
 
   manejarCambioRespuesta(respuesta: string){

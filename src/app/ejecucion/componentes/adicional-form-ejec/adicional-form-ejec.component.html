@@ -14,6 +14,7 @@
                 </select>
             </fieldset>
         </ng-container>
+
         <ng-container *ngIf="adicional.tipoPregunta === 'NUMERICO'">
             <fieldset>
                 <label class="fs-12px fw-semibold">Respuesta</label>
@@ -22,7 +23,20 @@
                 [ngModel]="respuesta" 
                 [disabled]="soloLectura"/>
             </fieldset>
+        </ng-container>
 
+        <ng-container *ngIf="adicional.tipoPregunta === 'TEXTO'">
+            <fieldset>
+                <label class="fs-12px fw-semibold">Respuesta</label>
+                <input
+                class="form-control"
+                [maxLength]="adicional.maxCaracteres"
+                type="text" 
+                (ngModelChange)="manejarCambioRespuesta($event)" 
+                [(ngModel)]="respuesta" 
+                [disabled]="soloLectura"/>
+                <span class="fs-12px">Máximo ({{adicional.maxCaracteres}}) caracteres.</span>
+            </fieldset>
         </ng-container>
     </div>
 </td>
@@ -38,6 +52,7 @@
                 [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta)) || soloLectura"></textarea>
             <app-input-numerico
                 *ngIf="esObservacionNumerica()"
+                (ngModelChange)="manejarCambioObservacion($event)"
                 [(ngModel)]="observacion"
                 [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta)) || soloLectura"
              />

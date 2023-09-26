@@ -49,6 +49,7 @@ export interface Adicional {
     validacionesEvidencia: ValidacionEvidencia | null,
     observacion: string,
     maxObservacion: number
+    maxCaracteres: number
     mensaje: string
 }
 
