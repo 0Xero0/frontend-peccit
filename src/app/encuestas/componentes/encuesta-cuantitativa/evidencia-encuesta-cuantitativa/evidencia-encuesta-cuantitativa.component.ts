@@ -52,6 +52,11 @@ export class EvidenciaEncuestaCuantitativaComponent implements OnInit{
           this.errorAlCargar.emit(error)
         }
       })
+    }else{
+      this.respuesta!.ruta = ""
+      this.respuesta!.documento = ""
+      this.respuesta!.nombreArchivo = ""
+      this.nuevaEvidencia.emit(this.respuesta!)
     }
   }
 

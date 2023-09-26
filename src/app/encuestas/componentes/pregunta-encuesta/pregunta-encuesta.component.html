@@ -65,7 +65,7 @@
     </div>
     <div class="col-2 columna border-top">
         <div class="d-flex w-100 flex-column flex-gap-10" *ngIf="pregunta.tieneObservacion">
-            <textarea class="form-control fs-12px" placeholder="Observación" 
+            <textarea class="form-control fs-12px" placeholder="Justificación" 
             [ngModel]="observacion"
             (ngModelChange)="alCambiarObservacion($event)"
             [disabled]="!pregunta.habilitaObservacion.includes(valor) || soloLectura"></textarea>

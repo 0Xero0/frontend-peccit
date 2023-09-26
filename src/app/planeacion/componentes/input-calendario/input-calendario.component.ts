@@ -39,6 +39,9 @@ export class InputCalendarioComponent {
     if (!this.regex.test(valor) && valor !== "") {
       this.valor = this.valorAnterior
     }
+    if(valor !== ""){
+      this.valor = Number(this.valor).toString()
+    }
     this.valorAnterior = this.valor
     this.onChange(this.valor)
   }

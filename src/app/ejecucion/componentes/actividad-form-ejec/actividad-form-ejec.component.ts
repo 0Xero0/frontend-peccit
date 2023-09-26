@@ -44,9 +44,6 @@ export class ActividadFormEjecComponent implements OnInit{
   }
 
   manejarCambioArchivo(archivo: File | null){
-    if(!archivo){
-      return;
-    }
     this.setEvidencia(archivo)
   }
 
@@ -65,18 +62,29 @@ export class ActividadFormEjecComponent implements OnInit{
     if(emitir) this.nuevaActividad.emit(this.respuestaActividad);
   }
 
-  setEvidencia(archivo: File, emitir: boolean = true){
-    this.servicioArchivo.guardarArchivo(archivo, 'peccit', this.idVigilado).subscribe({
-      next: (respuesta)=>{
-        this.respuestaActividad = {
-          preguntaId: this.actividad.datoId,
-          documento: respuesta.nombreAlmacenado,
-          nombreArchivo: respuesta.nombreOriginalArchivo,
-          ruta: respuesta.ruta,
-          valor: this.respuesta
+  setEvidencia(archivo: File | null, emitir: boolean = true){
+    if(archivo){
+      this.servicioArchivo.guardarArchivo(archivo, 'peccit', this.idVigilado).subscribe({
+        next: (respuesta)=>{
+          this.respuestaActividad = {
+            preguntaId: this.actividad.datoId,
+            documento: respuesta.nombreAlmacenado,
+            nombreArchivo: respuesta.nombreOriginalArchivo,
+            ruta: respuesta.ruta,
+            valor: this.respuesta
+          }
+          if(emitir) this.nuevaActividad.emit(this.respuestaActividad);
         }
-        if(emitir) this.nuevaActividad.emit(this.respuestaActividad);
+      })
+    }else{
+      this.respuestaActividad = {
+        preguntaId: this.actividad.datoId,
+        documento: "",
+        nombreArchivo: "",
+        ruta: "",
+        valor: this.respuesta
       }
-    })
+      if(emitir) this.nuevaActividad.emit(this.respuestaActividad);
+    }
   }
 }
