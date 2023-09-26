@@ -38,9 +38,7 @@ export class AdicionalFormEjecComponent {
   }
 
   manejarCambioArchivo(archivo: File | null){
-    if(!archivo){
-      return;
-    }
+    console.log(archivo)
     this.setEvidencia(archivo)
   }
 
@@ -59,6 +57,7 @@ export class AdicionalFormEjecComponent {
 
   setRespuesta(valor: string, emitir: boolean = true){
     this.respuesta = valor
+    if(!this.adicional.habilitaObservacion!.includes(valor)) this.setObservacion("", false); 
     if(this.respuestaAdicional) this.respuestaAdicional.valor = valor;
     if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional);
   }
@@ -69,20 +68,32 @@ export class AdicionalFormEjecComponent {
     if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional);
   }
 
-  setEvidencia(archivo: File, emitir: boolean = true){
-    this.servicioArchivo.guardarArchivo(archivo, 'peccit', this.idVigilado).subscribe({
-      next: (respuesta)=>{
-        this.respuestaAdicional = {
-          adicionalId: this.adicional.idAdicional,
-          documento: respuesta.nombreAlmacenado,
-          nombreArchivo: respuesta.nombreOriginalArchivo,
-          ruta: respuesta.ruta,
-          valor: this.respuesta,
-          observacion: ""
+  setEvidencia(archivo: File | null, emitir: boolean = true){
+    if(archivo){
+      this.servicioArchivo.guardarArchivo(archivo, 'peccit', this.idVigilado).subscribe({
+        next: (respuesta)=>{
+          this.respuestaAdicional = {
+            adicionalId: this.adicional.idAdicional,
+            documento: respuesta.nombreAlmacenado,
+            nombreArchivo: respuesta.nombreOriginalArchivo,
+            ruta: respuesta.ruta,
+            valor: this.respuesta,
+            observacion: this.observacion
+          }
+          if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional);
         }
-        if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional);
+      })
+    }else{
+      this.respuestaAdicional = {
+        adicionalId: this.adicional.idAdicional,
+        documento: "",
+        nombreArchivo: "",
+        ruta: "",
+        valor: this.respuesta,
+        observacion: this.observacion
       }
-    })
+      if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional)
+    }
   }
 
   descargarEvidencia(){

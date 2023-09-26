@@ -29,16 +29,16 @@
 <td class="observacion">
     <div *ngIf="adicional.tieneObservacion">
         <fieldset>
-            <label class="fs-12px fw-semibold">Observación</label>
+            <label class="fs-12px fw-semibold">Justificación</label>
             <textarea class="form-control"
                 *ngIf="!esObservacionNumerica()"
                 [maxlength]="adicional.maxObservacion"
                 (ngModelChange)="manejarCambioObservacion($event)"
-                [ngModel]="observacion" 
+                [(ngModel)]="observacion" 
                 [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta)) || soloLectura"></textarea>
             <app-input-numerico
                 *ngIf="esObservacionNumerica()"
-                [ngModel]="observacion"
+                [(ngModel)]="observacion"
                 [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta)) || soloLectura"
              />
             <span class="fs-12px">Máximo ({{adicional.maxObservacion}}) caracteres.</span>
