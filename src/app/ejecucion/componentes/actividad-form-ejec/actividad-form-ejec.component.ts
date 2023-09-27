@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Actividad } from '../../modelos/FormularioEjecucion';
 import { RespuestaActividad } from '../../modelos/RespuestaActividad';
 import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
+import { bindNodeCallback } from 'rxjs';
 
 @Component({
   selector: 'app-actividad-form-ejec',
@@ -16,7 +17,7 @@ export class ActividadFormEjecComponent implements OnInit{
   @Input() soloLectura: boolean = false
 
   respuesta: string = ""
-  evidencia: File | null = null
+  evidencia: File | null = null;
 
   respuestaActividad?: RespuestaActividad
 
@@ -63,6 +64,7 @@ export class ActividadFormEjecComponent implements OnInit{
   }
 
   setEvidencia(archivo: File | null, emitir: boolean = true){
+    this.evidencia = archivo
     if(archivo){
       this.servicioArchivo.guardarArchivo(archivo, 'peccit', this.idVigilado).subscribe({
         next: (respuesta)=>{
@@ -73,7 +75,11 @@ export class ActividadFormEjecComponent implements OnInit{
             ruta: respuesta.ruta,
             valor: this.respuesta
           }
-          if(emitir) this.nuevaActividad.emit(this.respuestaActividad);
+          if(emitir){
+            this.nuevaActividad.emit(this.respuestaActividad);
+            console.log('actividad emitida', this.respuestaActividad)
+          } 
+          
         }
       })
     }else{
@@ -84,7 +90,10 @@ export class ActividadFormEjecComponent implements OnInit{
         ruta: "",
         valor: this.respuesta
       }
-      if(emitir) this.nuevaActividad.emit(this.respuestaActividad);
+      if(emitir){
+        this.nuevaActividad.emit(this.respuestaActividad);
+        console.log('actividad emitida', this.respuestaActividad)
+      }
     }
   }
 }

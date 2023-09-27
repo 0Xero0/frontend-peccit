@@ -52,7 +52,6 @@ export class TablaSedesComponent {
       }
     })
     this.valido = this.esValido()
-    this.nuevasSedes.emit( this.obtenerSedesAGuardar() )
   }
 
   mostrarFormulario(){

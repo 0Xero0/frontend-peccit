@@ -19,7 +19,7 @@
             <app-input-archivo
             [disabled]="soloLectura"
             [nombre]="'evidencia-actividad-actividad-' + actividad.datoId"
-            [ngModel]="evidencia"
+            [(ngModel)]="evidencia"
             (ngModelChange)="manejarCambioArchivo($event)" 
             [acepta]="[actividad.validacionesEvidencia.extension]"
             [tamanoMaximoMb]="actividad.validacionesEvidencia.tamanio" />

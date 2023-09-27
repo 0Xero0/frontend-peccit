@@ -38,7 +38,11 @@ export class EncuestaCuantitativaComponent implements OnInit {
     this.hanHabidoCambios = new EventEmitter<boolean>()
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.encuesta.formularios.forEach( formulario =>{
+      this.objetivos = [ ...this.objetivos, ...formulario.objetivos.map( objetivo => objetivo.nombre ) ]
+    })
+  }
 
   //Acciones
   guardar() {
