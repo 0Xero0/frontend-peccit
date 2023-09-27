@@ -54,6 +54,7 @@ export class EncuestaComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerOpcionesCumplimientoYCorrespondencia()
+    this.sedes = [ ...this.encuesta.sedes ]
   }
 
   //Obtener recursos

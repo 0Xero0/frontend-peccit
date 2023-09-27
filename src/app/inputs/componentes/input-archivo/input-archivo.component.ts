@@ -27,13 +27,11 @@ export class InputArchivoComponent implements OnInit, ControlValueAccessor {
   }
 
   onChangeFiles = (evento: Event) => {
-    console.log('cambiando archivo')
     if (!evento.target) {
       throw Error('El target del evento no es un input')
     }
     const input = evento.target as HTMLInputElement
     if (input.files) {
-      console.log('hay archivos')
       const file = input.files.item(0)
       if(file && !this.tamanoValido(file)){
         this.excedeTamano.emit()
@@ -50,9 +48,6 @@ export class InputArchivoComponent implements OnInit, ControlValueAccessor {
 
   writeValue(archivo: File | null): void {
     this.archivo = archivo
-    if(!archivo){
-      this.removeFile()
-    }
   }
   registerOnChange(fn: any): void {
     this.onChange = fn
