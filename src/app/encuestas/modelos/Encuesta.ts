@@ -1,3 +1,4 @@
+import { Patio } from "src/app/informacion-general/modelos/Patio";
 import { Sede } from "src/app/informacion-general/modelos/Sede";
 
 export interface Encuesta {
@@ -15,6 +16,7 @@ export interface Encuesta {
     estadoActual: string
     clasificaciones: Clasificacion[];
     sedes: Sede[]
+    patios: Patio[]
 }
 
 export interface Clasificacion {

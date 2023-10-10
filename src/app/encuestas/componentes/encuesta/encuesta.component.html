@@ -6,6 +6,16 @@
 [sedeRequerida]="sedeRequerida"
 (nuevasSedes)="manejarNuevasSedes($event)" />
 
+<app-tabla-patios
+#tablaPatios
+(aCrear)="manejarPatiosACrear($event)"
+(aEliminar)="manejarPatiosAEliminar($event)"
+[idVigilado]="encuesta.idVigilado"
+[soloLectura]="soloLectura" 
+[patios]="encuesta.patios"
+[sedeRequerida]="sedeRequerida"
+/>
+
 <div class="contenedor-encuesta d-flex flex-column w-100" #contenedorEncuesta>
     <ul class="clasificaciones">
         <li *ngFor="let clasificacion of encuesta.clasificaciones">

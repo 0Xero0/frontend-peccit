@@ -1,0 +1,154 @@
+<div class="mb-3">
+    <table class="tabla-modalidad-radio table border mb-1">
+        <thead>
+            <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
+                <th *ngIf="!soloLectura" colspan="2" class="fw-semibold"></th>
+                <th class="fw-semibold">
+                    Sede
+                </th>
+                <th class="fw-semibold">
+                    Departamento
+                </th>
+                <th class="fw-semibold">
+                    Municipio
+                </th>
+                <th class="fw-semibold">
+                    Dirección
+                </th>
+                <th class="fw-semibold">
+                    Nombre del encargado
+                </th>
+                <th class="fw-semibold">
+                    Teléfono del encargado
+                </th>
+                <th class="fw-semibold">
+                    Correo del encargado
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr 
+            class="fs-14px" 
+            *ngIf="patios.length === 0 && registrosACrear.length === 0 && !formularioVisible">
+                <td colspan="2" *ngIf="!soloLectura"></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr class="fs-14px" *ngFor="let patio of patios ; let i = index"
+                [ngClass]="{ 'bg-peligro': esRegistroAEliminar(patio.id) }">
+                <td *ngIf="!soloLectura" colspan="2">
+                    <span *ngIf="esRegistroAEliminar(patio.id)" class="text-danger cursor-pointer"
+                        (click)="cancelarEliminacionRegistro(patio.id)">
+                        <span class="material-symbols-outlined">
+                            close
+                        </span>
+                    </span>
+                    <span *ngIf="!esRegistroAEliminar(patio.id)" class="text-danger cursor-pointer"
+                        (click)="eliminarRegistro(patio.id)">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </span>
+                </td>
+                <td>{{ patio.nombre }}</td>
+                <td>{{  obtenerNombreDepartamento(patio.departamento) }}</td>
+                <td>{{ obtenerNombreCiudad(patio.municipio) }}</td>
+                <td>{{ patio.direccion }}</td>
+                <td>{{ patio.encargado }}</td>
+                <td>{{ patio.telefono }}</td>
+                <td>{{ patio.correo }}</td>
+            </tr>
+            <tr class="fs-14px bg-exitoso" *ngFor="let patio of registrosACrear ; let indice = index">
+                <td *ngIf="!soloLectura" colspan="2">
+                    <span class="text-danger cursor-pointer" (click)="retirarDeRam(indice)">
+                        <span class="material-symbols-outlined">
+                            close
+                        </span>
+                    </span>
+                </td>
+                <td>{{ patio.nombre }}</td>
+                <td>{{  obtenerNombreDepartamento(patio.departamento) }}</td>
+                <td>{{  obtenerNombreCiudad(patio.municipio) }}</td>
+                <td>{{ patio.direccion }}</td>
+                <td>{{ patio.encargado }}</td>
+                <td>{{ patio.telefono }}</td>
+                <td>{{ patio.correo }}</td>
+    
+            </tr>
+            <tr class="fs-14px" [formGroup]="formulario" *ngIf="formularioVisible">
+                <td class="align-middle">
+                    <span class="text-danger cursor-pointer" (click)="ocultarFormulario()">
+                        <span class="material-symbols-outlined">
+                            close
+                        </span>
+                    </span>
+                </td>
+                <td class="align-middle">
+                    <span class="text-success cursor-pointer" (click)="agregarARam()">
+                        <span class="material-symbols-outlined">
+                            done
+                        </span>
+                    </span>
+                </td>
+                <td>
+                    <input formControlName="nombre" style="max-width: 300px;" class="form-control" placeholder="Nombre de la sede." />
+                    <app-validacion [control]="this.formulario.controls['nombre']"
+                        [validacion]="'required'" [texto]="'El nombre es requerido.'" />
+                </td>
+                <td>
+                    <select formControlName="departamento" style="max-width: 300px;" class="form-select">
+                        <option value="">Selecciona un departamento.</option>
+                        <option [value]="departamento.id" *ngFor="let departamento of departamentos">
+                            {{ departamento.id }} - {{ departamento.name }}
+                        </option>
+                    </select>
+                    <app-validacion [control]="this.formulario.controls['departamento']"
+                        [validacion]="'required'" [texto]="'El departamento es requerido.'" />
+                </td>
+                <td>
+                    <select formControlName="municipio" style="max-width: 300px;" class="form-select">
+                        <option value="">Selecciona un municipio.</option>
+                        <option [value]="ciudad.id" *ngFor="let ciudad of ciudades">
+                            {{ ciudad.id }} - {{ ciudad.name }}
+                        </option>
+                    </select>
+                    <app-validacion [control]="this.formulario.controls['municipio']"
+                        [validacion]="'required'" [texto]="'El municipio es requerido.'" />
+                </td>
+                <td>
+                    <input formControlName="direccion" style="max-width: 300px;" class="form-control" placeholder="Dirección" />
+                    <app-validacion [control]="this.formulario.controls['direccion']"
+                        [validacion]="'required'" [texto]="'La dirección es requerida.'" />
+                </td>
+                <td>
+                    <input formControlName="encargado" style="max-width: 300px;" class="form-control" placeholder="Nombre del encargado" />
+                    <app-validacion [control]="this.formulario.controls['encargado']"
+                        [validacion]="'required'" [texto]="'El nombre del encargado es requerido.'" />
+                </td>
+                <td>
+                    <input formControlName="telefonoEncargado" style="max-width: 300px;" class="form-control" placeholder="Teléfono del encargado" />
+                    <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
+                        [validacion]="'required'" [texto]="'El teléfono del encargado es requerido.'" />
+                </td>
+                <td>
+                    <input formControlName="correoEncargado" style="max-width: 300px;" class="form-control" placeholder="Correo del encargado" />
+                    <app-validacion [control]="this.formulario.controls['correoEncargado']"
+                        [validacion]="'required'" [texto]="'El correo del encargado es requerido.'" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="d-flex">
+        <span class="validacion" *ngIf="sedeRequerida">Debe agregar al menos un patio.</span>
+    </div>
+    <div class="d-flex mt-3" *ngIf="!formularioVisible && !soloLectura">
+        <button type="button" class="boton primario relleno" (click)="mostrarFormulario()" >
+            Agregar
+        </button>
+    </div>
+</div>

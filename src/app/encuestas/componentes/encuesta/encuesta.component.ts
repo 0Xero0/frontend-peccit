@@ -13,6 +13,8 @@ import { Maestra } from 'src/app/verificaciones/modelos/Maestra';
 import { DialogosEncuestas } from '../../dialogos-encuestas';
 import { Sede } from 'src/app/informacion-general/modelos/Sede';
 import { TablaSedesComponent } from 'src/app/informacion-general/componentes/tabla-sedes/tabla-sedes.component';
+import { PatioACrear } from 'src/app/informacion-general/modelos/PatioACrear';
+import { TablaPatiosComponent } from 'src/app/informacion-general/componentes/tabla-patios/tabla-patios.component';
 
 @Component({
   selector: 'app-encuesta',
@@ -34,10 +36,13 @@ export class EncuestaComponent implements OnInit {
 
   @ViewChildren('clasificacion') clasificaciones!: QueryList<ClasificacionEncuestaComponent>
   @ViewChild('tablaSedes') tablaSedes!: TablaSedesComponent
+  @ViewChild('tablaPatios') tablaPatios!: TablaPatiosComponent
   @ViewChild('popup') popup!: PopupComponent
   @ViewChild('contenedorEncuesta') contenedorEncuesta!: ElementRef
   respuestas: Respuesta[] = []
   sedes: Sede[] = []
+  patiosACrear: PatioACrear[] = []
+  patiosAEliminar: number[] = []
   verificaciones: RespuestaVerificacion[] = []
   hayCambios: boolean = false
   opcionesCumplimiento: Maestra[] = []
@@ -109,6 +114,16 @@ export class EncuestaComponent implements OnInit {
     this.setHayCambios(true)
   }
 
+  manejarPatiosACrear(patiosACrear: PatioACrear[]){
+    this.patiosACrear = patiosACrear
+    this.setHayCambios(true)
+  }
+
+  manejarPatiosAEliminar(patiosAEliminar: number[]){
+    this.patiosAEliminar = patiosAEliminar
+    this.setHayCambios(true)
+  }
+
   alResponderVerificaciones(verificacion: any){
     this.setHayCambios(true)
   }
@@ -123,11 +138,19 @@ export class EncuestaComponent implements OnInit {
 
   //Acciones
   guardarRespuestas(){
-    this.servicioEncuestas.guardarRespuesta(this.idReporte, { respuestas: this.obtenerRespuestas(), sedes: this.sedes }).subscribe({
+    this.servicioEncuestas.guardarRespuesta(this.idReporte, { 
+      respuestas: this.obtenerRespuestas(), 
+      sedes: this.sedes,
+      guardarPatios: this.patiosACrear,
+      eliminarPatios: this.patiosAEliminar 
+    }).subscribe({
       next: ( respuesta ) =>{
         this.popup.abrirPopupExitoso(respuesta.mensaje)
         this.sedeRequerida = false
+        this.patiosACrear = []
+        this.patiosAEliminar = []
         this.tablaSedes.limpiarRegistrosEnRam()
+        this.tablaPatios.limpiarRegistrosEnRam()
         this.setHayCambios(false)
         this.encuestaGuardada.emit()
       },
