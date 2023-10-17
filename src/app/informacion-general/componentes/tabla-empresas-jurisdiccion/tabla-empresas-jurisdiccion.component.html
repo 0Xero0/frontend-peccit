@@ -49,16 +49,16 @@
                     <td>-</td>
                 </tr>
                 <tr class="fs-14px" *ngFor="let empresa of empresas ; let i = index"
-                    [ngClass]="{ 'bg-peligro': esRegistroAEliminar(empresa.id) }">
+                    [ngClass]="{ 'bg-peligro': esRegistroAEliminar(empresa.nit) }">
                     <td *ngIf="!soloLectura" colspan="2">
-                        <span *ngIf="esRegistroAEliminar(empresa.id)" class="text-danger cursor-pointer"
-                            (click)="cancelarEliminacionRegistro(empresa.id)">
+                        <span *ngIf="esRegistroAEliminar(empresa.nit)" class="text-danger cursor-pointer"
+                            (click)="cancelarEliminacionRegistro(empresa.nit)">
                             <span class="material-symbols-outlined">
                                 close
                             </span>
                         </span>
-                        <span *ngIf="!esRegistroAEliminar(empresa.id)" class="text-danger cursor-pointer"
-                            (click)="eliminarRegistro(empresa.id)">
+                        <span *ngIf="!esRegistroAEliminar(empresa.nit)" class="text-danger cursor-pointer"
+                            (click)="eliminarRegistro(empresa.nit)">
                             <span class="material-symbols-outlined">
                                 delete
                             </span>
