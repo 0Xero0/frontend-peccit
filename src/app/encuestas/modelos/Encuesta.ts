@@ -1,3 +1,4 @@
+import { EmpresaJurisdiccion } from "src/app/informacion-general/modelos/EmpresaJurisdiccion";
 import { Patio } from "src/app/informacion-general/modelos/Patio";
 import { Sede } from "src/app/informacion-general/modelos/Sede";
 
@@ -17,6 +18,7 @@ export interface Encuesta {
     clasificaciones: Clasificacion[];
     sedes: Sede[]
     patios: Patio[]
+    empresas: EmpresaJurisdiccion[]
 }
 
 export interface Clasificacion {

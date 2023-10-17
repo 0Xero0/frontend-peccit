@@ -14,6 +14,7 @@ import { RespuestaEvidencia } from '../modelos/RespuestaEvidencia';
 import { FiltrosReportes } from '../modelos/FiltrosReportes';
 import { Sede } from 'src/app/informacion-general/modelos/Sede';
 import { PatioACrear } from 'src/app/informacion-general/modelos/PatioACrear';
+import { EmpresaJurisdiccionACrear } from 'src/app/informacion-general/modelos/EmpresaJurisdiccionACrear';
 
 @Injectable({
   providedIn: 'root'
@@ -59,7 +60,16 @@ export class ServicioEncuestas extends Autenticable {
     return this.http.get<EncuestaCuantitativa>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  guardarRespuesta(idReporte: number, peticion: { respuestas: RespuestaEnviar[], sedes: Sede[], guardarPatios: PatioACrear[], eliminarPatios: number[] })
+  guardarRespuesta(
+    idReporte: number, 
+    peticion: { 
+      respuestas: RespuestaEnviar[], 
+      sedes: Sede[], 
+      guardarPatios: PatioACrear[], 
+      eliminarPatios: number[],
+      guardarEmpresas: EmpresaJurisdiccionACrear[],
+      eliminarEmpresas: number[]
+    })
   :Observable<{ mensaje: string}>{
     const enpoint = `/api/v1/respuestas/${idReporte}`
     return this.http.post<{ mensaje: string }>(

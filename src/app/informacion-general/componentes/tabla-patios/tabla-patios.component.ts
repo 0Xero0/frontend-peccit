@@ -18,7 +18,7 @@ export class TablaPatiosComponent {
 
   @Input() patios: Patio[] = []
   @Input() idVigilado!: string
-  @Input() sedeRequerida: boolean = false
+  @Input() patioRequerido: boolean = false
   @Input() soloLectura: boolean = false
 
   formulario        : FormGroup

@@ -1,11 +1,15 @@
-<h4 class="fw-semibold texto-primario fs-16px">Inscriba sus sedes operativas</h4>
-<app-tabla-sedes
-#tablaSedes
+<h4 class="fw-semibold texto-primario fs-16px">Inscriba las empresas que pertenecen a su jurisdicción</h4>
+<app-tabla-empresas-jurisdiccion 
+#tablaEmpresas
+(aCrear)="manejarEmpresasACrear($event)"
+(aEliminar)="manejarEmpresasAEliminar($event)"
+[idVigilado]="encuesta.idVigilado"
 [soloLectura]="soloLectura" 
-[sedes]="encuesta.sedes"
-[sedeRequerida]="sedeRequerida"
-(nuevasSedes)="manejarNuevasSedes($event)" />
+[empresas]="encuesta.empresas"
+[empresaRequerida]="empresaRequerida"
+/>
 
+<h4 class="fw-semibold texto-primario fs-16px">Inscriba los patios en su jurisdicción</h4>
 <app-tabla-patios
 #tablaPatios
 (aCrear)="manejarPatiosACrear($event)"
@@ -13,8 +17,16 @@
 [idVigilado]="encuesta.idVigilado"
 [soloLectura]="soloLectura" 
 [patios]="encuesta.patios"
-[sedeRequerida]="sedeRequerida"
+[patioRequerido]="patioRequerido"
 />
+
+<h4 class="fw-semibold texto-primario fs-16px">Inscriba sus sedes operativas</h4>
+<app-tabla-sedes
+#tablaSedes
+[soloLectura]="soloLectura" 
+[sedes]="encuesta.sedes"
+[sedeRequerida]="sedeRequerida"
+(nuevasSedes)="manejarNuevasSedes($event)" />
 
 <div class="contenedor-encuesta d-flex flex-column w-100" #contenedorEncuesta>
     <ul class="clasificaciones">

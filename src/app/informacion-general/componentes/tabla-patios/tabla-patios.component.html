@@ -144,7 +144,7 @@
         </tbody>
     </table>
     <div class="d-flex">
-        <span class="validacion" *ngIf="sedeRequerida">Debe agregar al menos un patio.</span>
+        <span class="validacion" *ngIf="patioRequerido">Debe agregar al menos un patio.</span>
     </div>
     <div class="d-flex mt-3" *ngIf="!formularioVisible && !soloLectura">
         <button type="button" class="boton primario relleno" (click)="mostrarFormulario()" >

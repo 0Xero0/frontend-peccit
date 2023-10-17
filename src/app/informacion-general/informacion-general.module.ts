@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EncuestasModule } from '../encuestas/encuestas.module';
 import { TablaSedesComponent } from './componentes/tabla-sedes/tabla-sedes.component';
 import { TablaPatiosComponent } from './componentes/tabla-patios/tabla-patios.component';
+import { TablaEmpresasJurisdiccionComponent } from './componentes/tabla-empresas-jurisdiccion/tabla-empresas-jurisdiccion.component';
 
 
 
@@ -18,7 +19,8 @@ import { TablaPatiosComponent } from './componentes/tabla-patios/tabla-patios.co
     ClasificacionInformacionGeneralComponent,
     PreguntaInformacionGeneralComponent,
     TablaSedesComponent,
-    TablaPatiosComponent
+    TablaPatiosComponent,
+    TablaEmpresasJurisdiccionComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { TablaPatiosComponent } from './componentes/tabla-patios/tabla-patios.co
   ],
   exports: [
     TablaSedesComponent,
-    TablaPatiosComponent
+    TablaPatiosComponent,
+    TablaEmpresasJurisdiccionComponent
   ]
 })
 export class InformacionGeneralModule { }
