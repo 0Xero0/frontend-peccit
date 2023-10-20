@@ -18,7 +18,8 @@
         <ng-container *ngIf="adicional.tipoPregunta === 'NUMERICO'">
             <fieldset>
                 <label class="fs-12px fw-semibold">Respuesta</label>
-                <app-input-numerico 
+                <app-input-numerico
+                [valorInicial]="+adicional.respuesta"
                 (ngModelChange)="manejarCambioRespuesta($event)" 
                 [ngModel]="respuesta" 
                 [disabled]="soloLectura"/>
