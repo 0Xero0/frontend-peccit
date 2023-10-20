@@ -13,6 +13,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AsignacionesModule } from './asignaciones/asignaciones.module';
 import { FormulariosModule } from './formularios/formularios.module';
 import { EjecucionModule } from './ejecucion/ejecucion.module';
+import { TarifasModule } from './tarifas/tarifas.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { EjecucionModule } from './ejecucion/ejecucion.module';
     AdministradorModule,
     AutenticacionModule,
     AsignacionesModule,
+    TarifasModule,
     FormulariosModule,
     EjecucionModule,
     AlertasModule,

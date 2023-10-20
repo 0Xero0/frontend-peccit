@@ -75,6 +75,10 @@ const routes: Routes = [
         loadChildren: ()=> import('./informacion-general/informacion-general.module').then(m => m.InformacionGeneralModule)
       },
       {
+        path: 'tarifas',
+        loadChildren: ()=> import('./tarifas/tarifas.module').then(m => m.TarifasModule)
+      },
+      {
         path: 'planeacion',
         component: ListadoEncuestasComponent
       },
