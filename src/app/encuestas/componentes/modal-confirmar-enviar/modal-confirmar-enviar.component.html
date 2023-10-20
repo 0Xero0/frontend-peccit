@@ -14,6 +14,12 @@
             <p *ngIf="sedeRequerida">
                 Debe agregar al menos una sede.
             </p>
+            <p *ngIf="sinPatios">
+                Usted no ha ingresado ningun patio.
+            </p>
+            <p *ngIf="sinEmpresas">
+                Usted no ha ingresado ninguna empresa bajo su jurisdicción.
+            </p>
             <div class="d-flex justify-content-center flex-gap-20">
                 <button class="boton primario delineado" (click)="cerrar()">Regresar al formulario</button>
                 <button class="boton primario relleno" (click)="aceptar()">Confirmar envío ST</button>

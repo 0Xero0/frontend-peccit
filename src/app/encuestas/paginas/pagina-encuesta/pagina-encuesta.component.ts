@@ -133,11 +133,11 @@ export class PaginaEncuestaComponent implements OnInit {
         const faltantes = error.error.faltantes as RespuestaInvalida[]
         this.componenteEncuesta.resaltarRespuestasInvalidas(faltantes)
         this.componenteEncuesta.sedeRequerida = !error.error.sedes
-        this.componenteEncuesta.patioRequerido = !error.error.patios
-        this.componenteEncuesta.empresaRequerida = !error.error.empresas
         this.modalConfirmar.abrir({
           seRequiereSede: !error.error.sedes,
           respuestasInvalidas: faltantes,
+          sinPatios: !this.tienePatios(),
+          sinEmpresas: !this.tieneEmpresas(),
           alAceptar: ()=>{
             this.servicioEncuesta.enviarRespuesta(this.idEncuesta!, this.idReporte!,  this.idVigilado!, true).subscribe({
               next: ()=>{
@@ -184,5 +184,24 @@ export class PaginaEncuestaComponent implements OnInit {
   setHayCambios(hayCambios: boolean){
     this.hayCambios = hayCambios
   }
+  
+  tienePatios(): boolean{
+    const patiosAEliminar = this.componenteEncuesta.patiosAEliminar.length
+    const patiosACrear = this.componenteEncuesta.patiosACrear.length
+    const patiosExistentes = this.componenteEncuesta.encuesta.patios.length
 
+    let totalPatios = patiosExistentes - patiosAEliminar + patiosACrear
+    console.log('total patios', totalPatios)
+    return totalPatios > 0 ? true : false
+  }
+
+  tieneEmpresas(): boolean{
+    const empresasAEliminar = this.componenteEncuesta.empresasAEliminar.length
+    const empresasACrear = this.componenteEncuesta.empresasACrear.length
+    const empresasExistentes = this.componenteEncuesta.encuesta.empresas.length
+
+    let totalEmpresas = empresasExistentes - empresasAEliminar + empresasACrear
+    console.log('total empresas', totalEmpresas)
+    return totalEmpresas > 0 ? true : false
+  }
 }

@@ -19,7 +19,7 @@
     <fieldset *ngIf="evidencia.tipoEvidencia === 'NUMBER'">
         <app-input-numerico
         [disabled]="soloLectura"
-        [valorInicial]="evidencia.respuesta"
+        [valorInicial]="+evidencia.respuesta"
         [cantidadDecimales]="evidencia.validacionesEvidencia.cantDecimal"
         [ngModel]="valor"
         (ngModelChange)="manejarCambioEvidenciaNumerica($event)"/>

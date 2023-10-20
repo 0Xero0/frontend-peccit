@@ -13,11 +13,29 @@ export class ModalConfirmarEnviarComponent {
   respuestasInvalidas: RespuestaInvalida[] = []
   mensajeItemsInvalidos = ""
   sedeRequerida: boolean = false
+  sinPatios: boolean = false
+  sinEmpresas: boolean = false
 
   constructor(private servicioModal: NgbModal) { 
   }
 
-  abrir({alAceptar, alCancelar, respuestasInvalidas, seRequiereSede}: {respuestasInvalidas: RespuestaInvalida[], seRequiereSede: boolean, alAceptar: Function, alCancelar: Function}){
+  abrir({
+    alAceptar, 
+    alCancelar, 
+    respuestasInvalidas, 
+    seRequiereSede, 
+    sinPatios = false, 
+    sinEmpresas = false
+  }: {
+    respuestasInvalidas: RespuestaInvalida[], 
+    seRequiereSede: boolean, 
+    alAceptar: Function, 
+    alCancelar: Function,
+    sinPatios?: boolean,
+    sinEmpresas?: boolean
+  }){
+    this.sinEmpresas = sinEmpresas
+    this.sinPatios = sinPatios
     this.respuestasInvalidas = respuestasInvalidas
     this.sedeRequerida = seRequiereSede
     this.mensajeItemsInvalidos = respuestasInvalidas.map(res => res.preguntaId).join(", ")

@@ -26,7 +26,7 @@
                         Capacidad transportadora C
                     </th>
                     <th class="fw-semibold">
-                        Acto administrativo Capacidad transportadora
+                        Acto administrativo capacidad transportadora
                     </th>
                     <th class="fw-semibold">
                         Placas por modalidad
@@ -139,7 +139,7 @@
                     <td>
                         <input formControlName="razonSocial" style="max-width: 300px;" class="form-control" placeholder="Razón social." />
                         <app-validacion [control]="this.formulario.controls.razonSocial"
-                            [validacion]="'required'" [texto]="'La razón social es requerida'" />
+                            [validacion]="'required'" [texto]="'La razón social es requerida.'" />
                     </td>
                     <td>
                         <select formControlName="tipoServicio" style="max-width: 300px;" class="form-select">
@@ -195,7 +195,7 @@
         </table>
     </div>
     <div class="d-flex">
-        <span class="validacion" *ngIf="empresaRequerida">Debe agregar al menos un patio.</span>
+        <span class="validacion" *ngIf="empresaRequerida">Debe agregar al menos una empresa.</span>
     </div>
     <div class="d-flex mt-3" *ngIf="!formularioVisible && !soloLectura">
         <button type="button" class="boton primario relleno" (click)="mostrarFormulario()" >

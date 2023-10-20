@@ -8,7 +8,7 @@
     <div class="col" *ngIf="pregunta.validaciones.tipoDato !== 'moneda'">
         <app-input-numerico
         [cantidadDecimales]="pregunta.validaciones.cantDecimal"
-        [valorInicial]="pregunta.respuesta"
+        [valorInicial]="+pregunta.respuesta"
         [ngModel]="valor"
         (ngModelChange)="manejarCambio($event)"/>
     </div>
