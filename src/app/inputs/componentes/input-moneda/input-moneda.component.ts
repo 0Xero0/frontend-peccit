@@ -14,9 +14,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class InputMonedaComponent implements OnInit, ControlValueAccessor{
-  @Input('cantidadDecimales') cantidadDecimales: number = 3
-  @Input('valorInicial') valorInicial: number = 0;
-  valor: number = 0;
+  @Input() cantidadDecimales: number = 3
+  @Input() valorInicial: number | null = null;
+  @Input() placeholder: string = ""; 
+  valor: number | null = null;
   valorInput: string = ""
   valorAnterior: string = ""
   deshabilitado: boolean = false
@@ -28,11 +29,14 @@ export class InputMonedaComponent implements OnInit, ControlValueAccessor{
 
   ngOnInit(): void {
     this.regex = new RegExp(`^[0-9]+(\\.[0-9]{1,${this.cantidadDecimales}})?$`)
-    this.valorInput = this.formatear(this.valorInicial.toString()) 
-    this.valorAnterior = this.valorInicial.toString()
+    this.valorInput = this.valorInicial !== null ? this.formatear(this.valorInicial.toString()) : ""; 
+    this.valorAnterior = this.valorInicial !== null ? this.valorInicial.toString() : "";
   }
 
   formatear(valor: string) {
+    if(valor !== ''){
+      valor = Number(valor).toString()
+    }
     return valor.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
 
@@ -48,12 +52,12 @@ export class InputMonedaComponent implements OnInit, ControlValueAccessor{
     }
     this.valorInput = this.formatear(valor.toString()) 
     this.valorAnterior = this.valorInput
-    this.valor = Number(this.desformatear(this.valorInput))
+    this.valor = this.valorInput !== "" ? Number(this.desformatear(this.valorInput)) : null
     this.onChange(this.valor)
   }
 
   //NgValueAccesor Interface
-  onChange = (valor: number) => { }
+  onChange = (valor: number | null) => { }
 
   onTouched = () => { }
 

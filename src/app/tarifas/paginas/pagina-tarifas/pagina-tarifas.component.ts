@@ -44,7 +44,7 @@ export class PaginaTarifasComponent implements OnInit{
     this.anios = [ anioActual, anioActual - 1, anioActual - 2, anioActual - 3, anioActual - 4, anioActual -5 ]
     this.usuario = usuario
     this.formulario = new FormGroup<FormularioTarifa>({
-      idServicioModalidad: new FormControl<number | null>(null, [ Validators.required ]),
+      idServicioModalidad: new FormControl<number | string | null>("", [ Validators.required, Validators.nullValidator ]),
       tarifaAutorizada: new FormControl<number | null>(null, [ Validators.required ]),
       actoAdministrativo: new FormControl<File | null>(null, [ Validators.required ]),
       actoAdministrativoDocumento: new FormControl<string | null>(null, [ Validators.required ]),
@@ -102,6 +102,7 @@ export class PaginaTarifasComponent implements OnInit{
 
   guardarTarifa(){
     if(this.formulario.invalid){
+      console.log(this.formulario.controls)
       marcarFormularioComoSucio(this.formulario)
       return;
     }
@@ -112,7 +113,7 @@ export class PaginaTarifasComponent implements OnInit{
       estructuraCostosDocumento: this.formulario.controls.estructuraCostosDocumento.value!,
       estructuraCostosRuta: this.formulario.controls.estructuraCostosRuta.value!,
       estructuraCostosOriginal: this.formulario.controls.estructuraCostosOriginal.value!,
-      idServicioModalidad: this.formulario.controls.idServicioModalidad.value!,
+      idServicioModalidad: +this.formulario.controls.idServicioModalidad.value!,
       idVigilado: this.usuario.usuario,
       tarifaAutorizada: this.formulario.controls.tarifaAutorizada.value!,
       vigencia: this.vigencia!

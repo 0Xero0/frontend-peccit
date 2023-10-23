@@ -5,7 +5,7 @@
 <td class="text-center ejecutado">
     <ng-container *ngIf="actividad.tipoPregunta === 'NUMBER'">
         <app-input-numerico
-        [valorInicial]="+respuesta"
+        [valorInicial]="respuesta !== '' ? +respuesta : null"
         [largoMaximo]="10"
         [cantidadDecimales]="actividad.validacionesPregunta.cantDecimal" 
         [disabled]="soloLectura"

@@ -1,7 +1,7 @@
 import { FormControl } from "@angular/forms"
 
 export interface FormularioTarifa{
-    idServicioModalidad: FormControl<number | null>
+    idServicioModalidad: FormControl<number | string | null>
     tarifaAutorizada: FormControl<number | null>
 
     actoAdministrativo: FormControl<File | null>

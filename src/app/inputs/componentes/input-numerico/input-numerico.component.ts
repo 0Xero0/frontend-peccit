@@ -15,9 +15,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class InputNumericoComponent implements OnInit, ControlValueAccessor {
   @Input() cantidadDecimales: number = 3
-  @Input() valorInicial: number = 0;
-  @Input() largoMaximo: number | null = null 
-  valor: number = 0
+  @Input() valorInicial: number | null = null;
+  @Input() largoMaximo: number | null = null
+  @Input() placeholder: string = ""; 
+
+  valor: number | null = 0
   valorInput = ""
   valorAnterior: string = ""
   deshabilitado: boolean = false
@@ -33,8 +35,8 @@ export class InputNumericoComponent implements OnInit, ControlValueAccessor {
     }else{
       this.regex = new RegExp(`^[0-9]+$`)
     }
-    this.valorInput = this.valorInicial.toString()
-    this.valorAnterior = this.valorInicial.toString()
+    this.valorInput = this.valorInicial !== null ? this.valorInicial.toString() : "";
+    this.valorAnterior = this.valorInicial !== null ? this.valorInicial.toString() : "";
   }
 
   alCambiarValor(valor: string) {
@@ -43,13 +45,16 @@ export class InputNumericoComponent implements OnInit, ControlValueAccessor {
       this.valorInput = this.valorAnterior
       return;
     }
+    if(valor !== ""){
+      this.valorInput = Number(valor).toString()
+    }
     this.valorAnterior = this.valorInput
-    this.valor = Number(this.valorInput)
+    this.valor = this.valorInput !== "" ? Number(this.valorInput) : null
     this.onChange(this.valor)
   }
 
   //NgValueAccesor Interface
-  onChange = (valor: number) => { }
+  onChange = (valor: number | null) => { }
 
   onTouched = () => { }
 

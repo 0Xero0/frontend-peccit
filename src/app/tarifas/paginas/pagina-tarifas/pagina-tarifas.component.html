@@ -30,7 +30,7 @@
                     </tr>
                     <tr *ngFor="let tarifa of tarifas">
                         <td>{{ tarifa.idServicioModalidad }} - {{ obtenerNombreServicioModalidad(tarifa.idServicioModalidad) }}</td>
-                        <td>${{ tarifa.tarifaAutorizada }}</td>
+                        <td>${{ tarifa.tarifaAutorizada | currency: '' : '' : '0.0-0'}}</td>
                         <td> 
                             <span class="hipervinculo cursor-pointer" (click)="descargarDocumento(tarifa.actoAdministrativoDocumento, tarifa.actoAdministrativoRuta, tarifa.actoAdministrativoOriginal)">
                                 {{ tarifa.actoAdministrativoOriginal }}
@@ -50,7 +50,7 @@
                             <select 
                             formControlName="idServicioModalidad" 
                             class="form-select">
-                                <option [value]="null">Selecciona una opción</option>
+                                <option value="">Selecciona una opción</option>
                                 <option [value]="tipo.id" *ngFor="let tipo of tiposServicios">{{ tipo.id }} - {{ tipo.nombre }}</option>
                             </select>
                             <app-validacion 
@@ -59,7 +59,7 @@
                             [texto]="'Debe seleccionar una opción.'"/>
                         </td>
                         <td>
-                            <app-input-moneda formControlName="tarifaAutorizada" />
+                            <app-input-moneda formControlName="tarifaAutorizada" [placeholder]="'Tarifa autorizada'" />
                             <app-validacion 
                             [control]="this.formulario.controls.tarifaAutorizada" 
                             [validacion]="'required'"

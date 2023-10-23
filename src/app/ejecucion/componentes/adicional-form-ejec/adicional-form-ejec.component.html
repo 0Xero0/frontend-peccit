@@ -19,7 +19,7 @@
             <fieldset>
                 <label class="fs-12px fw-semibold">Respuesta</label>
                 <app-input-numerico
-                [valorInicial]="+adicional.respuesta"
+                [valorInicial]="adicional.respuesta !== '' ? +adicional.respuesta : null"
                 (ngModelChange)="manejarCambioRespuesta($event)" 
                 [ngModel]="respuesta" 
                 [disabled]="soloLectura"/>
@@ -69,7 +69,8 @@
             <app-input-archivo
             (ngModelChange)="manejarCambioArchivo($event)"
             [ngModel]="evidencia" 
-            [nombre]="adicional.idAdicional.toString()" 
+            [nombre]="adicional.idAdicional.toString()"
+            [acepta]="[adicional.validacionesEvidencia!.extension]"
             [disabled]="soloLectura" />
         </fieldset>
         <span 
