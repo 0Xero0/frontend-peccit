@@ -166,6 +166,7 @@ export class EncuestaComponent implements OnInit {
       next: ( respuesta ) =>{
         this.popup.abrirPopupExitoso(respuesta.mensaje)
         this.sedeRequerida = false
+        this.empresaRequerida = false
         this.patiosACrear = []
         this.patiosAEliminar = []
         this.empresasACrear = []

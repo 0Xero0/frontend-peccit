@@ -1,0 +1,138 @@
+<ng-template #modal1>
+    <div class="card">
+        <div class="card-body p-4">
+            <h4 class="fw-semibold mb-4">Para continuar, debe suministrar la siguiente información.</h4>
+            <div class="row mb-3">
+                <div class="col-7">
+                    <p class="">
+                        ¿Usted reporta información de otros municipios?
+                    </p>
+                </div>
+                <div class="col-5 d-flex justify-content-start">
+                    <fieldset class="d-flex flex-gap-20">
+                        <div class="form-check">
+                            <input id="reportaSi" class="form-check-input" type="radio" name="reporta" [value]="true"
+                                [(ngModel)]="reporta" (ngModelChange)="manejarCambioReporta($event)">
+                            <label class="form-check-label" for="reportaSi">
+                                Sí
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input id="reportaNo" class="form-check-input" type="radio" name="reporta" [value]="false"
+                                [(ngModel)]="reporta" (ngModelChange)="manejarCambioReporta($event)">
+                            <label class="form-check-label" for="reportaNo">
+                                No
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center flex-gap-20">
+                <button class="boton primario relleno" [disabled]="reporta === null"
+                    (click)="manejarContinuarAModal2()">Continuar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #modal2>
+    <div class="card">
+        <div class="card-body p-4">
+            <h4 class="fw-semibold mb-4">Inscriba todos los municipios a los que reporta información.
+            </h4>
+            <div class="d-block mb-3">
+                <div class="table-responsive">
+                    <table class="table tabla-primaria fs-14px">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="fw-semibold">Departamento</th>
+                                <th class="fw-semibold">Municipio</th>
+                                <th class="fw-semibold">Nro del convenio</th>
+                                <th class="fw-semibold">Convenio PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="!mostrarFormulario && municipios.length < 1">
+                                <td colspan="5" class="text-center fw-semibold">Debe ingresar almenos un municipio para
+                                    continuar.</td>
+                            </tr>
+                            <tr *ngFor="let municipio of municipios ; let i = index">
+                                <td>
+                                    <span class="text-danger cursor-pointer" (click)="eliminarMunicipio(i)">
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                    </span>
+                                </td>
+                                <td>{{ obtenerNombreDepartamento(municipio.idDepartamento) }}</td>
+                                <td>{{ obtenerNombreCiudad(municipio.idMunicipio) }}</td>
+                                <td>{{ municipio.numeroConvenio }}</td>
+                                <td>{{ municipio.convenioPDFOriginal }}</td>
+                            </tr>
+                            <tr [formGroup]="formulario" *ngIf="mostrarFormulario">
+                                <td>
+                                    <div class="d-flex flex-gap-10">
+                                        <span class="text-danger cursor-pointer" (click)="manejarCancelar()">
+                                            <span class="material-symbols-outlined">
+                                                close
+                                            </span>
+                                        </span>
+                                        <span class="text-success cursor-pointer" (click)="agregarMunicipio()">
+                                            <span class="material-symbols-outlined">
+                                                done
+                                            </span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <select formControlName="departamento" class="form-select">
+                                        <option value="">Selecciona un departamento.</option>
+                                        <option *ngFor="let departamento of departamentos" [value]="departamento.id">
+                                            {{ departamento.id }} - {{ departamento.name }}
+                                        </option>
+                                    </select>
+                                    <app-validacion [control]="this.formulario.controls.departamento"
+                                        [validacion]="'required'" [texto]="'Selecciona un departamento.'" />
+                                </td>
+                                <td>
+                                    <select formControlName="municipio" class="form-select">
+                                        <option value="">Selecciona un departamento.</option>
+                                        <option *ngFor="let ciudad of ciudades" [value]="ciudad.id">
+                                            {{ ciudad.id }} - {{ ciudad.name }}
+                                        </option>
+                                    </select>
+                                    <app-validacion [control]="this.formulario.controls.municipio"
+                                        [validacion]="'required'" [texto]="'Selecciona un municipio.'" />
+                                </td>
+                                <td>
+                                    <input type="text" formControlName="numeroConvenio"
+                                        placeholder="Número del convenio" class="form-control fs-12px">
+                                    <app-validacion [control]="this.formulario.controls.numeroConvenio"
+                                        [validacion]="'required'"
+                                        [texto]="'Debes especificar un número de convenio.'" />
+                                </td>
+                                <td>
+                                    <app-input-archivo formControlName="convenioPDF" [nombre]="'convenioPDF'"
+                                        [acepta]="['.pdf']" />
+                                    <app-validacion [control]="this.formulario.controls.convenioPDF"
+                                        [validacion]="'required'" 
+                                        [texto]="'El documento es requerido.'" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button *ngIf="!mostrarFormulario" class="boton primario relleno"
+                    (click)="manejarAgregar()">Agregar</button>
+            </div>
+            <div class="d-flex justify-content-end flex-gap-20">
+                <button [disabled]="municipios.length < 1" class="boton primario relleno"
+                    (click)="manejarEnviarYContinuar()">
+                    Enviar y continuar
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<app-popup #popup />

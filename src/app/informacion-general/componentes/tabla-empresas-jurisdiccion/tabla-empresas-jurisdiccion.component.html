@@ -14,6 +14,12 @@
                         Tipo de Servicio / Modalidad
                     </th>
                     <th class="fw-semibold">
+                        Departamento
+                    </th>
+                    <th class="fw-semibold">
+                        Municipio
+                    </th>
+                    <th class="fw-semibold">
                         Acto administrativo Tipo de Servicio / Modalidad
                     </th>
                     <th class="fw-semibold">
@@ -28,16 +34,12 @@
                     <th class="fw-semibold">
                         Acto administrativo capacidad transportadora
                     </th>
-                    <th class="fw-semibold">
-                        Placas por modalidad
-                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr 
-                class="fs-14px" 
-                *ngIf="empresas.length === 0 && registrosACrear.length === 0 && !formularioVisible">
+                <tr class="fs-14px" *ngIf="empresas.length === 0 && registrosACrear.length === 0 && !formularioVisible">
                     <td colspan="2" *ngIf="!soloLectura"></td>
+                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
@@ -67,23 +69,22 @@
                     <td>{{ empresa.nit }}</td>
                     <td>{{ empresa.razon_social }}</td>
                     <td>{{ empresa.tipo_servicio }} - {{ obtenerNombreServicioModalidad(empresa.tipo_servicio) }}</td>
-                    <td> 
-                        <span class="hipervinculo cursor-pointer" (click)="descargarArchivo(empresa.documento_tipo_servicio, empresa.ruta_tipo_servicio, empresa.original_tipo_servicio)">
+                    <td>{{ obtenerNombreDepartamento(empresa.departamento) }}</td>
+                    <td>{{ obtenerNombreCiudad(empresa.municipio) }}</td>
+                    <td>
+                        <span class="hipervinculo cursor-pointer"
+                            (click)="descargarArchivo(empresa.documento_tipo_servicio, empresa.ruta_tipo_servicio, empresa.original_tipo_servicio)">
                             {{ empresa.original_tipo_servicio }}
-                        </span> 
+                        </span>
                     </td>
                     <td>{{ empresa.capacidad_transportadora_a }}</td>
                     <td>{{ empresa.capacidad_transportadora_b }}</td>
                     <td>{{ empresa.capacidad_transportadora_c }}</td>
                     <td>
-                        <span class="hipervinculo cursor-pointer" (click)="descargarArchivo(empresa.documento_transportadora, empresa.ruta_transportadora, empresa.original_transportadora)">
+                        <span class="hipervinculo cursor-pointer"
+                            (click)="descargarArchivo(empresa.documento_transportadora, empresa.ruta_transportadora, empresa.original_transportadora)">
                             {{ empresa.original_transportadora }}
-                        </span> 
-                    </td>
-                    <td>
-                        <span class="hipervinculo cursor-pointer" (click)="descargarArchivo(empresa.documento_placa, empresa.ruta_placa, empresa.original_placa)">
-                            {{ empresa.original_placa }}
-                        </span> 
+                        </span>
                     </td>
                 </tr>
                 <tr class="fs-14px bg-exitoso" *ngFor="let empresa of registrosACrear ; let indice = index">
@@ -97,23 +98,22 @@
                     <td>{{ empresa.nit }}</td>
                     <td>{{ empresa.razon_social }}</td>
                     <td>{{ empresa.tipo_servicio }} - {{ obtenerNombreServicioModalidad(empresa.tipo_servicio) }}</td>
-                    <td> 
-                        <span class="hipervinculo cursor-pointer" (click)="descargarArchivo(empresa.documento_tipo_servicio, empresa.ruta_tipo_servicio, empresa.original_tipo_servicio)">
+                    <td>{{ obtenerNombreDepartamento(empresa.departamento) }}</td>
+                    <td>{{ obtenerNombreCiudad(empresa.municipio) }}</td>
+                    <td>
+                        <span class="hipervinculo cursor-pointer"
+                            (click)="descargarArchivo(empresa.documento_tipo_servicio, empresa.ruta_tipo_servicio, empresa.original_tipo_servicio)">
                             {{ empresa.original_tipo_servicio }}
-                        </span> 
+                        </span>
                     </td>
                     <td>{{ empresa.capacidad_transportadora_a }}</td>
                     <td>{{ empresa.capacidad_transportadora_b }}</td>
                     <td>{{ empresa.capacidad_transportadora_c }}</td>
                     <td>
-                        <span class="hipervinculo cursor-pointer" (click)="descargarArchivo(empresa.documento_transportadora, empresa.ruta_transportadora, empresa.original_transportadora)">
+                        <span class="hipervinculo cursor-pointer"
+                            (click)="descargarArchivo(empresa.documento_transportadora, empresa.ruta_transportadora, empresa.original_transportadora)">
                             {{ empresa.original_transportadora }}
-                        </span> 
-                    </td>
-                    <td>
-                        <span class="hipervinculo cursor-pointer" (click)="descargarArchivo(empresa.documento_placa, empresa.ruta_placa, empresa.original_placa)">
-                            {{ empresa.original_placa }}
-                        </span> 
+                        </span>
                     </td>
                 </tr>
                 <tr class="fs-14px" [formGroup]="formulario" *ngIf="formularioVisible">
@@ -132,14 +132,16 @@
                         </span>
                     </td>
                     <td>
-                        <input formControlName="nit" style="max-width: 300px;" class="form-control" placeholder="NIT." />
-                        <app-validacion [control]="this.formulario.controls.nit"
-                            [validacion]="'required'" [texto]="'El nit es requerido.'" />
+                        <input formControlName="nit" style="max-width: 300px;" class="form-control"
+                            placeholder="NIT." />
+                        <app-validacion [control]="this.formulario.controls.nit" [validacion]="'required'"
+                            [texto]="'El nit es requerido.'" />
                     </td>
                     <td>
-                        <input formControlName="razonSocial" style="max-width: 300px;" class="form-control" placeholder="Razón social." />
-                        <app-validacion [control]="this.formulario.controls.razonSocial"
-                            [validacion]="'required'" [texto]="'La razón social es requerida.'" />
+                        <input formControlName="razonSocial" style="max-width: 300px;" class="form-control"
+                            placeholder="Razón social." />
+                        <app-validacion [control]="this.formulario.controls.razonSocial" [validacion]="'required'"
+                            [texto]="'La razón social es requerida.'" />
                     </td>
                     <td>
                         <select formControlName="tipoServicio" style="max-width: 300px;" class="form-select">
@@ -148,46 +150,56 @@
                                 {{ modalidad.id }} - {{ modalidad.nombre }}
                             </option>
                         </select>
-                        <app-validacion [control]="this.formulario.controls.tipoServicio"
-                            [validacion]="'required'" [texto]="'Debe seleccionar un tipo o modalidad.'" />
+                        <app-validacion [control]="this.formulario.controls.tipoServicio" [validacion]="'required'"
+                            [texto]="'Debe seleccionar un tipo o modalidad.'" />
                     </td>
                     <td>
-                        <app-input-archivo
-                        formControlName="aATipoServicio" 
-                        [nombre]="'aa-tipo-servicio'" 
-                        />
-                        <app-validacion [control]="this.formulario.controls.aATipoServicio"
-                            [validacion]="'required'" [texto]="'El documento es requerido.'" />
+                        <select formControlName="departamento" style="max-width: 300px;" class="form-select">
+                            <option value="">Selecciona un departamento.</option>
+                            <option [value]="departamento.id" *ngFor="let departamento of departamentos">
+                                {{ departamento.id }} - {{ departamento.name }}
+                            </option>
+                        </select>
+                        <app-validacion [control]="this.formulario.controls['departamento']" [validacion]="'required'"
+                            [texto]="'El departamento es requerido.'" />
                     </td>
                     <td>
-                        <app-input-numerico formControlName="capacidadTransportadoraA" style="max-width: 300px;" placeholder="Capacidad transportadora A" />
+                        <select formControlName="municipio" style="max-width: 300px;" class="form-select">
+                            <option value="">Selecciona un municipio.</option>
+                            <option [value]="ciudad.id" *ngFor="let ciudad of ciudades">
+                                {{ ciudad.id }} - {{ ciudad.name }}
+                            </option>
+                        </select>
+                        <app-validacion [control]="this.formulario.controls['municipio']" [validacion]="'required'"
+                            [texto]="'El municipio es requerido.'" />
+                    </td>
+                    <td>
+                        <app-input-archivo formControlName="aATipoServicio" [nombre]="'aa-tipo-servicio'" />
+                        <app-validacion [control]="this.formulario.controls.aATipoServicio" [validacion]="'required'"
+                            [texto]="'El documento es requerido.'" />
+                    </td>
+                    <td>
+                        <app-input-numerico formControlName="capacidadTransportadoraA" style="max-width: 300px;"
+                            placeholder="Capacidad transportadora A" />
                         <app-validacion [control]="this.formulario.controls.capacidadTransportadoraA"
                             [validacion]="'required'" [texto]="'El campo es requerido.'" />
                     </td>
                     <td>
-                        <app-input-numerico formControlName="capacidadTransportadoraB" style="max-width: 300px;" placeholder="Capacidad transportadora A" />
+                        <app-input-numerico formControlName="capacidadTransportadoraB" style="max-width: 300px;"
+                            placeholder="Capacidad transportadora A" />
                         <app-validacion [control]="this.formulario.controls.capacidadTransportadoraB"
                             [validacion]="'required'" [texto]="'El campo es requerido.'" />
                     </td>
                     <td>
-                        <app-input-numerico formControlName="capacidadTransportadoraC" style="max-width: 300px;" placeholder="Capacidad transportadora A" />
+                        <app-input-numerico formControlName="capacidadTransportadoraC" style="max-width: 300px;"
+                            placeholder="Capacidad transportadora A" />
                         <app-validacion [control]="this.formulario.controls.capacidadTransportadoraC"
                             [validacion]="'required'" [texto]="'El campo es requerido.'" />
                     </td>
                     <td>
-                        <app-input-archivo
-                        formControlName="aACapacidadTransportadora" 
-                        [nombre]="'aa-capacidad-transportadora'" 
-                        />
+                        <app-input-archivo formControlName="aACapacidadTransportadora"
+                            [nombre]="'aa-capacidad-transportadora'" />
                         <app-validacion [control]="this.formulario.controls.aACapacidadTransportadora"
-                            [validacion]="'required'" [texto]="'El documento es requerido.'" />
-                    </td>
-                    <td>
-                        <app-input-archivo
-                        formControlName="placasPorModalidad" 
-                        [nombre]="'placas-por-modalidad'" 
-                        />
-                        <app-validacion [control]="this.formulario.controls.placasPorModalidad"
                             [validacion]="'required'" [texto]="'El documento es requerido.'" />
                     </td>
                 </tr>
@@ -198,7 +210,7 @@
         <span class="validacion" *ngIf="empresaRequerida">Debe agregar al menos una empresa.</span>
     </div>
     <div class="d-flex mt-3" *ngIf="!formularioVisible && !soloLectura">
-        <button type="button" class="boton primario relleno" (click)="mostrarFormulario()" >
+        <button type="button" class="boton primario relleno" (click)="mostrarFormulario()">
             Agregar
         </button>
     </div>

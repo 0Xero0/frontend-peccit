@@ -6,6 +6,11 @@ import { EmpresaJurisdiccionACrear } from '../../modelos/EmpresaJurisdiccionACre
 import { EmpresaJurisdiccion } from '../../modelos/EmpresaJurisdiccion';
 import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 import { ServicioInformacionGeneral } from '../../servicios/informacion-general.service';
+import { Departamento } from 'src/app/encuestas/modelos/Departamento';
+import { Ciudad } from 'src/app/encuestas/modelos/Ciudad';
+import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
+import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
+import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
 
 @Component({
   selector: 'app-tabla-empresas-jurisdiccion',
@@ -21,11 +26,18 @@ export class TablaEmpresasJurisdiccionComponent {
   @Input() idVigilado!: string
   @Input() empresaRequerida: boolean = false
   @Input() soloLectura: boolean = false
+  departamentos: Departamento[] = []
+  ciudades: Ciudad[] = []
+  todasLasCiudades: Ciudad[] = []
+  usuario: Usuario
+  filtro: boolean
 
   formulario: FormGroup<{
     nit: FormControl<string | null>,
     razonSocial: FormControl<string | null>,
     tipoServicio: FormControl<string | null>,
+    departamento: FormControl<number | null>,
+    municipio: FormControl<number | null>,
     aATipoServicio: FormControl<File | null>,
     aATipoServicioRuta: FormControl<string | null>,
     aATipoServicioDocumento: FormControl<string | null>,
@@ -37,10 +49,6 @@ export class TablaEmpresasJurisdiccionComponent {
     aACapacidadTransportadoraRuta: FormControl<string | null>,
     aACapacidadTransportadoraDocumento: FormControl<string | null>,
     aACapacidadTransportadoraOriginal: FormControl<string | null>,
-    placasPorModalidad: FormControl<File | null>,
-    placasPorModalidadRuta: FormControl<string | null>,
-    placasPorModalidadDocumento: FormControl<string | null>,
-    placasPorModalidadOriginal: FormControl<string | null>,
   }>
   registrosACrear: EmpresaJurisdiccionACrear[] = []
   registrosAEliminar: number[] = [] //indice de la sede
@@ -50,7 +58,16 @@ export class TablaEmpresasJurisdiccionComponent {
   serviciosModalidades: { nombre: string, id: number }[] = []
 
 
-  constructor(private servicioInformacionGeneral: ServicioInformacionGeneral, private servicioArchivos: ServicioArchivos) {
+  constructor(
+    private servicioInformacionGeneral: ServicioInformacionGeneral, 
+    private servicioArchivos: ServicioArchivos,
+    private servicioLocalStorage: ServicioLocalStorage,
+    private servicioDepartamento: ServicioDepartamentos
+  ) {
+    const usuario = this.servicioLocalStorage.obtenerUsuario()
+    if(!usuario) throw new ErrorAutorizacion();
+    this.usuario = usuario
+    this.filtro = this.usuario.esDepartamental !== 1 && !this.usuario.reportaOtroMunicipio ? true : false
     this.aCrear = new EventEmitter<EmpresaJurisdiccionACrear[]>();
     this.aEliminar = new EventEmitter<number[]>();
 
@@ -58,6 +75,8 @@ export class TablaEmpresasJurisdiccionComponent {
       nit: FormControl<string | null>,
       razonSocial: FormControl<string | null>,
       tipoServicio: FormControl<string | null>,
+      departamento: FormControl<number | null>,
+      municipio: FormControl<number | null>,  
       aATipoServicio: FormControl<File | null>,
       aATipoServicioRuta: FormControl<string | null>,
       aATipoServicioDocumento: FormControl<string | null>,
@@ -69,14 +88,12 @@ export class TablaEmpresasJurisdiccionComponent {
       aACapacidadTransportadoraRuta: FormControl<string | null>,
       aACapacidadTransportadoraDocumento: FormControl<string | null>,
       aACapacidadTransportadoraOriginal: FormControl<string | null>,
-      placasPorModalidad: FormControl<File | null>,
-      placasPorModalidadRuta: FormControl<string | null>,
-      placasPorModalidadDocumento: FormControl<string | null>,
-      placasPorModalidadOriginal: FormControl<string | null>,
     }>({
       nit: new FormControl<string>("", [Validators.required]),
       razonSocial: new FormControl<string>("", [Validators.required]),
       tipoServicio: new FormControl<string>("", [Validators.required]),
+      departamento: new FormControl<number | null>(null, [Validators.required]),
+      municipio: new FormControl<number | null>(null, [Validators.required]),
       aATipoServicio: new FormControl<File | null>(null, [Validators.required]),
       aATipoServicioRuta: new FormControl<string>("", [Validators.required]),
       aATipoServicioDocumento: new FormControl<string>("", [Validators.required]),
@@ -88,14 +105,13 @@ export class TablaEmpresasJurisdiccionComponent {
       aACapacidadTransportadoraRuta: new FormControl<string>("", [Validators.required]),
       aACapacidadTransportadoraDocumento: new FormControl<string>("", [Validators.required]),
       aACapacidadTransportadoraOriginal: new FormControl<string>("", [Validators.required]),
-      placasPorModalidad: new FormControl<File | null>(null, [Validators.required]),
-      placasPorModalidadRuta: new FormControl<string>("", [Validators.required]),
-      placasPorModalidadDocumento: new FormControl<string>("", [Validators.required]),
-      placasPorModalidadOriginal: new FormControl<string>("", [Validators.required])
     })
   }
 
   ngOnInit(): void {
+    this.obtenerTodasLasCiudades()
+    this.obtenerDepartamentos()
+    this.obtenerCiudades(this.usuario.departamentoId, this.filtro)
     this.obtenerServiciosModalidades()
 
     this.formulario.controls.aATipoServicio.valueChanges.subscribe({
@@ -135,26 +151,6 @@ export class TablaEmpresasJurisdiccionComponent {
         }
       }
     })
-
-    this.formulario.controls.placasPorModalidad.valueChanges.subscribe({
-      next: (archivo) => {
-        if (archivo) {
-          this.servicioArchivos.guardarArchivo(archivo, 'empresas-jurisdiccion', this.idVigilado).subscribe({
-            next: (respuesta) => {
-              this.formulario.controls.placasPorModalidadDocumento.setValue(respuesta.nombreAlmacenado)
-              this.formulario.controls.placasPorModalidadRuta.setValue(respuesta.ruta)
-              this.formulario.controls.placasPorModalidadOriginal.setValue(respuesta.nombreOriginalArchivo)
-            },
-            error: () => { }
-          })
-        } else {
-          this.formulario.controls.placasPorModalidadDocumento.setValue("")
-          this.formulario.controls.placasPorModalidadRuta.setValue("")
-          this.formulario.controls.placasPorModalidadOriginal.setValue("")
-        }
-      }
-    })
-
     this.valido = this.esValido()
   }
 
@@ -180,6 +176,8 @@ export class TablaEmpresasJurisdiccionComponent {
       capacidad_transportadora_b: +this.formulario.controls.capacidadTransportadoraB.value!,
       capacidad_transportadora_c: +this.formulario.controls.capacidadTransportadoraC.value!,
       usuario_id: this.idVigilado,
+      departamento: +this.formulario.controls.departamento.value!,
+      municipio: +this.formulario.controls.municipio.value!,
 
       tipo_servicio: +this.formulario.controls.tipoServicio.value!,
       documento_tipo_servicio: this.formulario.controls.aATipoServicioDocumento.value!,
@@ -188,11 +186,7 @@ export class TablaEmpresasJurisdiccionComponent {
 
       documento_transportadora: this.formulario.controls.aACapacidadTransportadoraDocumento.value!,
       ruta_transportadora: this.formulario.controls.aACapacidadTransportadoraRuta.value!,
-      original_transportadora: this.formulario.controls.aACapacidadTransportadoraOriginal.value!,
-
-      documento_placa: this.formulario.controls.placasPorModalidadDocumento.value!,
-      ruta_placa: this.formulario.controls.placasPorModalidadRuta.value!,
-      original_placa: this.formulario.controls.placasPorModalidadOriginal.value!
+      original_transportadora: this.formulario.controls.aACapacidadTransportadoraOriginal.value!
     }
 
     this.registrosACrear.push(empresa)
@@ -227,6 +221,8 @@ export class TablaEmpresasJurisdiccionComponent {
 
   limpiarFormulario() {
     this.formulario.reset()
+    this.obtenerDepartamentos()
+    this.obtenerCiudades(this.usuario.departamentoId, this.filtro)
   }
 
   limpiarRegistrosEnRam() {
@@ -274,6 +270,47 @@ export class TablaEmpresasJurisdiccionComponent {
 
   descargarArchivo(documento: string, ruta: string, nombreOriginal: string){
     this.servicioArchivos.descargarArchivo(documento, ruta, nombreOriginal)
+  }
+
+  obtenerDepartamentos(){
+    this.departamentos = [{
+      id: this.usuario.departamentoId,
+      name: this.usuario.nombreDepartamento
+    }]
+    const inputDepartamento = this.formulario.controls['departamento']
+    inputDepartamento.setValue(this.usuario.departamentoId)
+    inputDepartamento.disable()
+  }
+
+  obtenerCiudades(departamentoId: number, filtro: boolean = false){
+    this.servicioDepartamento.obtenerCiudades(departamentoId, filtro).subscribe({
+      next: (ciudades)=>{
+        this.ciudades = ciudades
+        if(this.ciudades.length === 1){
+          const inputMunicipio = this.formulario.controls['municipio']
+          inputMunicipio.setValue(ciudades[0].id)
+          inputMunicipio.disable()
+        }
+      }
+    })
+  }
+
+  obtenerTodasLasCiudades(){
+    this.servicioDepartamento.obtenerTodasLasCiudades().subscribe({
+      next: (ciudades)=>{
+        this.todasLasCiudades = ciudades
+      }
+    })
+  }
+
+  obtenerNombreCiudad(idCiudad: string | number): string{
+    const ciudad = this.todasLasCiudades.find(ciudad => ciudad.id == idCiudad)
+    return ciudad ? ciudad.name : idCiudad.toString()
+  }
+
+  obtenerNombreDepartamento(idDepartamento: string | number): string{
+    const departamento = this.departamentos.find(departamento => departamento.id == idDepartamento)
+    return departamento ? departamento.name : idDepartamento.toString()
   }
 
 }

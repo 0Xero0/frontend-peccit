@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ServicioUsuarios } from '../../servicios/usuarios.service';
 import { InfoSistemaVigia } from '../../modelos/usuarios/InfoSistemaVigia';
 import { ServicioLocalStorage } from '../../servicios/local-storage.service';
@@ -7,14 +7,16 @@ import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
+import { ModalMunicipiosComponent } from 'src/app/categorizacion/componentes/modal-municipios/modal-municipios.component';
 
 @Component({
   selector: 'app-pagina-informacion-general-vigilado',
   templateUrl: './pagina-informacion-general-vigilado.component.html',
   styleUrls: ['./pagina-informacion-general-vigilado.component.css']
 })
-export class PaginaInformacionGeneralVigiladoComponent implements OnInit {
+export class PaginaInformacionGeneralVigiladoComponent implements OnInit, AfterViewInit {
   @ViewChild('popup') popup!: PopupComponent
+  @ViewChild('modalMunicipios') modalMunicipios!: ModalMunicipiosComponent
   informacion?: InfoSistemaVigia
   usuario: Usuario
   formulario: FormGroup
@@ -47,6 +49,12 @@ export class PaginaInformacionGeneralVigiladoComponent implements OnInit {
       throw new ErrorAutorizacion()
     }
     this.usuario = usuario
+  }
+  
+  ngAfterViewInit(): void {
+    if(this.usuario.abrirModal){
+      this.modalMunicipios.abrirModal1()
+    }
   }
 
   ngOnInit(): void {

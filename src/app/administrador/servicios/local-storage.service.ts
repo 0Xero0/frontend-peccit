@@ -21,4 +21,8 @@ export class ServicioLocalStorage {
         if(!rol) return null;
         return JSON.parse(rol) as Rol | null;
     }
+
+    actualizarUsuario(usuario: Usuario): void{
+        localStorage.setItem(LlavesLocalStorage.Usuario, JSON.stringify(usuario))
+    }
 }

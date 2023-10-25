@@ -5,6 +5,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Departamento } from 'src/app/encuestas/modelos/Departamento';
 import { Ciudad } from 'src/app/encuestas/modelos/Ciudad';
 import { ServicioDepartamentos } from 'src/app/encuestas/servicios/departamentos.service';
+import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
+import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
+import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 
 @Component({
   selector: 'app-tabla-sedes',
@@ -29,8 +32,12 @@ export class TablaSedesComponent {
   departamentos: Departamento[] = []
   ciudades: Ciudad[] = []
   todasLasCiudades: Ciudad[] = []
+  usuario: Usuario
 
-  constructor(private servicioDepartamento: ServicioDepartamentos){
+  constructor(private servicioDepartamento: ServicioDepartamentos, private servicioLocalStorage: ServicioLocalStorage){
+    const usuario = this.servicioLocalStorage.obtenerUsuario()
+    if(!usuario) throw new ErrorAutorizacion();
+    this.usuario = usuario
     this.aCrear = new EventEmitter<Sede>();
     this.aEliminar = new EventEmitter<number[]>();
     this.nuevasSedes = new EventEmitter<Sede[]>();
@@ -38,13 +45,17 @@ export class TablaSedesComponent {
     this.formulario = new FormGroup({
       nombre: new FormControl<string>("", [Validators.required]), 
       departamento: new FormControl<string>("", [Validators.required]), 
-      municipio: new FormControl<string>("", [Validators.required]), 
+      municipio: new FormControl<string>("", [Validators.required]),
+      encargado: new FormControl<string>("", [Validators.required]),
+      telefono: new FormControl<string>("", [Validators.required, Validators.minLength(10)]),
+      correo: new FormControl<string>("", [Validators.required, Validators.email]),
     })
   }
 
   ngOnInit(): void {
     this.obtenerTodasLasCiudades()
     this.obtenerDepartamentos()
+    this.obtenerCiudades(this.usuario.departamentoId)
     this.formulario.get('departamento')!.valueChanges.subscribe({
       next: (departamentoId)=>{
         this.formulario.get('municipio')!.setValue("")
@@ -65,16 +76,24 @@ export class TablaSedesComponent {
 
   agregarARam(): void{
     if(this.formulario.invalid){
+      console.log(this.formulario.controls)
       marcarFormularioComoSucio(this.formulario)
       return;
     }
     const inputNombre = this.formulario.get('nombre')!
     const inputDepartamento = this.formulario.get('departamento')!
     const inputMunicipio = this.formulario.get('municipio')!
+    const inputEncargado = this.formulario.get('encargado')!
+    const inputTelefono = this.formulario.get('telefono')!
+    const inputCorreo = this.formulario.get('correo')!
+    
     const sede: Sede = {
       nombre: inputNombre.value,
       departamento: inputDepartamento.value,
-      municipio: inputMunicipio.value 
+      municipio: inputMunicipio.value,
+      correo: inputCorreo.value,
+      encargado: inputEncargado.value,
+      telefono: inputTelefono.value
     }
     this.registrosACrear.push(sede)
     this.ocultarFormulario()
@@ -109,8 +128,8 @@ export class TablaSedesComponent {
   limpiarFormulario(){
     this.formulario.reset()
     this.formulario.get('nombre')!.setValue('')
-    this.formulario.get('departamento')!.setValue('')
-    this.formulario.get('municipio')!.setValue('')
+    this.obtenerDepartamentos()
+    this.obtenerCiudades(this.usuario.departamentoId)
   }
 
   limpiarRegistrosEnRam(){
@@ -152,17 +171,24 @@ export class TablaSedesComponent {
   }
 
   obtenerDepartamentos(){
-    this.servicioDepartamento.obtenerDepartamentos().subscribe({
-      next: (departamentos)=>{
-        this.departamentos = departamentos
-      }
-    })
+    this.departamentos = [{
+      id: this.usuario.departamentoId,
+      name: this.usuario.nombreDepartamento
+    }]
+    const inputDepartamento = this.formulario.controls['departamento']
+    inputDepartamento.setValue(this.usuario.departamentoId)
+    inputDepartamento.disable()
   }
 
-  obtenerCiudades(departamentoId: number){
-    this.servicioDepartamento.obtenerCiudades(departamentoId).subscribe({
+  obtenerCiudades(departamentoId: number, filtro: boolean = false){
+    this.servicioDepartamento.obtenerCiudades(departamentoId, filtro).subscribe({
       next: (ciudades)=>{
         this.ciudades = ciudades
+        if(this.ciudades.length === 1){
+          const inputMunicipio = this.formulario.controls['municipio']
+          inputMunicipio.setValue(ciudades[0].id)
+          inputMunicipio.disable()
+        }
       }
     })
   }

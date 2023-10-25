@@ -6,11 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { EncuestaComponent } from '../../componentes/encuesta/encuesta.component';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { saveAs } from 'file-saver';
-import { EncuestaCuantitativa, Formulario } from '../../modelos/EncuestaCuantitativa';
+import { EncuestaCuantitativa } from '../../modelos/EncuestaCuantitativa';
 import { EncuestaCuantitativaComponent } from '../../componentes/encuesta-cuantitativa/encuesta-cuantitativa/encuesta-cuantitativa.component';
-import { DateTime } from 'luxon';
 import { ModalConfirmarEnviarComponent } from '../../componentes/modal-confirmar-enviar/modal-confirmar-enviar.component';
 import { DialogosEncuestas } from '../../dialogos-encuestas';
 import { RespuestaInvalida } from '../../modelos/RespuestaInvalida';
@@ -133,6 +132,7 @@ export class PaginaEncuestaComponent implements OnInit {
         const faltantes = error.error.faltantes as RespuestaInvalida[]
         this.componenteEncuesta.resaltarRespuestasInvalidas(faltantes)
         this.componenteEncuesta.sedeRequerida = !error.error.sedes
+        this.componenteEncuesta.empresaRequerida = error.error.tieneEmpresa
         this.modalConfirmar.abrir({
           seRequiereSede: !error.error.sedes,
           respuestasInvalidas: faltantes,

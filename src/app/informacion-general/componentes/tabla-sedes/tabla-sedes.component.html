@@ -12,6 +12,15 @@
                 <th class="fw-semibold">
                     Municipio
                 </th>
+                <th class="fw-semibold">
+                    Nombre del encargado
+                </th>
+                <th class="fw-semibold">
+                    Teléfono del encargado
+                </th>
+                <th class="fw-semibold">
+                    Correo electrónico del encargado
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +28,9 @@
             class="fs-14px" 
             *ngIf="sedes.length === 0 && registrosACrear.length === 0 && !formularioVisible">
                 <td colspan="2" *ngIf="!soloLectura"></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
@@ -42,6 +54,9 @@
                 <td>{{ sede.nombre }}</td>
                 <td>{{  obtenerNombreDepartamento(sede.departamento) }}</td>
                 <td>{{ obtenerNombreCiudad(sede.municipio) }}</td>
+                <td>{{ sede.encargado }}</td>
+                <td>{{ sede.telefono }}</td>
+                <td>{{ sede.correo }}</td>
             </tr>
             <tr class="fs-14px bg-exitoso" *ngFor="let sede of registrosACrear ; let indice = index">
                 <td *ngIf="!soloLectura" colspan="2">
@@ -54,7 +69,9 @@
                 <td>{{ sede.nombre }}</td>
                 <td>{{  obtenerNombreDepartamento(sede.departamento) }}</td>
                 <td>{{ obtenerNombreCiudad(sede.municipio) }}</td>
-    
+                <td>{{ sede.encargado }}</td>
+                <td>{{ sede.telefono }}</td>
+                <td>{{ sede.correo }}</td>
             </tr>
             <tr class="fs-14px" [formGroup]="formulario" *ngIf="formularioVisible">
                 <td class="align-middle">
@@ -95,6 +112,25 @@
                     </select>
                     <app-validacion [control]="this.formulario.controls['municipio']"
                         [validacion]="'required'" [texto]="'El municipio es requerido.'" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" formControlName="encargado">
+                    <app-validacion [control]="this.formulario.controls['encargado']"
+                    [validacion]="'required'" [texto]="'El campo es requerido.'" />
+                </td>
+                <td>
+                    <input type="number" class="form-control" formControlName="telefono">
+                    <app-validacion [control]="this.formulario.controls['telefono']"
+                    [validacion]="'required'" [texto]="'El campo es requerido.'" />
+                    <app-validacion [control]="this.formulario.controls['telefono']"
+                    [validacion]="'minlength'" [texto]="'Mínimo 10 números.'" />
+                </td>
+                <td>
+                    <input type="email" class="form-control" formControlName="correo">
+                    <app-validacion [control]="this.formulario.controls['correo']"
+                    [validacion]="'required'" [texto]="'El campo es requerido.'" />
+                    <app-validacion [control]="this.formulario.controls['correo']"
+                    [validacion]="'email'" [texto]="'El correo electrónico es inválido.'" />
                 </td>
             </tr>
         </tbody>

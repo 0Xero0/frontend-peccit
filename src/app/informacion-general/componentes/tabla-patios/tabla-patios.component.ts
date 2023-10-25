@@ -6,6 +6,9 @@ import { Departamento } from 'src/app/encuestas/modelos/Departamento';
 import { Ciudad } from 'src/app/encuestas/modelos/Ciudad';
 import { ServicioDepartamentos } from 'src/app/encuestas/servicios/departamentos.service';
 import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Utilidades';
+import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
+import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
+import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 
 @Component({
   selector: 'app-tabla-patios',
@@ -30,18 +33,21 @@ export class TablaPatiosComponent {
   departamentos: Departamento[] = []
   ciudades: Ciudad[] = []
   todasLasCiudades: Ciudad[] = []
+  usuario: Usuario
 
-  constructor(private servicioDepartamento: ServicioDepartamentos){
+  constructor(private servicioDepartamento: ServicioDepartamentos, private servicioLocalStorage: ServicioLocalStorage){
+    const usuario = this.servicioLocalStorage.obtenerUsuario()
+    if(!usuario) throw new ErrorAutorizacion();
+    this.usuario = usuario
     this.aCrear = new EventEmitter<PatioACrear[]>();
     this.aEliminar = new EventEmitter<number[]>();
-
     this.formulario = new FormGroup({
       nombre: new FormControl<string>("", [Validators.required]), 
       departamento: new FormControl<string>("", [Validators.required]), 
       municipio: new FormControl<string>("", [Validators.required]),
       direccion: new FormControl<string>("", [Validators.required]),
       encargado: new FormControl<string>("", [Validators.required]),
-      telefonoEncargado: new FormControl<string>("", [Validators.required]),
+      telefonoEncargado: new FormControl<string>("", [Validators.required,Validators.minLength(10)]),
       correoEncargado: new FormControl<string>("", [Validators.required]),
     })
   }
@@ -49,6 +55,7 @@ export class TablaPatiosComponent {
   ngOnInit(): void {
     this.obtenerTodasLasCiudades()
     this.obtenerDepartamentos()
+    this.obtenerCiudades(this.usuario.departamentoId)
     this.formulario.get('departamento')!.valueChanges.subscribe({
       next: (departamentoId)=>{
         this.formulario.get('municipio')!.setValue("")
@@ -125,8 +132,8 @@ export class TablaPatiosComponent {
   limpiarFormulario(){
     this.formulario.reset()
     this.formulario.get('nombre')!.setValue('')
-    this.formulario.get('departamento')!.setValue('')
-    this.formulario.get('municipio')!.setValue('')
+    this.obtenerDepartamentos()
+    this.obtenerCiudades(this.usuario.departamentoId)
   }
 
   limpiarRegistrosEnRam(){
@@ -157,17 +164,24 @@ export class TablaPatiosComponent {
   }
 
   obtenerDepartamentos(){
-    this.servicioDepartamento.obtenerDepartamentos().subscribe({
-      next: (departamentos)=>{
-        this.departamentos = departamentos
-      }
-    })
+    this.departamentos = [{
+      id: this.usuario.departamentoId,
+      name: this.usuario.nombreDepartamento
+    }]
+    const inputDepartamento = this.formulario.controls['departamento']
+    inputDepartamento.setValue(this.usuario.departamentoId)
+    inputDepartamento.disable()
   }
 
-  obtenerCiudades(departamentoId: number){
-    this.servicioDepartamento.obtenerCiudades(departamentoId).subscribe({
+  obtenerCiudades(departamentoId: number, filtro: boolean = false){
+    this.servicioDepartamento.obtenerCiudades(departamentoId, filtro).subscribe({
       next: (ciudades)=>{
         this.ciudades = ciudades
+        if(this.ciudades.length === 1){
+          const inputMunicipio = this.formulario.controls['municipio']
+          inputMunicipio.setValue(ciudades[0].id)
+          inputMunicipio.disable()
+        }
       }
     })
   }

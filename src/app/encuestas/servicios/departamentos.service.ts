@@ -22,8 +22,11 @@ export class ServicioDepartamentos extends Autenticable {
     return this.http.get<Departamento[]>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 
-  obtenerCiudades(departamentoId: number): Observable<Ciudad[]>{
-    const endpoint = `/api/v1/maestras/ciudades?departamentoId=${departamentoId}`
+  obtenerCiudades(departamentoId: number, filtro: boolean = false): Observable<Ciudad[]>{
+    let endpoint = `/api/v1/maestras/ciudades?departamentoId=${departamentoId}`
+    if(filtro){
+      endpoint+='filtro=true'
+    }
     return this.http.get<Departamento[]>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 

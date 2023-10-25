@@ -2,6 +2,8 @@ export interface EmpresaJurisdiccion{
     nit: number
     razon_social: string
     tipo_servicio: number
+    departamento: number
+    municipio: number
     original_tipo_servicio: string
     documento_tipo_servicio: string
     ruta_tipo_servicio: string

@@ -11,9 +11,8 @@ export interface EmpresaJurisdiccionACrear{
     original_transportadora: string
     ruta_transportadora: string
     documento_transportadora: string
-    original_placa: string
-    ruta_placa: string
-    documento_placa: string
+    departamento: number
+    municipio: number
     estado: boolean
     usuario_id: string
 }

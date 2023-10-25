@@ -16,4 +16,11 @@ export interface Usuario {
   correo: string
   idEmpresa?: string
   logoEmpresa?: string
+  abrirModal: boolean;
+  departamentoId: number;
+  municipioId: number;
+  esDepartamental: number;
+  nombreCiudad: string;
+  nombreDepartamento: string;
+  reportaOtroMunicipio: boolean;
 }
