@@ -47,7 +47,7 @@ export class TablaSedesComponent {
       departamento: new FormControl<string>("", [Validators.required]), 
       municipio: new FormControl<string>("", [Validators.required]),
       encargado: new FormControl<string>("", [Validators.required]),
-      telefono: new FormControl<string>("", [Validators.required, Validators.minLength(10)]),
+      telefono: new FormControl<string>("", [Validators.required, Validators.minLength(10), Validators.pattern('^[0-9]+$')]),
       correo: new FormControl<string>("", [Validators.required, Validators.email]),
     })
   }

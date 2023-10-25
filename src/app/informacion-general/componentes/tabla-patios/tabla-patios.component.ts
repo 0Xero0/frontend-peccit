@@ -47,7 +47,7 @@ export class TablaPatiosComponent {
       municipio: new FormControl<string>("", [Validators.required]),
       direccion: new FormControl<string>("", [Validators.required]),
       encargado: new FormControl<string>("", [Validators.required]),
-      telefonoEncargado: new FormControl<string>("", [Validators.required,Validators.minLength(10)]),
+      telefonoEncargado: new FormControl<string>("", [Validators.required, Validators.minLength(10), Validators.pattern('^[0-9]+$')]),
       correoEncargado: new FormControl<string>("", [Validators.required]),
     })
   }
@@ -75,6 +75,7 @@ export class TablaPatiosComponent {
   }
 
   agregarARam(): void{
+    console.log(this.formulario.controls)
     if(this.formulario.invalid){
       marcarFormularioComoSucio(this.formulario)
       return;

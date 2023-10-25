@@ -78,7 +78,7 @@
                 <td>{{ patio.correo }}</td>
 
             </tr>
-            <tr class="fs-14px" [formGroup]="formulario" *ngIf="formularioVisible">
+            <tr class="fs-12px" [formGroup]="formulario" *ngIf="formularioVisible">
                 <td class="align-middle">
                     <span class="text-danger cursor-pointer" (click)="ocultarFormulario()">
                         <span class="material-symbols-outlined">
@@ -94,7 +94,7 @@
                     </span>
                 </td>
                 <td>
-                    <input formControlName="nombre" style="max-width: 300px;" class="form-control"
+                    <input formControlName="nombre" style="max-width: 300px;" class="form-control fs-12px"
                         placeholder="Nombre de la sede." />
                     <app-validacion [control]="this.formulario.controls['nombre']" [validacion]="'required'"
                         [texto]="'El nombre es requerido.'" />
@@ -120,28 +120,31 @@
                         [texto]="'El municipio es requerido.'" />
                 </td>
                 <td>
-                    <input formControlName="direccion" style="max-width: 300px;" class="form-control"
+                    <input formControlName="direccion" style="max-width: 300px;" class="form-control fs-12px"
                         placeholder="Dirección" />
                     <app-validacion [control]="this.formulario.controls['direccion']" [validacion]="'required'"
                         [texto]="'La dirección es requerida.'" />
                 </td>
                 <td>
-                    <input formControlName="encargado" style="max-width: 300px;" class="form-control"
+                    <input formControlName="encargado" style="max-width: 300px;" class="form-control fs-12px"
                         placeholder="Nombre del encargado" />
                     <app-validacion [control]="this.formulario.controls['encargado']" [validacion]="'required'"
                         [texto]="'El nombre del encargado es requerido.'" />
                 </td>
                 <td>
-                    <input type="number" formControlName="telefonoEncargado" style="max-width: 300px;"
-                        class="form-control" placeholder="Teléfono del encargado" />
-                    <app-validacion [control]="this.formulario.controls['telefonoEncargado']" [validacion]="'required'"
-                        [texto]="'El teléfono del encargado es requerido.'" />
-                    <app-validacion [control]="this.formulario.controls['telefonoEncargado']" [validacion]="'minlength'"
-                        [texto]="'Mínimo 10 números.'" />
-
+                    <fieldset class="d-flex flex-column">
+                        <input type="text" formControlName="telefonoEncargado" style="max-width: 300px;"
+                            class="form-control fs-12px" placeholder="Teléfono del encargado" />
+                        <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
+                            [validacion]="'required'" [texto]="'El teléfono del encargado es requerido.'" />
+                        <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
+                            [validacion]="'minlength'" [texto]="'Mínimo 10 números.'" />
+                        <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
+                            [validacion]="'pattern'" [texto]="'Solo números.'" />
+                    </fieldset>
                 </td>
                 <td>
-                    <input formControlName="correoEncargado" style="max-width: 300px;" class="form-control"
+                    <input formControlName="correoEncargado" style="max-width: 300px;" class="form-control fs-12px"
                         placeholder="Correo del encargado" />
                     <app-validacion [control]="this.formulario.controls['correoEncargado']" [validacion]="'required'"
                         [texto]="'El campo es requerido.'" />
