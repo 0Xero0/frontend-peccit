@@ -48,7 +48,7 @@ export class TablaPatiosComponent {
       direccion: new FormControl<string>("", [Validators.required]),
       encargado: new FormControl<string>("", [Validators.required]),
       telefonoEncargado: new FormControl<string>("", [Validators.required, Validators.minLength(10), Validators.pattern('^[0-9]+$')]),
-      correoEncargado: new FormControl<string>("", [Validators.required]),
+      correoEncargado: new FormControl<string>("", [Validators.required, Validators.email]),
     })
   }
 

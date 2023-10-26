@@ -38,7 +38,7 @@
 <ng-template #modal2>
     <div class="card">
         <div class="card-body p-4">
-            <h4 class="fw-semibold mb-4">Inscriba todos los municipios a los que reporta información.
+            <h4 class="fw-semibold mb-4">Registre todos los municipios de los que reportará información.
             </h4>
             <div class="d-block mb-3">
                 <div class="table-responsive">
@@ -48,14 +48,13 @@
                                 <th></th>
                                 <th class="fw-semibold">Departamento</th>
                                 <th class="fw-semibold">Municipio</th>
-                                <th class="fw-semibold">Nro del convenio</th>
-                                <th class="fw-semibold">Convenio PDF</th>
+                                <th class="fw-semibold">No del convenio y/o contrato</th>
+                                <th class="fw-semibold">Convenio y/o Contrato en PDF</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngIf="!mostrarFormulario && municipios.length < 1">
-                                <td colspan="5" class="text-center fw-semibold">Debe ingresar almenos un municipio para
-                                    continuar.</td>
+                                <td colspan="5" class="text-center fw-semibold">Debe ingresar mínimo un municipio para continuar.</td>
                             </tr>
                             <tr *ngFor="let municipio of municipios ; let i = index">
                                 <td>

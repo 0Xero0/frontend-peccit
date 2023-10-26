@@ -25,7 +25,7 @@ export class ServicioDepartamentos extends Autenticable {
   obtenerCiudades(departamentoId: number, filtro: boolean = false): Observable<Ciudad[]>{
     let endpoint = `/api/v1/maestras/ciudades?departamentoId=${departamentoId}`
     if(filtro){
-      endpoint+='filtro=true'
+      endpoint+='&filtro=true'
     }
     return this.http.get<Departamento[]>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }

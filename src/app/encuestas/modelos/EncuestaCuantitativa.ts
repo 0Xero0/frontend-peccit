@@ -40,6 +40,7 @@ export interface Evidencia {
 }
 
 export interface Validacion {
+    tamanio?: number
     tipoDato: string
     cantDecimal: number
     extension: string

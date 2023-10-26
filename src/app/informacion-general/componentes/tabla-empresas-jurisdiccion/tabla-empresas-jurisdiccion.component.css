@@ -1,0 +1,7 @@
+.tabla-empresas th{
+    vertical-align: top;
+    text-align: center;
+}
+.tabla-empresas td{
+    text-align: center;
+}
