@@ -174,9 +174,13 @@
                             [texto]="'El municipio es requerido.'" />
                     </td>
                     <td>
-                        <app-input-archivo formControlName="aATipoServicio" [nombre]="'aa-tipo-servicio'" />
-                        <app-validacion [control]="this.formulario.controls.aATipoServicio" [validacion]="'required'"
-                            [texto]="'El documento es requerido.'" />
+                        <fieldset class="d-flex flex-column">
+                            <app-input-archivo formControlName="aATipoServicio" [tamanoMaximoMb]="10"
+                                [acepta]="['.pdf']" [nombre]="'aa-tipo-servicio'" />
+                            <app-validacion [control]="this.formulario.controls.aATipoServicio"
+                                [validacion]="'required'" [texto]="'El documento es requerido.'" />
+                            <span class="fw-semibold fs-12px">PDF, Máximo 10 Mb</span>
+                        </fieldset>
                     </td>
                     <td>
                         <app-input-numerico formControlName="capacidadTransportadoraA" style="max-width: 300px;"
@@ -197,10 +201,16 @@
                             [validacion]="'required'" [texto]="'El campo es requerido.'" />
                     </td>
                     <td>
-                        <app-input-archivo formControlName="aACapacidadTransportadora"
+                        <fieldset class="d-flex flex-column">
+                            <app-input-archivo
+                            [tamanoMaximoMb]="10"
+                            [acepta]="['.pdf']" 
+                            formControlName="aACapacidadTransportadora"
                             [nombre]="'aa-capacidad-transportadora'" />
-                        <app-validacion [control]="this.formulario.controls.aACapacidadTransportadora"
-                            [validacion]="'required'" [texto]="'El documento es requerido.'" />
+                            <app-validacion [control]="this.formulario.controls.aACapacidadTransportadora"
+                                [validacion]="'required'" [texto]="'El documento es requerido.'" />
+                            <span class="fw-semibold fs-12px">PDF, Máximo 10 Mb</span>
+                        </fieldset>
                     </td>
                 </tr>
             </tbody>

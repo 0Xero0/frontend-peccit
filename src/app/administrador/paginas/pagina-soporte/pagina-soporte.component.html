@@ -46,10 +46,15 @@
                         <div class="col-2">
                             <span>Evidencia <span class="validacion">*</span></span>
                         </div>
-                        <div class="col-4">
-                            <app-input-archivo 
-                            [nombre]="'evidencia'" 
+                        <div class="col-5">
+                            <app-input-archivo
+                            (excedeTamano)="manejarExcedeTamanio()"
+                            [tamanoMaximoMb]="7" 
+                            [nombre]="'evidencia'"
+                            [acepta]="['.pdf', '.docx', '.jpg', '.jpge', '.png']" 
                             formControlName="adjunto" />
+                            <span class="fw-semibold fs-12px">Máximo 7 Mb</span> <br> 
+                            <span class="fs-12px">(PDF, documento Word e imágenes)</span>
                         </div>
                     </div>
                 </div>

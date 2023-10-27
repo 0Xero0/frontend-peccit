@@ -9,9 +9,15 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>NIT del usuario logueado</td>
+                    <td>NIT</td>
                     <td class="fw-semibold">
                         {{ encuestaCuantitativa.idVigilado }}
+                    </td>
+                </tr>
+                <tr *ngIf="usuario">
+                    <td>Razón social</td>
+                    <td class="fw-semibold">
+                        {{ usuario.nombre }}
                     </td>
                 </tr>
                 <tr>
@@ -32,9 +38,15 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>NIT del usuario logueado</td>
+                    <td>NIT</td>
                     <td class="fw-semibold">
                         {{ encuesta.idVigilado }}
+                    </td>
+                </tr>
+                <tr *ngIf="usuario">
+                    <td>Razón social</td>
+                    <td class="fw-semibold">
+                        {{ usuario.nombre }}
                     </td>
                 </tr>
             </tbody>

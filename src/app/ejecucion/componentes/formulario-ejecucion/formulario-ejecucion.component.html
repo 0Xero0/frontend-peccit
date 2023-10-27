@@ -8,11 +8,17 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>NIT del usuario logueado</td>
+                    <td>NIT</td>
                     <td class="fw-semibold">
                         <ng-container *ngIf="formulario">
                             {{ formulario.idVigilado }}
                         </ng-container>    
+                    </td>
+                </tr>
+                <tr>
+                    <td>Razón social</td>
+                    <td class="fw-semibold">
+                        {{ usuario.nombre }}    
                     </td>
                 </tr>
                 <tr>

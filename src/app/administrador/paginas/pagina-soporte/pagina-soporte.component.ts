@@ -47,4 +47,8 @@ export class PaginaSoporteComponent {
       }
     })
   }
+
+  manejarExcedeTamanio(){
+    this.popup.abrirPopupFallido("El archivo pesa más de 7 Mb")
+  }
 }
