@@ -74,7 +74,7 @@
                         </div>
                         <div class="col-10">
                             <p class="validacion">
-                                Recupere su contraseña para recibir el error
+                                Intente recuperar su contraseña para recibir la información del error
                             </p>
                             <select class="form-select" formControlName="errorAcceso" >
                                 <option value="">Seleccione una opción</option>
@@ -111,8 +111,14 @@
                         <div class="col-2">
                             <span>Evidencia <span class="validacion">*</span></span>
                         </div>
-                        <div class="col-4">
-                            <app-input-archivo formControlName="adjunto" />
+                        <div class="col-5">
+                            <app-input-archivo
+                            [acepta]="['.pdf','.docx','.jpg','.png','.jpge']"
+                            [tamanoMaximoMb]="7"
+                            (excedeTamano)="manejarExcedeTamano()"
+                            formControlName="adjunto" />
+                            <span class="fw-semibold fs-12px">Máximo 7 Mb</span> <br>
+                            <span class="fs-12px">(PDF's, Documentos Word e imágenes)</span>
                         </div>
                     </div>
                 </div>

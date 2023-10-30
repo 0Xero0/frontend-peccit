@@ -9,6 +9,8 @@ import { InputsModule } from '../inputs/inputs.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EncuestasModule } from '../encuestas/encuestas.module';
 import { TablaSedesComponent } from './componentes/tabla-sedes/tabla-sedes.component';
+import { TablaPatiosComponent } from './componentes/tabla-patios/tabla-patios.component';
+import { TablaEmpresasJurisdiccionComponent } from './componentes/tabla-empresas-jurisdiccion/tabla-empresas-jurisdiccion.component';
 
 
 
@@ -16,7 +18,9 @@ import { TablaSedesComponent } from './componentes/tabla-sedes/tabla-sedes.compo
   declarations: [
     ClasificacionInformacionGeneralComponent,
     PreguntaInformacionGeneralComponent,
-    TablaSedesComponent
+    TablaSedesComponent,
+    TablaPatiosComponent,
+    TablaEmpresasJurisdiccionComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,9 @@ import { TablaSedesComponent } from './componentes/tabla-sedes/tabla-sedes.compo
     NgbModule
   ],
   exports: [
-    TablaSedesComponent
+    TablaSedesComponent,
+    TablaPatiosComponent,
+    TablaEmpresasJurisdiccionComponent
   ]
 })
 export class InformacionGeneralModule { }

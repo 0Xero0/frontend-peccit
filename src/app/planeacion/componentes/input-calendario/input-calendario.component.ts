@@ -17,6 +17,7 @@ export class InputCalendarioComponent {
   @Input() invalido: boolean = false
   @Input('cantidadDecimales') cantidadDecimales: number = 3
   @Input('valorInicial') valorInicial: string = "";
+  @Input() largoMaximo: number | null = null
   valor: string = ""
   valorAnterior: string = ""
   deshabilitado: boolean = false

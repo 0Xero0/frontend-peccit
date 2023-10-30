@@ -6,11 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { EncuestaComponent } from '../../componentes/encuesta/encuesta.component';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { saveAs } from 'file-saver';
-import { EncuestaCuantitativa, Formulario } from '../../modelos/EncuestaCuantitativa';
+import { EncuestaCuantitativa } from '../../modelos/EncuestaCuantitativa';
 import { EncuestaCuantitativaComponent } from '../../componentes/encuesta-cuantitativa/encuesta-cuantitativa/encuesta-cuantitativa.component';
-import { DateTime } from 'luxon';
 import { ModalConfirmarEnviarComponent } from '../../componentes/modal-confirmar-enviar/modal-confirmar-enviar.component';
 import { DialogosEncuestas } from '../../dialogos-encuestas';
 import { RespuestaInvalida } from '../../modelos/RespuestaInvalida';
@@ -133,9 +132,12 @@ export class PaginaEncuestaComponent implements OnInit {
         const faltantes = error.error.faltantes as RespuestaInvalida[]
         this.componenteEncuesta.resaltarRespuestasInvalidas(faltantes)
         this.componenteEncuesta.sedeRequerida = !error.error.sedes
+        this.componenteEncuesta.empresaRequerida = error.error.tieneEmpresa
         this.modalConfirmar.abrir({
           seRequiereSede: !error.error.sedes,
           respuestasInvalidas: faltantes,
+          sinPatios: !this.tienePatios(),
+          sinEmpresas: !this.tieneEmpresas(),
           alAceptar: ()=>{
             this.servicioEncuesta.enviarRespuesta(this.idEncuesta!, this.idReporte!,  this.idVigilado!, true).subscribe({
               next: ()=>{
@@ -182,5 +184,24 @@ export class PaginaEncuestaComponent implements OnInit {
   setHayCambios(hayCambios: boolean){
     this.hayCambios = hayCambios
   }
+  
+  tienePatios(): boolean{
+    const patiosAEliminar = this.componenteEncuesta.patiosAEliminar.length
+    const patiosACrear = this.componenteEncuesta.patiosACrear.length
+    const patiosExistentes = this.componenteEncuesta.encuesta.patios.length
 
+    let totalPatios = patiosExistentes - patiosAEliminar + patiosACrear
+    console.log('total patios', totalPatios)
+    return totalPatios > 0 ? true : false
+  }
+
+  tieneEmpresas(): boolean{
+    const empresasAEliminar = this.componenteEncuesta.empresasAEliminar.length
+    const empresasACrear = this.componenteEncuesta.empresasACrear.length
+    const empresasExistentes = this.componenteEncuesta.encuesta.empresas.length
+
+    let totalEmpresas = empresasExistentes - empresasAEliminar + empresasACrear
+    console.log('total empresas', totalEmpresas)
+    return totalEmpresas > 0 ? true : false
+  }
 }

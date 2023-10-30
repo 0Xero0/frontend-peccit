@@ -350,3 +350,6 @@ body{
   background-color: var(--azul-claro);
   color: var(--azul-oscuro);
 }
+.hipervinculo{
+  color: var(--azul);
+}

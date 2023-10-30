@@ -4,7 +4,9 @@
 <td class="text-center planeado">{{ actividad.planeado }}</td>
 <td class="text-center ejecutado">
     <ng-container *ngIf="actividad.tipoPregunta === 'NUMBER'">
-        <app-input-numerico 
+        <app-input-numerico
+        [valorInicial]="respuesta !== '' ? +respuesta : null"
+        [largoMaximo]="10"
         [cantidadDecimales]="actividad.validacionesPregunta.cantDecimal" 
         [disabled]="soloLectura"
         [ngModel]="respuesta"

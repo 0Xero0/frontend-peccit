@@ -12,7 +12,8 @@
                 <div class="col-3"><span class="validacion fw-semibold" *ngIf="evidencia.obligatoria">* </span>{{ evidencia.nombre }}</div>
                 <div class="col-2">
                     <ng-container *ngIf="evidencia.validacionesEvidencia">
-                        {{ evidencia.validacionesEvidencia.tipoDato }}
+                        {{ evidencia.validacionesEvidencia.tipoDato }} 
+                        <span *ngIf="evidencia.validacionesEvidencia.tamanio"> - {{ evidencia.validacionesEvidencia.tamanio }} Mb</span>
                     </ng-container>
                 </div>
                 <div class="col-7 row">

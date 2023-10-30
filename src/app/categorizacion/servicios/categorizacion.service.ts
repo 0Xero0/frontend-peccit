@@ -7,6 +7,7 @@ import { InfoCategorizacion } from '../modelos/InfoCategorizacion';
 import { Modalidad } from '../modelos/Modalidad';
 import { Radio } from '../modelos/Radio';
 import { PeticionGuardarCategorizacion } from '../modelos/PeticionGuardarCategorizacion';
+import { RespuestaMunicipios } from '../modelos/RespuestaMunicipios';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,10 @@ export class CategorizacionService extends Autenticable{
   obtenerRadios(modalidadId: number){
     const endpoint = `/api/v1/radio?modalidad=${modalidadId}`
     return this.http.get<{radios: Radio[]}>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  respuestaMunicipios(respuesta: RespuestaMunicipios){
+    const endpoint = '/api/v1/otros_municipios'
+    return this.http.post(`${this.host}${endpoint}`, respuesta, { headers: this.obtenerCabeceraAutorizacion() })
   }
 }

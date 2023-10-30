@@ -1,3 +1,25 @@
+<h4 class="fw-semibold texto-primario fs-16px">Registre las empresas que pertenecen a su jurisdicción</h4>
+<app-tabla-empresas-jurisdiccion 
+#tablaEmpresas
+(aCrear)="manejarEmpresasACrear($event)"
+(aEliminar)="manejarEmpresasAEliminar($event)"
+[idVigilado]="encuesta.idVigilado"
+[soloLectura]="soloLectura" 
+[empresas]="encuesta.empresas"
+[empresaRequerida]="empresaRequerida"
+/>
+<hr>
+<h4 class="fw-semibold texto-primario fs-16px">Registre los patios en su jurisdicción</h4>
+<app-tabla-patios
+#tablaPatios
+(aCrear)="manejarPatiosACrear($event)"
+(aEliminar)="manejarPatiosAEliminar($event)"
+[idVigilado]="encuesta.idVigilado"
+[soloLectura]="soloLectura" 
+[patios]="encuesta.patios"
+[patioRequerido]="patioRequerido"
+/>
+<hr>
 <h4 class="fw-semibold texto-primario fs-16px">Inscriba sus sedes operativas</h4>
 <app-tabla-sedes
 #tablaSedes
@@ -5,7 +27,6 @@
 [sedes]="encuesta.sedes"
 [sedeRequerida]="sedeRequerida"
 (nuevasSedes)="manejarNuevasSedes($event)" />
-
 <div class="contenedor-encuesta d-flex flex-column w-100" #contenedorEncuesta>
     <ul class="clasificaciones">
         <li *ngFor="let clasificacion of encuesta.clasificaciones">

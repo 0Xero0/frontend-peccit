@@ -12,6 +12,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PaginaAsignacionTamanoOrganizacionComponent } from './paginas/pagina-asignacion-tamano-organizacion/pagina-asignacion-tamano-organizacion.component';
 import { RouterModule } from '@angular/router';
 import { NavegacionModule } from '../navegacion/navegacion.module';
+import { ModalMunicipiosComponent } from './componentes/modal-municipios/modal-municipios.component';
+import { InputsModule } from '../inputs/inputs.module';
 
 
 
@@ -23,7 +25,8 @@ import { NavegacionModule } from '../navegacion/navegacion.module';
     CategoriaComponent,
     SelectorCantidadComponent,
     ModalConfirmacionComponent,
-    PaginaAsignacionTamanoOrganizacionComponent
+    PaginaAsignacionTamanoOrganizacionComponent,
+    ModalMunicipiosComponent
   ],
   imports: [
     CommonModule,
@@ -32,10 +35,12 @@ import { NavegacionModule } from '../navegacion/navegacion.module';
     FormsModule,
     NgbModule,
     AlertasModule,
-    NavegacionModule
+    NavegacionModule,
+    InputsModule
   ],
   exports: [
-    FormularioModalidadRadioOperacionComponent
+    FormularioModalidadRadioOperacionComponent,
+    ModalMunicipiosComponent
   ]
 })
 export class CategorizacionModule { }

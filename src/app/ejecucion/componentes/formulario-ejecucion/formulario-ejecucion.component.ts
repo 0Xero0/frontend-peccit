@@ -9,6 +9,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { DateTime } from 'luxon';
 import { Mes } from 'src/app/encuestas/modelos/Mes';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
+import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
+import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 
 @Component({
   selector: 'app-formulario-ejecucion',
@@ -34,8 +37,12 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   respuestasAdicionales: RespuestaAdicional[] = []
   hayCambios: boolean = false
   idMes?: number;
+  usuario: Usuario
 
-  constructor(private servicio: ServicioEjecucion, private router: Router){
+  constructor(private servicio: ServicioEjecucion, private router: Router, private servicioLocalStorage: ServicioLocalStorage){
+    const usuario = this.servicioLocalStorage.obtenerUsuario()
+    if(!usuario) throw new ErrorAutorizacion();
+    this.usuario = usuario
     this.cambioDeMes = new EventEmitter<number>();
     this.formularioGuardado = new EventEmitter<void>();
     this.recargar = new EventEmitter<void>();

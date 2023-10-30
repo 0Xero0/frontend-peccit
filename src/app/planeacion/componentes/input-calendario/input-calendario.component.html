@@ -1,4 +1,5 @@
     <input class="input-mes-calendario" #input type="text"
+    [maxlength]="largoMaximo"
     placeholder="#"
     [disabled]="deshabilitado"
     [ngClass]="{ 'bg-invalido' : invalido }"

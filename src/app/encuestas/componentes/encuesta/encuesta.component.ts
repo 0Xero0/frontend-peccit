@@ -13,6 +13,10 @@ import { Maestra } from 'src/app/verificaciones/modelos/Maestra';
 import { DialogosEncuestas } from '../../dialogos-encuestas';
 import { Sede } from 'src/app/informacion-general/modelos/Sede';
 import { TablaSedesComponent } from 'src/app/informacion-general/componentes/tabla-sedes/tabla-sedes.component';
+import { PatioACrear } from 'src/app/informacion-general/modelos/PatioACrear';
+import { TablaPatiosComponent } from 'src/app/informacion-general/componentes/tabla-patios/tabla-patios.component';
+import { EmpresaJurisdiccionACrear } from 'src/app/informacion-general/modelos/EmpresaJurisdiccionACrear';
+import { TablaEmpresasJurisdiccionComponent } from 'src/app/informacion-general/componentes/tabla-empresas-jurisdiccion/tabla-empresas-jurisdiccion.component';
 
 @Component({
   selector: 'app-encuesta',
@@ -34,15 +38,23 @@ export class EncuestaComponent implements OnInit {
 
   @ViewChildren('clasificacion') clasificaciones!: QueryList<ClasificacionEncuestaComponent>
   @ViewChild('tablaSedes') tablaSedes!: TablaSedesComponent
+  @ViewChild('tablaPatios') tablaPatios!: TablaPatiosComponent
+  @ViewChild('tablaEmpresas') tablaEmpresas!: TablaEmpresasJurisdiccionComponent
   @ViewChild('popup') popup!: PopupComponent
   @ViewChild('contenedorEncuesta') contenedorEncuesta!: ElementRef
   respuestas: Respuesta[] = []
   sedes: Sede[] = []
+  patiosACrear: PatioACrear[] = []
+  patiosAEliminar: number[] = []
+  empresasACrear: EmpresaJurisdiccionACrear[] = []
+  empresasAEliminar: number[] = []
   verificaciones: RespuestaVerificacion[] = []
   hayCambios: boolean = false
   opcionesCumplimiento: Maestra[] = []
   opcionesCorrespondencia: Maestra[] = []
   sedeRequerida: boolean = false
+  patioRequerido: boolean = false
+  empresaRequerida: boolean = false
   
   constructor(
     private servicioEncuestas: ServicioEncuestas,
@@ -109,6 +121,26 @@ export class EncuestaComponent implements OnInit {
     this.setHayCambios(true)
   }
 
+  manejarPatiosACrear(patiosACrear: PatioACrear[]){
+    this.patiosACrear = patiosACrear
+    this.setHayCambios(true)
+  }
+
+  manejarPatiosAEliminar(patiosAEliminar: number[]){
+    this.patiosAEliminar = patiosAEliminar
+    this.setHayCambios(true)
+  }
+
+  manejarEmpresasACrear(empresasACrear: EmpresaJurisdiccionACrear[]){
+    this.empresasACrear = empresasACrear
+    this.setHayCambios(true)
+  }
+
+  manejarEmpresasAEliminar(empresasAEliminar: number[]){
+    this.empresasAEliminar = empresasAEliminar
+    this.setHayCambios(true)
+  }
+
   alResponderVerificaciones(verificacion: any){
     this.setHayCambios(true)
   }
@@ -123,11 +155,25 @@ export class EncuestaComponent implements OnInit {
 
   //Acciones
   guardarRespuestas(){
-    this.servicioEncuestas.guardarRespuesta(this.idReporte, { respuestas: this.obtenerRespuestas(), sedes: this.sedes }).subscribe({
+    this.servicioEncuestas.guardarRespuesta(this.idReporte, { 
+      respuestas: this.obtenerRespuestas(), 
+      sedes: this.sedes,
+      guardarPatios: this.patiosACrear,
+      eliminarPatios: this.patiosAEliminar,
+      guardarEmpresas: this.empresasACrear,
+      eliminarEmpresas: this.empresasAEliminar
+    }).subscribe({
       next: ( respuesta ) =>{
         this.popup.abrirPopupExitoso(respuesta.mensaje)
         this.sedeRequerida = false
+        this.empresaRequerida = false
+        this.patiosACrear = []
+        this.patiosAEliminar = []
+        this.empresasACrear = []
+        this.empresasAEliminar = []
         this.tablaSedes.limpiarRegistrosEnRam()
+        this.tablaPatios.limpiarRegistrosEnRam()
+        this.tablaEmpresas.limpiarRegistrosEnRam()
         this.setHayCambios(false)
         this.encuestaGuardada.emit()
       },

@@ -4,7 +4,7 @@
         <app-input-archivo
         [(ngModel)]="archivo"
         [nombre]="evidencia.idEvidencia.toString()"
-        [tamanoMaximoMb]="evidencia.tamanio"
+        [tamanoMaximoMb]="evidencia.validacionesEvidencia.tamanio"
         [acepta]="[evidencia.validacionesEvidencia.extension]" 
         [disabled]="soloLectura"
         (ngModelChange)="manejarCambioEvidenciaArchivo($event)"
@@ -19,7 +19,7 @@
     <fieldset *ngIf="evidencia.tipoEvidencia === 'NUMBER'">
         <app-input-numerico
         [disabled]="soloLectura"
-        [valorInicial]="evidencia.respuesta"
+        [valorInicial]="evidencia.respuesta !== '' ? +evidencia.respuesta : null"
         [cantidadDecimales]="evidencia.validacionesEvidencia.cantDecimal"
         [ngModel]="valor"
         (ngModelChange)="manejarCambioEvidenciaNumerica($event)"/>
