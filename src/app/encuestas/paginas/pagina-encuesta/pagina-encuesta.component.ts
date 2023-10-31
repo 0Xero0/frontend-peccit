@@ -132,7 +132,7 @@ export class PaginaEncuestaComponent implements OnInit {
         const faltantes = error.error.faltantes as RespuestaInvalida[]
         this.componenteEncuesta.resaltarRespuestasInvalidas(faltantes)
         this.componenteEncuesta.sedeRequerida = !error.error.sedes
-        this.componenteEncuesta.empresaRequerida = error.error.tieneEmpresa
+        this.componenteEncuesta.empresaRequerida = !error.error.tieneEmpresa
         this.modalConfirmar.abrir({
           seRequiereSede: !error.error.sedes,
           respuestasInvalidas: faltantes,
