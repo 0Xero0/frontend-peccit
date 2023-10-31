@@ -113,13 +113,17 @@
                         [texto]="'El municipio es requerido.'" />
                 </td>
                 <td>
-                    <input type="text" class="form-control fs-12px" formControlName="encargado" placeholder="Nombre del encargado">
+                    <input type="text" class="form-control fs-12px" formControlName="encargado"
+                        placeholder="Nombre del encargado">
                     <app-validacion [control]="this.formulario.controls['encargado']" [validacion]="'required'"
                         [texto]="'El campo es requerido.'" />
+                    <app-validacion [control]="this.formulario.controls['encargado']" [validacion]="'pattern'"
+                        [texto]="'Solo letras.'" />
                 </td>
                 <td>
                     <fieldset class="d-flex flex-column">
-                        <input type="text" class="form-control fs-12px" formControlName="telefono" placeholder="Teléfono del encargado">
+                        <input type="text" class="form-control fs-12px" formControlName="telefono"
+                            placeholder="Teléfono del encargado">
                         <app-validacion [control]="this.formulario.controls['telefono']" [validacion]="'required'"
                             [texto]="'El campo es requerido.'" />
                         <app-validacion [control]="this.formulario.controls['telefono']" [validacion]="'minlength'"
@@ -129,10 +133,11 @@
                     </fieldset>
                 </td>
                 <td>
-                    <input type="email" class="form-control fs-12px" formControlName="correo" placeholder="Correo electrónico del encargado">
+                    <input type="email" class="form-control fs-12px" formControlName="correo"
+                        placeholder="Correo electrónico del encargado">
                     <app-validacion [control]="this.formulario.controls['correo']" [validacion]="'required'"
                         [texto]="'El campo es requerido.'" />
-                    <app-validacion [control]="this.formulario.controls['correo']" [validacion]="'email'"
+                    <app-validacion [control]="this.formulario.controls['correo']" [validacion]="'pattern'"
                         [texto]="'El correo electrónico es inválido.'" />
                 </td>
             </tr>

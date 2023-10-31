@@ -130,6 +130,8 @@
                         placeholder="Nombre del encargado" />
                     <app-validacion [control]="this.formulario.controls['encargado']" [validacion]="'required'"
                         [texto]="'El nombre del encargado es requerido.'" />
+                    <app-validacion [control]="this.formulario.controls['encargado']" [validacion]="'pattern'"
+                        [texto]="'Solo letras.'" />
                 </td>
                 <td>
                     <fieldset class="d-flex flex-column">
@@ -148,7 +150,7 @@
                         placeholder="Correo del encargado" />
                     <app-validacion [control]="this.formulario.controls['correoEncargado']" [validacion]="'required'"
                         [texto]="'El campo es requerido.'" />
-                    <app-validacion [control]="this.formulario.controls['correoEncargado']" [validacion]="'email'"
+                    <app-validacion [control]="this.formulario.controls['correoEncargado']" [validacion]="'pattern'"
                         [texto]="'El correo electrónico es inválido.'" />
                 </td>
             </tr>

@@ -46,9 +46,9 @@ export class TablaPatiosComponent {
       departamento: new FormControl<string>("", [Validators.required]), 
       municipio: new FormControl<string>("", [Validators.required]),
       direccion: new FormControl<string>("", [Validators.required]),
-      encargado: new FormControl<string>("", [Validators.required]),
+      encargado: new FormControl<string>("", [Validators.required, Validators.pattern(/^[A-Za-záéíóúÁÉÍÓÚñÑüÜ\s]+$/)]),
       telefonoEncargado: new FormControl<string>("", [Validators.required, Validators.minLength(10), Validators.pattern('^[0-9]+$')]),
-      correoEncargado: new FormControl<string>("", [Validators.required, Validators.email]),
+      correoEncargado: new FormControl<string>("", [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]),
     })
   }
 

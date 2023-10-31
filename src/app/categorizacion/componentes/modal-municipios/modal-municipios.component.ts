@@ -88,7 +88,7 @@ export class ModalMunicipiosComponent implements OnInit {
     const controles = this.formulario.controls
     this.municipios.push({
       idDepartamento: +controles.departamento.value!,
-      idMunicipio: +controles.departamento.value!,
+      idMunicipio: +controles.municipio.value!,
       numeroConvenio: controles.numeroConvenio.value!,
       convenioPDFDocumento: controles.convenioPDFDocumento.value!,
       convenioPDFOriginal: controles.convenioPDFOriginal.value!,

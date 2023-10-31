@@ -50,6 +50,13 @@ export class AdicionalFormEjecComponent {
     this.setRespuesta(respuesta)
   }
 
+  deshabilitarEvidencia():boolean{
+    if(this.adicional.idAdicional === 58 && this.respuesta === "N"){
+      return true;
+    }
+    return false;
+  }
+
   esObservacionNumerica(): boolean{
     const opcion = this.adicional.valoresPregunta!.find( valorPregunta => valorPregunta.valor === this.respuesta )
     return opcion && opcion.tipo === 'N' ? true : false
