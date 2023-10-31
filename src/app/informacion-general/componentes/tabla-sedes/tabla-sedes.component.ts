@@ -47,7 +47,12 @@ export class TablaSedesComponent {
       departamento: new FormControl<string>("", [Validators.required]), 
       municipio: new FormControl<string>("", [Validators.required]),
       encargado: new FormControl<string>("", [Validators.required, Validators.pattern(/^[A-Za-záéíóúÁÉÍÓÚñÑüÜ\s]+$/)]),
-      telefono: new FormControl<string>("", [Validators.required, Validators.minLength(10), Validators.pattern('^[0-9]+$')]),
+      telefono: new FormControl<string>("", [
+        Validators.required, 
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        Validators.pattern('^[0-9]+$')
+      ]),
       correo: new FormControl<string>("", [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]),
     })
   }

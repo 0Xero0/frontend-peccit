@@ -187,26 +187,29 @@
                             placeholder="Capacidad transportadora A" />
                         <app-validacion [control]="this.formulario.controls.capacidadTransportadoraA"
                             [validacion]="'required'" [texto]="'El campo es requerido.'" />
+                        <app-validacion [control]="this.formulario.controls.capacidadTransportadoraA"
+                            [validacion]="'max'" [texto]="'Máximo 8 dígitos.'" />
                     </td>
                     <td>
                         <app-input-numerico formControlName="capacidadTransportadoraB" style="max-width: 300px;"
                             placeholder="Capacidad transportadora A" />
                         <app-validacion [control]="this.formulario.controls.capacidadTransportadoraB"
                             [validacion]="'required'" [texto]="'El campo es requerido.'" />
+                        <app-validacion [control]="this.formulario.controls.capacidadTransportadoraB"
+                            [validacion]="'max'" [texto]="'Máximo 8 dígitos.'" />
                     </td>
                     <td>
                         <app-input-numerico formControlName="capacidadTransportadoraC" style="max-width: 300px;"
                             placeholder="Capacidad transportadora A" />
                         <app-validacion [control]="this.formulario.controls.capacidadTransportadoraC"
                             [validacion]="'required'" [texto]="'El campo es requerido.'" />
+                        <app-validacion [control]="this.formulario.controls.capacidadTransportadoraC"
+                            [validacion]="'max'" [texto]="'Máximo 8 dígitos'" />
                     </td>
                     <td>
                         <fieldset class="d-flex flex-column">
-                            <app-input-archivo
-                            [tamanoMaximoMb]="10"
-                            [acepta]="['.pdf']" 
-                            formControlName="aACapacidadTransportadora"
-                            [nombre]="'aa-capacidad-transportadora'" />
+                            <app-input-archivo [tamanoMaximoMb]="10" [acepta]="['.pdf']"
+                                formControlName="aACapacidadTransportadora" [nombre]="'aa-capacidad-transportadora'" />
                             <app-validacion [control]="this.formulario.controls.aACapacidadTransportadora"
                                 [validacion]="'required'" [texto]="'El documento es requerido.'" />
                             <span class="fw-semibold fs-12px">PDF, Máximo 10 Mb</span>

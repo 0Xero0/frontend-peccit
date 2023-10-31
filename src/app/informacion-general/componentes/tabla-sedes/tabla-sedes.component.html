@@ -128,6 +128,8 @@
                             [texto]="'El campo es requerido.'" />
                         <app-validacion [control]="this.formulario.controls['telefono']" [validacion]="'minlength'"
                             [texto]="'Mínimo 10 números.'" />
+                        <app-validacion [control]="this.formulario.controls['telefono']" [validacion]="'maxlength'"
+                            [texto]="'Máximo 10 números.'" />
                         <app-validacion [control]="this.formulario.controls['telefono']" [validacion]="'pattern'"
                             [texto]="'Solo números.'" />
                     </fieldset>
