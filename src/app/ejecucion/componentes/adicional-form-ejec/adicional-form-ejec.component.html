@@ -71,7 +71,7 @@
             [ngModel]="evidencia" 
             [nombre]="adicional.idAdicional.toString()"
             [acepta]="[adicional.validacionesEvidencia!.extension]"
-            [disabled]="soloLectura" />
+            [disabled]="soloLectura || deshabilitarEvidencia()" />
         </fieldset>
         <span 
         class="fs-12px cursor-pointer" 
