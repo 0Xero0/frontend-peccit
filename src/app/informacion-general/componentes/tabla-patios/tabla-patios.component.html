@@ -141,6 +141,8 @@
                             [validacion]="'required'" [texto]="'El teléfono del encargado es requerido.'" />
                         <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
                             [validacion]="'minlength'" [texto]="'Mínimo 10 números.'" />
+                            <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
+                            [validacion]="'maxlength'" [texto]="'Máximo 10 números.'" />
                         <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
                             [validacion]="'pattern'" [texto]="'Solo números.'" />
                     </fieldset>
