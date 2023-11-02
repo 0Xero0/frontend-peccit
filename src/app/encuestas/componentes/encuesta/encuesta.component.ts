@@ -17,6 +17,8 @@ import { PatioACrear } from 'src/app/informacion-general/modelos/PatioACrear';
 import { TablaPatiosComponent } from 'src/app/informacion-general/componentes/tabla-patios/tabla-patios.component';
 import { EmpresaJurisdiccionACrear } from 'src/app/informacion-general/modelos/EmpresaJurisdiccionACrear';
 import { TablaEmpresasJurisdiccionComponent } from 'src/app/informacion-general/componentes/tabla-empresas-jurisdiccion/tabla-empresas-jurisdiccion.component';
+import { ServicioTarifas } from 'src/app/tarifas/servicios/tarifas.service';
+import { Tarifa } from 'src/app/tarifas/modelos/Tarifa';
 
 @Component({
   selector: 'app-encuesta',
@@ -55,10 +57,12 @@ export class EncuestaComponent implements OnInit {
   sedeRequerida: boolean = false
   patioRequerido: boolean = false
   empresaRequerida: boolean = false
+  tarifas: Tarifa[] = []
   
   constructor(
     private servicioEncuestas: ServicioEncuestas,
     private servicioVerificacion: ServicioVerificaciones,
+    private servicioTarifas: ServicioTarifas
   ){
     this.hanHabidoCambios = new EventEmitter<boolean>();
     this.encuestaGuardada = new EventEmitter<void>();

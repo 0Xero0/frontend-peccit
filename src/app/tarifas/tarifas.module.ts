@@ -5,12 +5,16 @@ import { TarifasRoutingModule } from './tarifas-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '../inputs/inputs.module';
 import { AlertasModule } from '../alertas/alertas.module';
+import { TarifasComponent } from './componentes/tarifas/tarifas.component';
+import { PaginaVisualizarTarifasComponent } from './paginas/pagina-visualizar-tarifas/pagina-visualizar-tarifas.component';
 
 
 
 @NgModule({
   declarations: [
-    PaginaTarifasComponent
+    PaginaTarifasComponent,
+    TarifasComponent,
+    PaginaVisualizarTarifasComponent
   ],
   imports: [
     CommonModule,

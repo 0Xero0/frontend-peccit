@@ -44,6 +44,37 @@
             </div>
         </div>
         <div class="row mb-3">
+            <label class="fw-semibold fs-16px mb-2">Departamento y municipio</label>
+            <div class="col-sm-12 col-md-6">
+                <label>Departamento <span class="validacion">*</span></label>
+                <select class="form-select" formControlName="departamento">
+                    <option value="">Selecciona un departamento</option>
+                    <option *ngFor="let departamento of departamentos" [value]="departamento.id">
+                        {{ departamento.id }} - {{ departamento.name }}
+                    </option>
+                </select>
+                <app-validacion
+                    [validacion]="'required'"
+                    [texto]="'El departamento es requerido.'"
+                    [control]="this.formulario.controls['departamento']"
+                    />
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <label>Municipio <span class="validacion">*</span></label>
+                <select class="form-select" formControlName="municipio">
+                    <option value="">Selecciona un municipio</option>
+                    <option *ngFor="let municipio of municipios" [value]="municipio.id">
+                        {{ municipio.id }} - {{ municipio.name }}
+                    </option>
+                </select>
+                <app-validacion
+                    [validacion]="'required'"
+                    [texto]="'El municipio es requerido.'"
+                    [control]="this.formulario.controls['municipio']"
+                    />
+            </div>
+        </div>
+        <div class="row mb-3">
             <label class="fw-semibold fs-16px mb-2">Información de contacto</label>
             <div class="col-sm-12 col-md-6">
                 <fieldset>

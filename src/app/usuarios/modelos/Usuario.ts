@@ -12,4 +12,6 @@ export interface Usuario {
     fechaNacimiento: string;
     telefono:        null;
     idRol:           string;
+    departamentoId: number;
+    municipioId: number;
 }
