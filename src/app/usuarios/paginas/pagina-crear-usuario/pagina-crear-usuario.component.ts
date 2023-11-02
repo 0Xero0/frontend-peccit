@@ -10,6 +10,9 @@ import { Rol } from '../../modelos/Rol';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Utilidades';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
+import { ServicioDepartamentos } from 'src/app/encuestas/servicios/departamentos.service';
+import { Departamento } from 'src/app/encuestas/modelos/Departamento';
+import { Ciudad } from 'src/app/encuestas/modelos/Ciudad';
 
 @Component({
   selector: 'app-pagina-crear-usuario',
@@ -25,8 +28,10 @@ export class PaginaCrearUsuarioComponent implements OnInit{
   rol: string = ""
   roles: Rol[] = []
   formulario: FormGroup
+  departamentos: Departamento[] = []
+  municipios: Ciudad[] = []
 
-  constructor(private servicio: ServicioUsuarios){
+  constructor(private servicio: ServicioUsuarios, private servicioDepartamento: ServicioDepartamentos){
     this.paginador = new Paginador<FiltrosUsuarios>(this.obtenerUsuarios)
     this.formulario = new FormGroup({
       nombre: new FormControl(undefined, [ Validators.required ]),
@@ -36,12 +41,24 @@ export class PaginaCrearUsuarioComponent implements OnInit{
       correo: new FormControl(undefined, [ Validators.required, Validators.email ]),
       telefono: new FormControl(undefined),
       rol: new FormControl("", [ Validators.required ]),
+      departamento: new FormControl("", [Validators.required]),
+      municipio: new FormControl("", [Validators.required])
     })
   }
 
   ngOnInit(): void {
     this.paginador.inicializar(1, 30)
     this.obtenerRoles()
+    this.obtenerDepartamentos()
+    this.formulario.controls['departamento'].valueChanges.subscribe({
+      next: (idDepartamento)=>{
+        if(idDepartamento && idDepartamento !== ""){
+          this.obtenerMunicipios(idDepartamento)
+        }else{
+          this.municipios = []
+        }
+      }
+    })
   }
 
   obtenerUsuarios = (pagina: number, limite: number, filtros?: FiltrosUsuarios)=>{
@@ -56,6 +73,7 @@ export class PaginaCrearUsuarioComponent implements OnInit{
   }
 
   manejarUsuarioActualizado(){
+    this.paginador.refrescar()
     this.popup.abrirPopupExitoso('Usuario actualizado con éxito.')
   }
 
@@ -72,7 +90,9 @@ export class PaginaCrearUsuarioComponent implements OnInit{
       fechaNacimiento: controls['fechaNacimiento'].value,
       identificacion: controls['identificacion'].value,
       idRol: controls['rol'].value,
-      telefono: controls['telefono'].value
+      telefono: controls['telefono'].value,
+      departamentoId: controls['departamento'].value,
+      municipioId: controls['municipio'].value
     }).subscribe({
       next: ()=>{
         this.popup.abrirPopupExitoso("Usuario creado con éxito.")
@@ -111,6 +131,22 @@ export class PaginaCrearUsuarioComponent implements OnInit{
     this.servicio.listarRoles().subscribe({
       next: (respuesta) => {
         this.roles = respuesta.rols
+      }
+    })
+  }
+
+  obtenerDepartamentos(){
+    this.servicioDepartamento.obtenerDepartamentos().subscribe({
+      next: (departamentos)=>{
+        this.departamentos = departamentos
+      }
+    })
+  }
+
+  obtenerMunicipios(departamentoId: number){
+    this.servicioDepartamento.obtenerCiudades(departamentoId).subscribe({
+      next: (municipios)=>{
+        this.municipios = municipios 
       }
     })
   }

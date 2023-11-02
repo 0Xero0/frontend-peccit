@@ -6,4 +6,6 @@ export interface PeticionActualizarUsuario{
     correo?: string
     fechaNacimiento?: string
     idRol?: string
+    departamentoId?: number
+    municipioId?: number
 }
