@@ -8,6 +8,7 @@ import { FiltrosUsuarios } from '../modelos/FiltrosUsuarios';
 import { PeticionCrearUsuario } from '../modelos/PeticionCrearUsuario';
 import { Rol } from '../modelos/Rol';
 import { PeticionActualizarUsuario } from '../modelos/PeticionActualizarUsuario';
+import { MunicipioReportado } from '../modelos/MunicipioReportado';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,14 @@ export class ServicioUsuarios extends Autenticable {
   listarRoles(){
     const endpoint = '/api/v1/rol'
     return this.http.get<{rols: Rol[], paginacion: Paginacion}>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  obtenerMunicipiosDeUsuario(idVigilado: string){
+    const endpoint = `/api/v1/usuarios/municipios/${idVigilado}`
+    return this.http.get<MunicipioReportado[]>(
+      `${this.host}${endpoint}`,
+      { headers: this.obtenerCabeceraAutorizacion() }
+    );
   }
 
 }

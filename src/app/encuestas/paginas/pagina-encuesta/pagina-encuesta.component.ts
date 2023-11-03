@@ -13,6 +13,10 @@ import { EncuestaCuantitativaComponent } from '../../componentes/encuesta-cuanti
 import { ModalConfirmarEnviarComponent } from '../../componentes/modal-confirmar-enviar/modal-confirmar-enviar.component';
 import { DialogosEncuestas } from '../../dialogos-encuestas';
 import { RespuestaInvalida } from '../../modelos/RespuestaInvalida';
+import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
+import { ID_ROLES } from 'src/app/compartido/Roles';
+import { MunicipioReportado } from 'src/app/usuarios/modelos/MunicipioReportado';
+import { ServicioUsuarios } from 'src/app/usuarios/servicios/usuarios.service';
 
 @Component({
   selector: 'app-pagina-encuesta',
@@ -36,15 +40,22 @@ export class PaginaEncuestaComponent implements OnInit {
   camposDeVerificacion: boolean = false
   camposDeVerificacionVisibles: boolean = true
   hayCambios: boolean = false
+  esAdministrador: boolean = false
+  municipiosReportados: MunicipioReportado[] = []
 
   constructor(
     private servicioEncuesta: ServicioEncuestas, 
     private servicioLocalStorage: ServicioLocalStorage,
+    private servicioUsuarios: ServicioUsuarios,
     private router: Router,
     private activeRoute: ActivatedRoute
   ) {
-    this.usuario = this.servicioLocalStorage.obtenerUsuario()
-    this.idUsuario = this.usuario!.usuario
+    const usuario = this.servicioLocalStorage.obtenerUsuario()
+    const rol = this.servicioLocalStorage.obtenerRol()
+    if(!usuario || !rol) throw new ErrorAutorizacion();
+    this.usuario = usuario
+    this.esAdministrador = rol.id === ID_ROLES.Administrador ? true : false
+    this.idUsuario = this.usuario.usuario
     this.activeRoute.queryParams.subscribe({
       next: (qs) => {
         this.idVigilado = qs['vigilado']
@@ -65,6 +76,9 @@ export class PaginaEncuestaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.esAdministrador){
+      this.obtenerMunicipiosReportados()
+    }
   }
 
   //Manejadores de eventos
@@ -178,6 +192,18 @@ export class PaginaEncuestaComponent implements OnInit {
         this.camposDeVerificacionVisibles = encuesta.verificacionVisible
       }
     })
+  }
+
+  obtenerMunicipiosReportados(){
+    this.servicioUsuarios.obtenerMunicipiosDeUsuario(this.idVigilado!).subscribe({
+      next: (municipios)=>{
+        this.municipiosReportados = municipios
+      }
+    })
+  }
+
+  verTarifas(){
+    this.router.navigateByUrl(`administrar/tarifas/${this.idVigilado}`)
   }
 
   //Setters

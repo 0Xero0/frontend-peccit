@@ -60,6 +60,11 @@
         <button type="button" class="boton primario delineado"
             [routerLink]="['/administrar', 'encuestas', idEncuesta]">Volver</button>
     </div>
+
+    <div class="d-block" *ngIf="esAdministrador">
+        <span class="hipervinculo" (click)="verTarifas()">Ver tarifas del vigilado.</span>
+    </div>
+
     <div class="d-flex w-100 mt-4">
         <app-encuesta #componenteEncuesta class="w-100"
             *ngIf="encuesta && idReporte && idEncuesta && idVigilado && idEncuesta != 2" [soloLectura]="soloLectura"
@@ -71,6 +76,29 @@
         <app-encuesta-cuantitativa #componenteEncuestaCuantitativa *ngIf="idEncuesta == 2 && encuestaCuantitativa"
             [soloLectura]="soloLectura" [encuesta]="encuestaCuantitativa" (hanHabidoCambios)="setHayCambios($event)"
             (encuestaGuardada)="manejarEncuestaCuantitativaGuardada()" />
+    </div>
+
+    <div class="d-block mt-4" *ngIf="esAdministrador">
+        <h3 class="texto-primario fw-semibold fs-16px">El vigilado reporta información de los siguientes municipios.</h3>
+        <table class="table tabla-primaria">
+            <thead>
+                <tr class="fw-semibold">
+                    <th>Departamento</th>
+                    <th>Municipio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let municipioReportado of municipiosReportados">
+                    <td>{{municipioReportado.departamento}} - {{ municipioReportado.nombreDepartamento }}</td>
+                    <td>{{municipioReportado.municipio}} - {{ municipioReportado.nombreMunicipio }}</td>
+                </tr>
+                <tr *ngIf="municipiosReportados.length < 1">
+                    <td colspan="2" class="text-center fw-semibold">
+                        Sin municipios reportados.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <app-popup #popup />

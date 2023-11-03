@@ -352,4 +352,8 @@ body{
 }
 .hipervinculo{
   color: var(--azul);
+  cursor: pointer;
+}
+.hipervinculo:hover{
+  color: var(--azul-oscuro);
 }
