@@ -44,6 +44,7 @@ export class EncuestaComponent implements OnInit {
   @ViewChild('tablaEmpresas') tablaEmpresas!: TablaEmpresasJurisdiccionComponent
   @ViewChild('popup') popup!: PopupComponent
   @ViewChild('contenedorEncuesta') contenedorEncuesta!: ElementRef
+  
   respuestas: Respuesta[] = []
   sedes: Sede[] = []
   patiosACrear: PatioACrear[] = []
@@ -62,7 +63,6 @@ export class EncuestaComponent implements OnInit {
   constructor(
     private servicioEncuestas: ServicioEncuestas,
     private servicioVerificacion: ServicioVerificaciones,
-    private servicioTarifas: ServicioTarifas
   ){
     this.hanHabidoCambios = new EventEmitter<boolean>();
     this.encuestaGuardada = new EventEmitter<void>();

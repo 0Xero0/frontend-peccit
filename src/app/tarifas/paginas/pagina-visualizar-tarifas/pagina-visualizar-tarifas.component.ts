@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pagina-visualizar-tarifas',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./pagina-visualizar-tarifas.component.css']
 })
 export class PaginaVisualizarTarifasComponent {
+  idVigilado?: string
 
+  constructor(private activatedRoute: ActivatedRoute){
+    activatedRoute.params.subscribe({
+      next: (params)=>{
+        this.idVigilado = params["idVigilado"]
+      }
+    })
+  }
 }

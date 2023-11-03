@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ServicioTarifas } from '../../servicios/tarifas.service';
 import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 import { FiltrosTarifas } from '../../modelos/FiltrosTarifas';
@@ -17,7 +17,7 @@ import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Util
   templateUrl: './tarifas.component.html',
   styleUrls: ['./tarifas.component.css']
 })
-export class TarifasComponent {
+export class TarifasComponent implements OnInit{
   @ViewChild('popup') popup!: PopupComponent
   @Input() soloLectura: boolean = false
   @Input() idVigilado!: string
@@ -49,6 +49,10 @@ export class TarifasComponent {
       estructuraCostosRuta: new FormControl<string | null>(null, [ Validators.required ]),
       estructuraCostosOriginal: new FormControl<string | null>(null, [ Validators.required ]),
     })
+  }
+  ngOnInit(): void {
+    this.paginador.inicializar(1, 5, {idVigilado: this.idVigilado, vigencia: this.vigencia})
+    this.obtenerServiciosModalidades()
   }
 
   guardarTarifa(){
