@@ -14,6 +14,9 @@ import { AdicionalFormEjecComponent } from './componentes/adicional-form-ejec/ad
 import { PaginaListadoEjecucionComponent } from './paginas/pagina-listado-ejecucion/pagina-listado-ejecucion.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { RouterModule } from '@angular/router';
+import { ImportarPatiosComponent } from './componentes/importar-patios/importar-patios.component';
+import { ImportarEmpresasComponent } from './componentes/importar-empresas/importar-empresas.component';
+import { InformacionGeneralModule } from '../informacion-general/informacion-general.module';
 
 
 
@@ -26,7 +29,9 @@ import { RouterModule } from '@angular/router';
     TablaItemsAdicionalesFormEjecComponent,
     ActividadFormEjecComponent,
     AdicionalFormEjecComponent,
-    PaginaListadoEjecucionComponent
+    PaginaListadoEjecucionComponent,
+    ImportarPatiosComponent,
+    ImportarEmpresasComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +40,7 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     AlertasModule,
     InputsModule,
+    InformacionGeneralModule,
     PipesModule,
     RouterModule
   ]

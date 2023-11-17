@@ -11,6 +11,7 @@ import { saveAs } from 'file-saver';
 })
 export class ServicioArchivos extends Autenticable {
   private readonly host = environment.urlBackendArchivos
+  private readonly hostCore = environment.urlBackend
 
   constructor(private http: HttpClient) {
     super()
@@ -43,6 +44,23 @@ export class ServicioArchivos extends Autenticable {
     .subscribe((respuesta) => {
       const blob = this.b64toBlob(respuesta.archivo)
       saveAs(blob, nombreOriginal);
+    });
+  }
+
+  descargarArchivoUrl(endpoint: string){
+    this.http.get<{archivoDescargar: string, nombre: string}>(
+      `${this.hostCore}/api/v1${endpoint}`,
+      { headers: { Authorization: `Bearer d4a32a3b-def6-4cc2-8f77-904a67360b53` } }
+    )
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error al descargar el archivo:', error);
+        return throwError('Error al descargar el archivo.');
+      })
+    )
+    .subscribe((respuesta) => {
+      const blob = this.b64toBlob(respuesta.archivoDescargar)
+      saveAs(blob, respuesta.nombre);
     });
   }
 

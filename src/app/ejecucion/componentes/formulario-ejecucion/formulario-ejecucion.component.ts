@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
 import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
+import { ImportarPatiosComponent } from '../importar-patios/importar-patios.component';
+import { ImportarEmpresasComponent } from '../importar-empresas/importar-empresas.component';
+import { TipoImportacion } from '../../TipoImportacion';
 
 @Component({
   selector: 'app-formulario-ejecucion',
@@ -20,6 +23,8 @@ import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 })
 export class FormularioEjecucionComponent implements OnInit, OnChanges{
   @ViewChild('popup') popup!: PopupComponent
+  @ViewChild('importarPatios') importarPatios!: ImportarPatiosComponent
+  @ViewChild('importarEmpresas') importarEmpresas!: ImportarEmpresasComponent
   @Output() recargar: EventEmitter<void>
   @Output() cambioDeMes: EventEmitter<number>
   @Output() formularioGuardado: EventEmitter<void>
@@ -78,6 +83,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
         )
       }
     })
+    this.guardarImportaciones()
   }
 
   enviar(){
@@ -126,5 +132,36 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
       vigilado: this.formulario.idVigilado,
       historico: false
     }})
+  }
+
+  guardarImportaciones(){
+    const archivoPatios = this.importarPatios.archivoACargar
+    const archivoEmpresas = this.importarEmpresas.archivoACargar
+    if(archivoPatios){
+      this.guardarImportacion(archivoPatios, TipoImportacion.PATIOS)
+    }
+    if(archivoEmpresas){
+      this.guardarImportacion(archivoEmpresas, TipoImportacion.EMPRESAS)
+    }
+    this.importarPatios.refrescar()
+    this.importarEmpresas.refrescar()
+  }
+
+  guardarImportacion(archivo: File, tipo: TipoImportacion){
+    this.servicio.guardarImportacion(
+      archivo, 
+      this.formulario.idVigilado, 
+      this.formulario.vigencia,
+      this.formulario.mes,
+      tipo
+    ).subscribe({
+      next: ()=>{
+        // Sin acciones.
+      }
+    })
+  }
+
+  manejarCambioArchivos(){
+    this.hayCambios = true
   }
 }
