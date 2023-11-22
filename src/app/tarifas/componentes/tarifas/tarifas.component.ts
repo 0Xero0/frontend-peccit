@@ -4,7 +4,7 @@ import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 import { FiltrosTarifas } from '../../modelos/FiltrosTarifas';
 import { Paginador } from 'src/app/administrador/modelos/compartido/Paginador';
 import { DateTime } from 'luxon';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ControlContainer, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormularioTarifa } from '../../modelos/FormularioTarifa';
 import { Observable } from 'rxjs';
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
@@ -50,13 +50,52 @@ export class TarifasComponent implements OnInit{
       estructuraCostosOriginal: new FormControl<string | null>(null, [ Validators.required ]),
     })
   }
+
   ngOnInit(): void {
     this.paginador.inicializar(1, 5, {idVigilado: this.idVigilado, vigencia: this.vigencia})
     this.obtenerServiciosModalidades()
+
+    this.formulario.controls.estructuraCostos.valueChanges.subscribe({
+      next: (file)=>{
+        if(file){
+          this.servicioArchivos.guardarArchivo(file, 'tarifas', this.idVigilado).subscribe({
+            next: (respuesta)=>{
+              this.formulario.controls.estructuraCostosDocumento.setValue(respuesta.nombreAlmacenado)
+              this.formulario.controls.estructuraCostosOriginal.setValue(respuesta.nombreOriginalArchivo)
+              this.formulario.controls.estructuraCostosRuta.setValue(respuesta.ruta)
+            },  
+            error: ()=>{
+              this.popup.abrirPopupFallido('Error al cargar el archivo', 'Intentalo más tarde.')
+              this.formulario.controls.estructuraCostos.setValue(null)
+            }
+          })
+        }
+      }
+    })
+
+    this.formulario.controls.actoAdministrativo.valueChanges.subscribe({
+      next: (file)=>{
+        if(file){
+          this.servicioArchivos.guardarArchivo(file, 'tarifas', this.idVigilado).subscribe({
+            next: (respuesta)=>{
+              this.formulario.controls.actoAdministrativoDocumento.setValue(respuesta.nombreAlmacenado)
+              this.formulario.controls.actoAdministrativoOriginal.setValue(respuesta.nombreOriginalArchivo)
+              this.formulario.controls.actoAdministrativoRuta.setValue(respuesta.ruta)
+            },  
+            error: ()=>{
+              this.popup.abrirPopupFallido('Error al cargar el archivo', 'Intentalo más tarde.')
+              this.formulario.controls.actoAdministrativo.setValue(null)
+            }
+          })
+        }
+      }
+    })
   }
 
   guardarTarifa(){
+    console.log('Guardando tarifa')
     if(this.formulario.invalid){
+      console.log(this.formulario.controls)
       marcarFormularioComoSucio(this.formulario)
       return;
     }
