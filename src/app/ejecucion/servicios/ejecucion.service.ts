@@ -10,6 +10,9 @@ import { RespuestaAdicional } from '../modelos/RespuestaAdicional';
 import { Observable } from 'rxjs';
 import { Mes } from 'src/app/encuestas/modelos/Mes';
 import { FiltrosReportes } from 'src/app/encuestas/modelos/FiltrosReportes';
+import { ListaEmpresasEjecucion } from '../modelos/ListaEmpresasEjecucion';
+import { ListaPatiosEjecucion } from '../modelos/ListaPatiosEjecucion';
+import { TipoImportacion } from '../TipoImportacion';
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +71,26 @@ export class ServicioEjecucion extends Autenticable {
   obtenerMeses(historico: boolean = false):Observable<{ meses: Mes[] }>{
     let endpoint = `/api/v1/maestras/meses?historico=${historico}`
     return this.http.get<{ meses: Mes[] }>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  consultarListadoEmpresas(idVigilado: string, vigencia: number, idMes: number){
+    const endpoint = `/api/v1/inidicador/empresas?idVigilado=${idVigilado}&vigencia=${vigencia}&idMes=${idMes}`
+    return this.http.get<ListaEmpresasEjecucion>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  consultarListadoPatios(idVigilado: string, vigencia: number, idMes: number){
+    const endpoint = `/api/v1/inidicador/patios?idVigilado=${idVigilado}&vigencia=${vigencia}&idMes=${idMes}`
+    return this.http.get<ListaPatiosEjecucion>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  guardarImportacion(archivo: File, idVigilado: string, vigencia: number, mes: number, tipo: TipoImportacion){
+    const endpoint = '/api/v1/inidicador/importar-excel'
+    const formData = new FormData()
+    formData.append('tipo', tipo.toString())
+    formData.append('archivo', archivo)
+    formData.append('idVigilado', idVigilado)
+    formData.append('vigencia', vigencia.toString())
+    formData.append('mes', mes.toString())
+    return this.http.post(`${this.host}${endpoint}`, formData ,{ headers: this.obtenerCabeceraAutorizacion() })
   }
 }

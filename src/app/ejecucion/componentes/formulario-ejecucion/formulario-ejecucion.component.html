@@ -68,7 +68,7 @@
             <span class="validacion" *ngIf="!historico">Al enviar a ST, se enviará la información solo del mes seleccionado.</span>
         </fieldset>
     </div>
-
+    
     <ul ngbNav #nav="ngbNav" class="nav-tabs w-100" [destroyOnHide]="false">
         <li ngbNavItem [ngbNavItem]="tab.nombre" *ngFor="let tab of formulario.formularios">
             <button ngbNavLink>{{ tab.nombre }}</button>
@@ -85,7 +85,22 @@
         </li>
     </ul>
     <div [ngbNavOutlet]="nav" class="w-100"></div>
-            
+
+    <app-importar-patios
+    #importarPatios
+    *ngIf="idMes" 
+    [idMes]="idMes"
+    [idVigilado]="formulario.idVigilado"
+    [vigencia]="formulario.vigencia"
+    (hayCambios)="manejarCambioArchivos()" /> 
+    
+    <app-importar-empresas
+    #importarEmpresas
+    *ngIf="idMes" 
+    [idMes]="idMes"
+    [idVigilado]="formulario.idVigilado"
+    [vigencia]="formulario.vigencia"
+    (hayCambios)="manejarCambioArchivos()" />
 </div>
 
 <app-popup #popup />

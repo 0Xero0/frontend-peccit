@@ -44,6 +44,12 @@ body{
     width: 10px;
     height: auto;
 }
+.material-icon-30px{
+  font-size: 30px;
+}
+.material-icon-35px{
+  font-size: 35px;
+}
 
 /* botones */
 .boton{

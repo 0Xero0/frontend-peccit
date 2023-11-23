@@ -48,6 +48,9 @@ export class InputArchivoComponent implements OnInit, ControlValueAccessor {
 
   writeValue(archivo: File | null): void {
     this.archivo = archivo
+    if(!archivo && this.input){
+      this.input.nativeElement.value = ""
+    }
   }
   registerOnChange(fn: any): void {
     this.onChange = fn
