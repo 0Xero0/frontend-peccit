@@ -66,9 +66,10 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
 
   guardar(){
     this.servicio.guardarEjecucion(
-      +this.formulario.idReporte, 
+      +this.formulario.idReporte,
+      this.idMes!, 
       this.respuestasActividades, 
-      this.respuestasAdicionales
+      this.respuestasAdicionales,
     ).subscribe({
       next: ()=>{
         this.popup.abrirPopupExitoso(DialogosEjecucion.GUARDAR_EJECUCION_EXITO)
