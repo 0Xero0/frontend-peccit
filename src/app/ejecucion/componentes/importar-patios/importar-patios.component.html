@@ -20,8 +20,32 @@
                 [nombre]="'importar-patios'" 
                 [acepta]="['.xlsx', '.csv']" 
                 [(ngModel)]="archivoACargar"
-                (ngModelChange)="manejarCambiosArchivo()" />
+                (ngModelChange)="manejarCambiosArchivo($event)" />
             </fieldset>
         </div>
     </div>
 </div>
+
+<ng-template #modalErrores>
+    <div class="card">
+        <div class="card-header">
+            <span class="texto-primario fw-semibold fs-14px">Errores de importación de patios - vehículos.</span>
+        </div>
+        <div class="card-body">
+            <ul class="errores-importacion">
+                <li *ngFor="let error of erroresValidacion ; let i = index">
+                    <b>{{i + 1}}.</b> Celda <b class="texto-primario">{{error.columna}}{{error.fila}}</b>: {{ error.error }} 
+                </li>
+                <li *ngIf="erroresValidacion.length < 1">
+                    Sin errores.
+                </li>
+            </ul>
+            <p class="fs-14px">Porfavor corrige los errores anteriores y realiza nuevamente la importación.</p>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+            <button class="boton primario relleno" (click)="cerrarModalErrores()">Continuar</button>
+        </div>
+    </div>
+</ng-template>
+
+<app-popup #popup />
