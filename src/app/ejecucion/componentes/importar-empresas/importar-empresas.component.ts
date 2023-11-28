@@ -28,6 +28,7 @@ export class ImportarEmpresasComponent implements OnInit{
   archivoCargado?: string
   archivoACargar: File | null = null
   erroresValidacion: ErrorImportacion[] = []
+  archivoErrores?: string
   instanciaModalErrores: any
 
   constructor(
@@ -69,8 +70,15 @@ export class ImportarEmpresasComponent implements OnInit{
     })
   }
 
-  abrirModalErrores(errores: ErrorImportacion[]){
+  descargarCSVErrores(){
+    if(this.archivoErrores){
+      this.servicioArchivos.descargarBase64(this.archivoErrores, 'errores.csv')
+    }
+  }
+
+  abrirModalErrores(errores: ErrorImportacion[], archivoErrores: string){
     this.erroresValidacion = errores
+    this.archivoErrores = archivoErrores
     this.instanciaModalErrores = this.servicioModal.open(this.modalErrores, {
       size: 'md',
       centered: true

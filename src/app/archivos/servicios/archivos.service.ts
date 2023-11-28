@@ -64,6 +64,10 @@ export class ServicioArchivos extends Autenticable {
     });
   }
 
+  descargarBase64(base64: string, nombre: string){
+    saveAs(this.b64toBlob(base64), nombre) 
+  }
+
   //stack overflow :D
   private b64toBlob(b64Data: string, contentType='', sliceSize = 512): Blob{
     const byteCharacters = atob(b64Data);

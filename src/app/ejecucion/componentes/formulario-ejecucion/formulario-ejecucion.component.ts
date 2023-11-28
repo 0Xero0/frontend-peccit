@@ -15,7 +15,7 @@ import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 import { ImportarPatiosComponent } from '../importar-patios/importar-patios.component';
 import { ImportarEmpresasComponent } from '../importar-empresas/importar-empresas.component';
 import { TipoImportacion } from '../../TipoImportacion';
-import { ErrorImportacion } from '../../modelos/ErrorImportacion';
+import { ErrorImportacion, RespuestaErrorImportacion } from '../../modelos/ErrorImportacion';
 
 @Component({
   selector: 'app-formulario-ejecucion',
@@ -160,12 +160,12 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
       next: ()=>{},
       error: (error: HttpErrorResponse)=>{
         if(error.status === 422){
-          const errores = error.error as ErrorImportacion[]
+          const respuesta = error.error as RespuestaErrorImportacion
           if(tipo === TipoImportacion.EMPRESAS){
-            this.importarEmpresas.abrirModalErrores(errores)
+            this.importarEmpresas.abrirModalErrores(respuesta.errores, respuesta.archivo)
           }
           if(tipo === TipoImportacion.PATIOS){
-            this.importarPatios.abrirModalErrores(errores)
+            this.importarPatios.abrirModalErrores(respuesta.errores, respuesta.archivo)
           }
         }else{
           this.popup.abrirPopupFallido("Error al importar", "Intentalo más tarde.")

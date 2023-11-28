@@ -3,7 +3,7 @@ import { Patio } from 'src/app/informacion-general/modelos/Patio';
 import { ServicioEjecucion } from '../../servicios/ejecucion.service';
 import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
 import { environment } from 'src/environments/environment';
-import { ErrorImportacion } from '../../modelos/ErrorImportacion';
+import { ErrorImportacion, RespuestaErrorImportacion } from '../../modelos/ErrorImportacion';
 import { TipoImportacion } from '../../TipoImportacion';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
@@ -29,6 +29,7 @@ export class ImportarPatiosComponent implements OnInit {
   archivoACargar: File | null = null
   erroresValidacion: ErrorImportacion[] = []
   instanciaModalErrores?: NgbModalRef
+  archivoErrores?: string
 
   constructor(
     private servicio: ServicioEjecucion, 
@@ -69,8 +70,15 @@ export class ImportarPatiosComponent implements OnInit {
     })
   }
 
-  abrirModalErrores(errores: ErrorImportacion[]){
+  descargarCSVErrores(){
+    if(this.archivoErrores){
+      this.servicioArchivos.descargarBase64(this.archivoErrores, 'errores.csv')
+    }
+  }
+
+  abrirModalErrores(errores: ErrorImportacion[], archivoErrores: string){
     this.erroresValidacion = errores
+    this.archivoErrores = archivoErrores
     this.instanciaModalErrores = this.servicioModal.open(this.modalErrores, {
       size: 'md',
       centered: true
