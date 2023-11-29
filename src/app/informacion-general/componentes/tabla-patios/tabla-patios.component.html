@@ -3,6 +3,7 @@
         <thead>
             <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
                 <th *ngIf="!soloLectura" colspan="2" class="fw-semibold"></th>
+                <th>Id</th>
                 <th class="fw-semibold">
                     Nombre del patio
                 </th>
@@ -36,6 +37,7 @@
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
+                <td>-</td>
             </tr>
             <tr class="fs-14px" *ngFor="let patio of patios ; let i = index"
                 [ngClass]="{ 'bg-peligro': esRegistroAEliminar(patio.id) }">
@@ -53,6 +55,7 @@
                         </span>
                     </span>
                 </td>
+                <td>{{ patio.id }}</td>
                 <td>{{ patio.nombre }}</td>
                 <td>{{ obtenerNombreDepartamento(patio.departamento) }}</td>
                 <td>{{ obtenerNombreCiudad(patio.municipio) }}</td>
@@ -69,6 +72,7 @@
                         </span>
                     </span>
                 </td>
+                <td> - </td>
                 <td>{{ patio.nombre }}</td>
                 <td>{{ obtenerNombreDepartamento(patio.departamento) }}</td>
                 <td>{{ obtenerNombreCiudad(patio.municipio) }}</td>
@@ -79,6 +83,7 @@
 
             </tr>
             <tr class="fs-12px" [formGroup]="formulario" *ngIf="formularioVisible">
+                <td></td>
                 <td class="align-middle">
                     <span class="text-danger cursor-pointer" (click)="ocultarFormulario()">
                         <span class="material-symbols-outlined">
