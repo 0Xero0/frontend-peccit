@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SwalPortalTargets, SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { IconoPopup, OpcionesPopup } from './interfaces.popup';
 
 @Component({
   selector: 'app-popup',
@@ -9,7 +10,11 @@ import { SwalPortalTargets, SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 export class PopupComponent implements OnInit {
   @ViewChild('exitoso') popupExitoso!:SwalComponent
   @ViewChild('fallido') popupFallido!: SwalComponent
+  @ViewChild('popup') popup!: SwalComponent
 
+  opciones: OpcionesPopup = {
+    icono: 'exitoso'
+  } 
 
   public tituloExito:string = 'Éxito'
   public claveRecurso?:string
@@ -22,6 +27,19 @@ export class PopupComponent implements OnInit {
   constructor(public readonly swalTargets: SwalPortalTargets) { }
 
   ngOnInit(): void {
+  }
+
+  abrir(opciones: OpcionesPopup){
+    this.opciones = opciones
+    this.popup.swalOptions = {
+      showConfirmButton: false,
+      customClass: {popup: 'card'},
+    }
+    this.popup.fire().then( _ => { if(opciones.alCerrar) opciones.alCerrar() })
+  }
+
+  cerrar(){
+    this.popup.close()
   }
 
   public abrirPopupExitoso(titulo:string, claveRecurso?:string, valorRecurso?:string){

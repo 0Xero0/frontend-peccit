@@ -184,26 +184,16 @@ h1,h2{
   }
 
 .swal2-html-container {
-  z-index: 1;
-  justify-content: center;
   margin: 0 0 0 !important;
   padding: 0 !important;
-  overflow: auto;
-  color: inherit;
-  font-size: 1.125em;
-  font-weight: 400;
-  line-height: normal;
-  text-align: center;
-  word-wrap: break-word;
-  word-break: break-word;
 }
 .swal2-popup {
   display: none;
   position: relative;
   box-sizing: border-box;
   grid-template-columns: minmax(0,100%);
-  width: 761.7px !important;
-  /* height: 301.73px !important; */
+  min-width: 360px !important;
+  width: fit-content !important;
   max-width: 100%;
   padding: 0 0 0 !important;
   border: none;

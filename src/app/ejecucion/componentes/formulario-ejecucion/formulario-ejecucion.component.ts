@@ -81,12 +81,11 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
           const respuestaImportarEmpresas = respuestas.importarEmpresas
           const respuestaImportarPatios = respuestas.importarPatios
           this.agregarMensajeALaCola((siguiente)=>{
-            Swal.fire({
-              icon: 'warning',
-              title: 'Formulario guardado con errores',
-              text: 'A continuación el detalle de los errores'
-            }).then( result => {
-              siguiente()
+            this.popup.abrir({
+              icono: 'advertencia',
+              titulo: 'Formulario guardado con errores',
+              texto: 'A continuación el detalle de los errores',
+              alCerrar: ()=>{ siguiente() }
             })
           })
           if(respuestaImportarEmpresas instanceof HttpErrorResponse){
@@ -107,17 +106,17 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
           }
           this.mostrarMensajeDeLaCola()
         }else{
-          Swal.fire({
-            icon: 'success',
-            title: 'Formulario guardado con éxito',
+          this.popup.abrir({
+            icono: 'exitoso',
+            titulo: 'Formulario guardado con éxito',
           })
         }
       },
       error: (e)=>{
-        Swal.fire({
-          icon: 'error',
-          title: 'Error al guardar',
-          text: 'Intentalo más tarde'
+        this.popup.abrir({
+          icono: 'error',
+          titulo: 'Error',
+          texto: 'Vuelve a intentarlo más tarde'
         })
       }
     })
