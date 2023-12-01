@@ -63,7 +63,8 @@
                     <td>
                         <app-input-archivo 
                         [nombre]="'actoAdministrativo'" 
-                        formControlName="actoAdministrativo" />
+                        formControlName="actoAdministrativo"
+                        [acepta]="['.pdf']" />
                         <app-validacion 
                         [control]="this.formulario.controls.actoAdministrativo" 
                         [validacion]="'required'"
@@ -72,7 +73,8 @@
                     <td>
                         <app-input-archivo 
                         [nombre]="'estructuraCostos'" 
-                        formControlName="estructuraCostos" />
+                        formControlName="estructuraCostos"
+                        [acepta]="['xlsx']" />
                         <app-validacion 
                         [control]="this.formulario.controls.estructuraCostos" 
                         [validacion]="'required'"

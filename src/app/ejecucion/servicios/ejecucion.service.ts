@@ -45,6 +45,7 @@ export class ServicioEjecucion extends Autenticable {
 
   guardarEjecucion(
     reporteId: number,
+    mesId: number,
     respuestasActividades: RespuestaActividad[],
     respuestasAdicionales: RespuestaAdicional[]
   ) {
@@ -52,7 +53,8 @@ export class ServicioEjecucion extends Autenticable {
     return this.http.post(`${this.host}${endpoint}`, {
         reporteId,
         respuestasActividades,
-        adicionales: respuestasAdicionales
+        adicionales: respuestasAdicionales,
+        mesId
       },
       { headers: this.obtenerCabeceraAutorizacion() })
   }

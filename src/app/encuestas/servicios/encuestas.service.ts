@@ -15,6 +15,8 @@ import { FiltrosReportes } from '../modelos/FiltrosReportes';
 import { Sede } from 'src/app/informacion-general/modelos/Sede';
 import { PatioACrear } from 'src/app/informacion-general/modelos/PatioACrear';
 import { EmpresaJurisdiccionACrear } from 'src/app/informacion-general/modelos/EmpresaJurisdiccionACrear';
+import { MesVigencia } from '../modelos/MesVigencia';
+import { Vigencia } from '../modelos/Vigencia';
 
 @Injectable({
   providedIn: 'root'
@@ -128,4 +130,18 @@ export class ServicioEncuestas extends Autenticable {
     })
   }
 
+  obtenerMesesVigencia(vigencia: number){
+    const endpoint = `/api/v1/meses?vigencia=${vigencia}`
+    return this.http.get<MesVigencia[]>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  obtenerVigencias(){
+    const endpoint = '/api/v1/vigencias'
+    return this.http.get<Vigencia[]>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  cambiarEstadoMesVigencia(idMesVigencia: number){
+    const endpoint = `/api/v1/meses/estado/${idMesVigencia}`
+    return this.http.put<MesVigencia>(`${this.host}${endpoint}`, undefined, { headers: this.obtenerCabeceraAutorizacion() })
+  }
 }
