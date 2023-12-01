@@ -24,6 +24,7 @@ export class ImportarPatiosComponent implements OnInit {
   @Input() idVigilado!: string
 
   patios: Patio[] = []
+  visible: boolean = true
   plantilla?: string
   archivoCargado?: string
   archivoACargar: File | null = null
@@ -48,6 +49,7 @@ export class ImportarPatiosComponent implements OnInit {
         this.patios = listado.patios
         this.plantilla = listado.plantilla
         this.archivoCargado = listado.cargados
+        this.visible = listado.visible
       }
     })
   }

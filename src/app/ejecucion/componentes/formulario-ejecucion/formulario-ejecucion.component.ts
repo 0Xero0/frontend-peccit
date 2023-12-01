@@ -16,7 +16,6 @@ import { ImportarEmpresasComponent } from '../importar-empresas/importar-empresa
 import { TipoImportacion } from '../../TipoImportacion';
 import { RespuestaErrorImportacion } from '../../modelos/ErrorImportacion';
 import { Observable, catchError, forkJoin, observable, of } from 'rxjs'
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-ejecucion',
