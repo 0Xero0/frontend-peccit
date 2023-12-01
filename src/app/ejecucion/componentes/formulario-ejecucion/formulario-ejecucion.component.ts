@@ -6,7 +6,6 @@ import { ServicioEjecucion } from '../../servicios/ejecucion.service';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { DialogosEjecucion } from '../../DialogosEjecucion';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DateTime } from 'luxon';
 import { Mes } from 'src/app/encuestas/modelos/Mes';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
@@ -15,7 +14,9 @@ import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 import { ImportarPatiosComponent } from '../importar-patios/importar-patios.component';
 import { ImportarEmpresasComponent } from '../importar-empresas/importar-empresas.component';
 import { TipoImportacion } from '../../TipoImportacion';
-import { ErrorImportacion, RespuestaErrorImportacion } from '../../modelos/ErrorImportacion';
+import { RespuestaErrorImportacion } from '../../modelos/ErrorImportacion';
+import { Observable, catchError, forkJoin, observable, of } from 'rxjs'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-ejecucion',
@@ -44,6 +45,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   hayCambios: boolean = false
   idMes?: number;
   usuario: Usuario
+  colaDeMensajes: ((param: Function) => void)[] = []
 
   constructor(private servicio: ServicioEjecucion, private router: Router, private servicioLocalStorage: ServicioLocalStorage){
     const usuario = this.servicioLocalStorage.obtenerUsuario()
@@ -65,7 +67,62 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   }
 
   guardar(){
-    this.servicio.guardarEjecucion(
+    const archivoPatios = this.importarPatios.archivoACargar
+    const archivoEmpresas = this.importarEmpresas.archivoACargar
+    forkJoin(
+      {
+        guardarFormulario: this.guardarFormulario(),
+        importarPatios: archivoPatios ? this.guardarImportacion(archivoPatios, TipoImportacion.PATIOS) : this.observableNulo(),
+        importarEmpresas: archivoEmpresas ? this.guardarImportacion(archivoEmpresas, TipoImportacion.EMPRESAS) : this.observableNulo()
+      }
+    ).subscribe({
+      next: (respuestas)=>{
+        if(respuestas.importarEmpresas instanceof HttpErrorResponse || respuestas.importarPatios instanceof HttpErrorResponse){
+          const respuestaImportarEmpresas = respuestas.importarEmpresas
+          const respuestaImportarPatios = respuestas.importarPatios
+          this.agregarMensajeALaCola((siguiente)=>{
+            Swal.fire({
+              icon: 'warning',
+              title: 'Formulario guardado con errores',
+              text: 'A continuación el detalle de los errores'
+            }).then( result => {
+              siguiente()
+            })
+          })
+          if(respuestaImportarEmpresas instanceof HttpErrorResponse){
+            if(respuestaImportarEmpresas.status === 422){
+              const respuesta = respuestaImportarEmpresas.error as RespuestaErrorImportacion
+              this.agregarMensajeALaCola((siguiente)=>{
+                this.importarEmpresas.abrirModalErrores(respuesta.errores, respuesta.archivo, siguiente)
+              })
+            }
+          }
+          if(respuestaImportarPatios instanceof HttpErrorResponse){
+            if(respuestaImportarPatios.status === 422){
+              const respuesta = respuestaImportarPatios.error as RespuestaErrorImportacion
+              this.agregarMensajeALaCola((siguiente)=>{
+                this.importarPatios.abrirModalErrores(respuesta.errores, respuesta.archivo, siguiente)
+              })
+            }
+          }
+          this.mostrarMensajeDeLaCola()
+        }else{
+          Swal.fire({
+            icon: 'success',
+            title: 'Formulario guardado con éxito',
+          })
+        }
+      },
+      error: (e)=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al guardar',
+          text: 'Intentalo más tarde'
+        })
+      }
+    })
+
+/*     this.servicio.guardarEjecucion(
       +this.formulario.idReporte,
       this.idMes!, 
       this.respuestasActividades, 
@@ -84,8 +141,25 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
           DialogosEjecucion.GUARDAR_EJECUCION_ERROR_DESCRIPCION
         )
       }
+    }) */
+    this.importarPatios.refrescar()
+    this.importarEmpresas.refrescar()
+  }
+
+  guardarFormulario(): Observable<Object>{
+    return this.servicio.guardarEjecucion(
+      +this.formulario.idReporte,
+      this.idMes!, 
+      this.respuestasActividades, 
+      this.respuestasAdicionales,
+    )
+  }
+
+  observableNulo(): Observable<null>{
+    return new Observable( sub => {
+      sub.next(null);
+      sub.complete();
     })
-    this.guardarImportaciones()
   }
 
   enviar(){
@@ -136,27 +210,18 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     }})
   }
 
-  guardarImportaciones(){
-    const archivoPatios = this.importarPatios.archivoACargar
-    const archivoEmpresas = this.importarEmpresas.archivoACargar
-    if(archivoPatios){
-      this.guardarImportacion(archivoPatios, TipoImportacion.PATIOS)
-    }
-    if(archivoEmpresas){
-      this.guardarImportacion(archivoEmpresas, TipoImportacion.EMPRESAS)
-    }
-    this.importarPatios.refrescar()
-    this.importarEmpresas.refrescar()
-  }
-
-  guardarImportacion(archivo: File, tipo: TipoImportacion){
-    this.servicio.guardarImportacion(
+  guardarImportacion(archivo: File, tipo: TipoImportacion): Observable<Object | HttpErrorResponse>{
+    return this.servicio.guardarImportacion(
       archivo, 
       this.formulario.idVigilado, 
       this.formulario.vigencia,
       this.formulario.mes,
       tipo
-    ).subscribe({
+    ).pipe(
+      catchError((error) =>{
+        return of(error)
+      })
+    )/* .subscribe({
       next: ()=>{},
       error: (error: HttpErrorResponse)=>{
         if(error.status === 422){
@@ -171,10 +236,21 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
           this.popup.abrirPopupFallido("Error al importar", "Intentalo más tarde.")
         }
       }
-    })
+    }) */
   }
 
   manejarCambioArchivos(){
     this.hayCambios = true
+  }
+
+  mostrarMensajeDeLaCola = ()=>{
+    if(this.colaDeMensajes.length > 0){
+      const mensaje = this.colaDeMensajes.shift()!
+      mensaje(this.mostrarMensajeDeLaCola)
+    }
+  }
+
+  agregarMensajeALaCola(enunciado: (param: Function) => void){
+    this.colaDeMensajes.push(enunciado)
   }
 }

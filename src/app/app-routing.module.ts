@@ -17,6 +17,7 @@ import { PaginaAsignacionTamanoOrganizacionComponent } from './categorizacion/pa
 import { PaginaFormularioAspiranteProveedorTecnologicoComponent } from './formularios/paginas/pagina-formulario-aspirante-proveedor-tecnologico/pagina-formulario-aspirante-proveedor-tecnologico.component';
 import { PaginaEjecucionComponent } from './ejecucion/paginas/pagina-ejecucion/pagina-ejecucion.component';
 import { PaginaListadoEjecucionComponent } from './ejecucion/paginas/pagina-listado-ejecucion/pagina-listado-ejecucion.component';
+import { PaginaAdministrarMesesComponent } from './encuestas/paginas/pagina-administrar-meses/pagina-administrar-meses.component';
 
 
 
@@ -33,6 +34,10 @@ const routes: Routes = [
       {
         path: 'encuesta/:idEncuestaDiligenciada',
         component: PaginaEncuestaComponent
+      },
+      {
+        path: 'meses-vigencia',
+        component: PaginaAdministrarMesesComponent
       },
       {
         path: 'inicio',

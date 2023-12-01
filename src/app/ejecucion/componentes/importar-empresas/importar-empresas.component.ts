@@ -76,12 +76,16 @@ export class ImportarEmpresasComponent implements OnInit{
     }
   }
 
-  abrirModalErrores(errores: ErrorImportacion[], archivoErrores: string){
+  abrirModalErrores(errores: ErrorImportacion[], archivoErrores: string, alCerrar?: Function){
     this.erroresValidacion = errores
     this.archivoErrores = archivoErrores
     this.instanciaModalErrores = this.servicioModal.open(this.modalErrores, {
       size: 'md',
-      centered: true
+      centered: true,
+      beforeDismiss: ()=>{
+        if(alCerrar) alCerrar();
+        return true
+      }
     })
   }
 

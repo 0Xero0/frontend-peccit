@@ -20,6 +20,7 @@ import { ModalConfirmarEnviarComponent } from './componentes/modal-confirmar-env
 import { PlaneacionModule } from '../planeacion/planeacion.module';
 import { CategorizacionModule } from '../categorizacion/categorizacion.module';
 import { InformacionGeneralModule } from '../informacion-general/informacion-general.module';
+import { PaginaAdministrarMesesComponent } from './paginas/pagina-administrar-meses/pagina-administrar-meses.component';
 
 
 
@@ -35,7 +36,8 @@ import { InformacionGeneralModule } from '../informacion-general/informacion-gen
     PreguntaEncuestaCuantitativaComponent,
     SubindicadorEncuestaCuantitativaComponent,
     EvidenciaEncuestaCuantitativaComponent,
-    ModalConfirmarEnviarComponent
+    ModalConfirmarEnviarComponent,
+    PaginaAdministrarMesesComponent
   ],
   imports: [
     CommonModule,
