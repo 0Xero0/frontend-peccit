@@ -4,4 +4,5 @@ export interface ListaPatiosEjecucion{
     patios: Patio[]
     plantilla: string
     cargados: string
+    visible: boolean
 }

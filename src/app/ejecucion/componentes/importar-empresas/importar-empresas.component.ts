@@ -30,6 +30,7 @@ export class ImportarEmpresasComponent implements OnInit{
   erroresValidacion: ErrorImportacion[] = []
   archivoErrores?: string
   instanciaModalErrores: any
+  visible: boolean = true
 
   constructor(
     private servicio: ServicioEjecucion, 
@@ -48,6 +49,7 @@ export class ImportarEmpresasComponent implements OnInit{
         this.empresas = listado.empresas
         this.plantilla = listado.plantilla
         this.archivoCargado = listado.cargados
+        this.visible = listado.visible
       }
     })
   }

@@ -4,4 +4,5 @@ export interface ListaEmpresasEjecucion{
     empresas: EmpresaJurisdiccion[]
     plantilla: string
     cargados: string
+    visible: boolean
 }
