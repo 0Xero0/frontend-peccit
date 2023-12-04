@@ -18,6 +18,7 @@ import { PaginaFormularioAspiranteProveedorTecnologicoComponent } from './formul
 import { PaginaEjecucionComponent } from './ejecucion/paginas/pagina-ejecucion/pagina-ejecucion.component';
 import { PaginaListadoEjecucionComponent } from './ejecucion/paginas/pagina-listado-ejecucion/pagina-listado-ejecucion.component';
 import { PaginaAdministrarMesesComponent } from './encuestas/paginas/pagina-administrar-meses/pagina-administrar-meses.component';
+import { PaginaAdministrarMesesPatiosModalidadesComponent } from './encuestas/paginas/pagina-administrar-meses-patios-modalidades/pagina-administrar-meses-patios-modalidades.component';
 
 
 
@@ -38,6 +39,10 @@ const routes: Routes = [
       {
         path: 'meses-vigencia',
         component: PaginaAdministrarMesesComponent
+      },
+      {
+        path: 'meses-patios-modalidades',
+        component: PaginaAdministrarMesesPatiosModalidadesComponent
       },
       {
         path: 'inicio',
