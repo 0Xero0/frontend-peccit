@@ -5,4 +5,5 @@ export interface ListaEmpresasEjecucion{
     plantilla: string
     cargados: string
     visible: boolean
+    mensaje: string
 }

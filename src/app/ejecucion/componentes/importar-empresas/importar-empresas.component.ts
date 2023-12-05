@@ -31,6 +31,7 @@ export class ImportarEmpresasComponent implements OnInit{
   archivoErrores?: string
   instanciaModalErrores: any
   visible: boolean = true
+  mensaje: string = ""
 
   constructor(
     private servicio: ServicioEjecucion, 
@@ -50,6 +51,7 @@ export class ImportarEmpresasComponent implements OnInit{
         this.plantilla = listado.plantilla
         this.archivoCargado = listado.cargados
         this.visible = listado.visible
+        this.mensaje = listado.mensaje
       }
     })
   }

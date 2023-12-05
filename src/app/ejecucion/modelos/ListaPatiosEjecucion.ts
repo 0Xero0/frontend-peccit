@@ -5,4 +5,5 @@ export interface ListaPatiosEjecucion{
     plantilla: string
     cargados: string
     visible: boolean
+    mensaje: string
 }
