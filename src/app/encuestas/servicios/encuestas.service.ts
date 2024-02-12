@@ -17,6 +17,8 @@ import { PatioACrear } from 'src/app/informacion-general/modelos/PatioACrear';
 import { EmpresaJurisdiccionACrear } from 'src/app/informacion-general/modelos/EmpresaJurisdiccionACrear';
 import { MesVigencia } from '../modelos/MesVigencia';
 import { Vigencia } from '../modelos/Vigencia';
+import { FiltrosMesPatioModalidad } from '../modelos/FiltrosMesPatioModalidad';
+import { MesPatioModalidad } from '../modelos/MesPatioModalidad';
 
 @Injectable({
   providedIn: 'root'
@@ -143,5 +145,24 @@ export class ServicioEncuestas extends Autenticable {
   cambiarEstadoMesVigencia(idMesVigencia: number){
     const endpoint = `/api/v1/meses/estado/${idMesVigencia}`
     return this.http.put<MesVigencia>(`${this.host}${endpoint}`, undefined, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  obtenerMesesPatiosModalidades(filtros: FiltrosMesPatioModalidad){
+    let endpoint = `/api/v1/mes_patio_modalidad/filtrar`
+    if(filtros.tipo){
+      endpoint+=`?tipo=${filtros.tipo}`
+    }
+    if(!filtros.tipo && filtros.estado !== undefined){
+      endpoint+=`?estado=${filtros.estado}`
+    }
+    if(filtros.tipo && filtros.estado !== undefined){
+      endpoint+=`&estado=${filtros.estado}`
+    }
+    return this.http.get<MesPatioModalidad[]>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  actualizarMesPatioModalidad(id:number, { mensaje, estado }: { mensaje?: string, estado?: boolean}){
+    const endpoint = `/api/v1/mes_patio_modalidad/${id}`
+    return this.http.patch<MesPatioModalidad>(`${this.host}${endpoint}`, { mensaje, estado }, { headers: this.obtenerCabeceraAutorizacion() })
   }
 }

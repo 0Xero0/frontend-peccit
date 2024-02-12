@@ -21,6 +21,7 @@ import { PlaneacionModule } from '../planeacion/planeacion.module';
 import { CategorizacionModule } from '../categorizacion/categorizacion.module';
 import { InformacionGeneralModule } from '../informacion-general/informacion-general.module';
 import { PaginaAdministrarMesesComponent } from './paginas/pagina-administrar-meses/pagina-administrar-meses.component';
+import { PaginaAdministrarMesesPatiosModalidadesComponent } from './paginas/pagina-administrar-meses-patios-modalidades/pagina-administrar-meses-patios-modalidades.component';
 
 
 
@@ -37,7 +38,8 @@ import { PaginaAdministrarMesesComponent } from './paginas/pagina-administrar-me
     SubindicadorEncuestaCuantitativaComponent,
     EvidenciaEncuestaCuantitativaComponent,
     ModalConfirmarEnviarComponent,
-    PaginaAdministrarMesesComponent
+    PaginaAdministrarMesesComponent,
+    PaginaAdministrarMesesPatiosModalidadesComponent
   ],
   imports: [
     CommonModule,
