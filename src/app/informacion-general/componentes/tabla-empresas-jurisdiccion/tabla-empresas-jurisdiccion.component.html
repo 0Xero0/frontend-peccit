@@ -132,11 +132,19 @@
                         </span>
                     </td>
                     <td>
+                        <app-input-numerico formControlName="nit" style="max-width: 300px;" 
+                            placeholder="Razón social." />
+                        <app-validacion [control]="this.formulario.controls.nit"
+                            [validacion]="'required'" [texto]="'El campo es requerido.'" />
+                        <app-validacion [control]="this.formulario.controls.nit"
+                            [validacion]="'max'" [texto]="'Máximo 12 dígitos.'" />
+                    </td>
+                   <!--  <td>
                         <input formControlName="nit" style="max-width: 300px;" class="form-control fs-12px"
                             placeholder="NIT." />
                         <app-validacion [control]="this.formulario.controls.nit" [validacion]="'required'"
                             [texto]="'El nit es requerido.'" />
-                    </td>
+                    </td> -->
                     <td>
                         <input formControlName="razonSocial" style="max-width: 300px;" class="form-control fs-12px"
                             placeholder="Razón social." />
