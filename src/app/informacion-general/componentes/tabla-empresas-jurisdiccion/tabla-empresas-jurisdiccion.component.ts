@@ -89,7 +89,7 @@ export class TablaEmpresasJurisdiccionComponent {
       aACapacidadTransportadoraDocumento: FormControl<string | null>,
       aACapacidadTransportadoraOriginal: FormControl<string | null>,
     }>({
-      nit: new FormControl<string>("", [Validators.required]),
+      nit: new FormControl<string>("", [Validators.required, Validators.max(999999999999)]),
       razonSocial: new FormControl<string>("", [Validators.required]),
       tipoServicio: new FormControl<string>("", [Validators.required]),
       departamento: new FormControl<number | null>(null, [Validators.required]),
