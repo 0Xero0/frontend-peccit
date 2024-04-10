@@ -32,6 +32,14 @@ export class ServicioTarifas extends Autenticable {
   constructor(private http: HttpClient) {
     super()
   }
+  obtenerAniosVigencia()
+    :Observable<any>{
+        let endpoint = `/api/v1/vigencias`
+        return this.http.get<any>(
+          `${this.host}${endpoint}`,
+          { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
+        )
+    }
 
   listarTarifas(pagina: number, limite: number, filtros?: FiltrosTarifas){
     const endpoint = `/api/v1/tarifas/obtener?pagina=${pagina}&limite=${limite}`
