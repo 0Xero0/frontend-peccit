@@ -109,6 +109,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
             icono: 'exitoso',
             titulo: 'Formulario guardado con éxito',
           })
+          this.hayCambios = false
         }
       },
       error: (e)=>{
