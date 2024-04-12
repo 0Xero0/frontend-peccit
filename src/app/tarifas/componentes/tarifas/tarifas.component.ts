@@ -22,9 +22,9 @@ export class TarifasComponent implements OnInit{
   @Input() soloLectura: boolean = false
   @Input() idVigilado!: string
   formulario: FormGroup<FormularioTarifa>
-  vigencia: number
+  vigencia?: number
   paginador: Paginador<FiltrosTarifas>
-  anios: number[] = []
+  anios: any
   tarifas: Tarifa[] = []
   tiposServicios: { nombre: string, id: number }[] = []
   mostrarFormulario: boolean = false
@@ -35,8 +35,8 @@ export class TarifasComponent implements OnInit{
   ){
     this.paginador = new Paginador<FiltrosTarifas>(this.obtenerTarifas)
     const anioActual = DateTime.now().year
-    this.vigencia = anioActual
-    this.anios = [ anioActual, anioActual - 1, anioActual - 2, anioActual - 3, anioActual - 4, anioActual -5 ]
+    //this.vigencia = anioActual 
+    //this.anios = [ anioActual, anioActual - 1, anioActual - 2, anioActual - 3, anioActual - 4, anioActual -5 ]
     this.formulario = new FormGroup<FormularioTarifa>({
       idServicioModalidad: new FormControl<number | string | null>("", [ Validators.required, Validators.nullValidator ]),
       tarifaAutorizada: new FormControl<number | null>(null, [ Validators.required ]),
@@ -52,6 +52,13 @@ export class TarifasComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.servicioTarifas.obtenerAniosVigencia().subscribe({
+      next: (anios: any) =>{
+        this.anios = anios
+        this.vigencia = anios[0].anio
+      }
+    })
+
     this.paginador.inicializar(1, 5, {idVigilado: this.idVigilado, vigencia: this.vigencia})
     this.obtenerServiciosModalidades()
 

@@ -1,8 +1,8 @@
 <div class="mb-4" *ngIf="visible">
     <h3 class="texto-primario fw-semibold fs-16px">Importar empresas</h3>
-    <span class="fs-14px">
+    <!-- <span class="fs-14px">
         <span class="validacion fw-semibold">*</span>{{ mensaje }}
-    </span>
+    </span> -->
     <app-tabla-empresas-jurisdiccion [idVigilado]="idVigilado" [empresas]="empresas" [soloLectura]="true" />
     <div class="d-flex opciones align-items-start">
         <div class="d-flex hipervinculo me-3" (click)="descargarArchivo(plantilla!)">
