@@ -13,6 +13,8 @@ import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.componen
 import { ServicioDepartamentos } from 'src/app/encuestas/servicios/departamentos.service';
 import { Departamento } from 'src/app/encuestas/modelos/Departamento';
 import { Ciudad } from 'src/app/encuestas/modelos/Ciudad';
+import Swal from 'sweetalert2';
+import { PeticionCrearUsuario } from '../../modelos/PeticionCrearUsuario';
 
 @Component({
   selector: 'app-pagina-crear-usuario',
@@ -30,6 +32,9 @@ export class PaginaCrearUsuarioComponent implements OnInit{
   formulario: FormGroup
   departamentos: Departamento[] = []
   municipios: Ciudad[] = []
+  esDepartamentalId: number = 0;
+  checkSucio: boolean = false;
+  vigilado: boolean = false
 
   constructor(private servicio: ServicioUsuarios, private servicioDepartamento: ServicioDepartamentos){
     this.paginador = new Paginador<FiltrosUsuarios>(this.obtenerUsuarios)
@@ -41,8 +46,10 @@ export class PaginaCrearUsuarioComponent implements OnInit{
       correo: new FormControl(undefined, [ Validators.required, Validators.email ]),
       telefono: new FormControl(undefined),
       rol: new FormControl("", [ Validators.required ]),
-      departamento: new FormControl("", [Validators.required]),
-      municipio: new FormControl("", [Validators.required])
+      departamento: new FormControl(""/* , [Validators.required] */),
+      municipio: new FormControl(""/* , [Validators.required] */),
+      esDepartamental: new FormControl(false),
+      noEsDepartamental: new FormControl(false),
     })
   }
 
@@ -66,7 +73,7 @@ export class PaginaCrearUsuarioComponent implements OnInit{
       this.servicio.listar(pagina, limite, filtros).subscribe({
         next: (respuesta)=>{
           this.usuarios = respuesta.usuarios
-          subscripcion.next(respuesta.paginacion) 
+          subscripcion.next(respuesta.paginacion)
         }
       })
     })
@@ -77,23 +84,59 @@ export class PaginaCrearUsuarioComponent implements OnInit{
     this.popup.abrirPopupExitoso('Usuario actualizado con éxito.')
   }
 
+  checkEsDepartamental(event:any,esDepartamental:number){
+    /* console.log("Event: ",event.target.checked); */
+    if(esDepartamental == 1 && event.target.checked){
+      this.esDepartamentalId = esDepartamental
+      this.formulario.controls['noEsDepartamental'].disable(); this.checkSucio = false;
+    }else if(esDepartamental == 2 && event.target.checked){
+      this.esDepartamentalId = esDepartamental
+      this.formulario.controls['esDepartamental'].disable(); this.checkSucio = false;
+    }else if(!event.target.checked){
+      this.checkSucio = true;
+      this.formulario.controls['noEsDepartamental'].enable()
+      this.formulario.controls['esDepartamental'].enable()
+    }
+    /* console.log("Es departamental: ",this.esDepartamentalId); */
+
+  }
+
   crear(){
     if(this.formulario.invalid){
       marcarFormularioComoSucio(this.formulario)
+      if(this.esDepartamentalId == 0 && this.vigilado){this.checkSucio = true;}
       return;
     }
+    if(this.esDepartamentalId == 0 && this.vigilado){
+      this.checkSucio = true;
+      return
+    }
     const controls = this.formulario.controls
-    this.servicio.guardar({
+    let guardarJSON: PeticionCrearUsuario = {
       apellido: controls['apellido'].value,
-      nombre: controls['nombre'].value,
-      correo: controls['correo'].value,
-      fechaNacimiento: controls['fechaNacimiento'].value,
-      identificacion: controls['identificacion'].value,
-      idRol: controls['rol'].value,
-      telefono: controls['telefono'].value,
-      departamentoId: controls['departamento'].value,
-      municipioId: controls['municipio'].value
-    }).subscribe({
+        nombre: controls['nombre'].value,
+        correo: controls['correo'].value,
+        fechaNacimiento: controls['fechaNacimiento'].value,
+        identificacion: controls['identificacion'].value,
+        idRol: controls['rol'].value,
+        telefono: controls['telefono'].value,
+        esDepartamental: this.esDepartamentalId
+    }
+    if(this.vigilado){
+      guardarJSON = {
+        apellido: controls['apellido'].value,
+        nombre: controls['nombre'].value,
+        correo: controls['correo'].value,
+        fechaNacimiento: controls['fechaNacimiento'].value,
+        identificacion: controls['identificacion'].value,
+        idRol: controls['rol'].value,
+        telefono: controls['telefono'].value,
+        departamentoId: controls['departamento'].value,
+        municipioId: controls['municipio'].value,
+        esDepartamental: this.esDepartamentalId
+      }
+    }
+    this.servicio.guardar(guardarJSON).subscribe({
       next: ()=>{
         this.popup.abrirPopupExitoso("Usuario creado con éxito.")
         this.paginador.refrescar()
@@ -121,6 +164,7 @@ export class PaginaCrearUsuarioComponent implements OnInit{
   limpiarFormulario(){
     this.formulario.reset()
     this.formulario.get('rol')!.setValue("")
+    this.vigilado = false
   }
 
   abrirModalActualizarUsuario(usuario: Usuario){
@@ -146,9 +190,27 @@ export class PaginaCrearUsuarioComponent implements OnInit{
   obtenerMunicipios(departamentoId: number){
     this.servicioDepartamento.obtenerCiudades(departamentoId).subscribe({
       next: (municipios)=>{
-        this.municipios = municipios 
+        this.municipios = municipios
       }
     })
+  }
+
+  esVigilado(event:any){
+    /* console.log(event.target.value); */
+    const controls = this.formulario.controls
+    if(event){
+      if(event.target.value == '003'){
+        this.vigilado = true
+        controls['departamento'].setValidators([Validators.required]);this.formulario.get('departamento')?.updateValueAndValidity()
+        controls['municipio'].setValidators([Validators.required]);this.formulario.get('municipio')?.updateValueAndValidity()
+        //if(this.esDepartamentalId == 0 && this.vigilado){this.checkSucio = true;}
+      }else{
+        this.vigilado = false; this.checkSucio = false;
+        controls['noEsDepartamental'].setValue(false); controls['esDepartamental'].setValue(false)
+        this.formulario.get('departamento')?.clearValidators();this.formulario.get('departamento')?.updateValueAndValidity()
+        this.formulario.get('municipio')?.clearValidators();this.formulario.get('municipio')?.updateValueAndValidity()
+      }
+    }
   }
 
 }

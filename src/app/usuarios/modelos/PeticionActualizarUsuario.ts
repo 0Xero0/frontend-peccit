@@ -8,4 +8,5 @@ export interface PeticionActualizarUsuario{
     idRol?: string
     departamentoId?: number
     municipioId?: number
+    esDepartamental?: number
 }

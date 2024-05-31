@@ -14,4 +14,5 @@ export interface Usuario {
     idRol:           string;
     departamentoId: number;
     municipioId: number;
+    esDepartamental: number;
 }
