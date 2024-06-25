@@ -28,7 +28,7 @@
     border-top: 3px solid #2DB2EA;
 }
 .modulo .submodulos{
-    display: flex;
+    display: none;
     padding: 0;
     position: absolute;
     z-index: 10;
