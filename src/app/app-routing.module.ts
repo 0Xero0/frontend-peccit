@@ -19,6 +19,7 @@ import { PaginaEjecucionComponent } from './ejecucion/paginas/pagina-ejecucion/p
 import { PaginaListadoEjecucionComponent } from './ejecucion/paginas/pagina-listado-ejecucion/pagina-listado-ejecucion.component';
 import { PaginaAdministrarMesesComponent } from './encuestas/paginas/pagina-administrar-meses/pagina-administrar-meses.component';
 import { PaginaAdministrarMesesPatiosModalidadesComponent } from './encuestas/paginas/pagina-administrar-meses-patios-modalidades/pagina-administrar-meses-patios-modalidades.component';
+import { InicioVigia2Component } from './autenticacion/componentes/inicio-vigia2/inicio-vigia2.component';
 
 
 
@@ -68,9 +69,9 @@ const routes: Routes = [
         path: 'asignacion',
         component: PaginaAsignacionTamanoOrganizacionComponent
       },
-      { 
-        path: 'asignaciones', 
-        loadChildren: () => import('./asignaciones/asignaciones.module').then(m => m.AsignacionesModule) 
+      {
+        path: 'asignaciones',
+        loadChildren: () => import('./asignaciones/asignaciones.module').then(m => m.AsignacionesModule)
       },
       {
         path: 'verificar-reportes',
@@ -103,8 +104,8 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'inicio-sesion',
-    component: InicioSesionComponent
+    path: 'inicio-vigia2',
+    component: InicioVigia2Component
   },
   {
     path: 'actualizar-contrasena',
@@ -121,7 +122,7 @@ const routes: Routes = [
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'inicio-sesion'
+    redirectTo: 'inicio-vigia2'
   }
 ];
 
