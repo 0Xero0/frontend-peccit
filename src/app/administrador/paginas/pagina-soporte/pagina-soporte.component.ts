@@ -54,10 +54,6 @@ export class PaginaSoporteComponent {
   }
 
   limpiarFormulario(){
-    const controls = this.formulario.controls
-    controls['descripcion'].setValue(undefined)
-    controls['motivo'].setValue('')
-    controls['adjunto'].setValue(null)
-    //this.formulario.reset()
+    this.formulario.reset()
   }
 }
