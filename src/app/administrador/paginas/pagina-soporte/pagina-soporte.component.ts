@@ -43,13 +43,21 @@ export class PaginaSoporteComponent {
       controls['motivo'].value,
       controls['adjunto'].value).subscribe({
       next: ( soporte: any )=>{
+        this.limpiarFormulario()
         this.popup.abrirPopupExitoso('Soporte creado', 'Radicado', soporte.radicado)
-        this.formulario.reset()
       }
     })
   }
 
   manejarExcedeTamanio(){
     this.popup.abrirPopupFallido("El archivo pesa más de 7 Mb")
+  }
+
+  limpiarFormulario(){
+    const controls = this.formulario.controls
+    controls['descripcion'].setValue(undefined)
+    controls['motivo'].setValue('')
+    controls['adjunto'].setValue(null)
+    this.formulario.reset()
   }
 }
