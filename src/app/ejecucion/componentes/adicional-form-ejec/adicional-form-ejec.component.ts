@@ -35,7 +35,7 @@ export class AdicionalFormEjecComponent {
       valor: this.respuesta,
       observacion: this.observacion
     }
-    console.log(this.respuesta)
+    //console.log(this.respuesta)
   }
 
   manejarCambioArchivo(archivo: File | null){
