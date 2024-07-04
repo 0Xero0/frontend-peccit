@@ -35,6 +35,7 @@ export class AdicionalFormEjecComponent {
       valor: this.respuesta,
       observacion: this.observacion
     }
+    console.log(this.respuesta)
   }
 
   manejarCambioArchivo(archivo: File | null){
@@ -64,7 +65,7 @@ export class AdicionalFormEjecComponent {
 
   setRespuesta(valor: string, emitir: boolean = true){
     this.respuesta = valor
-    if(!this.adicional.habilitaObservacion!.includes(valor)) this.setObservacion("", false); 
+    if(!this.adicional.habilitaObservacion!.includes(valor)) this.setObservacion("", false);
     if(this.respuestaAdicional) this.respuestaAdicional.valor = valor;
     if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional);
   }
