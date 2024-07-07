@@ -25,7 +25,7 @@ export class AdicionalFormEjecComponent {
   }
 
   ngOnInit(): void {
-    this.observacion = this.adicional.observacion
+    this.observacion =  this.adicional.observacion
     this.respuesta = this.adicional.respuesta
     this.respuestaAdicional = {
       adicionalId: this.adicional.idAdicional,
@@ -37,8 +37,16 @@ export class AdicionalFormEjecComponent {
     }
   }
 
+  onlyNumberKey(event: KeyboardEvent) {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    }
+    return true;
+  }
+
   manejarCambioArchivo(archivo: File | null){
-    console.log(archivo)
     this.setEvidencia(archivo)
   }
 
@@ -58,19 +66,19 @@ export class AdicionalFormEjecComponent {
   }
 
   esObservacionNumerica(): boolean{
-    const opcion = this.adicional.valoresPregunta!.find( valorPregunta => valorPregunta.valor === this.respuesta )
-    return opcion && opcion.tipo === 'N' ? true : false
+    const opcion = this.adicional.valoresPregunta!.find( valorPregunta => valorPregunta.valor === this.respuesta );
+    return opcion && opcion.tipo === 'N' ? true : false;
   }
 
   setRespuesta(valor: string, emitir: boolean = true){
     this.respuesta = valor
-    if(!this.adicional.habilitaObservacion!.includes(valor)) this.setObservacion("", false); 
+    if(!this.adicional.habilitaObservacion!.includes(valor)) this.setObservacion("", false)  ;
     if(this.respuestaAdicional) this.respuestaAdicional.valor = valor;
     if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional);
   }
 
   setObservacion(observacion: string, emitir: boolean = true){
-    this.observacion = observacion
+    this.observacion = observacion;
     if(this.respuestaAdicional) this.respuestaAdicional.observacion = observacion;
     if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional);
   }

@@ -5,7 +5,7 @@
             <fieldset>
                 <label class="fs-12px fw-semibold">Respuesta</label>
                 <select
-                (ngModelChange)="manejarCambioRespuesta($event)" 
+                (ngModelChange)="manejarCambioRespuesta($event)"
                 [ngModel]="respuesta" class="form-select"
                 [disabled]="soloLectura">
                     <option value="">Selecciona una opción.</option>
@@ -20,8 +20,8 @@
                 <label class="fs-12px fw-semibold">Respuesta</label>
                 <app-input-numerico
                 [valorInicial]="adicional.respuesta !== '' ? +adicional.respuesta : null"
-                (ngModelChange)="manejarCambioRespuesta($event)" 
-                [ngModel]="respuesta" 
+                (ngModelChange)="manejarCambioRespuesta($event)"
+                [ngModel]="respuesta"
                 [disabled]="soloLectura"/>
             </fieldset>
         </ng-container>
@@ -32,9 +32,9 @@
                 <input
                 class="form-control"
                 [maxLength]="adicional.maxCaracteres"
-                type="text" 
-                (ngModelChange)="manejarCambioRespuesta($event)" 
-                [(ngModel)]="respuesta" 
+                type="text"
+                (ngModelChange)="manejarCambioRespuesta($event)"
+                [(ngModel)]="respuesta"
                 [disabled]="soloLectura"/>
                 <span class="fs-12px">Máximo ({{adicional.maxCaracteres}}) caracteres.</span>
             </fieldset>
@@ -49,14 +49,22 @@
                 *ngIf="!esObservacionNumerica()"
                 [maxlength]="adicional.maxObservacion"
                 (ngModelChange)="manejarCambioObservacion($event)"
-                [(ngModel)]="observacion" 
+                [(ngModel)]="observacion"
                 [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta)) || soloLectura"></textarea>
-            <app-input-numerico
+                <input type="text" class="form-control"
+                *ngIf="esObservacionNumerica()"
+                [maxlength]="adicional.maxObservacion"
+                (ngModelChange)="manejarCambioObservacion($event)"
+                [(ngModel)]="observacion"
+                [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta)) || soloLectura"
+                (keypress)="onlyNumberKey($event)"
+                >
+            <!-- <app-input-numerico
                 *ngIf="esObservacionNumerica()"
                 (ngModelChange)="manejarCambioObservacion($event)"
                 [(ngModel)]="observacion"
                 [disabled]="!(adicional.habilitaObservacion != null && adicional.habilitaObservacion.includes(respuesta)) || soloLectura"
-             />
+             /> -->
             <span class="fs-12px">Máximo ({{adicional.maxObservacion}}) caracteres.</span>
         </fieldset>
     </div>
@@ -68,13 +76,13 @@
             <label class="fs-12px fw-semibold">Evidencia</label>
             <app-input-archivo
             (ngModelChange)="manejarCambioArchivo($event)"
-            [ngModel]="evidencia" 
+            [ngModel]="evidencia"
             [nombre]="adicional.idAdicional.toString()"
             [acepta]="[adicional.validacionesEvidencia!.extension]"
             [disabled]="soloLectura || deshabilitarEvidencia()" />
         </fieldset>
-        <span 
-        class="fs-12px cursor-pointer" 
+        <span
+        class="fs-12px cursor-pointer"
         *ngIf="adicional.nombreOriginal !== ''"
         (click)="descargarEvidencia()">{{ adicional.nombreOriginal }}</span>
         <span class="fs-12px" *ngIf="adicional.nombreOriginal === ''">Sin evidencia adjunta.</span>
