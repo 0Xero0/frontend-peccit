@@ -37,6 +37,15 @@ export class AdicionalFormEjecComponent {
     }
   }
 
+  onlyNumberKey(event: KeyboardEvent) {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    }
+    return true;
+  }
+
   manejarCambioArchivo(archivo: File | null){
     console.log(archivo)
     this.setEvidencia(archivo)
@@ -64,7 +73,7 @@ export class AdicionalFormEjecComponent {
 
   setRespuesta(valor: string, emitir: boolean = true){
     this.respuesta = valor
-    if(!this.adicional.habilitaObservacion!.includes(valor)) this.setObservacion("", false); 
+    if(!this.adicional.habilitaObservacion!.includes(valor)) this.setObservacion("", false);
     if(this.respuestaAdicional) this.respuestaAdicional.valor = valor;
     if(emitir) this.nuevoAdicional.emit(this.respuestaAdicional);
   }
