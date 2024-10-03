@@ -10,6 +10,7 @@
 }
 .modulo{
     position: relative;
+    
 }
 .nombre-modulo{
     width: 100%;
@@ -26,6 +27,7 @@
     top: 4px;
     width: 100%;
     border-top: 3px solid #2DB2EA;
+    
 }
 .modulo .submodulos{
     display: none;
@@ -37,15 +39,79 @@
     top: 100%;
     background-color: #E6EFFD;
     color: #3366CC;
+    
 }
 .modulo:hover .submodulos{
     display: block;
+    
 }
 .submodulo{
     border-bottom: 1px solid black;
+    
     cursor: pointer;
 }
 .nombre-submodulo{
     display: block;
     padding: 8px 15px;
+    
+}
+.paolo
+{
+    background-color: #fff !important;
+    color: #004884;
+}
+
+.logoP{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 90px;
+    
+}
+
+.frajaP
+{
+    display: flex;
+    height: 99px;
+    /* UI Properties */
+    background: #333333 0% 0% no-repeat padding-box;
+
+}
+.ciglaSistemaP
+{
+    text-align: left;
+    font: normal normal bold 32px/32px Montserrat;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    display: flex;    
+    align-items: center;    
+    padding: 23px 18px 26px;
+    font-size: 32px;
+    margin-left: -10px;
+    /*padding: 10px 0px 0px 10px;*/
+}
+.nombreSistemaP
+{
+    text-align: left;
+    font: normal normal normal 16px/32px Montserrat;
+    letter-spacing: 0px;    
+    color: #FFFFFF;
+    text-transform: uppercase;
+    display: flex;    
+    align-items: center;    
+    font-size: 16px;
+    margin-top: 50px;
+    margin-left: -140px;
+    /*padding: 0px 10px 10px 10px;*/
+}
+.frajaP2
+{
+    display: flex;
+    height: 6px;
+    /* UI Properties */
+    background: #004884 0% 0% no-repeat padding-box;
+
 }

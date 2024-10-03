@@ -340,18 +340,24 @@ h1,h2{
   cursor: pointer !important;
 }
 
+
 .tabla-informacion{
   font-size: 14px;
-  border-collapse: collapse;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 5px !important;
 }
 .tabla-informacion td, .tabla-informacion th{
-  border: 1px solid gainsboro;
+  /*border: 1px solid gainsboro;*/
   padding: 7px 10px;
+  border-radius: 5px !important;
 }
 .tabla-informacion th{
   font-weight: 600;
   background-color: var(--azul-claro);
   color: var(--azul-oscuro);
+  border-radius: 5px 5px 0px 0px !important;
+  
 }
 .hipervinculo{
   color: var(--azul);
@@ -359,4 +365,43 @@ h1,h2{
 }
 .hipervinculo:hover{
   color: var(--azul-oscuro);
+}
+
+
+/******CODIGO DE PAOLO*******/
+.tabla-informacionP{
+  font-size: 14px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  /* border: solid 0.1px var(--azul-claro); */
+}
+
+.tabla-informacionP td, .tabla-informacionP th{
+  /*border: 1px solid gainsboro;*/
+  padding: 7px 10px;
+ /* border: solid 0.1px var(--azul-claro); */
+}
+.tabla-informacionP th{
+  font-weight: 600;
+  background-color: var(--azul-claro);
+  color: var(--azul-oscuro);
+ /* border: solid 0.1px var(--azul-claro); */
+  
+}
+.table-responsiveP {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 5px;
+  /* border: solid 0.1px var(--azul-claro); */
+  box-shadow: 0px 3px 6px #00000029;
+}
+
+.tabla-linea-topP
+{
+  border-top: 1px solid #707070;
+}
+
+.buttonDerechaP
+{
+  margin-right: 50px;
 }

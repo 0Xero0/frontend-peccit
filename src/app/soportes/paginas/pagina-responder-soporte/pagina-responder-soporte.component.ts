@@ -4,8 +4,9 @@ import { SoportesService } from '../../servicios/soportes.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { marcarFormularioComoSucio } from 'src/app/administrador/utilidades/Utilidades';
 import { Soporte } from '../../modelos/Soporte';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
+import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 
 @Component({
   selector: 'app-pagina-responder-soporte',
@@ -18,7 +19,7 @@ export class PaginaResponderSoporteComponent implements OnInit{
   soporte?: Soporte
   respondido: boolean = false
 
-  constructor(private servicioSoporte: SoportesService, private servicioArchivos: ServicioArchivos, private activeRoute: ActivatedRoute){
+  constructor(private servicioSoporte: SoportesService, private servicioArchivos: ServicioArchivos, private activeRoute: ActivatedRoute,public router: Router, public ServiceMenuP:MenuHeaderPService){
     this.formulario = new FormGroup({
       respuesta: new FormControl<string | undefined>( {
         value: undefined,
@@ -26,6 +27,8 @@ export class PaginaResponderSoporteComponent implements OnInit{
       } , [ Validators.required ] ),
       adjunto: new FormControl<File | undefined>( undefined )
     })
+    //console.log(this.router.url);
+    this.ServiceMenuP.AsginarRutas(this.router.url,this.router.url); ///paolo
   }
 
   ngOnInit(): void {

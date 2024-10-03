@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 
 @Component({
   selector: 'app-pagina-soportes',
@@ -20,12 +21,15 @@ export class PaginaSoportesComponent implements OnInit {
   problemasAcceso?: boolean
   estados = this.servicioSoportes.ESTADOS
 
-  constructor(private servicioSoportes: SoportesService, private router: Router, private activatedRoute: ActivatedRoute){
+  constructor(private servicioSoportes: SoportesService, private router: Router, private activatedRoute: ActivatedRoute, private ServiceMenuP:MenuHeaderPService){
     this.formulario = this.construirFormulario()
     this.paginador = new Paginador<FiltrosSoportes>(this.obtenerSoportes)
+    
   }
 
   ngOnInit(): void {
+    //
+    this.ServiceMenuP.AsginarRutas(this.router.url,this.router.url); ///paolo
     this.activatedRoute.queryParams.subscribe({
       next: (query)=>{
         this.problemasAcceso = query['acceso'] === 'true' ? true : false 

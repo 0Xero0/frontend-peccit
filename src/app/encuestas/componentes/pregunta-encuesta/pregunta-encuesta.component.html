@@ -3,34 +3,42 @@
     'advertencia': advertencia
   }
 ">
-    <div class="col-1 columna border-top">
+    <div class="col-1 columna tabla-linea-topP">
         <div class="d-flex justify-content-center">
             <span class="fs-14px">{{ pregunta.numeroPregunta }}</span>
         </div>
     </div>
     <!-- Pregunta -->
-    <div class="col-2 columna border-top">
+    <div [ngClass]="{'columna tabla-linea-topP':true, 'col-4':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } "  >
+    <!--<div class="col-2 columna border-top">-->
         <div class="d-flex justify-content-start">
             <span class="validacion fw-semibold" *ngIf="pregunta.obligatoria">*</span>
             <span class="fs-14px">{{ pregunta.pregunta }}</span>
         </div>
     </div>
     <!-- Valor | Respuesta -->
-    <div 
-    class="col-2 columna d-flex flex-column border-top" 
-    [ngClass]="clasesRespuestas">
-        <div class="d-flex justify-content-start">
-            <div class="d-block w-100">
-                <select [disabled]="soloLectura || bloqueada" [(ngModel)]="valor" class="form-select" (change)="alCambiarRespuesta(this.valor)">
-                    <option value="">Seleccione una opción.</option>
-                    <option *ngFor="let opcion of pregunta.valoresPregunta" [value]="opcion.valor">
-                        {{ opcion.clave }}
-                    </option>
-                </select>
+     <div [ngClass]="{'columna d-flex flex-column tabla-linea-topP':true, 'col-3':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } ">
+
+     
+        <div 
+        
+        
+            [ngClass]="clasesRespuestas">
+            <div class="d-flex justify-content-start">
+                <div class="d-block w-100">
+                    <select [disabled]="soloLectura || bloqueada" [(ngModel)]="valor" class="form-select" (change)="alCambiarRespuesta(this.valor)">
+                        <option value="">Seleccione una opción.</option>
+                        <option *ngFor="let opcion of pregunta.valoresPregunta" [value]="opcion.valor">
+                            {{ opcion.clave }}
+                        </option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-2 columna border-top">
+
+    <div [ngClass]="{'columna tabla-linea-topP':true, 'col-4':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } "  >
+    <!--<div class="col-2 columna border-top">-->
         <div class="d-flex w-100 flex-column flex-gap-10" *ngIf="pregunta.tieneObservacion">
             <textarea class="form-control fs-12px" placeholder="Justificación" 
             [ngModel]="observacion"
@@ -39,7 +47,8 @@
         </div>
     </div>
     <!-- Campos verificador -->
-    <div class="col-2 columna d-flex flex-column border-top" *ngIf="camposDeVerificacionVisibles">
+    <div [ngClass]="{'columna d-flex flex-column tabla-linea-topP':true, '':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } "    *ngIf="camposDeVerificacionVisibles">
+    <!--<div class="col-2 columna d-flex flex-column border-top" *ngIf="camposDeVerificacionVisibles">-->
         <div class="d-flex justify-content-start">
             <select 
             [ngModel]="evidenciaCorresponde" 
@@ -64,7 +73,8 @@
             </div>
         </div>
     </div>
-    <div class="col-2 columna d-flex flex-column border-top" *ngIf="camposDeVerificacionVisibles">
+    <div [ngClass]="{'columna d-flex flex-column tabla-linea-topP':true, '':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } "    *ngIf="camposDeVerificacionVisibles">
+    <!--<div class="col-2 columna d-flex flex-column border-top" *ngIf="camposDeVerificacionVisibles">-->
         <div class="d-flex justify-content-start">
             <select
             [ngModel]="documentoCumple" 

@@ -1,172 +1,174 @@
-<div class="mb-3">
-    <table class="tabla-modalidad-radio table border mb-1">
-        <thead>
-            <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
-                <th *ngIf="!soloLectura" colspan="2" class="fw-semibold"></th>
-                <th>Id</th>
-                <th class="fw-semibold">
-                    Nombre del patio
-                </th>
-                <th class="fw-semibold">
-                    Departamento
-                </th>
-                <th class="fw-semibold">
-                    Municipio
-                </th>
-                <th class="fw-semibold">
-                    Dirección
-                </th>
-                <th class="fw-semibold">
-                    Nombre del encargado
-                </th>
-                <th class="fw-semibold">
-                    Número celular del encargado
-                </th>
-                <th class="fw-semibold">
-                    Correo electrónico del encargado
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="fs-14px" *ngIf="patios.length === 0 && registrosACrear.length === 0 && !formularioVisible">
-                <td colspan="2" *ngIf="!soloLectura"></td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr class="fs-14px" *ngFor="let patio of patios ; let i = index"
-                [ngClass]="{ 'bg-peligro': esRegistroAEliminar(patio.id) }">
-                <td *ngIf="!soloLectura" colspan="2">
-                    <span *ngIf="esRegistroAEliminar(patio.id)" class="text-danger cursor-pointer"
-                        (click)="cancelarEliminacionRegistro(patio.id)">
-                        <span class="material-symbols-outlined">
-                            close
+<div class="mb-3 table-responsiveP">
+    <div class="table-responsive">
+        <table class="tabla-informacionP w-100"> <!--tabla-modalidad-radio table border mb-1-->
+            <thead>
+                <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
+                    <th *ngIf="!soloLectura" colspan="2" class="fw-semibold"></th>
+                    <th>Id</th>
+                    <th class="fw-semibold">
+                        Nombre del patio
+                    </th>
+                    <th class="fw-semibold">
+                        Departamento
+                    </th>
+                    <th class="fw-semibold">
+                        Municipio
+                    </th>
+                    <th class="fw-semibold">
+                        Dirección
+                    </th>
+                    <th class="fw-semibold">
+                        Nombre del encargado
+                    </th>
+                    <th class="fw-semibold">
+                        Número celular del encargado
+                    </th>
+                    <th class="fw-semibold">
+                        Correo electrónico del encargado
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="fs-14px" *ngIf="patios.length === 0 && registrosACrear.length === 0 && !formularioVisible">
+                    <td colspan="2" *ngIf="!soloLectura"></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr class="fs-14px" *ngFor="let patio of patios ; let i = index"
+                    [ngClass]="{ 'bg-peligro': esRegistroAEliminar(patio.id) }">
+                    <td *ngIf="!soloLectura" colspan="2">
+                        <span *ngIf="esRegistroAEliminar(patio.id)" class="text-danger cursor-pointer"
+                            (click)="cancelarEliminacionRegistro(patio.id)">
+                            <span class="material-symbols-outlined">
+                                close
+                            </span>
                         </span>
-                    </span>
-                    <span *ngIf="!esRegistroAEliminar(patio.id)" class="text-danger cursor-pointer"
-                        (click)="eliminarRegistro(patio.id)">
-                        <span class="material-symbols-outlined">
-                            delete
+                        <span *ngIf="!esRegistroAEliminar(patio.id)" class="text-danger cursor-pointer"
+                            (click)="eliminarRegistro(patio.id)">
+                            <span class="material-symbols-outlined">
+                                delete
+                            </span>
                         </span>
-                    </span>
-                </td>
-                <td>{{ patio.id }}</td>
-                <td>{{ patio.nombre }}</td>
-                <td>{{ obtenerNombreDepartamento(patio.departamento) }}</td>
-                <td>{{ obtenerNombreCiudad(patio.municipio) }}</td>
-                <td>{{ patio.direccion }}</td>
-                <td>{{ patio.encargado }}</td>
-                <td>{{ patio.telefono }}</td>
-                <td>{{ patio.correo }}</td>
-            </tr>
-            <tr class="fs-14px bg-exitoso" *ngFor="let patio of registrosACrear ; let indice = index">
-                <td *ngIf="!soloLectura" colspan="2">
-                    <span class="text-danger cursor-pointer" (click)="retirarDeRam(indice)">
-                        <span class="material-symbols-outlined">
-                            close
+                    </td>
+                    <td>{{ patio.id }}</td>
+                    <td>{{ patio.nombre }}</td>
+                    <td>{{ obtenerNombreDepartamento(patio.departamento) }}</td>
+                    <td>{{ obtenerNombreCiudad(patio.municipio) }}</td>
+                    <td>{{ patio.direccion }}</td>
+                    <td>{{ patio.encargado }}</td>
+                    <td>{{ patio.telefono }}</td>
+                    <td>{{ patio.correo }}</td>
+                </tr>
+                <tr class="fs-14px bg-exitoso" *ngFor="let patio of registrosACrear ; let indice = index">
+                    <td *ngIf="!soloLectura" colspan="2">
+                        <span class="text-danger cursor-pointer" (click)="retirarDeRam(indice)">
+                            <span class="material-symbols-outlined">
+                                close
+                            </span>
                         </span>
-                    </span>
-                </td>
-                <td> - </td>
-                <td>{{ patio.nombre }}</td>
-                <td>{{ obtenerNombreDepartamento(patio.departamento) }}</td>
-                <td>{{ obtenerNombreCiudad(patio.municipio) }}</td>
-                <td>{{ patio.direccion }}</td>
-                <td>{{ patio.encargado }}</td>
-                <td>{{ patio.telefono }}</td>
-                <td>{{ patio.correo }}</td>
+                    </td>
+                    <td> - </td>
+                    <td>{{ patio.nombre }}</td>
+                    <td>{{ obtenerNombreDepartamento(patio.departamento) }}</td>
+                    <td>{{ obtenerNombreCiudad(patio.municipio) }}</td>
+                    <td>{{ patio.direccion }}</td>
+                    <td>{{ patio.encargado }}</td>
+                    <td>{{ patio.telefono }}</td>
+                    <td>{{ patio.correo }}</td>
 
-            </tr>
-            <tr class="fs-12px" [formGroup]="formulario" *ngIf="formularioVisible">
-                <td></td>
-                <td class="align-middle">
-                    <span class="text-danger cursor-pointer" (click)="ocultarFormulario()">
-                        <span class="material-symbols-outlined">
-                            close
+                </tr>
+                <tr class="fs-12px" [formGroup]="formulario" *ngIf="formularioVisible">
+                    <td></td>
+                    <td class="align-middle">
+                        <span class="text-danger cursor-pointer" (click)="ocultarFormulario()">
+                            <span class="material-symbols-outlined">
+                                close
+                            </span>
                         </span>
-                    </span>
-                </td>
-                <td class="align-middle">
-                    <span class="text-success cursor-pointer" (click)="agregarARam()">
-                        <span class="material-symbols-outlined">
-                            done
+                    </td>
+                    <td class="align-middle">
+                        <span class="text-success cursor-pointer" (click)="agregarARam()">
+                            <span class="material-symbols-outlined">
+                                done
+                            </span>
                         </span>
-                    </span>
-                </td>
-                <td>
-                    <input formControlName="nombre" style="max-width: 300px;" class="form-control fs-12px"
-                        placeholder="Nombre de la sede." />
-                    <app-validacion [control]="this.formulario.controls['nombre']" [validacion]="'required'"
-                        [texto]="'El nombre es requerido.'" />
-                </td>
-                <td>
-                    <select formControlName="departamento" style="max-width: 300px;" class="form-select">
-                        <option value="">Selecciona un departamento.</option>
-                        <option [value]="departamento.id" *ngFor="let departamento of departamentos">
-                            {{ departamento.id }} - {{ departamento.name }}
-                        </option>
-                    </select>
-                    <app-validacion [control]="this.formulario.controls['departamento']" [validacion]="'required'"
-                        [texto]="'El departamento es requerido.'" />
-                </td>
-                <td>
-                    <select formControlName="municipio" style="max-width: 300px;" class="form-select">
-                        <option value="">Selecciona un municipio.</option>
-                        <option [value]="ciudad.id" *ngFor="let ciudad of ciudades">
-                            {{ ciudad.id }} - {{ ciudad.name }}
-                        </option>
-                    </select>
-                    <app-validacion [control]="this.formulario.controls['municipio']" [validacion]="'required'"
-                        [texto]="'El municipio es requerido.'" />
-                </td>
-                <td>
-                    <input formControlName="direccion" style="max-width: 300px;" class="form-control fs-12px"
-                        placeholder="Dirección" />
-                    <app-validacion [control]="this.formulario.controls['direccion']" [validacion]="'required'"
-                        [texto]="'La dirección es requerida.'" />
-                </td>
-                <td>
-                    <input formControlName="encargado" style="max-width: 300px;" class="form-control fs-12px"
-                        placeholder="Nombre del encargado" />
-                    <app-validacion [control]="this.formulario.controls['encargado']" [validacion]="'required'"
-                        [texto]="'El nombre del encargado es requerido.'" />
-                    <app-validacion [control]="this.formulario.controls['encargado']" [validacion]="'pattern'"
-                        [texto]="'Solo letras.'" />
-                </td>
-                <td>
-                    <fieldset class="d-flex flex-column">
-                        <input type="text" formControlName="telefonoEncargado" style="max-width: 300px;"
-                            class="form-control fs-12px" placeholder="Teléfono del encargado" />
-                        <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
-                            [validacion]="'required'" [texto]="'El teléfono del encargado es requerido.'" />
-                        <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
-                            [validacion]="'minlength'" [texto]="'Mínimo 10 números.'" />
+                    </td>
+                    <td>
+                        <input formControlName="nombre" style="max-width: 300px;" class="form-control fs-12px"
+                            placeholder="Nombre de la sede." />
+                        <app-validacion [control]="this.formulario.controls['nombre']" [validacion]="'required'"
+                            [texto]="'El nombre es requerido.'" />
+                    </td>
+                    <td>
+                        <select formControlName="departamento" style="max-width: 300px;" class="form-select">
+                            <option value="">Selecciona un departamento.</option>
+                            <option [value]="departamento.id" *ngFor="let departamento of departamentos">
+                                {{ departamento.id }} - {{ departamento.name }}
+                            </option>
+                        </select>
+                        <app-validacion [control]="this.formulario.controls['departamento']" [validacion]="'required'"
+                            [texto]="'El departamento es requerido.'" />
+                    </td>
+                    <td>
+                        <select formControlName="municipio" style="max-width: 300px;" class="form-select">
+                            <option value="">Selecciona un municipio.</option>
+                            <option [value]="ciudad.id" *ngFor="let ciudad of ciudades">
+                                {{ ciudad.id }} - {{ ciudad.name }}
+                            </option>
+                        </select>
+                        <app-validacion [control]="this.formulario.controls['municipio']" [validacion]="'required'"
+                            [texto]="'El municipio es requerido.'" />
+                    </td>
+                    <td>
+                        <input formControlName="direccion" style="max-width: 300px;" class="form-control fs-12px"
+                            placeholder="Dirección" />
+                        <app-validacion [control]="this.formulario.controls['direccion']" [validacion]="'required'"
+                            [texto]="'La dirección es requerida.'" />
+                    </td>
+                    <td>
+                        <input formControlName="encargado" style="max-width: 300px;" class="form-control fs-12px"
+                            placeholder="Nombre del encargado" />
+                        <app-validacion [control]="this.formulario.controls['encargado']" [validacion]="'required'"
+                            [texto]="'El nombre del encargado es requerido.'" />
+                        <app-validacion [control]="this.formulario.controls['encargado']" [validacion]="'pattern'"
+                            [texto]="'Solo letras.'" />
+                    </td>
+                    <td>
+                        <fieldset class="d-flex flex-column">
+                            <input type="text" formControlName="telefonoEncargado" style="max-width: 300px;"
+                                class="form-control fs-12px" placeholder="Teléfono del encargado" />
                             <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
-                            [validacion]="'maxlength'" [texto]="'Máximo 10 números.'" />
-                        <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
-                            [validacion]="'pattern'" [texto]="'Solo números.'" />
-                    </fieldset>
-                </td>
-                <td>
-                    <input formControlName="correoEncargado" style="max-width: 300px;" class="form-control fs-12px"
-                        placeholder="Correo del encargado" />
-                    <app-validacion [control]="this.formulario.controls['correoEncargado']" [validacion]="'required'"
-                        [texto]="'El campo es requerido.'" />
-                    <app-validacion [control]="this.formulario.controls['correoEncargado']" [validacion]="'pattern'"
-                        [texto]="'El correo electrónico es inválido.'" />
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                                [validacion]="'required'" [texto]="'El teléfono del encargado es requerido.'" />
+                            <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
+                                [validacion]="'minlength'" [texto]="'Mínimo 10 números.'" />
+                                <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
+                                [validacion]="'maxlength'" [texto]="'Máximo 10 números.'" />
+                            <app-validacion [control]="this.formulario.controls['telefonoEncargado']"
+                                [validacion]="'pattern'" [texto]="'Solo números.'" />
+                        </fieldset>
+                    </td>
+                    <td>
+                        <input formControlName="correoEncargado" style="max-width: 300px;" class="form-control fs-12px"
+                            placeholder="Correo del encargado" />
+                        <app-validacion [control]="this.formulario.controls['correoEncargado']" [validacion]="'required'"
+                            [texto]="'El campo es requerido.'" />
+                        <app-validacion [control]="this.formulario.controls['correoEncargado']" [validacion]="'pattern'"
+                            [texto]="'El correo electrónico es inválido.'" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div class="d-flex">
         <span class="validacion" *ngIf="patioRequerido">Debe agregar al menos un patio.</span>
     </div>
-    <div class="d-flex mt-3" *ngIf="!formularioVisible && !soloLectura">
+    <div class="d-flex py-3 ps-4 tabla-linea-topP" *ngIf="!formularioVisible && !soloLectura">
         <button type="button" class="boton primario relleno" (click)="mostrarFormulario()">
             Agregar
         </button>
