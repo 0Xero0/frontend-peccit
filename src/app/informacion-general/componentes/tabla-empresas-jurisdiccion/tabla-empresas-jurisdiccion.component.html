@@ -1,8 +1,10 @@
-<div class="mb-3">
+<div class="mb-3 table-responsiveP">
     <div class="table-responsive">
-        <table class="tabla-empresas table border mb-1">
+        <!--tabla-empresas table border mb-1-->
+        <table class="tabla-informacionP ">
             <thead>
-                <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
+                <!-- fondo-secundario texto-primario -->
+                <tr height="38px" class="fs-14px  encabezado-tabla">
                     <th *ngIf="!soloLectura" colspan="2" class="fw-semibold"></th>
                     <th class="fw-semibold">
                         NIT
@@ -227,10 +229,11 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex">
+    <div class="d-flex ">
         <span class="validacion" *ngIf="empresaRequerida">Debe agregar al menos una empresa.</span>
     </div>
-    <div class="d-flex mt-3" *ngIf="!formularioVisible && !soloLectura">
+    
+    <div class="d-flex py-3 ps-4 tabla-linea-topP" *ngIf="!formularioVisible && !soloLectura">
         <button type="button" class="boton primario relleno" (click)="mostrarFormulario()">
             Agregar
         </button>
