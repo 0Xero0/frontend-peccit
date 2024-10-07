@@ -1,4 +1,4 @@
-<div class="d-flex">
+<div class="d-flex ps-4">
     <fieldset>
         <label class="fs-14px fw-semibold">Vigencia</label>
         <select title="vigencia" class="form-select" [(ngModel)]="vigencia" (ngModelChange)="manejarCambioVigencia($event)">
@@ -7,87 +7,90 @@
     </fieldset>
 </div>
 
-<div class="d-block mt-3">
-    <div class="table-responsive">
-        <table class="table tabla-primaria fs-14px">
-            <thead>
-                <tr>
-                    <th>Tipo de servicio / Modalidad</th>
-                    <th>Tarifas autorizadas</th>
-                    <th>Acto administrativo</th>
-                    <th>Estructura de costos</th>
-                    <th *ngIf="!soloLectura"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngIf="tarifas.length < 1">
-                    <td colspan="5" class="text-center fw-semibold">No se encontraron tarifas para esta vigencia.</td>
-                </tr>
-                <tr *ngFor="let tarifa of tarifas">
-                    <td>{{ tarifa.idServicioModalidad }} - {{ obtenerNombreServicioModalidad(tarifa.idServicioModalidad) }}</td>
-                    <td>${{ tarifa.tarifaAutorizada | currency: '' : '' : '0.0-0'}}</td>
-                    <td> 
-                        <span class="hipervinculo cursor-pointer" (click)="descargarDocumento(tarifa.actoAdministrativoDocumento, tarifa.actoAdministrativoRuta, tarifa.actoAdministrativoOriginal)">
-                            {{ tarifa.actoAdministrativoOriginal }}
-                        </span> 
-                    </td>
-                    <td> 
-                        <span class="hipervinculo cursor-pointer" (click)="descargarDocumento(tarifa.estructuraCostosDocumento, tarifa.estructuraCostosRuta, tarifa.estructuraCostosOriginal)">
-                            {{ tarifa.estructuraCostosOriginal }}
-                        </span> 
-                    </td>
-                    <td class="texto-primario fw-semibold" *ngIf="!soloLectura">
-                        <span class="cursor-pointer" (click)="eliminarTarifa(tarifa.id)">Eliminar</span> 
-                    </td>
-                </tr>
-                <tr [formGroup]="formulario" *ngIf="mostrarFormulario && !soloLectura">
-                    <td>
-                        <select title="servicioModal"
-                        formControlName="idServicioModalidad" 
-                        class="form-select">
-                            <option value="">Selecciona una opción</option>
-                            <option [value]="tipo.id" *ngFor="let tipo of tiposServicios">{{ tipo.id }} - {{ tipo.nombre }}</option>
-                        </select>
-                        <app-validacion 
-                        [control]="this.formulario.controls.idServicioModalidad" 
-                        [validacion]="'required'"
-                        [texto]="'Debe seleccionar una opción.'"/>
-                    </td>
-                    <td>
-                        <app-input-moneda formControlName="tarifaAutorizada" [placeholder]="'Tarifa autorizada'" />
-                        <app-validacion 
-                        [control]="this.formulario.controls.tarifaAutorizada" 
-                        [validacion]="'required'"
-                        [texto]="'El campo es obligatorio.'"/>
-                    </td>
-                    <td>
-                        <app-input-archivo 
-                        [nombre]="'actoAdministrativo'" 
-                        formControlName="actoAdministrativo"
-                        [acepta]="['.pdf']" />
-                        <app-validacion 
-                        [control]="this.formulario.controls.actoAdministrativo" 
-                        [validacion]="'required'"
-                        [texto]="'El archivo es requerido.'"/>
-                    </td>
-                    <td>
-                        <app-input-archivo 
-                        [nombre]="'estructuraCostos'" 
-                        formControlName="estructuraCostos"
-                        [acepta]="['.xlsx']" />
-                        <app-validacion 
-                        [control]="this.formulario.controls.estructuraCostos" 
-                        [validacion]="'required'"
-                        [texto]="'El archivo es requerido.'"/>
-                    </td>
-                    <td>
-                        <button class="boton primario relleno" (click)="guardarTarifa()">Guardar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<div class="d-block mt-3 ps-4">
+    <div class="table-responsiveP">
+        <div class="table-responsive">
+            <!--tabla-informacionP-->
+            <table class="tabla-informacionP w-100">
+                <thead>
+                    <tr>
+                        <th>Tipo de servicio / Modalidad</th>
+                        <th>Tarifas autorizadas</th>
+                        <th>Acto administrativo</th>
+                        <th>Estructura de costos</th>
+                        <th *ngIf="!soloLectura"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="tarifas.length < 1">
+                        <td colspan="5" class="text-center fw-semibold">No se encontraron tarifas para esta vigencia.</td>
+                    </tr>
+                    <tr *ngFor="let tarifa of tarifas">
+                        <td>{{ tarifa.idServicioModalidad }} - {{ obtenerNombreServicioModalidad(tarifa.idServicioModalidad) }}</td>
+                        <td>${{ tarifa.tarifaAutorizada | currency: '' : '' : '0.0-0'}}</td>
+                        <td> 
+                            <span class="hipervinculo cursor-pointer" (click)="descargarDocumento(tarifa.actoAdministrativoDocumento, tarifa.actoAdministrativoRuta, tarifa.actoAdministrativoOriginal)">
+                                {{ tarifa.actoAdministrativoOriginal }}
+                            </span> 
+                        </td>
+                        <td> 
+                            <span class="hipervinculo cursor-pointer" (click)="descargarDocumento(tarifa.estructuraCostosDocumento, tarifa.estructuraCostosRuta, tarifa.estructuraCostosOriginal)">
+                                {{ tarifa.estructuraCostosOriginal }}
+                            </span> 
+                        </td>
+                        <td class="texto-primario fw-semibold" *ngIf="!soloLectura">
+                            <span class="cursor-pointer" (click)="eliminarTarifa(tarifa.id)">Eliminar</span> 
+                        </td>
+                    </tr>
+                    <tr [formGroup]="formulario" *ngIf="mostrarFormulario && !soloLectura">
+                        <td>
+                            <select title="servicioModal"
+                            formControlName="idServicioModalidad" 
+                            class="form-select">
+                                <option value="">Selecciona una opción</option>
+                                <option [value]="tipo.id" *ngFor="let tipo of tiposServicios">{{ tipo.id }} - {{ tipo.nombre }}</option>
+                            </select>
+                            <app-validacion 
+                            [control]="this.formulario.controls.idServicioModalidad" 
+                            [validacion]="'required'"
+                            [texto]="'Debe seleccionar una opción.'"/>
+                        </td>
+                        <td>
+                            <app-input-moneda formControlName="tarifaAutorizada" [placeholder]="'Tarifa autorizada'" />
+                            <app-validacion 
+                            [control]="this.formulario.controls.tarifaAutorizada" 
+                            [validacion]="'required'"
+                            [texto]="'El campo es obligatorio.'"/>
+                        </td>
+                        <td>
+                            <app-input-archivo 
+                            [nombre]="'actoAdministrativo'" 
+                            formControlName="actoAdministrativo"
+                            [acepta]="['.pdf']" />
+                            <app-validacion 
+                            [control]="this.formulario.controls.actoAdministrativo" 
+                            [validacion]="'required'"
+                            [texto]="'El archivo es requerido.'"/>
+                        </td>
+                        <td>
+                            <app-input-archivo 
+                            [nombre]="'estructuraCostos'" 
+                            formControlName="estructuraCostos"
+                            [acepta]="['.xlsx']" />
+                            <app-validacion 
+                            [control]="this.formulario.controls.estructuraCostos" 
+                            [validacion]="'required'"
+                            [texto]="'El archivo es requerido.'"/>
+                        </td>
+                        <td>
+                            <button class="boton primario relleno" (click)="guardarTarifa()">Guardar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="d-flex" *ngIf="!soloLectura">
+    <div class="d-flex py-4" *ngIf="!soloLectura">
         <button 
         class="ms-auto boton secundario relleno" 
         *ngIf="mostrarFormulario"

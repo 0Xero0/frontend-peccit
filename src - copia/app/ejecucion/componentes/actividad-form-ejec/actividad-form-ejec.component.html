@@ -1,0 +1,33 @@
+<td class="actividad">
+    {{ actividad.nombre }}
+</td>
+<td class="text-center planeado">{{ actividad.planeado }}</td>
+<td class="text-center ejecutado">
+    <ng-container *ngIf="actividad.tipoPregunta === 'NUMBER'">
+        <app-input-numerico
+        [valorInicial]="respuesta !== '' ? +respuesta : null"
+        [largoMaximo]="10"
+        [cantidadDecimales]="actividad.validacionesPregunta.cantDecimal" 
+        [disabled]="soloLectura"
+        [ngModel]="respuesta"
+        (ngModelChange)="manejarCambioRespuesta($event)"/>
+    </ng-container>
+</td>
+<td class="text-center cumplimiento">{{ obtenerPorcentajeDeCumplimiento() }}</td>
+<td>{{ actividad.validacionesEvidencia.tipoDato }}</td>
+<td>
+    <ng-container *ngIf="actividad.tipoDeEvidencia === 'FILE'">
+        <fieldset class="d-flex flex-column">
+            <app-input-archivo
+            [disabled]="soloLectura"
+            [nombre]="'evidencia-actividad-actividad-' + actividad.datoId"
+            [(ngModel)]="evidencia"
+            (ngModelChange)="manejarCambioArchivo($event)" 
+            [acepta]="[actividad.validacionesEvidencia.extension]"
+            [tamanoMaximoMb]="actividad.validacionesEvidencia.tamanio" />
+            <span class="fs-12px cursor-pointer" *ngIf="actividad.nombreOriginal !== ''" (click)="descargarEvidencia()">{{ actividad.nombreOriginal }}</span>
+            <span class="fs-12px" *ngIf="actividad.nombreOriginal === ''">Sin evidencia adjunta.</span>
+        </fieldset>
+        
+    </ng-container>
+</td>

@@ -1,0 +1,103 @@
+<div class="pregunta-encuesta d-flex mx-0" [ngClass]="{
+    'pregunta-invalida': invalida,
+    'advertencia': advertencia
+  }
+">
+    <div class="col-1 columna tabla-linea-topP">
+        <div class="d-flex justify-content-center">
+            <span class="fs-14px">{{ pregunta.numeroPregunta }}</span>
+        </div>
+    </div>
+    <!-- Pregunta -->
+    <div [ngClass]="{'columna tabla-linea-topP':true, 'col-4':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } "  >
+    <!--<div class="col-2 columna border-top">-->
+        <div class="d-flex justify-content-start">
+            <span class="validacion fw-semibold" *ngIf="pregunta.obligatoria">*</span>
+            <span class="fs-14px">{{ pregunta.pregunta }}</span>
+        </div>
+    </div>
+    <!-- Valor | Respuesta -->
+     <div [ngClass]="{'columna d-flex flex-column tabla-linea-topP':true, 'col-3':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } ">
+
+     
+        <div 
+        
+        
+            [ngClass]="clasesRespuestas">
+            <div class="d-flex justify-content-start">
+                <div class="d-block w-100">
+                    <select [disabled]="soloLectura || bloqueada" [(ngModel)]="valor" class="form-select" (change)="alCambiarRespuesta(this.valor)">
+                        <option value="">Seleccione una opción.</option>
+                        <option *ngFor="let opcion of pregunta.valoresPregunta" [value]="opcion.valor">
+                            {{ opcion.clave }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div [ngClass]="{'columna tabla-linea-topP':true, 'col-4':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } "  >
+    <!--<div class="col-2 columna border-top">-->
+        <div class="d-flex w-100 flex-column flex-gap-10" *ngIf="pregunta.tieneObservacion">
+            <textarea class="form-control fs-12px" placeholder="Justificación" 
+            [ngModel]="observacion"
+            (ngModelChange)="alCambiarObservacion($event)"
+            [disabled]="!pregunta.habilitaObservacion.includes(valor) || soloLectura"></textarea>
+        </div>
+    </div>
+    <!-- Campos verificador -->
+    <div [ngClass]="{'columna d-flex flex-column tabla-linea-topP':true, '':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } "    *ngIf="camposDeVerificacionVisibles">
+    <!--<div class="col-2 columna d-flex flex-column border-top" *ngIf="camposDeVerificacionVisibles">-->
+        <div class="d-flex justify-content-start">
+            <select 
+            [ngModel]="evidenciaCorresponde" 
+            (ngModelChange)="alCambiarEvidenciaCorresponde($event)" 
+            class="form-select"
+            [disabled]="!camposDeVerificacion || pregunta.respuesta == ''">
+                <option [value]="0">Selecciona una opción</option>
+                <option [value]="opcion.id" *ngFor="let opcion of opcionesCorrespondencia">{{opcion.id}} - {{ opcion.nombre }}</option>
+            </select>
+        </div>
+        <div> 
+            <label class="fs-12px fw-semibold">Observación</label>
+            <div class="d-flex justify-content-start">
+                <textarea
+                [disabled]="!camposDeVerificacion || observacionEvidenciaCorrespondeDeshabilitado || pregunta.respuesta == ''"
+                [ngModel]="observacionNoCorresponde"
+                (ngModelChange)="alCambiarObservacionEvidenciaNoCorresponde($event)"
+                placeholder="Escribe aquí tus observaciones"
+                class="form-control fs-12px" 
+                cols="30"
+                 rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+    <div [ngClass]="{'columna d-flex flex-column tabla-linea-topP':true, '':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } "    *ngIf="camposDeVerificacionVisibles">
+    <!--<div class="col-2 columna d-flex flex-column border-top" *ngIf="camposDeVerificacionVisibles">-->
+        <div class="d-flex justify-content-start">
+            <select
+            [ngModel]="documentoCumple" 
+            (ngModelChange)="alCambiarDocumentoCumple($event)"  
+            class="form-select"
+            [disabled]="!camposDeVerificacion || pregunta.respuesta == ''">
+                <option [value]="0">Selecciona una opción</option>
+                <option [value]="opcion.id" *ngFor="let opcion of opcionesCumplimiento">{{opcion.id}} - {{ opcion.nombre }}</option>
+            </select>
+        </div>
+        <div> <!-- observacion documento cumple -->
+            <label class="fs-12px fw-semibold">Observación</label>
+            <div class="d-flex justify-content-start">
+                <textarea
+                [disabled]="!camposDeVerificacion || observacionDocumentoCumpleDeshabilitado || pregunta.respuesta == ''"
+                [ngModel]="observacionNoCumple"
+                (ngModelChange)="alCambiarObservacionDocumentoNoCumple($event)"
+                placeholder="Escribe aquí tus observaciones"
+                class="form-control fs-12px" 
+                cols="30"
+                rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+    
+</div>
