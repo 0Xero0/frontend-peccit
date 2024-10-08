@@ -1,16 +1,21 @@
-<table class="table tabla-items-adicionales" *ngIf="adicionales.length > 0">
-    <thead>
-        <tr>
-            <th colspan="5">Items adicionales</th>
-        </tr>
-    </thead>
-    <tbody>
-        <app-adicional-form-ejec  
-        *ngFor="let adicional of adicionales"
-        (nuevoAdicional)="manejarNuevaRespuesta($event)"
-        [adicional]="adicional"
-        [soloLectura]="soloLectura"
-        [ngClass]="{ 'bg-invalido' : this.adicionalesFaltantes.includes( adicional.idAdicional ) }"
-        />
-    </tbody>
-</table>
+<div class="table-responsiveP">
+    <div class="table-responsive">
+        <!--table tabla-items-adicionales --->
+        <table class="tabla-informacionP w-100" *ngIf="adicionales.length > 0">
+            <thead class="fs-14px">
+                <tr>
+                    <th colspan="5">Items adicionales</th>
+                </tr>
+            </thead>
+            <tbody>
+                <app-adicional-form-ejec  
+                *ngFor="let adicional of adicionales"
+                (nuevoAdicional)="manejarNuevaRespuesta($event)"
+                [adicional]="adicional"
+                [soloLectura]="soloLectura"
+                [ngClass]="{ 'bg-invalido' : this.adicionalesFaltantes.includes( adicional.idAdicional ) }"
+                />
+            </tbody>
+        </table>
+    </div>
+</div>        

@@ -1,0 +1,8 @@
+<ul ngbNav #nav="ngbNav">
+    <app-tab ngbNavItem></app-tab>
+    <li ngbNavItem>
+      <a ngbNavLink>Validacion de datos</a>
+      <ng-template ngbNavContent>Second content</ng-template>
+    </li>
+  </ul>
+<div [ngbNavOutlet]="nav"></div>

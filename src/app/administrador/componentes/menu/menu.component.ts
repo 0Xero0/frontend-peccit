@@ -24,6 +24,7 @@ export class MenuComponent implements OnInit {
     public ServiceMenuP:MenuHeaderPService
   ) { 
     //this.ServiceMenuP.RutaActual =(this.ServiceMenuP.RutaActual==='') ? '/encuesta/1' : this.ServiceMenuP.RutaActual;
+    
     this.ServiceMenuP.RutaModelo =(this.ServiceMenuP.RutaModelo==='') ?`/administrar/encuestas/${1}` : this.ServiceMenuP.RutaActual
     //this.rutaActual=this.router.url;// linea paolo
   }
@@ -31,7 +32,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.rol = this.servicioLocalStorage.obtenerRol()
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
-    //
+    console.log(this.ServiceMenuP.RutaModelo);
   }
 
   public abrir():void{

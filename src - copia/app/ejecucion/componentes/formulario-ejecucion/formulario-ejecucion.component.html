@@ -1,0 +1,107 @@
+<div class="px-sm-2 px-md-3 px-lg-4 my-4">
+    <div class="d-block mb-3">
+        <table class="tabla-informacion">
+            <thead>
+                <tr>
+                    <th colspan="2">Información del formulario.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>NIT</td>
+                    <td class="fw-semibold">
+                        <ng-container *ngIf="formulario">
+                            {{ formulario.idVigilado }}
+                        </ng-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Razón social</td>
+                    <td class="fw-semibold">
+                        {{ usuario.nombre }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Vigencia</td>
+                    <td class="fw-semibold">
+                        <ng-container *ngIf="formulario">
+                            {{ formulario.vigencia }}
+                        </ng-container>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4" *ngIf="!formulario.soloLectura">
+        <button
+        type="button"
+        class="boton primario delineado"
+        (click)="enviar()" [disabled]="hayCambios">Enviar a ST</button>
+
+        <button
+        type="button"
+        class="boton primario relleno"
+        (click)="guardar()" [disabled]="!hayCambios">Guardar</button>
+
+        <button
+        type="button"
+        class="boton primario delineado"
+        [disabled]="esVigilado"
+        [routerLink]="['/administrar', 'reportes-ejecucion']">Volver</button>
+    </div>
+
+    <div class="d-block mb-4" *ngIf="esVigilado">
+        <button class="boton primario relleno" *ngIf="!historico" (click)="irAHistorico()">Ir a historico.</button>
+        <button class="boton primario delineado" *ngIf="historico" (click)="salirDeHistorico()">Salir de historico.</button>
+    </div>
+
+    <div class="d-flex mb-4">
+        <fieldset class="d-flex flex-gap-10">
+            <div class="d-flex pt-2 fs-14px fw-semibold">Periodo</div>
+            <select
+            class="form-select"
+            (ngModelChange)="manejarCambioDeMes($event)"
+            [(ngModel)]="idMes">
+                <option [value]="mes.idMes" *ngFor="let mes of meses">{{ mes.idMostrar }} - {{ mes.nombreMes }}</option>
+            </select>
+            <span class="validacion" *ngIf="!historico">Al enviar a ST, se enviará la información solo del mes seleccionado.</span>
+        </fieldset>
+    </div>
+
+    <ul ngbNav #nav="ngbNav" class="nav-tabs w-100" [destroyOnHide]="false">
+        <li ngbNavItem [ngbNavItem]="tab.nombre" *ngFor="let tab of formulario.formularios">
+            <button ngbNavLink>{{ tab.nombre }}</button>
+            <ng-template ngbNavContent>
+                <app-tab-formulario-ejecucion
+                (nuevasActividades)="manejarNuevasActividades($event)"
+                (nuevosAdicionales)="manejarNuevosAdicionales($event)"
+                [actividadesFaltantes]="actividadesFaltantes"
+                [adicionalesFaltantes]="adicionalesFaltantes"
+                [idVigilado]="formulario.idVigilado"
+                [tab]="tab"
+                [soloLectura]="formulario.soloLectura" />
+            </ng-template>
+        </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="w-100"></div>
+
+    <app-importar-patios
+    #importarPatios
+    *ngIf="idMes"
+    [idMes]="idMes"
+    [idVigilado]="formulario.idVigilado"
+    [vigencia]="formulario.vigencia"
+    (hayCambios)="manejarCambioArchivos()"
+     />
+
+    <app-importar-empresas
+    #importarEmpresas
+    *ngIf="idMes"
+    [idMes]="idMes"
+    [idVigilado]="formulario.idVigilado"
+    [vigencia]="formulario.vigencia"
+    (hayCambios)="manejarCambioArchivos()" />
+</div>
+
+<app-popup #popup />

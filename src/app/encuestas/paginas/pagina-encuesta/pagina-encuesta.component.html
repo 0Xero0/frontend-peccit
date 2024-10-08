@@ -1,8 +1,13 @@
 <div class="px-sm-2 px-md-3 px-lg-4 my-4" *ngIf="encuesta || encuestaCuantitativa">
     <p *ngIf="encuesta">{{encuesta.descripcionClasificacion}}</p>
     <div class="d-block mb-3 ps-4" *ngIf="encuestaCuantitativa">
+        <div class="py-2">
+            <h3 class="texto-primario fw-semibold">
+                Planeación
+            </h3>            
+        </div>
         <table class="tabla-informacion">
-            <thead>
+            <thead class="encabezado-tabla ">
                 <tr>
                     <th colspan="2">Información del formulario.</th>
                 </tr>
@@ -30,6 +35,12 @@
         </table>
     </div>
     <div class="d-block mb-3 ps-4" *ngIf="encuesta">
+        <div class="py-2">
+            <h3 class="texto-primario fw-semibold">
+                Información general
+            </h3>
+            
+        </div>
         <table class="tabla-informacion ">
             <thead class="encabezado-tabla ">
                 <tr>

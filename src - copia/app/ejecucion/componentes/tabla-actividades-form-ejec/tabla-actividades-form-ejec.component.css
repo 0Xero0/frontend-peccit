@@ -1,0 +1,8 @@
+.table th, .tabla, .table td{
+    font-size: 14px;
+    padding: 10px;
+}
+.table th{
+    color: var(--azul-oscuro);
+    background-color: var(--azul-claro);
+}
