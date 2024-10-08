@@ -1,0 +1,11 @@
+<ng-container *ngIf="formulario && idMes">
+    <app-formulario-ejecucion  
+    (recargar)="manejarRecargar()" 
+    (formularioGuardado)="manejarFormularioGuardado()"
+    (cambioDeMes)="manejarCambioDeMes($event)" 
+    [meses]="meses" 
+    [idMesInicial]="idMes" 
+    [formulario]="formulario"    
+    [esVigilado]="esUsuarioVigilado" [historico]="historico" />
+    <app-popup #popup />
+</ng-container>

@@ -1,0 +1,73 @@
+<table class="tabla-modalidad-radio table border mb-1">
+    <thead>
+        <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
+            <th colspan="2" class="fw-semibold" *ngIf="!soloLectura"></th>
+            <th class="fw-semibold">
+                Objetivos
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr 
+        class="fs-14px" 
+        *ngIf="objetivos.length === 0 && registrosACrear.length === 0 && !formularioVisible">
+            <td colspan="2" *ngIf="!soloLectura"></td>
+            <td>-</td>
+        </tr>
+        <tr class="fs-14px" *ngFor="let objetivo of objetivos"
+            [ngClass]="{ 'bg-peligro': esRegistroAEliminar(objetivo.id) }">
+            <td colspan="2" *ngIf="!soloLectura">
+                <span *ngIf="esRegistroAEliminar(objetivo.id)" class="text-danger cursor-pointer"
+                    (click)="cancelarEliminacionRegistro(objetivo.id)">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </span>
+                <span *ngIf="!esRegistroAEliminar(objetivo.id)" class="text-danger cursor-pointer"
+                    (click)="eliminarRegistro(objetivo.id)">
+                    <span class="material-symbols-outlined">
+                        delete
+                    </span>
+                </span>
+            </td>
+            <td>{{ objetivo.nombre }}</td>
+        </tr>
+        <tr class="fs-14px bg-exitoso" *ngFor="let objetivo of registrosACrear ; let indice = index">
+            <td colspan="2" *ngIf="!soloLectura">
+                <span class="text-danger cursor-pointer" (click)="retirarDeRam(indice)">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </span>
+            </td>
+            <td>{{ objetivo.nombre }}</td>
+        </tr>
+        <tr class="fs-14px" [formGroup]="formulario" *ngIf="formularioVisible">
+            <td class="align-middle">
+                <span class="text-danger cursor-pointer" (click)="ocultarFormulario()">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </span>
+            </td>
+            <td class="align-middle">
+                <span class="text-success cursor-pointer" (click)="agregarARam()">
+                    <span class="material-symbols-outlined">
+                        done
+                    </span>
+                </span>
+            </td>
+            <td>
+                <input formControlName="objetivo" style="max-width: 300px;" class="form-control" />
+                <app-validacion [control]="this.formulario.controls['objetivo']"
+                    [validacion]="'required'" [texto]="'El campo no puede estar vacío.'" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+<span class="validacion" *ngIf="objetivosRequeridos">Debe establecer al menos un objetivo.</span>
+<div class="d-flex my-3" *ngIf="!formularioVisible && !soloLectura">
+    <button type="button" class="boton primario relleno" (click)="mostrarFormulario()" >
+        Agregar
+    </button>
+</div>

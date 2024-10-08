@@ -1,6 +1,8 @@
-<ul ngbNav #nav="ngbNav" class="nav-tabs w-100" [destroyOnHide]="false">
+<!--- <ul ngbNav #nav="ngbNav" class="nav-tabs w-100" [destroyOnHide]="false"> -->
+<ul ngbNav #nav="ngbNav" class=" w-100" [destroyOnHide]="false">
     <li ngbNavItem *ngFor="let formulario of encuesta.formularios" [ngbNavItem]="formulario.nombre">
-        <button ngbNavLink>{{ formulario.nombre }}</button>
+    <!-- <button ngbNavLink>{{ formulario.nombre }}</button> -->
+       
         <ng-template ngbNavContent>
             <app-tab-encuesta-cuantitativa
                 [soloLectura]="soloLectura"
@@ -23,6 +25,8 @@
                 (nuevosObjetivos)="manejarNuevosObjetivos($event)"/>
         </ng-template>
     </li>
+
+
 </ul>
 
 <div [ngbNavOutlet]="nav" class="w-100"></div>

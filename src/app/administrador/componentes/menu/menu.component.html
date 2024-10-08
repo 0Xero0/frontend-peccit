@@ -3,7 +3,7 @@
     <li class="">
       <img src="./../../../../assets/img/menu/logo.png" class="logoP">
     </li>
-    <li [routerLinkActive]="'paolo'" [ngClass]="{'modulo':true, 'paolo':SeleccionarMenuP(modulo.ruta) }" *ngFor="let modulo of this.rol.modulos ">
+    <li [routerLinkActive]="'activeP'" [ngClass]="{'modulo':true, 'activeP':SeleccionarMenuP(modulo.ruta) }" *ngFor="let modulo of this.rol.modulos ">
       <span 
       [ngClass]="{'nombre-modulo':true}" 
       routerLink="/administrar{{modulo.ruta}}"
