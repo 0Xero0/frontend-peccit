@@ -1,21 +1,21 @@
 <nav class="menu d-flex ps-5" *ngIf="this.rol && this.rol.modulos">
   <ul class="modulos">
     <li class="">
-      <img src="./../../../../assets/img/menu/logo.png" class="logoP">
+      <img src="assets/img/menu/logo.png" class="logoP">
     </li>
-    <li [routerLinkActive]="'activeP'" [ngClass]="{'modulo':true, 'activeP':SeleccionarMenuP(modulo.ruta) }" *ngFor="let modulo of this.rol.modulos ">
-      <span 
-      [ngClass]="{'nombre-modulo':true}" 
+    <li [routerLinkActive]="'paolo'" [ngClass]="{'modulo':true, 'paolo':SeleccionarMenuP(modulo.ruta) }" *ngFor="let modulo of this.rol.modulos ">
+      <span
+      [ngClass]="{'nombre-modulo':true}"
       routerLink="/administrar{{modulo.ruta}}"
       >{{modulo.nombre}}</span>
       <ul class="submodulos" *ngIf="modulo.submodulos">
         <li class="submodulo" *ngFor="let submodulo of modulo.submodulos" (click)="navegarAlSubmodulo(submodulo)">
-          <span class="nombre-submodulo ">{{ submodulo.nombre }}</span> 
+          <span class="nombre-submodulo ">{{ submodulo.nombre }}</span>
         </li>
       </ul>
     </li>
     <li class="modulo">
-      <span class="nombre-modulo">Seguridad</span> 
+      <span class="nombre-modulo">Seguridad</span>
       <ul class="submodulos">
         <li class="submodulo" (click)="cerrarSesion()">
           <span class="nombre-submodulo">Salir</span>
@@ -27,7 +27,7 @@
     <span class="fs-12px p-3 cursor-pointer"><b>Usuario: </b>{{ usuario.nombre }} {{ usuario.apellido }}</span>
   </div>
 
-  
+
 </nav>
 
 <div class="frajaP d-flex ps-5">
@@ -37,6 +37,6 @@
   SISTEMA NACIONAL DE SUPERVISIÓN AL TRANSPORTE
 </span>
 </p>
-  
+
 </div>
 <div class="frajaP2 d-flex"></div>
