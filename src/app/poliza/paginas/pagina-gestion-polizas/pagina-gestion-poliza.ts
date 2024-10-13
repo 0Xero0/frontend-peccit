@@ -87,7 +87,7 @@ export class PaginaGestionPolizaComponent implements OnInit{
 
   ListarTablaEmpresa(txtbuscar:string,usuario:string,pag_inicio:number,numero_items:number)
   {
-    this.IsFilaBgItem=-1
+    this.IsFilaBgItem=-1 /**este es pintar la de empresa */
     this.ListadoEmpresaP=[]
     this.ServicioPolizaP.obtenerListadodeEmpresaP(txtbuscar,usuario,pag_inicio,numero_items).subscribe({
       next: (respuesta) => {  
@@ -192,6 +192,9 @@ export class PaginaGestionPolizaComponent implements OnInit{
   bLimpiarEmpresa()
   {
     this.txtBuscarEmpresaP="";
+    this.PagEmpresaActual=1;
+    this.ListarTablaEmpresa(this.txtBuscarEmpresaP,this.UsuarioActual!,this.PagEmpresaActual,this.NPaginaMostrar)
+    this.isVisiblePoliza=true;     
   }
   BuscarRegistroPolizaEmpresa(nit: string, fila:number)
   {
@@ -202,8 +205,10 @@ export class PaginaGestionPolizaComponent implements OnInit{
     
     this.isVisiblePoliza=false;
   }
-/***INFORMACION DE POLIZA */
-  //paginador: Paginador<FiltrarPolizas>
+/***INFORMACION DE POLIZA *********************************************************************************************************** */
+  TotalVehiculoActivo:number=0
+  TotalPolizaContractuales:number=0
+  TotalExtraPolizaContractuales:number=0
   IsFilaBgItemPoliza:number=-1
   BgFilaActivaPoliza(fila:number): boolean
   {
@@ -279,18 +284,22 @@ export class PaginaGestionPolizaComponent implements OnInit{
           this.PagAnteriorPoliza=((this.PagPolizaActual - 1) < 1) ? 1: this.PagPolizaActual - 1
           this.PagSiguientePoliza=((this.PagPolizaActual + 1) >= this.PagFinalPoliza) ? this.PagFinalPoliza: this.PagPolizaActual  + 1        
           this.ListarPaginadorPoliza()
+          this.TotalVehiculoActivo=respuesta.out.totalVehiculos//respuesta.out.
+          this.TotalPolizaContractuales=respuesta.out.totalPolizasContractuales
+          this.TotalExtraPolizaContractuales=respuesta.out.totalPolizasExcontractuales
           for (let data of respuesta.out.data){
             this.ListadoPolizaP.push(
               { 
                 id: data.pol_id,
                 tipo_poliza: data.tpo_descripcion,
+                tipo_poliza_id:data.pol_tipo_poliza_id,
                 n_poliza: data.pol_numero,
-                 estado: data.pol_estado,
-                 fecha_cargue: data.pol_creado,
-                 v_fecha_inicio: data.pol_inicio_vigencia,
-                 v_fecha_final: data.pol_fin_vigencia,
-                 aseguradora:data.ase_nombre,
-                 cantidad_vehiculo: data.vehiculos_asociados
+                estado: data.pol_estado,
+                fecha_cargue: data.pol_creado,
+                v_fecha_inicio: data.pol_inicio_vigencia,
+                v_fecha_final: data.pol_fin_vigencia,
+                aseguradora:data.ase_nombre,
+                cantidad_vehiculo: data.vehiculos_asociados
               }
             )
             
@@ -314,6 +323,8 @@ export class PaginaGestionPolizaComponent implements OnInit{
   bLimpiarPoliza()
   {
     this.txtBuscarPolizaP="";
+    this.PagPolizaActual=1;
+    this.ListarTablaPoliza(this.txtBuscarPolizaP,this.NitBuscasquedaPoliza!,this.PagPolizaActual,this.NPaginaMostrar)
   }
   PrecionaTeclaPoliza(texto: string)
   {
@@ -324,10 +335,11 @@ export class PaginaGestionPolizaComponent implements OnInit{
       this.istxtVacioPoliza=true;
     }
   }
-  BuscarRegistroPoliza(id: number, fila:number)
+  BuscarRegistroPoliza(numeropoliza: string, tipopoliza:number, fila:number)
   {
     this.IsFilaBgItemPoliza=fila
-    console.log(id)
+    console.log(numeropoliza)
+    console.log(tipopoliza)
     this.isVisibleDetallePoliza=false;
   }
   

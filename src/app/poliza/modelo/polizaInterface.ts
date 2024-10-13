@@ -24,7 +24,8 @@ export interface EmpresaPModel{
 
 export interface PolizaPModel{
     id:number,   
-    tipo_poliza: string,   
+    tipo_poliza: string,
+    tipo_poliza_id:number,   
     n_poliza: string,    
     estado: boolean,
     fecha_cargue: string,

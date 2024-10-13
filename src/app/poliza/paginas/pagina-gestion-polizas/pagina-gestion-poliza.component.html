@@ -75,7 +75,7 @@
                             </tr>
                         </thead>
                         <tbody class="">
-                            <tr [ngClass]="{'fs-14px borderbuttomP':true, 'bg-info':BgFilaActivaEmpresa(i) }" *ngFor="let empresa of ListadoEmpresaP ; let i = index"
+                            <tr [ngClass]="{'fs-14px borderbuttomP':true, 'bgFilaPTable ':BgFilaActivaEmpresa(i) }" *ngFor="let empresa of ListadoEmpresaP ; let i = index"
                                 >
                                 <td class="text-center">
                                     <span  class="text-danger cursor-pointer"
@@ -182,11 +182,11 @@
                                 </tr>
                             </thead>
                             <tbody class="">
-                                <tr [ngClass]="{'fs-14px borderbuttomP':true, 'bg-info':BgFilaActivaPoliza(i) }" *ngFor="let poliza of ListadoPolizaP ; let i = index"
+                                <tr [ngClass]="{'fs-14px borderbuttomP':true, 'bgFilaPTable ':BgFilaActivaPoliza(i) }" *ngFor="let poliza of ListadoPolizaP ; let i = index"
                                 >
                                 <td class="text-center">
                                     <span  class="text-danger cursor-pointer"
-                                    (click)="BuscarRegistroPoliza(poliza.id, i)">
+                                    (click)="BuscarRegistroPoliza(poliza.n_poliza,poliza.tipo_poliza_id,i)">
                                     <span class="material-symbols-outlined">
                                         search
                                     </span>
@@ -223,9 +223,49 @@
                 </ul>
               </nav>
         </div> 
-
+        <!---INICIO DEL SEPARADOR-->
+        <div class="row ps-4">
+            <div class="col-12 ps-4">
+                <hr class="hr">
+            </div>
+        </div>
+        <!---FIN DEL SEPARADOR-->
+        <!--TABLA DE CANTIDAD-->
+        <div class="row py-2 ps-4">
+            <div class="col-12 ps-4">
+                <div class="mb-3 table-responsiveP ">
+                    <div class="table-responsive">
+                        <!--tabla-empresas table border mb-1-->
+                        <table class="tabla-informacionP w-100">
+                            <thead class="w-100">
+                                <!-- fondo-secundario texto-primario -->
+                                <tr height="38px" class="fs-14px  encabezado-tabla">
+                                    <th class="fw-semibold">
+                                        TOTAL DE VEHÍCULOS ACTIVOS
+                                    </th>
+                                    <th class="fw-semibold">
+                                        TOTAL DE PÓLIZAS CONTRACTUALES DE VEHÍCULOS ACTIVOS
+                                    </th>
+                                    <th class="fw-semibold">
+                                        TOTAL DE PÓLIZAS EXTRACONTRACTUALES DE VEHÍCULOS ACTIVOS
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="">
+                                <tr>
+                                    <td class="text-center"> {{ TotalVehiculoActivo }} </td>
+                                    <td class="text-center"> {{ TotalPolizaContractuales }} </td>
+                                    <td class="text-center">  {{ TotalExtraPolizaContractuales }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> 
     </div>
-
+    
+                   
 
 </div>
    

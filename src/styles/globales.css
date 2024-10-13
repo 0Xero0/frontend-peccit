@@ -448,7 +448,8 @@ h1,h2{
 }
 .bgFilaPTable
 {
-  background: #E6EFFD 0% 0% no-repeat padding-box;
+  background-color: rgb(255, 171, 0, 0.1);
   /*border-radius: 5px 5px 0px 0px;*/
+  
   color: #004884;
 }
