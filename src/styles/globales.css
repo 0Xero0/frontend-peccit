@@ -426,3 +426,30 @@ h1,h2{
   font: normal normal bold 16px/16px Montserrat;
   letter-spacing: 0px;    
 }
+
+.alingPIzqPolizaPecci
+{
+   margin-left: 0px !important;
+   padding: 0px;
+}
+.borderbuttomP
+{
+  border-bottom: 1px solid gainsboro;
+}
+
+.hr{
+  border: none;
+  height: 4px;
+  background-color: #022757;
+}
+.noVisiblePoliza
+{
+  display: none;
+}
+.bgFilaPTable
+{
+  background-color: rgb(255, 171, 0, 0.1);
+  /*border-radius: 5px 5px 0px 0px;*/
+  
+  color: #004884;
+}

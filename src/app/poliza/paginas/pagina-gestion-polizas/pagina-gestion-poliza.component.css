@@ -1,0 +1,19 @@
+.search-icon {
+    right: 15px;
+ }
+ 
+ .eye-icon {
+    right: 15px;
+ }
+ .thedadP {
+   
+   display: block;
+   width: 100%;
+   overflow: auto;
+}
+.tbodyP {
+    height: 200px;
+    display: block;
+    width: 100%;
+    overflow: auto;
+}

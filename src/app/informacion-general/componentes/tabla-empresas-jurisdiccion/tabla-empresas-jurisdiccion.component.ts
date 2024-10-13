@@ -11,7 +11,7 @@ import { Ciudad } from 'src/app/encuestas/modelos/Ciudad';
 import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-tabla-empresas-jurisdiccion',
   templateUrl: './tabla-empresas-jurisdiccion.component.html',
@@ -35,6 +35,7 @@ export class TablaEmpresasJurisdiccionComponent {
   formulario: FormGroup<{
     nit: FormControl<string | null>,
     razonSocial: FormControl<string | null>,
+    correoelectronico: FormControl<string | null>,
     tipoServicio: FormControl<string | null>,
     departamento: FormControl<number | null>,
     municipio: FormControl<number | string | null>,
@@ -74,6 +75,7 @@ export class TablaEmpresasJurisdiccionComponent {
     this.formulario = new FormGroup<{
       nit: FormControl<string | null>,
       razonSocial: FormControl<string | null>,
+      correoelectronico: FormControl<string | null>,
       tipoServicio: FormControl<string | null>,
       departamento: FormControl<number | null>,
       municipio: FormControl<number | string | null>,  
@@ -91,6 +93,7 @@ export class TablaEmpresasJurisdiccionComponent {
     }>({
       nit: new FormControl<string>("", [Validators.required, Validators.max(999999999999)]),
       razonSocial: new FormControl<string>("", [Validators.required]),
+      correoelectronico: new FormControl<string>("", [Validators.required,Validators.email ,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       tipoServicio: new FormControl<string>("", [Validators.required]),
       departamento: new FormControl<number | null>(null, [Validators.required]),
       municipio: new FormControl<number | string | null>("", [Validators.required]),
@@ -162,15 +165,50 @@ export class TablaEmpresasJurisdiccionComponent {
     this.formularioVisible = false
     this.limpiarFormulario()
   }
-
+  IsValidadeEmpresaP:boolean=false //linea paolo
+  msjCrearcionEmpresaP:string='';
   agregarARam(): void {
     if (this.formulario.invalid) {
+      //console.log("coorreo");
       marcarFormularioComoSucio(this.formulario)
       return;
     }
+
+    /**LINEA E PAOLO */
+    
+     this.servicioInformacionGeneral.validarServiciosNitEmpresaP(this.formulario.controls.nit.value!).subscribe({
+      next: (respuesta:any) => {
+        //this.IsValidadeEmpresaP=respuesta.stat
+        this.IsValidadeEmpresaP=respuesta.status
+        if(respuesta.status==false)
+        {
+          for (let msj of respuesta.array_msn){
+           this.msjCrearcionEmpresaP=this.msjCrearcionEmpresaP + '<p class="px-2">' + msj + '</p>'
+            //console.log(numero);
+          }          
+          Swal.fire({
+            html:this.msjCrearcionEmpresaP,
+            icon: "error"
+          })
+         
+        }else{
+          Swal.fire({
+            html:this.msjCrearcionEmpresaP,
+            icon: "info"
+          })
+        }
+        return
+      },
+      error:(err)=> {
+          //console.log(err)
+        return 
+      },
+    })  
+    /*** */
     const empresa: EmpresaJurisdiccionACrear = {
       nit: +this.formulario.controls.nit.value!,
       razon_social: this.formulario.controls.razonSocial.value!,
+      correoelectronico: this.formulario.controls.correoelectronico.value!,
       estado: true,
       capacidad_transportadora_a: +this.formulario.controls.capacidadTransportadoraA.value!,
       capacidad_transportadora_b: +this.formulario.controls.capacidadTransportadoraB.value!,
@@ -188,13 +226,19 @@ export class TablaEmpresasJurisdiccionComponent {
       ruta_transportadora: this.formulario.controls.aACapacidadTransportadoraRuta.value!,
       original_transportadora: this.formulario.controls.aACapacidadTransportadoraOriginal.value!
     }
-
-    this.registrosACrear.push(empresa)
-    this.ocultarFormulario()
-    this.mostrarMensajeDeGuardado()
-    this.valido = this.esValido()
-    this.limpiarFormulario()
-    this.aCrear.emit(this.registrosACrear)
+    //console.log(empresa)
+    //this.IsValidadeEmpresaP=true //este es para probar
+    if(this.IsValidadeEmpresaP)
+    {
+      this.registrosACrear.push(empresa)
+      //console.log(this.registrosACrear)
+      this.ocultarFormulario()
+      this.mostrarMensajeDeGuardado()
+      this.valido = this.esValido()
+      this.limpiarFormulario()
+      this.aCrear.emit(this.registrosACrear)
+    }
+    
   }
 
   retirarDeRam(indice: number) {

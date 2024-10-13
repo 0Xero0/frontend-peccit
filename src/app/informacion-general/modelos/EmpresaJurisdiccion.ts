@@ -1,6 +1,7 @@
 export interface EmpresaJurisdiccion{
     nit: number
     razon_social: string
+    correoelectronico?:string
     tipo_servicio: number
     departamento: number
     municipio: number
