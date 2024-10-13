@@ -1,0 +1,246 @@
+<div class="px-sm-2 px-md-3 px-lg-4 my-4 ">
+    <h3 class="texto-primario fw-semibold ps-4">
+        Visualizar póliza
+    </h3>
+   <!--cargamos el componente de las tablas-->
+</div>
+
+<div class="container-fluid">
+    <div class="row ps-4  ">
+        <!--
+        <div class="col-3 ps-4 ">
+            <select class="form-select ps-4  "  [(ngModel)]="TipoActual"  (change)="CambiarTipoBusqueda($event)">
+                <option  *ngFor="let BuscarP of TipoBuscarP; let i=index" value="{{BuscarP.id}}" >
+                    {{ BuscarP.nombre }}
+                </option>
+                
+              </select>
+        </div>
+        -->
+        <div class="col-3 ps-4">
+            <input type="text" 
+             class="form-control" 
+             [(ngModel)]="txtBuscarEmpresaP"
+             #txtBuscarEmpresa 
+             (keyup)="PrecionaTeclaEmpresa(txtBuscarEmpresa.value)"
+             placeholder="Digita la busqueda">
+            <p class="text-danger" *ngIf="!istxtVacioEmpresa">por favor digitar en la busqueda</p>
+        </div>
+        <div class="col-2">
+            <button type="button" class="boton primario relleno mx-1" (click)="bBuscarEmpresa()">Buscar</button>
+            <button type="button" class="boton primario relleno " (click)="bLimpiarEmpresa()">Limpiar</button>
+        </div>
+    </div> 
+    <!--TABLA EMPRESA--> 
+    <div class="row py-2  ps-4">
+        <div class="col-12  ps-4">
+            
+            <div class="mb-3 table-responsiveP ">
+                <div class="table-responsive">
+                    <!--tabla-empresas table border mb-1-->
+                    <table class="tabla-informacionP w-100">
+                        <thead class="w-100">
+                            <!-- fondo-secundario texto-primario -->
+                            <tr height="38px" class="fs-14px  encabezado-tabla">
+                                <th class="fw-semibold">
+                                    Visualizar
+                                </th>
+                                <th class="fw-semibold">
+                                    NIT
+                                </th>
+                                <th class="fw-semibold">
+                                    Razón Social
+                                </th>
+                                <th class="fw-semibold">
+                                    Tipo de Servicio / Modalidad
+                                </th>
+                                <th class="fw-semibold">
+                                    Departamento
+                                </th>
+                                <th class="fw-semibold">
+                                    Municipio
+                                </th>                           
+                                <th class="fw-semibold">
+                                    Capacidad transportadora A
+                                </th>
+                                <th class="fw-semibold">
+                                    Capacidad transportadora B
+                                </th>
+                                <th class="fw-semibold">
+                                    Capacidad transportadora C
+                                </th>
+                                <th class="fw-semibold">
+                                    Cumplimiento de póliza
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            <tr [ngClass]="{'fs-14px borderbuttomP':true, 'bg-info':BgFilaActivaEmpresa(i) }" *ngFor="let empresa of ListadoEmpresaP ; let i = index"
+                                >
+                                <td class="text-center">
+                                    <span  class="text-danger cursor-pointer"
+                                    (click)="BuscarRegistroPolizaEmpresa(empresa.nit,i)">
+                                    <span class="material-symbols-outlined">
+                                        search
+                                    </span>
+                                </span>
+                                </td>
+                                <td class="text-center">{{ empresa.nit }}</td>
+                                <td class="text-center">{{ empresa.razon_social }}</td>
+                                <td class="text-center">{{ empresa.modalidad }}</td>
+                                <td class="text-center">{{ empresa.departamento }}</td>
+                                <td class="text-center">{{ empresa.municipio }}</td>
+                                <td class="text-center">{{ empresa.capacidadTA }}</td>
+                                <td class="text-center">{{ empresa.capacidadTB }}</td>
+                                <td class="text-center">{{ empresa.capacidadTC }}</td>
+                                <td class="text-center">{{ EstadoEmpresa(empresa.estado) }}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>            
+        
+        </div>
+    </div> 
+    <div class="d-flex justify-content-end">
+        <nav aria-label="...">
+            <ul class="pagination">
+              <li [ngClass]="{ 'page-item': true, 'disabled':HabilitarAnteriorEmpresa} " (click)="CambiarPaginaEmpresa(PagAnteriorEmpresa)">
+                <a class="page-link"  tabindex="-1" aria-disabled="true">Ant</a>
+              </li>
+              <li  *ngFor="let i of ListadoPaginaEmpresa" [ngClass]="{'page-item': true, 'active': (i==PagEmpresaActual)}" (click)="CambiarPaginaEmpresa(i)"><a class="page-link" >{{ i }}</a></li>              
+              <li [ngClass]="{ 'page-item': true, 'disabled':HabilitarSiguienteEmpresa} " (click)="CambiarPaginaEmpresa(PagSiguienteEmpresa)">
+                <a class="page-link" >Sig</a>
+                
+              </li>
+            </ul>
+          </nav>
+    </div> 
+   <!--FIN DE LA EMPRESA-->
+    <div class="row ps-4">
+        <div class="col-12 ps-4">
+            <hr class="hr">
+        </div>
+    </div>
+    <!---FIN DEL SEPARADOR-->
+    <div [ngClass]="{'noVisiblePoliza':isVisiblePoliza}">
+        <div class="row ps-4">
+            
+            <div class="col-3 ps-4">
+                <input type="text" 
+                class="form-control" 
+                [(ngModel)]="txtBuscarPolizaP"
+                #txtBuscarPoliza 
+                (keyup)="PrecionaTeclaPoliza(txtBuscarPoliza.value)"
+                placeholder="Filtrar por póliza">
+                <p class="text-danger" *ngIf="!istxtVacioPoliza">por favor digitar la póliza</p>
+            </div>
+            <div class="col-2">
+                <button type="button" class="boton primario relleno mx-1" (click)="bBuscarPoliza()">Buscar</button>
+                <button type="button" class="boton primario relleno " (click)="bLimpiarPoliza()">Limpiar</button>
+            </div>
+        </div>
+        <!--TABLA POLIZA--> 
+        <div class="row py-2 ps-4">
+            <div class="col-12 ps-4">
+                <div class="mb-3 table-responsiveP ">
+                    <div class="table-responsive">
+                        <!--tabla-empresas table border mb-1-->
+                        <table class="tabla-informacionP w-100">
+                            <thead class="w-100">
+                                <!-- fondo-secundario texto-primario -->
+                                <tr height="38px" class="fs-14px  encabezado-tabla">
+                                    <th class="fw-semibold">
+                                        Visualizar
+                                    </th>
+                                    <th class="fw-semibold">
+                                        Tipo de poliza
+                                    </th>
+                                    <th class="fw-semibold">
+                                        N° de póliza
+                                    </th>
+                                    <th class="fw-semibold">
+                                        Estado póliza
+                                    </th>
+                                    <th class="fw-semibold">
+                                        Fecha de cargue
+                                    </th>
+                                    <th class="fw-semibold">
+                                        Vigencia - Fecha de inicio
+                                    </th>                           
+                                    <th class="fw-semibold">
+                                        Vigencia - Fecha fin
+                                    </th>
+                                    <th class="fw-semibold">
+                                        Aseguradora
+                                    </th>
+                                    <th class="fw-semibold">
+                                        Cantidad de vehículos
+                                    </th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody class="">
+                                <tr [ngClass]="{'fs-14px borderbuttomP':true, 'bg-info':BgFilaActivaPoliza(i) }" *ngFor="let poliza of ListadoPolizaP ; let i = index"
+                                >
+                                <td class="text-center">
+                                    <span  class="text-danger cursor-pointer"
+                                    (click)="BuscarRegistroPoliza(poliza.id, i)">
+                                    <span class="material-symbols-outlined">
+                                        search
+                                    </span>
+                                </span>
+                                </td>
+                                <td class="text-center">{{ poliza.tipo_poliza }}</td>
+                                <td class="text-center">{{ poliza.n_poliza}}</td>
+                                <td class="text-center">{{ EstadoPoliza(poliza.estado) }}</td>
+                                <td class="text-center">{{  poliza.fecha_cargue  | date:'dd-MM-yyyy' }}</td>
+                                <td class="text-center">{{ poliza.v_fecha_inicio | date:'dd-MM-yyyy' }}</td>
+                                <td class="text-center">{{ poliza.v_fecha_final  | date:'dd-MM-yyyy' }}</td>
+                                <td class="text-center">{{ poliza.aseguradora }}</td>
+                                <td class="text-center">{{ poliza.cantidad_vehiculo }}</td>
+                               
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>        
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <nav aria-label="...">
+                <ul class="pagination">
+                  <li [ngClass]="{ 'page-item': true, 'disabled':HabilitarAnteriorPoliza()} " (click)="CambiarPaginaPoliza(PagAnteriorPoliza)">
+                    <a class="page-link"  tabindex="-1" aria-disabled="true">Ant</a>
+                  </li>
+                  <li  *ngFor="let i of ListadoPaginaPoliza" [ngClass]="{'page-item': true, 'active': (i==PagPolizaActual)}" (click)="CambiarPaginaPoliza(i)"><a class="page-link" >{{ i }}</a></li>              
+                  <li [ngClass]="{ 'page-item': true, 'disabled':HabilitarSiguientePoliza()} " (click)="CambiarPaginaPoliza(PagSiguientePoliza)">
+                    <a class="page-link" >Sig</a>
+                    
+                  </li>
+                </ul>
+              </nav>
+        </div> 
+
+    </div>
+
+
+</div>
+   
+  
+    <!--
+    <div class="d-flex align-items-center">
+        <div class="entradas-de-texto-govco">
+            <label for="numeroPlaca">Digite el número de la placa a consultar</label>
+            <input type="text" id="numeroPlaca" placeholder="Digite la placa." [(ngModel)]="placa">
+        </div>
+        <button type="button" class="btn-govco fill-btn-govco" (click)="consultarPoliza(placa,)"
+            style="width: 165px; height: 42px; margin-left: 1rem;">
+            Consultar
+        </button>
+    </div>-->
+
+
+<app-popup #popup/>

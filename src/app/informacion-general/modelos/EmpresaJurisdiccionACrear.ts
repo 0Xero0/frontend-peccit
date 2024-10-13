@@ -1,6 +1,7 @@
 export interface EmpresaJurisdiccionACrear{
     nit: number
     razon_social: string
+    correoelectronico: string
     tipo_servicio: number
     original_tipo_servicio: string
     documento_tipo_servicio: string
