@@ -186,7 +186,7 @@
                                 >
                                 <td class="text-center">
                                     <span  class="text-danger cursor-pointer"
-                                    (click)="BuscarRegistroPoliza(poliza.n_poliza,poliza.tipo_poliza_id,i)">
+                                    (click)="BuscarRegistroPoliza(poliza.n_poliza,poliza.tipo_poliza_id,i,poliza)">
                                     <span class="material-symbols-outlined">
                                         search
                                     </span>
@@ -195,9 +195,9 @@
                                 <td class="text-center">{{ poliza.tipo_poliza }}</td>
                                 <td class="text-center">{{ poliza.n_poliza}}</td>
                                 <td class="text-center">{{ EstadoPoliza(poliza.estado) }}</td>
-                                <td class="text-center">{{  poliza.fecha_cargue  | date:'dd-MM-yyyy' }}</td>
-                                <td class="text-center">{{ poliza.v_fecha_inicio | date:'dd-MM-yyyy' }}</td>
-                                <td class="text-center">{{ poliza.v_fecha_final  | date:'dd-MM-yyyy' }}</td>
+                                <td class="text-center">{{  poliza.fecha_cargue  | date:'dd/MM/yyyy' }}</td>
+                                <td class="text-center">{{ poliza.v_fecha_inicio | date:'dd/MM/yyyy' }}</td>
+                                <td class="text-center">{{ poliza.v_fecha_final  | date:'dd/MM/yyyy' }}</td>
                                 <td class="text-center">{{ poliza.aseguradora }}</td>
                                 <td class="text-center">{{ poliza.cantidad_vehiculo }}</td>
                                
@@ -264,6 +264,409 @@
             </div>
         </div> 
     </div>
+
+    <!--DETTALLE DE LA POLIZA-->
+    <div [ngClass]="{'noVisiblePoliza':isVisibleDetallePoliza}">
+        <div class="row ps-4">
+            <div class="col-3 ps-4">
+                <div class="d-block mb-3 ">
+                    <table class="tabla-informacionP w-100" aria-describedby="tableDescResponsive">
+                      <tbody>
+                        <tr class="cajaNpolizVisualizar fw-bold fs-14px" >
+                          <td scope="col" >PÓLIZA</td>
+                          <td>{{ objPoliza?.n_poliza }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
+        </div>
+
+        <!--MODALIDADES-------------------------------------------------->
+        <div class="row ps-4">
+            <div class="col ps-4 py-2 ">
+                <div class="borderP mt-1 tabla-informacionP w-100 table-responsiveP">
+                    <div class="row encabezado-PModalidad borderP">
+                      <div class="col-12 d-flex ">
+                        <h2 class="fs-14px fw-semibold texto-azul-004884 aligPModalidad">DATOS DE MODALIDAD</h2>
+                      </div>
+                    </div>
+                    <div class="row py-2 alingFilaP">
+                
+                      <div *ngFor="let modalidad of objPoliza?.modalidad; let i=index" class="col-md-2">
+                        
+                        <div class="col form-check">
+                          
+                            <input class="form-check-input aligPModalidad"  type="checkbox" checked disabled [value]="modalidad.obj_modalidad.modpol_id" >
+                            <label>
+                                {{modalidad.obj_modalidad.modpol_nombre}}
+                            </label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="fs-20px fw-semibold texto-azul-004884 mb-3 text-center mt-3 w-100">
+                PÓLIZAS VIGENTES {{  objPoliza?.tipo_poliza }}
+            </h2>
+        </div>
+        <!---INICIO DEL SEPARADOR-->
+        <div class="row ps-4">
+            <div class="col-12 ps-4">
+                <hr class="hr">
+            </div>
+        </div>
+        <div class="row ps-4">
+            <div class="col ps-4">
+                <div>
+                    <span class="fs-14px fw-semibold texto-azul-004884">
+                      INFORMACIÓN SOBRE PÓLIZAS VIGENTES {{  objPoliza?.tipo_poliza }}:
+                    </span>
+                  </div>
+            </div>
+        </div>
+
+         <!---INICIO DEL SEPARADOR-->
+         <div class="row ps-4">
+            <div class="col-12 ps-4">
+                <hr class="hr">
+            </div>
+        </div>
+
+        <div class="row ps-4">
+            <div class="col-6 ps-4">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="col-6 justify-content-start">
+                            <span class="fs-14px">Número de póliza</span><span class="validacion"></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class=" justify-content-start">
+                            <input class="form-control" [ngModel]="objPoliza?.n_poliza" disabled="true"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 ps-4">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="justify-content-start">
+                            <span class="fs-14px">Vigencia de la póliza: (Desde: inicio Vigencia)</span><span class="validacion"></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class=" justify-content-start">
+                            <input class="form-control" [ngModel]="objPoliza?.v_fecha_inicio | date:'dd/MM/yyyy' " disabled="true"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row ps-4 py-3">
+            <div class="col-6 ps-4">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="justify-content-start">
+                            <span class="fs-14px">Seleccione Entidad Aseguradora</span><span class="validacion"></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class=" justify-content-start">
+                            <select class="form-select form-control"  disabled="true">
+                                <option>{{ objPoliza?.aseguradora }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 ps-4">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="justify-content-start">
+                            <span class="fs-14px">Vigencia de la póliza: (Hasta: Final Vigencia)</span><span class="validacion"></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class=" justify-content-start">
+                            <input class="form-control" [ngModel]="objPoliza?.v_fecha_final| date:'dd/MM/yyyy' " disabled="true"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!---INICIO DEL SEPARADOR-->
+         <div class="row ps-4">
+            <div class="col-12 ps-4">
+                <hr class="hr">
+            </div>
+        </div>
+
+
+
+        <!----AQUI VIENE LOS AMPAROS------------------------------------------>
+        <div class="row ps-4">
+            <div class="col ps-4">
+                <div>
+                    <span class="fs-14px fw-semibold texto-azul-004884">
+                      AMPAROS BÁSICOS:
+                    </span>
+                  </div>
+            </div>
+        </div>
+
+         <!---INICIO DEL SEPARADOR-->
+         <div class="row ps-4">
+            <div class="col-12 ps-4">
+                <hr class="hr">
+            </div>
+        </div>
+
+        <div class="row ps-4">
+            <div class="col-4 ps-4">
+                <div>
+                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                     Coberturas y/o amparos básicos
+                    </span>
+                  </div>
+            </div>
+            <div class="col-3">
+                <div>
+                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                     Coberturas
+                    </span>
+                  </div>
+            </div>
+            <div class="col">
+                <div>                    
+                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                     Valor Asegurado (SMMLV)
+                    </span>
+                  </div>
+            </div>
+            <div class="col ">
+                <div>
+                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                     Limite (SMMLV POR PERSONA)
+                    </span>
+                  </div>
+            </div>
+            <div class="col">
+                <div>
+                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                        Deducible (Si lo tiene)
+                    </span>
+                  </div>
+            </div>
+        </div>
+
+        <div class="row ps-4 py-2" *ngFor="let amparoB of objAmparoPolizaBasico ; let i = index ">
+            <div class="col-4 ps-4" >
+                <div>
+                    <span class="fontTaPAmparo">
+                      {{ amparoB.cobertura_descricpion }}
+                    </span>
+                  </div>
+            </div>
+            <div class="col-3 ">
+                <div>
+                    <span class="fontTaPAmparo">
+                        {{ amparoB.cobertura_nombre }}
+                    </span>                                             
+                  </div>
+            </div>
+            <div class="col ">
+                <div>
+                    <input class="form-control" [ngModel]="amparoB.valor_asegurado" disabled="true"/>
+                    
+                  </div>
+            </div>
+            <div class="col">
+                <div>
+                    <input class="form-control" [ngModel]="amparoB.limite" disabled="true"/>
+                  </div>
+            </div>
+            <div class="col ">
+                <div>
+                    <input class="form-control" [ngModel]="amparoB.deducible" disabled="true"/>
+                  </div>
+            </div>
+        </div>
+        <div class="row ps-4">
+            <div class="col-12 ps-4">
+                <hr class="hr">
+            </div>
+        </div>
+        <!------------AMPAROS ADICIONALES------------------------------------------------------>
+        <div class="row ps-4">
+            <div class="col ps-4">
+                <div>
+                    <span class="fs-14px fw-semibold texto-azul-004884">
+                      AMPAROS ADICIONALES:
+                    </span>
+                  </div>
+            </div>
+        </div>
+
+         <!---INICIO DEL SEPARADOR-->
+         <div class="row ps-4">
+            <div class="col-12 ps-4">
+                <hr class="hr">
+            </div>
+        </div>
+
+        <div class="row ps-4">
+            <div class="col-4 ps-4">
+                <div>
+                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                     Coberturas y/o amparos básicos
+                    </span>
+                  </div>
+            </div>
+            <div class="col-3">
+                <div>
+                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                     Coberturas
+                    </span>
+                  </div>
+            </div>
+            <div class="col">
+                <div>                    
+                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                     Valor Asegurado (SMMLV)
+                    </span>
+                  </div>
+            </div>
+            <div class="col ">
+                <div>
+                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                     Limite (SMMLV POR PERSONA)
+                    </span>
+                  </div>
+            </div>
+            <div class="col">
+                <div>
+                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                        Deducible (Si lo tiene)
+                    </span>
+                  </div>
+            </div>
+        </div>
+
+        <div class="row ps-4 py-2" *ngFor="let amparoB of objAmparoPolizaAdicionales ; let i = index ">
+            <div class="col-4 ps-4" >
+                <div>
+                    <span class="fontTaPAmparo">
+                      {{ amparoB.cobertura_descricpion }}
+                    </span>
+                  </div>
+            </div>
+            <div class="col-3 ">
+                <div>
+                    <span class="fontTaPAmparo">
+                        {{ amparoB.cobertura_nombre }}
+                    </span>                                             
+                  </div>
+            </div>
+            <div class="col ">
+                <div>
+                    <input class="form-control" [ngModel]="amparoB.valor_asegurado" disabled="true"/>
+                    
+                  </div>
+            </div>
+            <div class="col">
+                <div>
+                    <input class="form-control" [ngModel]="amparoB.limite" disabled="true"/>
+                  </div>
+            </div>
+            <div class="col ">
+                <div>
+                    <input class="form-control" [ngModel]="amparoB.deducible" disabled="true"/>
+                  </div>
+            </div>
+        </div>
+        <div class="row ps-4">
+            <div class="col-12 ps-4">
+                <hr class="hr">
+            </div>
+        </div>
+        <!----FIN LOS AMPAROS------------------------------------------>
+
+        <!------NOVEDADES-------------------------------------------------------->
+        <div class="row py-2 ps-4">
+            <div class="col-12 ps-4">
+                <div class="mb-3 table-responsiveP ">
+                    <div class="table-responsive">
+                        <!--tabla-empresas table border mb-1-->
+                        <table class="tabla-informacionP w-100">
+                            <thead class="w-100">
+                                <!-- fondo-secundario texto-primario -->
+                                 <tr>
+                                    <th colspan="6" class="text-center">NOVEDADES DE POLIZA</th>
+                                 </tr>
+                                <tr height="38px" class="fs-14px  encabezado-tabla">
+                                    <th class="fw-semibold">
+                                        TIPO DE PÓLIZA
+                                    </th>
+                                    <th class="fw-semibold">
+                                        N° DE PÓLIZA
+                                    </th>
+                                    <th class="fw-semibold">
+                                        PLACA
+                                    </th>
+                                    <th class="fw-semibold">
+                                        FECHA ACTUALIZACIÓN
+                                    </th>
+                                    <th class="fw-semibold">
+                                        ESTADO
+                                    </th>
+                                    <th class="fw-semibold">
+                                       OBSERVACIÓN
+                                    </th>                           
+                                    
+                                    
+                                </tr>
+                            </thead>
+                            <tbody class="">
+                                <tr [ngClass]="{'fs-14px borderbuttomP':true, 'bgFilaPTable ':false }" *ngFor="let novedad of novedadePolizaP ; let i = index"
+                                >                                
+                                <td class="text-center">{{ novedad.tipoPoliza }}</td>
+                                <td class="text-center">{{ novedad.n_poliza}}</td>
+                                <td class="text-center">{{ novedad.placa }}</td>
+                                <td class="text-center">{{ novedad.fechaActualizacion| date:'dd/MM/yyyy' }}</td>
+                                <td class="text-center">{{ EstadoNovedadPoliza(novedad.estado)  }}</td>
+                                <td class="text-center">{{ novedad.observacion  }}</td>
+                               
+                               
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="d-flex justify-content-end">
+            <nav aria-label="...">
+                <ul class="pagination">
+                  <li [ngClass]="{ 'page-item': true, 'disabled':HabilitarAnteriorNovedadPoliza()} " (click)="CambiarPaginaNovedadPoliza(PagAnteriorNovedadPoliza)">
+                    <a class="page-link"  tabindex="-1" aria-disabled="true">Ant</a>
+                  </li>
+                  <li  *ngFor="let i of ListadoPaginaNovedadPoliza" [ngClass]="{'page-item': true, 'active': (i==PagNovedadPolizaActual)}" (click)="CambiarPaginaNovedadPoliza(i)"><a class="page-link" >{{ i }}</a></li>              
+                  <li [ngClass]="{ 'page-item': true, 'disabled':HabilitarSiguienteNovedadPoliza()} " (click)="CambiarPaginaNovedadPoliza(PagSiguienteNovedadPoliza)">
+                    <a class="page-link" >Sig</a>
+                    
+                  </li>
+                </ul>
+              </nav>
+        </div>               
+
+    </div> <!--fin de detalle de poliza-->
     
                    
 

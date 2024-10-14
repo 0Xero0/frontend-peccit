@@ -14,7 +14,7 @@ import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { Paginador } from 'src/app/administrador/modelos/compartido/Paginador';
 import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 import { Router } from '@angular/router';
-import { EmpresaPModel, FiltrarPolizas, ModalidadesPModel, PolizaPModel, TipoBuscarPModel } from '../../modelo/polizaInterface';
+import { AmparoPolizasActualP, EmpresaPModel, FiltrarPolizas, ModalidadesPModel, NovedadePolizasActual, PolizaPModel, TipoBuscarPModel } from '../../modelo/polizaInterface';
 import { ServicioPoliza } from '../../servicio/serviciopoliza.service';
 
 @Component({
@@ -81,7 +81,8 @@ export class PaginaGestionPolizaComponent implements OnInit{
     this.PagAnteriorEmpresa=((this.PagEmpresaActual - 1) <1) ? 1: this.PagEmpresaActual -1
     this.PagSiguienteEmpresa=((this.PagEmpresaActual + 1) >= this.PagFinalEmpresa) ? this.PagFinalEmpresa: this.PagEmpresaActual  + 1
     this.ListarTablaEmpresa(this.txtBuscarEmpresaP,this.UsuarioActual!,this.PagEmpresaActual,this.NPaginaMostrar)
-
+    this.isVisiblePoliza=true;  
+    this.isVisibleDetallePoliza=true; 
   }
 
 
@@ -187,14 +188,16 @@ export class PaginaGestionPolizaComponent implements OnInit{
   {
     this.PagEmpresaActual=1;
     this.ListarTablaEmpresa(this.txtBuscarEmpresaP,this.UsuarioActual!,this.PagEmpresaActual,this.NPaginaMostrar)
-    this.isVisiblePoliza=true;     
+    this.isVisiblePoliza=true;  
+    this.isVisibleDetallePoliza=true;   
   }
   bLimpiarEmpresa()
   {
     this.txtBuscarEmpresaP="";
     this.PagEmpresaActual=1;
     this.ListarTablaEmpresa(this.txtBuscarEmpresaP,this.UsuarioActual!,this.PagEmpresaActual,this.NPaginaMostrar)
-    this.isVisiblePoliza=true;     
+    this.isVisiblePoliza=true; 
+    this.isVisibleDetallePoliza=true;    
   }
   BuscarRegistroPolizaEmpresa(nit: string, fila:number)
   {
@@ -204,6 +207,7 @@ export class PaginaGestionPolizaComponent implements OnInit{
     this.ListarTablaPoliza(this.txtBuscarPolizaP,this.NitBuscasquedaPoliza!,this.PagPolizaActual,this.NPaginaMostrar)
     
     this.isVisiblePoliza=false;
+    
   }
 /***INFORMACION DE POLIZA *********************************************************************************************************** */
   TotalVehiculoActivo:number=0
@@ -266,13 +270,14 @@ export class PaginaGestionPolizaComponent implements OnInit{
     this.PagAnteriorPoliza=((this.PagPolizaActual - 1) <1) ? 1: this.PagPolizaActual -1
     this.PagSiguientePoliza=((this.PagPolizaActual + 1) >= this.PagFinalPoliza) ? this.PagFinalPoliza: this.PagPolizaActual  + 1
     this.ListarTablaPoliza(this.txtBuscarPolizaP,this.NitBuscasquedaPoliza!,this.PagPolizaActual,this.NPaginaMostrar)
-
+    this.isVisibleDetallePoliza=true;
   }
 
   ListarTablaPoliza(txtbuscar:string,usuario:string,pag_inicio:number,numero_items:number)
   {
     this.ListadoPolizaP=[]
     this.IsFilaBgItemPoliza=-1
+    //console.log(usuario)
     usuario='72198326'; //se debe quitar despues de probar
     this.ServicioPolizaP.obtenerListadodePolizaxEmpresaP(txtbuscar,usuario,pag_inicio,numero_items).subscribe({
       //this.ServicioPolizaP.obtenerListadodePolizaxEmpresaP('','72198326',2,5).subscribe({
@@ -292,20 +297,22 @@ export class PaginaGestionPolizaComponent implements OnInit{
               { 
                 id: data.pol_id,
                 tipo_poliza: data.tpo_descripcion,
-                tipo_poliza_id:data.pol_tipo_poliza_id,
-                n_poliza: data.pol_numero,
-                estado: data.pol_estado,
-                fecha_cargue: data.pol_creado,
-                v_fecha_inicio: data.pol_inicio_vigencia,
-                v_fecha_final: data.pol_fin_vigencia,
+                tipo_poliza_id:data.tipo_poliza_id,
+                n_poliza: data.numero,
+                estado: data.estado,
+                fecha_cargue: data.creado,
+                v_fecha_inicio: data.inicio_vigencia,
+                v_fecha_final: data.fin_vigencia,
                 aseguradora:data.ase_nombre,
-                cantidad_vehiculo: data.vehiculos_asociados
+                cantidad_vehiculo: data.vehiculos_asociados,
+                modalidad:data.modalidades
               }
             )
             
           } 
-          console.log(respuesta.out)
-           
+          console.log(respuesta)
+          console.log('german') 
+          console.log(this.ListadoPolizaP)
           //this.modalidadesP= this.modalidadesP.filter(0=0).
           //console.log(this.modalidadesP)
         } 
@@ -317,6 +324,7 @@ export class PaginaGestionPolizaComponent implements OnInit{
     
     this.PagPolizaActual=1;
     this.ListarTablaPoliza(this.txtBuscarPolizaP,this.NitBuscasquedaPoliza!,this.PagPolizaActual,this.NPaginaMostrar)
+    this.isVisibleDetallePoliza=true;
      console.log(this.txtBuscarPolizaP)
       
   }
@@ -324,6 +332,7 @@ export class PaginaGestionPolizaComponent implements OnInit{
   {
     this.txtBuscarPolizaP="";
     this.PagPolizaActual=1;
+    this.isVisibleDetallePoliza=true;
     this.ListarTablaPoliza(this.txtBuscarPolizaP,this.NitBuscasquedaPoliza!,this.PagPolizaActual,this.NPaginaMostrar)
   }
   PrecionaTeclaPoliza(texto: string)
@@ -335,11 +344,19 @@ export class PaginaGestionPolizaComponent implements OnInit{
       this.istxtVacioPoliza=true;
     }
   }
-  BuscarRegistroPoliza(numeropoliza: string, tipopoliza:number, fila:number)
+
+ 
+  objPoliza?:PolizaPModel  /**objeto actual clic poliza */
+  
+  BuscarRegistroPoliza(numeropoliza: string, tipopoliza:number, fila:number, DatosPoliza:PolizaPModel)
   {
     this.IsFilaBgItemPoliza=fila
+    this.objPoliza=DatosPoliza
     console.log(numeropoliza)
     console.log(tipopoliza)
+    console.log(DatosPoliza)
+    this.ListarAmparoPoliza(DatosPoliza.n_poliza,1,200)
+    this.ListarTablaNovedadPoliza(DatosPoliza.n_poliza,DatosPoliza.tipo_poliza_id,this.PagNovedadPolizaActual,this.NPaginaMostrar)
     this.isVisibleDetallePoliza=false;
   }
   
@@ -351,7 +368,123 @@ export class PaginaGestionPolizaComponent implements OnInit{
     this.TipoActual=event.target.value
     
   }
+ 
+  /**novedades */
+  public novedadePolizaP: Array<NovedadePolizasActual> = [  ]; 
 
-  
+  ListarTablaNovedadPoliza(poliza:string,tipo_poliza_id:number,pag_inicio:number,numero_items:number)
+  {
+   
+    this.novedadePolizaP=[]
+    ///////poliza='111111111111'
+    //tipo_poliza_id=1
+    this.ServicioPolizaP.obtenerListadodeNovedadxPolizaP(poliza,tipo_poliza_id,pag_inicio,numero_items).subscribe({
+      next: (respuesta) => {  
+        
+        this.PagNovedadPolizaActual=respuesta.out.meta.current_page     
+        this.PagInicioNovedadPoliza= respuesta.out.meta.first_page;
+        this.PagFinalNovedadPoliza=respuesta.out.meta.last_page;
+        this.PagAnteriorNovedadPoliza=((this.PagNovedadPolizaActual - 1) < 1) ? 1: this.PagNovedadPolizaActual - 1
+        this.PagSiguienteNovedadPoliza=((this.PagNovedadPolizaActual + 1) >= this.PagFinalNovedadPoliza) ? this.PagFinalNovedadPoliza: this.PagNovedadPolizaActual  + 1       
+        this.ListarPaginadorNovedadPoliza()
+        for (let data of respuesta.out.data){
+          this.novedadePolizaP.push(
+            { 
+              tipoPoliza: data.tpo_descripcion,
+              tipo_poliza_id:data.tipo_poliza,
+              n_poliza:data.poliza,
+              placa: data.placa,
+              fechaActualizacion: data.creacion,
+              estado: data.vinculada,
+              observacion:data.observacion
+            }
+          )
+            
+           //console.log(numero);
+         }
+        console.log(this.novedadePolizaP)
+         console.log('yo');
+         console.log(respuesta)
+        //this.modalidadesP= this.modalidadesP.filter(0=0).
+        //console.log(this.modalidadesP)
+      } 
+    })
+  }
+
+  PagNovedadPolizaActual:number=1;
+  PagInicioNovedadPoliza:number=1;
+  PagFinalNovedadPoliza:number=1;  
+  PagAnteriorNovedadPoliza:number=1
+  PagSiguienteNovedadPoliza:number=1
+  ListadoPaginaNovedadPoliza:any
+  ListarPaginadorNovedadPoliza()
+  {
+    var min=(this.PagNovedadPolizaActual) -  1;
+    min=(min <=0)? 1 : min;
+    var max:number =(min + 3) < this.PagFinalNovedadPoliza ? (min + 3) : this.PagFinalNovedadPoliza ;
+    min=( this.PagFinalNovedadPoliza - min >= 4) ? min :  this.PagFinalNovedadPoliza - 3 ; 
+    min=(min <=0)? 1 : min;
+    var List = new Array();
+    //console.log(min + ' -> '+ max)
+    for (let index = min; index <= max; index++) {
+      //const element = array[index];
+      //console.log(index)
+      var length = List.push(index);
+      
+    }
+    this.ListadoPaginaNovedadPoliza = List;
+  }
+
+  CambiarPaginaNovedadPoliza(paginaActual:number)
+  {
+    this.PagNovedadPolizaActual=paginaActual;
+    this.PagAnteriorNovedadPoliza=((this.PagNovedadPolizaActual - 1) <1) ? 1: this.PagNovedadPolizaActual -1
+    this.PagSiguienteNovedadPoliza=((this.PagNovedadPolizaActual + 1) >= this.PagFinalNovedadPoliza) ? this.PagFinalNovedadPoliza: this.PagNovedadPolizaActual  + 1
+    this.ListarTablaNovedadPoliza(this.objPoliza?.n_poliza!,this.objPoliza?.tipo_poliza_id!,this.PagNovedadPolizaActual,this.NPaginaMostrar)
+
+  }
+
+  EstadoNovedadPoliza(estado: boolean): string
+  {
+     if(estado)
+     {
+        return 'VINCULADA';
+     }
+     return 'NO VINCULADA';
+  }
+
+  HabilitarAnteriorNovedadPoliza():boolean
+  {
+    
+    return  (this.PagNovedadPolizaActual==1) ? true :false;
+  }
+  HabilitarSiguienteNovedadPoliza():boolean
+  {
+    return  (this.PagFinalNovedadPoliza==1 || this.PagFinalNovedadPoliza==this.PagNovedadPolizaActual ) ? true :false;
+  }
+
+
+
+  /****************AMPAROS********************************************************************************** */
+  objAmparoPolizaBasico?:Array<AmparoPolizasActualP>=[]
+  objAmparoPolizaAdicionales?:Array<AmparoPolizasActualP>=[]
+  ListarAmparoPoliza(poliza:string,pag_inicio:number,numero_items:number)
+  {
+    this.ServicioPolizaP.obtenerListadodeAmparoxPolizaP(poliza,pag_inicio,numero_items).subscribe({
+      next: (respuesta) => {
+        console.log('-----------------------')
+        console.log(respuesta)
+        console.log('-----------------------')
+        let Amparo :Array<AmparoPolizasActualP>=[]
+        Amparo=  respuesta.out.data
+       
+        this.objAmparoPolizaBasico=Amparo.filter(tipo =>tipo.tipo=='B')
+        this.objAmparoPolizaAdicionales=Amparo.filter(tipo =>tipo.tipo=='A')
+        console.log(this.objAmparoPolizaBasico[0].cobertura_descricpion)
+        console.log('yo amp')
+      }
+
+    })
+  }
 
 }
