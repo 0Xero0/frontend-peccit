@@ -597,6 +597,130 @@
         </div>
         <!----FIN LOS AMPAROS------------------------------------------>
 
+        
+        <!-- FONDO RESPONSABILIDAD -->
+        <div class="row  ps-4">
+            <div class="col-12 ps-4 ">
+                
+                <div class="fondo-desplegable-azulP ">
+                    <div class="row">
+                        <div class="col-8 aligPModalidad">
+                            ¿La empresa tiene constituido un Fondo de Responsabilidad de que trata el Decreto Único Reglamentario del Sector
+                            Transporte?
+                        </div>
+                        <div class="col-1 texto">
+                            <input type="checkbox" disabled title="Si" [checked]="Isresponsabilidad" ><p>SI</p>
+                        </div>
+                        <div class="col-1 texto">
+                            <input type="checkbox" title="No"  disabled [checked]="!Isresponsabilidad"><p>NO</p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div> 
+        </div>
+         <div *ngIf="Isresponsabilidad">
+            
+    
+            <div class="row  ps-4 py-2">
+                <div class="col-12 ps-4 ">
+                    <span class="fs-14px fw-semibold centrar">
+                        INFORMACIÓN SOBRE EL FONDO DE RESPONSABILIDAD
+                      </span>
+                      <hr>
+                </div>
+                
+            </div>
+    
+            <div class="row  ps-4 py-2">
+                <div class="col-6 ps-4 ">
+                    <span class="fs-14px">Fecha Constitución Fondo</span><span class=""></span>
+                </div>
+                <div class="col-6 ps-4  ">
+                    <input type="text" class="form-control" title="Fecha constitución" disabled  name="fechaConstitucion" [value]="fecha_constitucionPR | date:'dd/MM/yyyy' ">
+                </div>            
+            </div>
+    
+            <div class="row  ps-4 py-2">
+                <div class="col-6 ps-4 ">
+                    <span class="fs-14px">Número de Resolución Superintendencia Financiera o entidad competente</span><span class=""></span>
+                </div>
+                <div class="col-6 ps-4 ">
+                    <input type="text" class="form-control" title="Resolución" disabled  [value]="resolucionPR" >
+                </div>            
+            </div>
+    
+            <div class="row  ps-4 py-2">
+                <div class="col-6 ps-4 ">
+                    <span class="fs-14px">Fecha de Resolución Superintendencia Financiera o entidad competente</span><span class=""></span>
+                </div>
+                <div class="col-6 ps-4 ">
+                    <input type="text" class="form-control" title="Fecha resolución" disabled [value]="fecha_resolucionPR | date:'dd/MM/yyyy'">
+                </div>            
+            </div>
+    
+            <div class="row  ps-4 py-2">
+                <div class="col-6 ps-4 ">
+                    <span class="fs-14px">Valor Reservas Técnicas del Fondo para cubrir las responsabilidades</span><span class=""></span>
+                </div>
+                <div class="col-6 ps-4 ">
+                    <input type="text" class="form-control" title="Valor Reservas Técnicas " disabled [value]="valor_reservaPR" >
+                </div>            
+            </div>
+    
+            <div class="row  ps-4 py-2">
+                <div class="col-6 ps-4 ">
+                    <span class="fs-14px">Fecha de corte reservas técnicas del fondo para cubrir las responsabilidades/fecha de corte reservas</span><span class=""></span>
+                </div>
+                <div class="col-6 ps-4 ">
+                    <input type="text" class="form-control" title="Fecha de corte reservas técnicas" disabled [value]="fecha_reservaPR | date:'dd/MM/yyyy'"  >
+                </div>            
+            </div>
+    
+            <div class="row  ps-4 py-2">
+                <div class="col-6 ps-4 ">
+                    <span class="fs-14px">Otra información complementaria del Fondo</span><span class=""></span>
+                </div>
+                <div class="col-6 ps-4 ">
+                    <input type="text" class="form-control" title="Otra información complementaria" disabled [value]="informacionPR" >
+                </div>            
+            </div>
+    
+            <div class="row  ps-4 py-2">
+                <div class="col-6 ps-4 ">
+                    <span class="fs-14px">¿El fondo opera en primera o segunda capa?</span><span class=""></span>
+                </div>
+                <div class="col-6 ps-4 ">
+                    <input type="text" class="form-control"  disabled  [value]="operacionPR">
+                </div>            
+            </div>
+    
+            <div class="row  ps-4 py-2">
+                <div class="col-6 ps-4 ">
+                    <span class="fs-14px">Valor del cubrimiento 1 capa (SMMLV)</span><span class=""></span>
+                </div>
+                <div class="col-6 ps-4 ">
+                    <input type="text" class="form-control"  disabled [value]="valor_cumplimiento_unoPR" >
+                </div>            
+            </div>
+    
+            <div class="row  ps-4 py-2">
+                <div class="col-6 ps-4 ">
+                    <span class="fs-14px">Valor del cubrimiento 2 capa (SMMLV)</span><span class=""></span>
+                </div>
+                <div class="col-6 ps-4 ">
+                    <input type="text" class="form-control"  disabled  [value]="valor_cumplimiento_dosPR">
+                </div>            
+            </div>
+         </div>
+        
+
+        <div class="row ps-4">
+            <div class="col-12 ps-4">
+                <hr class="hr">
+            </div>
+        </div>
         <!------NOVEDADES-------------------------------------------------------->
         <div class="row py-2 ps-4">
             <div class="col-12 ps-4">
