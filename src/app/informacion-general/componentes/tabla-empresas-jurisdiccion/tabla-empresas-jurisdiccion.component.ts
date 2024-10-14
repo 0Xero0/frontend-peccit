@@ -178,66 +178,74 @@ export class TablaEmpresasJurisdiccionComponent {
     
      this.servicioInformacionGeneral.validarServiciosNitEmpresaP(this.formulario.controls.nit.value!).subscribe({
       next: (respuesta:any) => {
+        console.log(respuesta)
         //this.IsValidadeEmpresaP=respuesta.stat
         this.IsValidadeEmpresaP=respuesta.status
+        this.msjCrearcionEmpresaP=''
+        for (let msj of respuesta.array_msn){
+          this.msjCrearcionEmpresaP=this.msjCrearcionEmpresaP + '<p class="px-2">' + msj + '</p>'
+           //console.log(numero);
+         }
         if(respuesta.status==false)
         {
-          for (let msj of respuesta.array_msn){
-           this.msjCrearcionEmpresaP=this.msjCrearcionEmpresaP + '<p class="px-2">' + msj + '</p>'
-            //console.log(numero);
-          }          
+                    
           Swal.fire({
             html:this.msjCrearcionEmpresaP,
             icon: "error"
           })
+          return
          
         }else{
           Swal.fire({
             html:this.msjCrearcionEmpresaP,
             icon: "info"
-          })
+          }).then((result) => {
+           /*** */
+            const empresa: EmpresaJurisdiccionACrear = {
+              nit: +this.formulario.controls.nit.value!,
+              razon_social: this.formulario.controls.razonSocial.value!,
+              correoelectronico: this.formulario.controls.correoelectronico.value!,
+              estado: true,
+              capacidad_transportadora_a: +this.formulario.controls.capacidadTransportadoraA.value!,
+              capacidad_transportadora_b: +this.formulario.controls.capacidadTransportadoraB.value!,
+              capacidad_transportadora_c: +this.formulario.controls.capacidadTransportadoraC.value!,
+              usuario_id: this.idVigilado,
+              departamento: +this.formulario.controls.departamento.value!,
+              municipio: +this.formulario.controls.municipio.value!,
+
+              tipo_servicio: +this.formulario.controls.tipoServicio.value!,
+              documento_tipo_servicio: this.formulario.controls.aATipoServicioDocumento.value!,
+              ruta_tipo_servicio: this.formulario.controls.aATipoServicioRuta.value!,
+              original_tipo_servicio: this.formulario.controls.aATipoServicioOriginal.value!,
+
+              documento_transportadora: this.formulario.controls.aACapacidadTransportadoraDocumento.value!,
+              ruta_transportadora: this.formulario.controls.aACapacidadTransportadoraRuta.value!,
+              original_transportadora: this.formulario.controls.aACapacidadTransportadoraOriginal.value!
+            }
+            //console.log(empresa)
+            //this.IsValidadeEmpresaP=true //este es para probar
+            if(this.IsValidadeEmpresaP)
+            {
+              this.registrosACrear.push(empresa)
+              //console.log(this.registrosACrear)
+              this.ocultarFormulario()
+              this.mostrarMensajeDeGuardado()
+              this.valido = this.esValido()
+              this.limpiarFormulario()
+              this.aCrear.emit(this.registrosACrear)
+            } 
+           
+          });
         }
-        return
+        
       },
       error:(err)=> {
           //console.log(err)
         return 
       },
     })  
-    /*** */
-    const empresa: EmpresaJurisdiccionACrear = {
-      nit: +this.formulario.controls.nit.value!,
-      razon_social: this.formulario.controls.razonSocial.value!,
-      correoelectronico: this.formulario.controls.correoelectronico.value!,
-      estado: true,
-      capacidad_transportadora_a: +this.formulario.controls.capacidadTransportadoraA.value!,
-      capacidad_transportadora_b: +this.formulario.controls.capacidadTransportadoraB.value!,
-      capacidad_transportadora_c: +this.formulario.controls.capacidadTransportadoraC.value!,
-      usuario_id: this.idVigilado,
-      departamento: +this.formulario.controls.departamento.value!,
-      municipio: +this.formulario.controls.municipio.value!,
-
-      tipo_servicio: +this.formulario.controls.tipoServicio.value!,
-      documento_tipo_servicio: this.formulario.controls.aATipoServicioDocumento.value!,
-      ruta_tipo_servicio: this.formulario.controls.aATipoServicioRuta.value!,
-      original_tipo_servicio: this.formulario.controls.aATipoServicioOriginal.value!,
-
-      documento_transportadora: this.formulario.controls.aACapacidadTransportadoraDocumento.value!,
-      ruta_transportadora: this.formulario.controls.aACapacidadTransportadoraRuta.value!,
-      original_transportadora: this.formulario.controls.aACapacidadTransportadoraOriginal.value!
-    }
-    //console.log(empresa)
-    //this.IsValidadeEmpresaP=true //este es para probar
-    if(this.IsValidadeEmpresaP)
-    {
-      this.registrosACrear.push(empresa)
-      //console.log(this.registrosACrear)
-      this.ocultarFormulario()
-      this.mostrarMensajeDeGuardado()
-      this.valido = this.esValido()
-      this.limpiarFormulario()
-      this.aCrear.emit(this.registrosACrear)
-    }
+    
+    /**corde de aqui el codigo */
     
   }
 
