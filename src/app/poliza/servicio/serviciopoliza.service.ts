@@ -33,7 +33,7 @@ export class ServicioPoliza extends Autenticable {
     obtenerListadodePolizaxEmpresaP(txtbuscar:string,nit:string,pag_inicio:number,numero_items:number)
     :Observable<any>{
         let endpoint = `/api/v1/empresas/listarpoliza?usn_identificacion=${nit}&pol_numero=${txtbuscar}&limit=${numero_items}&page=${pag_inicio}`
-        console.log(endpoint);
+        //console.log(endpoint);
         return this.http.get<any>(
           `${this.host}${endpoint}`,
           { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
@@ -43,7 +43,7 @@ export class ServicioPoliza extends Autenticable {
     obtenerListadodeAmparoxPolizaP(poliza:string,pag_inicio:number,numero_items:number)
     :Observable<any>{
         let endpoint = `/api/v1/empresas/amparos_poliza?poliza_id=${poliza}&page=${pag_inicio}&numero_items=${numero_items}`
-        console.log(endpoint);
+        //console.log(endpoint);
         return this.http.get<any>(
           `${this.host}${endpoint}`,
           { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
@@ -54,7 +54,17 @@ export class ServicioPoliza extends Autenticable {
     obtenerListadodeNovedadxPolizaP(poliza:string,tipoPolizaid:number,pag_inicio:number,numero_items:number)
     :Observable<any>{
         let endpoint = `/api/v1/empresas/novedades_poliza?poliza=${poliza}&tipoPoliza=${tipoPolizaid}&page=${pag_inicio}&numero_items=${numero_items}`
-        console.log(endpoint);
+        //console.log(endpoint);
+        return this.http.get<any>(
+          `${this.host}${endpoint}`,
+          { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
+        )
+    }
+
+    obtenerResponsabilidadxPolizaP(poliza:string)
+    :Observable<any>{
+        let endpoint = `/api/v1/empresas/responsabilidad_poliza?poliza_id=${poliza}`
+        //console.log(endpoint);
         return this.http.get<any>(
           `${this.host}${endpoint}`,
           { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
@@ -63,6 +73,8 @@ export class ServicioPoliza extends Autenticable {
     
 
     /***
+     * http://172.16.3.104:5000/api/v1/empresas/responsabilidad_poliza?poliza_id=140
+
      * http://172.16.3.104:5000/api/v1/empresas/novedades_poliza?poliza=5148&tipoPoliza=2&page=1&numero_items=10
 
      * 

@@ -487,3 +487,9 @@ borderP
 .fontTaPAmparo{
   font-size: 11px;
 }
+.fondo-desplegable-azulP{
+  background-color: rgb(19, 64, 122);
+  border-radius: 10px;
+  color: white;
+}
+

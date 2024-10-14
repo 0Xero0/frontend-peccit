@@ -253,8 +253,8 @@ export class PaginaGestionPolizaComponent implements OnInit{
     min=( this.PagFinalPoliza - min >= 4) ? min :  this.PagFinalPoliza - 3 ; 
     min=(min <=0)? 1 : min;
     var List = new Array();
-    console.log(min + ' -> '+ max)
-    console.log( this.PagFinalPoliza)
+    //console.log(min + ' -> '+ max)
+    //console.log( this.PagFinalPoliza)
     for (let index = min; index <= max; index++) {
       //const element = array[index];
       //console.log(index)
@@ -278,7 +278,7 @@ export class PaginaGestionPolizaComponent implements OnInit{
     this.ListadoPolizaP=[]
     this.IsFilaBgItemPoliza=-1
     //console.log(usuario)
-    usuario='72198326'; //se debe quitar despues de probar
+    //usuario='72198326'; //se debe quitar despues de probar
     this.ServicioPolizaP.obtenerListadodePolizaxEmpresaP(txtbuscar,usuario,pag_inicio,numero_items).subscribe({
       //this.ServicioPolizaP.obtenerListadodePolizaxEmpresaP('','72198326',2,5).subscribe({
         next: (respuesta) => {  
@@ -310,9 +310,9 @@ export class PaginaGestionPolizaComponent implements OnInit{
             )
             
           } 
-          console.log(respuesta)
-          console.log('german') 
-          console.log(this.ListadoPolizaP)
+          //console.log(respuesta)
+          //console.log('german') 
+          //console.log(this.ListadoPolizaP)
           //this.modalidadesP= this.modalidadesP.filter(0=0).
           //console.log(this.modalidadesP)
         } 
@@ -352,10 +352,11 @@ export class PaginaGestionPolizaComponent implements OnInit{
   {
     this.IsFilaBgItemPoliza=fila
     this.objPoliza=DatosPoliza
-    console.log(numeropoliza)
-    console.log(tipopoliza)
-    console.log(DatosPoliza)
+    //console.log(numeropoliza)
+    //console.log(tipopoliza)
+    //console.log(DatosPoliza)
     this.ListarAmparoPoliza(DatosPoliza.n_poliza,1,200)
+    this.ListarResponsabilidadPoliza(DatosPoliza.n_poliza)
     this.ListarTablaNovedadPoliza(DatosPoliza.n_poliza,DatosPoliza.tipo_poliza_id,this.PagNovedadPolizaActual,this.NPaginaMostrar)
     this.isVisibleDetallePoliza=false;
   }
@@ -402,9 +403,9 @@ export class PaginaGestionPolizaComponent implements OnInit{
             
            //console.log(numero);
          }
-        console.log(this.novedadePolizaP)
-         console.log('yo');
-         console.log(respuesta)
+        //console.log(this.novedadePolizaP)
+         //console.log('yo');
+         //console.log(respuesta)
         //this.modalidadesP= this.modalidadesP.filter(0=0).
         //console.log(this.modalidadesP)
       } 
@@ -472,9 +473,64 @@ export class PaginaGestionPolizaComponent implements OnInit{
   {
     this.ServicioPolizaP.obtenerListadodeAmparoxPolizaP(poliza,pag_inicio,numero_items).subscribe({
       next: (respuesta) => {
-        console.log('-----------------------')
-        console.log(respuesta)
-        console.log('-----------------------')
+        //console.log('-----------------------')
+        //console.log(respuesta)
+        //console.log('-----------------------')
+        let Amparo :Array<AmparoPolizasActualP>=[]
+        Amparo=  respuesta.out.data
+       
+        this.objAmparoPolizaBasico=Amparo.filter(tipo =>tipo.tipo=='B')
+        this.objAmparoPolizaAdicionales=Amparo.filter(tipo =>tipo.tipo=='A')
+        //console.log(this.objAmparoPolizaBasico[0].cobertura_descricpion)
+        //console.log('yo amp')
+      }
+
+    })
+  }
+   /****************RESPONSABILIZADES********************************************************************************** */
+  Isresponsabilidad:boolean=false
+  tipo_poliza_nombrePR!:any
+  tipo_poliza_descripcionPR!:any 
+  polizaPR!:any
+  fecha_constitucionPR!:any
+  resolucionPR!:any
+  fecha_resolucionPR!:any
+  valor_reservaPR!:any
+  fecha_reservaPR!:any
+  informacionPR!:any
+  operacionPR!:any
+  valor_cumplimiento_unoPR!:any
+  valor_cumplimiento_dosPR!:any
+  created_atPR!:any
+  updated_atPR!:any
+
+  ListarResponsabilidadPoliza(poliza:string)
+  {
+    this.ServicioPolizaP.obtenerResponsabilidadxPolizaP(poliza).subscribe({
+      next: (respuesta) => {
+        //console.log('--------RESPONSABILIDADES---------------')
+        //console.log(respuesta)
+        //console.log('-----------------------')
+        if(respuesta.out.length==0)
+        {
+          this.Isresponsabilidad=false
+          //console.log('---------NO TIENE--------------')
+        }else{
+          this.Isresponsabilidad=true //para el caso que muestre las responsabilidades
+          this.fecha_constitucionPR=respuesta.out.fecha_constitucion
+          this.resolucionPR=respuesta.out.resolucion
+          this.fecha_resolucionPR=respuesta.out.fecha_resolucion
+          this.valor_reservaPR=respuesta.out.valor_reserva
+          this.fecha_reservaPR=respuesta.out.fecha_reserva
+          this.informacionPR=respuesta.out.informacion
+          this.valor_cumplimiento_unoPR=respuesta.out.valor_cumplimiento_uno
+          this.valor_cumplimiento_dosPR=respuesta.out.valor_cumplimiento_dos
+          this.operacionPR=respuesta.out.operacion
+          return         
+          
+          //console.log('---------TIENE--------------')
+        }
+        /*
         let Amparo :Array<AmparoPolizasActualP>=[]
         Amparo=  respuesta.out.data
        
@@ -482,9 +538,9 @@ export class PaginaGestionPolizaComponent implements OnInit{
         this.objAmparoPolizaAdicionales=Amparo.filter(tipo =>tipo.tipo=='A')
         console.log(this.objAmparoPolizaBasico[0].cobertura_descricpion)
         console.log('yo amp')
+        */
       }
 
     })
   }
-
 }
