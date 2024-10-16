@@ -340,18 +340,24 @@ h1,h2{
   cursor: pointer !important;
 }
 
+
 .tabla-informacion{
   font-size: 14px;
-  border-collapse: collapse;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 5px !important;
 }
 .tabla-informacion td, .tabla-informacion th{
-  border: 1px solid gainsboro;
+  /*border: 1px solid gainsboro;*/
   padding: 7px 10px;
+  border-radius: 5px !important;
 }
 .tabla-informacion th{
   font-weight: 600;
   background-color: var(--azul-claro);
   color: var(--azul-oscuro);
+  border-radius: 5px 5px 0px 0px !important;
+  
 }
 .hipervinculo{
   color: var(--azul);
@@ -360,3 +366,130 @@ h1,h2{
 .hipervinculo:hover{
   color: var(--azul-oscuro);
 }
+
+
+/******CODIGO DE PAOLO*******/
+.tabla-informacionP{
+  font-size: 14px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  /* border: solid 0.1px var(--azul-claro); */
+}
+
+.tabla-informacionP td, .tabla-informacionP th{
+  /*border: 1px solid gainsboro;*/
+  padding: 7px 10px;
+ /* border: solid 0.1px var(--azul-claro); */
+}
+.tabla-informacionP th{
+  font-weight: 600;
+  background-color: var(--azul-claro);
+  color: var(--azul-oscuro);
+ /* border: solid 0.1px var(--azul-claro); */
+  
+}
+.table-responsiveP {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 5px;
+  /* border: solid 0.1px var(--azul-claro); */
+  box-shadow: 0px 3px 6px #00000029;
+}
+
+.tabla-linea-topP
+{
+  border-top: 1px solid #707070;
+}
+
+.buttonDerechaP
+{
+  margin-right: 50px;
+}
+
+.tdyP
+{
+    border-right: 1px solid gainsboro;
+    
+}
+.tdxP
+{
+    border-bottom: 1px solid rgb(9, 9, 9);
+    
+}
+.encabezado-tabla{
+  background: #E6EFFD 0% 0% no-repeat padding-box;
+  /*border-radius: 5px 5px 0px 0px;*/
+  color: #004884;
+  padding: 12px 15px;
+  text-align: center;
+  vertical-align: middle;   
+  font: normal normal bold 16px/16px Montserrat;
+  letter-spacing: 0px;    
+}
+
+.alingPIzqPolizaPecci
+{
+   margin-left: 0px !important;
+   padding: 0px;
+}
+.borderbuttomP
+{
+  border-bottom: 1px solid gainsboro;
+}
+
+.hr{
+  border: none;
+  height: 4px;
+  background-color: #022757;
+}
+.noVisiblePoliza
+{
+  display: none;
+}
+.bgFilaPTable
+{
+  background-color: rgb(255, 171, 0, 0.1);
+  /*border-radius: 5px 5px 0px 0px;*/
+  
+  color: #004884;
+}
+.cajaNpolizVisualizar
+{
+  height: 60px;
+}
+
+borderP
+{
+  border: 2px solid #E6EFFD !important;
+}
+
+.encabezado-PModalidad {
+  background-color: #E6EFFD !important;
+  color: #004884; 
+  margin-left: 0px;
+  margin-right: auto;
+  vertical-align: middle;
+}
+
+.aligPModalidad
+{
+  margin: 5px;
+}
+.alingFilaP
+{
+  margin: 0px;
+}
+
+.msjCkpModalidadP
+{
+  font-size: x-small;
+}
+.fontTaPAmparo{
+  font-size: 11px;
+}
+.fondo-desplegable-azulP{
+  background-color: rgb(19, 64, 122);
+  border-radius: 10px;
+  color: white;
+}
+

@@ -167,7 +167,10 @@ export class EncuestaComponent implements OnInit {
       guardarEmpresas: this.empresasACrear,
       eliminarEmpresas: this.empresasAEliminar
     }).subscribe({
-      next: ( respuesta ) =>{
+      next: ( respuesta ) =>{    
+        /***paolo */  
+        console.log(respuesta) ;
+        /** fin de paolo */
         this.popup.abrirPopupExitoso(respuesta.mensaje)
         this.sedeRequerida = false
         this.empresaRequerida = false

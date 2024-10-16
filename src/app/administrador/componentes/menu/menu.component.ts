@@ -4,6 +4,7 @@ import { ServicioLocalStorage } from '../../servicios/local-storage.service';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { AutenticacionService } from 'src/app/autenticacion/servicios/autenticacion.service';
 import { Router } from '@angular/router';
+import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 
 @Component({
   selector: 'app-menu',
@@ -15,17 +16,23 @@ export class MenuComponent implements OnInit {
   usuario?: Usuario | null;
   isCollapsed = false;
   desplegado = true
-  
+  //rutaActual: string ='';
   constructor(
     private servicioLocalStorage: ServicioLocalStorage, 
     private servicioAutenticacion: AutenticacionService,
-    private router: Router
+    public router: Router,
+    public ServiceMenuP:MenuHeaderPService
   ) { 
+    //this.ServiceMenuP.RutaActual =(this.ServiceMenuP.RutaActual==='') ? '/encuesta/1' : this.ServiceMenuP.RutaActual;
+    
+    this.ServiceMenuP.RutaModelo =(this.ServiceMenuP.RutaModelo==='') ?`/administrar/encuestas/${1}` : this.ServiceMenuP.RutaActual
+    //this.rutaActual=this.router.url;// linea paolo
   }
 
   ngOnInit(): void {
     this.rol = this.servicioLocalStorage.obtenerRol()
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
+    console.log(this.ServiceMenuP.RutaModelo);
   }
 
   public abrir():void{
@@ -35,7 +42,19 @@ export class MenuComponent implements OnInit {
   public cerrar():void{
     this.desplegado = false
   }
-
+  /*** CODIGO DE PAOLO************************************* */
+  public SeleccionarMenuP(rutaModelo:string) :boolean
+  {
+    //console.log(this.ServiceMenuP.RutaModelo);
+    //console.log(`/administrar${rutaModelo}`);
+    if(this.ServiceMenuP.RutaModelo===`/administrar${rutaModelo}`)
+    {
+      return true
+    }
+    return false
+  }
+  
+  /************************************************************ */ 
   public cerrarSesion(){
     this.servicioAutenticacion.cerrarSesion()
     this.router.navigateByUrl('/inicio-sesion')

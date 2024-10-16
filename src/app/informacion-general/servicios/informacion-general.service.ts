@@ -20,4 +20,13 @@ export class ServicioInformacionGeneral extends Autenticable {
     return this.http.get<{serviciosModalidades: {nombre: string, id: number}[]}>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
   }
 
+  /***SERVICIO DE PAOLO */
+  validarServiciosNitEmpresaP(nit:string): Observable<any>{
+    const endpoint = `/api/v1/respuestas/validacionrvps/${nit}`
+    //console.log(endpoint)
+    return this.http.get<any>(`${this.host}${endpoint}`, { headers: this.obtenerCabeceraAutorizacion() })
+  }
+
+  /** FIN SERVICIO PAOLO */
+
 }
