@@ -18,14 +18,14 @@ export class MenuComponent implements OnInit {
   desplegado = true
   //rutaActual: string ='';
   constructor(
-    private servicioLocalStorage: ServicioLocalStorage, 
+    private servicioLocalStorage: ServicioLocalStorage,
     private servicioAutenticacion: AutenticacionService,
     public router: Router,
     public ServiceMenuP:MenuHeaderPService
-  ) { 
+  ) {
     //this.ServiceMenuP.RutaActual =(this.ServiceMenuP.RutaActual==='') ? '/encuesta/1' : this.ServiceMenuP.RutaActual;
-    
-    this.ServiceMenuP.RutaModelo =(this.ServiceMenuP.RutaModelo==='') ?`/administrar/encuestas/${1}` : this.ServiceMenuP.RutaActual
+
+    //this.ServiceMenuP.RutaModelo =(this.ServiceMenuP.RutaModelo==='') ?`/administrar/encuestas/${1}` : this.ServiceMenuP.RutaActual
     //this.rutaActual=this.router.url;// linea paolo
   }
 
@@ -53,8 +53,8 @@ export class MenuComponent implements OnInit {
     }
     return false
   }
-  
-  /************************************************************ */ 
+
+  /************************************************************ */
   public cerrarSesion(){
     this.servicioAutenticacion.cerrarSesion()
     this.router.navigateByUrl('/inicio-sesion')
