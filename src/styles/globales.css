@@ -408,12 +408,12 @@ h1,h2{
 
 .tdyP
 {
-    border-right: 1px solid gainsboro;
+    border-right: 1px solid #707070;
     
 }
 .tdxP
 {
-    border-bottom: 1px solid rgb(9, 9, 9);
+    border-bottom: 1px solid #707070;
     
 }
 .encabezado-tabla{
@@ -434,7 +434,7 @@ h1,h2{
 }
 .borderbuttomP
 {
-  border-bottom: 1px solid gainsboro;
+  border-bottom: 1px solid #707070;
 }
 
 .hr{
@@ -458,7 +458,7 @@ h1,h2{
   height: 60px;
 }
 
-borderP
+.borderP
 {
   border: 2px solid #E6EFFD !important;
 }
@@ -492,4 +492,37 @@ borderP
   border-radius: 10px;
   color: white;
 }
+.alinh1P
+{
+  margin-left: 3px !important;
+}
+
+.logosuperP
+{
+  margin-left: -25px;
+}
+.htmlP{
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 77px;
+}
+
+.footerP
+{
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+.inicioMigaPanP
+{
+  margin-left: 20px;
+}
+.migaPanP
+{
+  color: #004884;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
 

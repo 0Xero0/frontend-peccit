@@ -25,7 +25,7 @@
                     <tr *ngIf="tarifas.length < 1">
                         <td colspan="5" class="text-center fw-semibold">No se encontraron tarifas para esta vigencia.</td>
                     </tr>
-                    <tr *ngFor="let tarifa of tarifas">
+                    <tr class="tdxP" *ngFor="let tarifa of tarifas">
                         <td>{{ tarifa.idServicioModalidad }} - {{ obtenerNombreServicioModalidad(tarifa.idServicioModalidad) }}</td>
                         <td>${{ tarifa.tarifaAutorizada | currency: '' : '' : '0.0-0'}}</td>
                         <td> 

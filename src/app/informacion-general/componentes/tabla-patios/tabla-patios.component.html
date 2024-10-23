@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="fs-14px" *ngIf="patios.length === 0 && registrosACrear.length === 0 && !formularioVisible">
+                <tr class="fs-14px " *ngIf="patios.length === 0 && registrosACrear.length === 0 && !formularioVisible">
                     <td colspan="2" *ngIf="!soloLectura"></td>
                     <td>-</td>
                     <td>-</td>
@@ -40,7 +40,7 @@
                     <td>-</td>
                     <td>-</td>
                 </tr>
-                <tr class="fs-14px" *ngFor="let patio of patios ; let i = index"
+                <tr class="fs-14px tdxP" *ngFor="let patio of patios ; let i = index"
                     [ngClass]="{ 'bg-peligro': esRegistroAEliminar(patio.id) }">
                     <td *ngIf="!soloLectura" colspan="2">
                         <span *ngIf="esRegistroAEliminar(patio.id)" class="text-danger cursor-pointer"
@@ -168,7 +168,7 @@
     <div class="d-flex">
         <span class="validacion" *ngIf="patioRequerido">Debe agregar al menos un patio.</span>
     </div>
-    <div class="d-flex py-3 ps-4 tabla-linea-topP" *ngIf="!formularioVisible && !soloLectura">
+    <div class="d-flex py-3 ps-4" *ngIf="!formularioVisible && !soloLectura">
         <button type="button" class="boton primario relleno" (click)="mostrarFormulario()">
             Agregar
         </button>

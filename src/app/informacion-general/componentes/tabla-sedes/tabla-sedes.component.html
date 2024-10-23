@@ -34,7 +34,7 @@
                     <td>-</td>
                     <td>-</td>
                 </tr>
-                <tr class="fs-14px" *ngFor="let sede of sedes ; let i = index"
+                <tr class="fs-14px tdxP" *ngFor="let sede of sedes ; let i = index"
                     [ngClass]="{ 'bg-peligro': esRegistroAEliminar(i) }">
                     <td *ngIf="!soloLectura" colspan="2">
                         <span *ngIf="esRegistroAEliminar(i)" class="text-danger cursor-pointer"
@@ -151,7 +151,7 @@
     <div class="d-flex">
         <span class="validacion" *ngIf="sedeRequerida">Debe agregar al menos una sede.</span>
     </div>
-    <div class="d-flex py-3 ps-4 tabla-linea-topP" *ngIf="!formularioVisible && !soloLectura">
+    <div class="d-flex py-3 ps-4" *ngIf="!formularioVisible && !soloLectura">
         <button type="button" class="boton primario relleno" (click)="mostrarFormulario()">
             Agregar
         </button>

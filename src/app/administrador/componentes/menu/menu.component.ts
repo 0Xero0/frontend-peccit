@@ -16,6 +16,9 @@ export class MenuComponent implements OnInit {
   usuario?: Usuario | null;
   isCollapsed = false;
   desplegado = true
+  urlMigaPan:string ="" //paolo
+  Marcarmenu:boolean =false //paolo
+  rutasMenu:any//paolo
   //rutaActual: string ='';
   constructor(
     private servicioLocalStorage: ServicioLocalStorage,
@@ -32,7 +35,12 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.rol = this.servicioLocalStorage.obtenerRol()
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
-    console.log(this.ServiceMenuP.RutaModelo);
+    this.rutasMenu=this.rol?.modulos
+    //console.log(this.ServiceMenuP.AsginarRutas(this.router.routerState));
+    //this.ServiceMenuP.RutaModelo='/administrar/encuestas/1'
+    //this.ActivarMenuP('/encuestas/1',0)
+    //console.log('desdeinit')
+    
   }
 
   public abrir():void{
@@ -47,11 +55,57 @@ export class MenuComponent implements OnInit {
   {
     //console.log(this.ServiceMenuP.RutaModelo);
     //console.log(`/administrar${rutaModelo}`);
+    //console.log(this.router.routerState.snapshot.url);
     if(this.ServiceMenuP.RutaModelo===`/administrar${rutaModelo}`)
     {
+      //console.log('-----DESDE MENU---------------')
+      //console.log(this.ServiceMenuP.RutaModelo)
+      //this.ServiceMenuP.RutaModelo=this.router.url
+      //console.log('--------------------')
+      this.urlMigaPan=this.router.routerState.snapshot.url
+      //console.log(this.router.routerState.snapshot.url)
       return true
+      
     }
+
     return false
+  }
+  public ActivarMenuP(rutaModelo:string, item:number) : boolean
+  {
+    console.log(rutaModelo+ 'menup')
+    
+    //for (let modulo of this.rutasMenu) {
+      if(this.ServiceMenuP.RutaModelo===`/administrar${rutaModelo}`  )
+      {
+        //this.ServiceMenuP.RutaModelo=`/administrar${modulo.ruta}`
+         console.log('-----DESDE MENU---------------' + item)
+         console.log(this.ServiceMenuP.RutaModelo)
+      //this.ServiceMenuP.RutaModelo=this.router.url
+         console.log('--------------------')
+      return true
+      }
+      
+    //}
+    
+    console.log('-----DESDE MENU FALSO---------------')
+    return false
+  }
+  public MostrarNombrePanP() : string
+  {    
+    let i:number=0
+    for (let modulo of this.rutasMenu) {
+      if(this.ServiceMenuP.RutaModelo===`/administrar${modulo.ruta}`)
+      {       
+        this.ActivarMenuP(modulo.ruta,i)
+        return modulo.nombre         
+      }  
+      i+=1   
+    }
+    
+    this.ServiceMenuP.RutaModelo='/administrar/encuestas/1'
+    //this.router.navigate([this.ServiceMenuP.RutaModelo])
+    this.ActivarMenuP('/encuestas/1',0) 
+    return 'Información General'
   }
 
   /************************************************************ */
