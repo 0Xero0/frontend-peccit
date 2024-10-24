@@ -10,7 +10,7 @@
                         <div class="col-7">Evidencia</div>
                     </div>
                 </li>
-                <li class="evidencia" *ngFor="let evidencia of evidencias" [ngClass]="{ 'bg-invalido': evidenciasFaltantes.includes(evidencia.idEvidencia) }">
+                <li class="evidencia tdxP" *ngFor="let evidencia of evidencias" [ngClass]="{ 'bg-invalido': evidenciasFaltantes.includes(evidencia.idEvidencia) }">
                     <div class="row">
                         <div class="col-3"><span class="validacion fw-semibold" *ngIf="evidencia.obligatoria">* </span>{{ evidencia.nombre }}</div>
                         <div class="col-2">

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AutenticacionService } from 'src/app/autenticacion/servicios/autenticacion.service';
 import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
 import { MenuComponent } from '../menu/menu.component';
-
+import { FooterComponent } from '../footer/footer.component';
 @Component({
   selector: 'app-plantilla',
   templateUrl: './plantilla.component.html',

@@ -14,6 +14,7 @@ import { InputsModule } from '../inputs/inputs.module';
 import { AlertasModule } from '../alertas/alertas.module';
 import { SoportesModule } from '../soportes/soportes.module';
 import { CategorizacionModule } from '../categorizacion/categorizacion.module';
+import { FooterComponent } from './componentes/footer/footer.component';
 
 
 
@@ -24,6 +25,7 @@ import { CategorizacionModule } from '../categorizacion/categorizacion.module';
     BarraNavegacionComponent,
     PaginaInformacionGeneralVigiladoComponent,
     PaginaSoporteComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,

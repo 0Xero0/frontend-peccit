@@ -1,5 +1,5 @@
-<td class="adicional">{{ adicional.pregunta }}</td>
-<td class="respuesta">
+<td class="adicional tdxP">{{ adicional.pregunta }}</td>
+<td class="respuesta tdxP">
     <div>
         <ng-container *ngIf="adicional.tipoPregunta === 'SELECT'">
             <fieldset>
@@ -41,7 +41,7 @@
         </ng-container>
     </div>
 </td>
-<td class="observacion">
+<td class="observacion tdxP">
     <div *ngIf="adicional.tieneObservacion">
         <fieldset>
             <label class="fs-12px fw-semibold">Justificación</label>
@@ -69,8 +69,8 @@
         </fieldset>
     </div>
 </td>
-<td class="tipo-evidencia">{{ adicional.mensaje }}</td>
-<td>
+<td class="tipo-evidencia tdxP">{{ adicional.mensaje }}</td>
+<td class="tdxP">
     <ng-container *ngIf="adicional.adjuntable">
         <fieldset>
             <label class="fs-12px fw-semibold">Evidencia</label>
