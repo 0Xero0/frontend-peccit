@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import { TemplatesModule } from '../templates/templates.module';
 
 
+
 @NgModule({
   declarations: [
     InicioSesionComponent,
@@ -34,6 +35,7 @@ import { TemplatesModule } from '../templates/templates.module';
     AlertasModule,
     TemplatesModule,
     RouterModule
+    
   ]
 })
 export class AutenticacionModule { }
