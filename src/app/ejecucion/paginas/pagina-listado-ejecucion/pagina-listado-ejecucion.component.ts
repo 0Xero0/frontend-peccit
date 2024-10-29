@@ -11,6 +11,7 @@ import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { Router } from '@angular/router';
+import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 
 @Component({
   selector: 'app-pagina-listado-ejecucion',
@@ -28,7 +29,8 @@ export class PaginaListadoEjecucionComponent implements OnInit{
   constructor(
     private servicio: ServicioEjecucion, 
     private servicioLocalStorage: ServicioLocalStorage,
-    private router: Router){
+    private router: Router,
+    private ServiceMenuP:MenuHeaderPService){
     this.paginador = new Paginador<FiltrosReportes>(this.obtenerReportes)
     const usuario = this.servicioLocalStorage.obtenerUsuario()
     const rol = this.servicioLocalStorage.obtenerRol()
@@ -48,6 +50,8 @@ export class PaginaListadoEjecucionComponent implements OnInit{
         next: (respuesta)=>{
           this.reportes = respuesta.reportadas
           if(this.esUsuarioVigilado && this.reportes.length > 0){
+
+            this.ServiceMenuP.AsginarRutas(this.router.url,'/administrar/ejecucion'); ///paolo
             this.router.navigate(['/administrar', 'ejecucion'], {queryParams: {
               reporte: this.reportes[0].numeroReporte,
               vigilado: this.reportes[0].idVigilado

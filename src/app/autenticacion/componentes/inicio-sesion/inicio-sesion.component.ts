@@ -8,6 +8,7 @@ import { AutenticacionService } from '../../servicios/autenticacion.service';
 import { ModalRecuperacionContrasenaComponent } from '../modal-recuperacion-contrasena/modal-recuperacion-contrasena.component';
 import { environment } from 'src/environments/environment';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
+import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -21,7 +22,7 @@ export class InicioSesionComponent implements OnInit {
   public readonly llaveCaptcha = environment.llaveCaptcha
 
 
-  constructor(private servicioAutenticacion: AutenticacionService, private enrutador: Router) {
+  constructor(private servicioAutenticacion: AutenticacionService, private enrutador: Router, public ServiceMenuP:MenuHeaderPService) {
     this.formulario = new FormGroup({
       usuario: new FormControl('', [Validators.required]),
       clave: new FormControl('', [Validators.required]),
@@ -52,9 +53,13 @@ export class InicioSesionComponent implements OnInit {
         } else {
           if(respuesta.rol.modulos.length > 0){
             if(!respuesta.rol.modulos[0].ruta && respuesta.rol.modulos[0].submodulos.length > 0){
+              //this.ServiceMenuP.RutaModelo =`/administrar/encuestas/${1}`
               this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].submodulos[0].ruta}`);
             }else{
+              this.ServiceMenuP.RutaModelo =`/administrar/encuestas/${1}`
               this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].ruta}`);
+              
+              
             }
           }
           else{

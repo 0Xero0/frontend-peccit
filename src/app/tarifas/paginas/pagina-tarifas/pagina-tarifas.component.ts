@@ -14,6 +14,8 @@ import { Observable } from 'rxjs';
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { Tarifa } from '../../modelos/Tarifa';
 import { Paginador } from 'src/app/administrador/modelos/compartido/Paginador';
+import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagina-tarifas',
@@ -25,13 +27,17 @@ export class PaginaTarifasComponent implements OnInit{
   soloLectura: boolean
   idVigilado: string
 
-  constructor(private servicioLocalStorage: ServicioLocalStorage) {
+  constructor(private servicioLocalStorage: ServicioLocalStorage,
+    private router: Router,
+    private ServiceMenuP:MenuHeaderPService
+  ) {
     this.soloLectura = false
     const usuario = this.servicioLocalStorage.obtenerUsuario()
     const rol = this.servicioLocalStorage.obtenerRol()
     if(!usuario || !rol) throw new ErrorAutorizacion();
     this.idVigilado = usuario.usuario
     this.soloLectura = rol.id !== '003' ? true : false;
+    this.ServiceMenuP.AsginarRutas(this.router.url,this.router.url); ///paolo
   }
 
   ngOnInit(): void {

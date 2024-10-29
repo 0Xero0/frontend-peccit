@@ -1,7 +1,7 @@
 .calendario{
     border-collapse: collapse;
 }
-
+/*
 .calendario th, .calendario td{
     padding: 10px;
     border: 1px solid #dcdcdc;
@@ -11,7 +11,7 @@
     font-size: 14px;
     background-color: var(--azul-claro);
     color: var(--azul-oscuro);
-}
+}*/
 .calendario td{
     font-size: 14px;
 }

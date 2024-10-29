@@ -100,7 +100,11 @@ const routes: Routes = [
       {
         path: 'reportes-ejecucion',
         component: PaginaListadoEjecucionComponent
-      }
+      },
+      {
+        path: 'poliza',
+        loadChildren: ()=> import('./poliza/poliza.module').then(m => m.PolizaModule)
+      },
     ]
   },
   {

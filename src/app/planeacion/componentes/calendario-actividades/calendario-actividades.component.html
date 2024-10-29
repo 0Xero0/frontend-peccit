@@ -1,36 +1,39 @@
-<div class="table-responsive">
-    <table class="calendario">
-        <thead>
-            <tr>
-                <th class="cabecera-actividades">Actividades</th>
-                <th class="cabecera-total">Total</th>
-                <th *ngFor="let cabecera of cabeceras">{{ cabecera }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let actividad of actividades ; let i = index">
-                <td>
-                    <div class="actividad">
-                       <span class="fw-semibold validacion" *ngIf="actividad.obligatoria">* </span>{{ actividad.nombre }}
-                    </div>
-                </td>
-                <td>Suma total de los meses ({{ totalesActividades[i] }})</td>
-                <td class="celda-mes" *ngFor="let mes of actividad.meses">
-                    <div class="mes">
-                        <span class="material-symbols-outlined editable">
-                            edit
-                        </span>
-                        <app-mes-calendario
-                        #mesCalendario
-                        [soloLectura]="soloLectura"
-                        [invalido]="actividadesFaltantes.includes(mes.datoId)"
-                        [mes]="mes" 
-                        [indice]="i"
-                        (cambioValor)="recalcularTotal($event)" 
-                        (nuevaRespuesta)="manejarNuevaRespuesta($event)"/>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="mb-3 table-responsiveP "> <!--CODIGO DE PAOLO-->
+    <div class="table-responsive"> <!--CODIGO DE PAOLO-->  
+        <!-- class calendario-->
+        <table class="tabla-informacionP calendario w-100">
+            <thead>
+                <tr>
+                    <th class="cabecera-actividades">Actividades</th>
+                    <th class="cabecera-total">Total</th>
+                    <th *ngFor="let cabecera of cabeceras">{{ cabecera }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="tdxP" *ngFor="let actividad of actividades ; let i = index">
+                    <td>
+                        <div class="actividad">
+                        <span class="fw-semibold validacion" *ngIf="actividad.obligatoria">* </span>{{ actividad.nombre }}
+                        </div>
+                    </td>
+                    <td>Suma total de los meses ({{ totalesActividades[i] }})</td>
+                    <td class="celda-mes" *ngFor="let mes of actividad.meses">
+                        <div class="mes">
+                            <span class="material-symbols-outlined editable">
+                                edit
+                            </span>
+                            <app-mes-calendario
+                            #mesCalendario
+                            [soloLectura]="soloLectura"
+                            [invalido]="actividadesFaltantes.includes(mes.datoId)"
+                            [mes]="mes" 
+                            [indice]="i"
+                            (cambioValor)="recalcularTotal($event)" 
+                            (nuevaRespuesta)="manejarNuevaRespuesta($event)"/>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -1,8 +1,8 @@
-<td class="actividad">
+<td class="actividad tdxP">
     {{ actividad.nombre }}
 </td>
-<td class="text-center planeado">{{ actividad.planeado }}</td>
-<td class="text-center ejecutado">
+<td class="text-center planeado tdxP">{{ actividad.planeado }}</td>
+<td class="text-center ejecutado tdxP">
     <ng-container *ngIf="actividad.tipoPregunta === 'NUMBER'">
         <app-input-numerico
         [valorInicial]="respuesta !== '' ? +respuesta : null"
@@ -13,9 +13,9 @@
         (ngModelChange)="manejarCambioRespuesta($event)"/>
     </ng-container>
 </td>
-<td class="text-center cumplimiento">{{ obtenerPorcentajeDeCumplimiento() }}</td>
-<td>{{ actividad.validacionesEvidencia.tipoDato }}</td>
-<td>
+<td class="text-center cumplimiento tdxP">{{ obtenerPorcentajeDeCumplimiento() }}</td>
+<td class="tdxP">{{ actividad.validacionesEvidencia.tipoDato }}</td>
+<td class="tdxP">
     <ng-container *ngIf="actividad.tipoDeEvidencia === 'FILE'">
         <fieldset class="d-flex flex-column">
             <app-input-archivo

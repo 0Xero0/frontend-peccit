@@ -1,4 +1,5 @@
-<h4 class="fw-semibold texto-primario fs-16px">Registre las empresas que pertenecen a su jurisdicción</h4>
+
+<h4 class="fw-semibold texto-primario fs-16px ps-4">Registre las empresas que pertenecen a su jurisdicción.</h4>
 <app-tabla-empresas-jurisdiccion 
 #tablaEmpresas
 (aCrear)="manejarEmpresasACrear($event)"
@@ -8,8 +9,8 @@
 [empresas]="encuesta.empresas"
 [empresaRequerida]="empresaRequerida"
 />
-<hr>
-<h4 class="fw-semibold texto-primario fs-16px">Registre los patios en su jurisdicción</h4>
+<!--<hr> -->
+<h4 class="fw-semibold texto-primario fs-16px ps-4">Registre los patios en su jurisdicción.</h4>
 <app-tabla-patios
 #tablaPatios
 (aCrear)="manejarPatiosACrear($event)"
@@ -19,16 +20,46 @@
 [patios]="encuesta.patios"
 [patioRequerido]="patioRequerido"
 />
-<hr>
-<h4 class="fw-semibold texto-primario fs-16px">Inscriba sus sedes operativas</h4>
+<!--<hr> -->
+<h4 class="fw-semibold texto-primario fs-16px ps-4">Inscriba sus sedes operativas.</h4>
 <app-tabla-sedes
 #tablaSedes
 [soloLectura]="soloLectura" 
 [sedes]="encuesta.sedes"
 [sedeRequerida]="sedeRequerida"
 (nuevasSedes)="manejarNuevasSedes($event)" />
+
+<!--CODIGO DE PAOLO-->
+<div class="mb-3 table-responsiveP">
+    <div class="table-responsive">
+        <ul class="clasificaciones w-100">
+            <li *ngFor="let clasificacion of encuesta.clasificaciones">
+                <app-clasificacion-encuesta 
+                #clasificacion 
+                [clasificacion]="clasificacion"
+                [soloLectura]="soloLectura"
+                [camposDeVerificacion]="camposDeVerificacion"
+                [camposDeVerificacionVisibles]="camposDeVerificacionVisibles"    
+                [idVigilado]="idVigilado"
+                [observacion]="encuesta.observacion" 
+                [camposDeVerificacion]="camposDeVerificacion"
+                [justificable]="justificable"
+                [opcionesCumplimiento]="opcionesCumplimiento"
+                [opcionesCorrespondencia]="opcionesCorrespondencia"
+                (preguntasRespondidas)="alResponderPreguntas($event)"
+                (verificacionesRespondidas)="alResponderVerificaciones($event)"
+                (archivoExcedeTamano)="manejarArchivoExcedeTamano($event)"/>
+            </li>
+        </ul>
+        <div class="d-flex py-3 tabla-linea-topP" *ngIf="!soloLectura">
+            <button [disabled]="!hayCambios" class="boton primario relleno ms-auto buttonDerechaP" (click)="guardarRespuestas()">Guardar</button>
+        </div>
+    </div>
+</div>
+<!---FIN CODIGO PAOLO-->    
 <div class="contenedor-encuesta d-flex flex-column w-100" #contenedorEncuesta>
-    <ul class="clasificaciones">
+  <!--
+    <ul class="clasificaciones w-100">
         <li *ngFor="let clasificacion of encuesta.clasificaciones">
             <app-clasificacion-encuesta 
             #clasificacion 
@@ -49,6 +80,6 @@
     </ul>
     <div class="d-flex mt-4" *ngIf="!soloLectura">
         <button [disabled]="!hayCambios" class="boton primario relleno ms-auto" (click)="guardarRespuestas()">Guardar</button>
-    </div>
+    </div> -->
 </div>
 <app-popup #popup />

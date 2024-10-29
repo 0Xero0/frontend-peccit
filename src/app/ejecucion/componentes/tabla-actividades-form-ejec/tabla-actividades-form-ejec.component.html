@@ -1,29 +1,35 @@
-<div class="table-responsive">
-    <table class="table tabla-actividades">
-        <thead>
-            <tr>
-                <th>Actividades</th>
-                <th>Planeado</th>
-                <th>Ejecutado</th>
-                <th>% de cumplimiento</th>
-                <th>Tipo de evidencia</th>
-                <th>Evidencia</th>
-            </tr>
-        </thead>
-        <tbody>
-            <app-actividad-form-ejec
-            (nuevaActividad)="manejarNuevaActividad($event)"
-            [invalida]="this.actividadesFaltantes.includes( actividad.datoId )"
-            [soloLectura]="soloLectura"
-            [idVigilado]="idVigilado"
-            [actividad]="actividad"
-            [ngClass]="{ 'bg-invalido' : this.actividadesFaltantes.includes( actividad.datoId ) }"
-            *ngFor="let actividad of actividades"/>
-            <tr *ngIf="actividades.length < 1">
-                <td colspan="6" class="text-center fw-semibold">
-                    No se encontraron actividades para el periodo seleccionado.
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="table-responsiveP">
+        <div class="table-responsive">
+            <!--table tabla-actividades-->
+            <table class="tabla-informacionP w-100">
+                <thead class="encabezado-tabla">
+                    <tr>
+                        <th>Actividades</th>
+                        <th>Planeado</th>
+                        <th>Ejecutado</th>
+                        <th>% de cumplimiento</th>
+                        <th>Tipo de evidencia</th>
+                        <th>Evidencia</th>
+                    </tr>
+                </thead>
+                <tbody class="">
+                    
+                    <app-actividad-form-ejec
+                    (nuevaActividad)="manejarNuevaActividad($event)"
+                    [invalida]="this.actividadesFaltantes.includes( actividad.datoId )"
+                    [soloLectura]="soloLectura"
+                    [idVigilado]="idVigilado"
+                    [actividad]="actividad"
+                    [ngClass]="{ 'bg-invalido' : this.actividadesFaltantes.includes( actividad.datoId ) }"
+                    *ngFor="let actividad of actividades"/>
+                    
+                    
+                    <tr *ngIf="actividades.length < 1">
+                        <td colspan="6" class="text-center fw-semibold">
+                            No se encontraron actividades para el periodo seleccionado.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

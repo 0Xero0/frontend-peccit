@@ -4,6 +4,8 @@ import { SoportesService } from 'src/app/soportes/servicios/soportes.service';
 import { marcarFormularioComoSucio } from '../../utilidades/Utilidades';
 import { PopupComponent } from 'src/app/alertas/componentes/popup/popup.component';
 import { MotivoSoporte } from 'src/app/soportes/modelos/MotivoSoporte';
+import { Router } from '@angular/router';
+import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 
 @Component({
   selector: 'app-pagina-soporte',
@@ -15,13 +17,14 @@ export class PaginaSoporteComponent {
   formulario: FormGroup
   motivos: MotivoSoporte[] = []
 
-  constructor(private servicioSoporte: SoportesService){
+  constructor(private servicioSoporte: SoportesService, public router: Router, public ServiceMenuP:MenuHeaderPService){
     this.obtenerMotivos()
     this.formulario = new FormGroup({
       motivo: new FormControl<number | string>("", [ Validators.required ]),
       descripcion: new FormControl<string | undefined>( undefined, [ Validators.required ] ),
       adjunto: new FormControl<File | null>( null )
     })
+    this.ServiceMenuP.AsginarRutas(this.router.url,this.router.url); ///paolo
   }
 
   obtenerMotivos(){
@@ -43,7 +46,6 @@ export class PaginaSoporteComponent {
       controls['motivo'].value,
       controls['adjunto'].value).subscribe({
       next: ( soporte: any )=>{
-        this.limpiarFormulario()
         this.popup.abrirPopupExitoso('Soporte creado', 'Radicado', soporte.radicado)
       }
     })
@@ -51,9 +53,5 @@ export class PaginaSoporteComponent {
 
   manejarExcedeTamanio(){
     this.popup.abrirPopupFallido("El archivo pesa más de 7 Mb")
-  }
-
-  limpiarFormulario(){
-    this.formulario.reset()
   }
 }

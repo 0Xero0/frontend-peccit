@@ -1,59 +1,70 @@
 <div class="px-sm-2 px-md-3 px-lg-4 my-4" *ngIf="encuesta || encuestaCuantitativa">
     <p *ngIf="encuesta">{{encuesta.descripcionClasificacion}}</p>
-    <div class="d-block mb-3" *ngIf="encuestaCuantitativa">
+    <div class="d-block mb-3 ps-4" *ngIf="encuestaCuantitativa">
+        <div class="py-2">
+            <h3 class="texto-primario fw-semibold">
+                Planeación
+            </h3>            
+        </div>
         <table class="tabla-informacion">
-            <thead>
+            <thead class="encabezado-tabla ">
                 <tr>
                     <th colspan="2">Información del formulario.</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>NIT</td>
-                    <td class="fw-semibold">
+                    <td class="fw-semibold tdxP tdyP">NIT</td>
+                    <td class="tdxP ">
                         {{ encuestaCuantitativa.idVigilado }}
                     </td>
                 </tr>
                 <tr *ngIf="usuario">
-                    <td>Razón social</td>
-                    <td class="fw-semibold">
+                    <td  class="fw-semibold tdxP tdyP">Razón social</td>
+                    <td class="tdxP ">
                         {{ usuario.nombre }}
                     </td>
                 </tr>
                 <tr>
-                    <td>Vigencia</td>
-                    <td class="fw-semibold">
+                    <td class="fw-semibold tdyP">Vigencia</td>
+                    <td >
                         {{ encuestaCuantitativa.vigencia }}
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="d-block mb-3" *ngIf="encuesta">
-        <table class="tabla-informacion">
-            <thead>
+    <div class="d-block mb-3 ps-4" *ngIf="encuesta">
+        <div class="py-2">
+            <h3 class="texto-primario fw-semibold">
+                Información general
+            </h3>
+            
+        </div>
+        <table class="tabla-informacion ">
+            <thead class="encabezado-tabla ">
                 <tr>
                     <th colspan="2">Información del formulario.</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>NIT</td>
-                    <td class="fw-semibold">
+                    <td class="fw-semibold tdxP tdyP">NIT</td>
+                    <td class="tdxP ">
                         {{ encuesta.idVigilado }}
                     </td>
                 </tr>
                 <tr *ngIf="usuario">
-                    <td>Razón social</td>
-                    <td class="fw-semibold">
+                    <td class="fw-semibold tdyP">Razón social</td>
+                    <td >
                         {{ usuario.nombre }}
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-between align-items-center" *ngIf="!soloLectura">
-        <button type="button" class="boton primario delineado" (click)="enviarEncuesta()"
+    <div class="d-flex justify-content-between align-items-center ps-4 w-50" *ngIf="!soloLectura">
+        <button type="button" class="boton primario relleno " (click)="enviarEncuesta()"
             [disabled]="hayCambios || soloLectura">Enviar a ST</button>
         <button type="button" class="boton primario relleno" (click)="guardarEncuesta()"
             [disabled]="!hayCambios || soloLectura">Guardar</button>
@@ -65,7 +76,7 @@
         <span class="hipervinculo" (click)="verTarifas()">Ver tarifas del vigilado.</span>
     </div>
 
-    <div class="d-flex w-100 mt-4">
+    <div class="d-flex w-100 mt-4 ps-4">
         <app-encuesta #componenteEncuesta class="w-100"
             *ngIf="encuesta && idReporte && idEncuesta && idVigilado && idEncuesta != 2" [soloLectura]="soloLectura"
             [camposDeVerificacion]="camposDeVerificacion" [camposDeVerificacionVisibles]="camposDeVerificacionVisibles"

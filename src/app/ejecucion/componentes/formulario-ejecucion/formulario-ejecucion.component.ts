@@ -35,7 +35,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   @Input() esVigilado: boolean = true
   @Input() meses: Mes[] = []
   @Input() idMesInicial!: number
-  
+
   actividadesFaltantes: number[] = []
   adicionalesFaltantes: number[] = []
 
@@ -54,7 +54,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
     this.formularioGuardado = new EventEmitter<void>();
     this.recargar = new EventEmitter<void>();
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['idMesInicial']){
       this.idMes = changes['idMesInicial'].currentValue
@@ -123,8 +123,8 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
 
 /*     this.servicio.guardarEjecucion(
       +this.formulario.idReporte,
-      this.idMes!, 
-      this.respuestasActividades, 
+      this.idMes!,
+      this.respuestasActividades,
       this.respuestasAdicionales,
     ).subscribe({
       next: ()=>{
@@ -148,8 +148,8 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   guardarFormulario(): Observable<Object>{
     return this.servicio.guardarEjecucion(
       +this.formulario.idReporte,
-      this.idMes!, 
-      this.respuestasActividades, 
+      this.idMes!,
+      this.respuestasActividades,
       this.respuestasAdicionales,
     )
   }
@@ -171,7 +171,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
         this.actividadesFaltantes = error.error.faltantesActividades
         this.adicionalesFaltantes = error.error.faltantesAdicionales
         this.popup.abrirPopupFallido(
-          DialogosEjecucion.ENVIAR_EJECUCION_ERROR_GENERICO_TITULO, 
+          DialogosEjecucion.ENVIAR_EJECUCION_ERROR_GENERICO_TITULO,
           DialogosEjecucion.ENVIAR_EJECUCION_ERROR_GENERICO_DESCRIPCION
         )
       }
@@ -181,6 +181,8 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   manejarCambioDeMes(idMes: number){
     this.idMes = idMes
     this.cambioDeMes.emit(idMes)
+    /* console.log('Entra'); */
+
   }
 
   manejarNuevasActividades(respuestas: RespuestaActividad[]){
@@ -211,8 +213,8 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
 
   guardarImportacion(archivo: File, tipo: TipoImportacion): Observable<Object | HttpErrorResponse>{
     return this.servicio.guardarImportacion(
-      archivo, 
-      this.formulario.idVigilado, 
+      archivo,
+      this.formulario.idVigilado,
       this.formulario.vigencia,
       this.formulario.mes,
       tipo

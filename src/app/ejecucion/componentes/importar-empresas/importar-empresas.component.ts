@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ServicioEjecucion } from '../../servicios/ejecucion.service';
 import { EmpresaJurisdiccion } from 'src/app/informacion-general/modelos/EmpresaJurisdiccion';
 import { ServicioArchivos } from 'src/app/archivos/servicios/archivos.service';
@@ -34,7 +34,7 @@ export class ImportarEmpresasComponent implements OnInit{
   mensaje: string = ""
 
   constructor(
-    private servicio: ServicioEjecucion, 
+    private servicio: ServicioEjecucion,
     private servicioArchivos: ServicioArchivos,
     private servicioModal: NgbModal){
     this.hayCambios = new EventEmitter<Importacion>();
@@ -62,6 +62,13 @@ export class ImportarEmpresasComponent implements OnInit{
 
   descargarArchivoUrl(endpoint: string){
     window.open(`${environment.urlBackend}/api/v1${endpoint}`)
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['idMes']) {
+      this.obtenerListadoEmpresas(this.idVigilado,this.vigencia, this.idMes)
+      /* console.log('Cambio ',this.idMes); */
+    }
   }
 
   manejarCambiosArchivo(archivo: File | null){

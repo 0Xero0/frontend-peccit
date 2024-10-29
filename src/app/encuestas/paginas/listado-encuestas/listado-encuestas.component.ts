@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { Paginacion } from 'src/app/compartido/modelos/Paginacion';
 import { FiltrosReportes } from '../../modelos/FiltrosReportes';
 import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
+import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 
 @Component({
   selector: 'app-listado-encuestas',
@@ -34,7 +35,8 @@ export class ListadoEncuestasComponent implements OnInit {
     private servicioCategorizacion: CategorizacionService,
     private servicioLocalStorage: ServicioLocalStorage,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private ServiceMenuP:MenuHeaderPService
   ) {
     this.paginador = new Paginador<FiltrosReportes>(this.obtenerEncuestas)
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
@@ -66,6 +68,13 @@ export class ListadoEncuestasComponent implements OnInit {
         next: (respuesta) => {
           this.reportes = respuesta.reportadas
           if(this.esUsuarioVigilado){
+            console.log('------DESDE ENCUESTA--------------')
+            //console.log(this.router.url)
+            //this.ServiceMenuP.RutaModelo=this.router.url
+            console.log('--------------------')
+            this.ServiceMenuP.AsginarRutas(this.router.url,`/administrar/encuesta/${this.idEncuesta}`);//paolo
+            this.ServiceMenuP.OptionMenu=(this.idEncuesta==1) ? 1 :2/**paolo */          
+            
             this.router.navigate(['/administrar', 'encuesta', this.idEncuesta], {
               queryParams: {
                 vigilado: this.reportes[0].idVigilado,

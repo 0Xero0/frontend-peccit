@@ -11,7 +11,7 @@ import { Ciudad } from 'src/app/encuestas/modelos/Ciudad';
 import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 import { Usuario } from 'src/app/autenticacion/modelos/IniciarSesionRespuesta';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-tabla-empresas-jurisdiccion',
   templateUrl: './tabla-empresas-jurisdiccion.component.html',
@@ -35,6 +35,7 @@ export class TablaEmpresasJurisdiccionComponent {
   formulario: FormGroup<{
     nit: FormControl<string | null>,
     razonSocial: FormControl<string | null>,
+    correoelectronico: FormControl<string | null>,
     tipoServicio: FormControl<string | null>,
     departamento: FormControl<number | null>,
     municipio: FormControl<number | string | null>,
@@ -74,6 +75,7 @@ export class TablaEmpresasJurisdiccionComponent {
     this.formulario = new FormGroup<{
       nit: FormControl<string | null>,
       razonSocial: FormControl<string | null>,
+      correoelectronico: FormControl<string | null>,
       tipoServicio: FormControl<string | null>,
       departamento: FormControl<number | null>,
       municipio: FormControl<number | string | null>,  
@@ -91,6 +93,7 @@ export class TablaEmpresasJurisdiccionComponent {
     }>({
       nit: new FormControl<string>("", [Validators.required, Validators.max(999999999999)]),
       razonSocial: new FormControl<string>("", [Validators.required]),
+      correoelectronico: new FormControl<string>("", [Validators.required,Validators.email ,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       tipoServicio: new FormControl<string>("", [Validators.required]),
       departamento: new FormControl<number | null>(null, [Validators.required]),
       municipio: new FormControl<number | string | null>("", [Validators.required]),
@@ -162,39 +165,88 @@ export class TablaEmpresasJurisdiccionComponent {
     this.formularioVisible = false
     this.limpiarFormulario()
   }
-
+  IsValidadeEmpresaP:boolean=false //linea paolo
+  msjCrearcionEmpresaP:string='';
   agregarARam(): void {
     if (this.formulario.invalid) {
+      //console.log("coorreo");
       marcarFormularioComoSucio(this.formulario)
       return;
     }
-    const empresa: EmpresaJurisdiccionACrear = {
-      nit: +this.formulario.controls.nit.value!,
-      razon_social: this.formulario.controls.razonSocial.value!,
-      estado: true,
-      capacidad_transportadora_a: +this.formulario.controls.capacidadTransportadoraA.value!,
-      capacidad_transportadora_b: +this.formulario.controls.capacidadTransportadoraB.value!,
-      capacidad_transportadora_c: +this.formulario.controls.capacidadTransportadoraC.value!,
-      usuario_id: this.idVigilado,
-      departamento: +this.formulario.controls.departamento.value!,
-      municipio: +this.formulario.controls.municipio.value!,
 
-      tipo_servicio: +this.formulario.controls.tipoServicio.value!,
-      documento_tipo_servicio: this.formulario.controls.aATipoServicioDocumento.value!,
-      ruta_tipo_servicio: this.formulario.controls.aATipoServicioRuta.value!,
-      original_tipo_servicio: this.formulario.controls.aATipoServicioOriginal.value!,
+    /**LINEA E PAOLO */
+    
+     this.servicioInformacionGeneral.validarServiciosNitEmpresaP(this.formulario.controls.nit.value!).subscribe({
+      next: (respuesta:any) => {
+        console.log(respuesta)
+        //this.IsValidadeEmpresaP=respuesta.stat
+        this.IsValidadeEmpresaP=respuesta.status
+        this.msjCrearcionEmpresaP=''
+        for (let msj of respuesta.array_msn){
+          this.msjCrearcionEmpresaP=this.msjCrearcionEmpresaP + '<p class="px-2">' + msj + '</p>'
+           //console.log(numero);
+         }
+        if(respuesta.status==false)
+        {
+                    
+          Swal.fire({
+            html:this.msjCrearcionEmpresaP,
+            icon: "error"
+          })
+          return
+         
+        }else{
+          Swal.fire({
+            html:this.msjCrearcionEmpresaP,
+            icon: "info"
+          }).then((result) => {
+           /*** */
+            const empresa: EmpresaJurisdiccionACrear = {
+              nit: +this.formulario.controls.nit.value!,
+              razon_social: this.formulario.controls.razonSocial.value!,
+              correoelectronico: this.formulario.controls.correoelectronico.value!,
+              estado: true,
+              capacidad_transportadora_a: +this.formulario.controls.capacidadTransportadoraA.value!,
+              capacidad_transportadora_b: +this.formulario.controls.capacidadTransportadoraB.value!,
+              capacidad_transportadora_c: +this.formulario.controls.capacidadTransportadoraC.value!,
+              usuario_id: this.idVigilado,
+              departamento: +this.formulario.controls.departamento.value!,
+              municipio: +this.formulario.controls.municipio.value!,
 
-      documento_transportadora: this.formulario.controls.aACapacidadTransportadoraDocumento.value!,
-      ruta_transportadora: this.formulario.controls.aACapacidadTransportadoraRuta.value!,
-      original_transportadora: this.formulario.controls.aACapacidadTransportadoraOriginal.value!
-    }
+              tipo_servicio: +this.formulario.controls.tipoServicio.value!,
+              documento_tipo_servicio: this.formulario.controls.aATipoServicioDocumento.value!,
+              ruta_tipo_servicio: this.formulario.controls.aATipoServicioRuta.value!,
+              original_tipo_servicio: this.formulario.controls.aATipoServicioOriginal.value!,
 
-    this.registrosACrear.push(empresa)
-    this.ocultarFormulario()
-    this.mostrarMensajeDeGuardado()
-    this.valido = this.esValido()
-    this.limpiarFormulario()
-    this.aCrear.emit(this.registrosACrear)
+              documento_transportadora: this.formulario.controls.aACapacidadTransportadoraDocumento.value!,
+              ruta_transportadora: this.formulario.controls.aACapacidadTransportadoraRuta.value!,
+              original_transportadora: this.formulario.controls.aACapacidadTransportadoraOriginal.value!
+            }
+            //console.log(empresa)
+            //this.IsValidadeEmpresaP=true //este es para probar
+            if(this.IsValidadeEmpresaP)
+            {
+              this.registrosACrear.push(empresa)
+              //console.log(this.registrosACrear)
+              this.ocultarFormulario()
+              this.mostrarMensajeDeGuardado()
+              this.valido = this.esValido()
+              this.limpiarFormulario()
+              this.aCrear.emit(this.registrosACrear)
+            } 
+           
+          });
+        }
+        
+      },
+      error:(err)=> {
+          //console.log(err)
+        return 
+      },
+    })  
+    
+    /**corde de aqui el codigo */
+    
   }
 
   retirarDeRam(indice: number) {
