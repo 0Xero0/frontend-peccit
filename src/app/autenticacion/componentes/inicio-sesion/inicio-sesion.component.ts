@@ -56,7 +56,7 @@ export class InicioSesionComponent implements OnInit {
               //this.ServiceMenuP.RutaModelo =`/administrar/encuestas/${1}`
               this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].submodulos[0].ruta}`);
             }else{
-              this.ServiceMenuP.RutaModelo =`/administrar/encuestas/${1}`
+              //this.ServiceMenuP.RutaModelo =`/administrar/encuestas/${1}`
               this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].ruta}`);
               
               

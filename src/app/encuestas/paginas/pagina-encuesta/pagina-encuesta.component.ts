@@ -17,6 +17,7 @@ import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 import { ID_ROLES } from 'src/app/compartido/Roles';
 import { MunicipioReportado } from 'src/app/usuarios/modelos/MunicipioReportado';
 import { ServicioUsuarios } from 'src/app/usuarios/servicios/usuarios.service';
+import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 
 @Component({
   selector: 'app-pagina-encuesta',
@@ -48,7 +49,8 @@ export class PaginaEncuestaComponent implements OnInit {
     private servicioLocalStorage: ServicioLocalStorage,
     private servicioUsuarios: ServicioUsuarios,
     private router: Router,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private ServiceMenuP:MenuHeaderPService
   ) {
     const usuario = this.servicioLocalStorage.obtenerUsuario()
     const rol = this.servicioLocalStorage.obtenerRol()
@@ -79,6 +81,10 @@ export class PaginaEncuestaComponent implements OnInit {
     if(this.esAdministrador){
       this.obtenerMunicipiosReportados()
     }
+ 
+    //this.ServiceMenuP.RutaModelo=`/administrar/encuestas/${this.idEncuesta}`;//paolo
+    console.log(this.ServiceMenuP.RutaModelo)
+    console.log('yo')
   }
 
   //Manejadores de eventos
@@ -181,6 +187,9 @@ export class PaginaEncuestaComponent implements OnInit {
         this.vigencia = encuesta.vigencia
       }
     })
+    this.ServiceMenuP.RutaModelo=`/administrar/encuestas/${this.idEncuesta}`;//paolo
+    console.log(this.ServiceMenuP.RutaModelo)
+    console.log('cuantica')
   }
 
   obtenerEncuesta(){
@@ -192,6 +201,9 @@ export class PaginaEncuestaComponent implements OnInit {
         this.camposDeVerificacionVisibles = encuesta.verificacionVisible
       }
     })
+    this.ServiceMenuP.RutaModelo=`/administrar/encuestas/${this.idEncuesta}`;//paolo
+    console.log(this.ServiceMenuP.RutaModelo)
+    console.log('encuenta')
   }
 
   obtenerMunicipiosReportados(){
