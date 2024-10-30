@@ -18,8 +18,8 @@ import { Injectable } from "@angular/core";
     {
         this.RutaActual=rutaActual;
         this.RutaModelo=rutaModelo;
-        //console.log(this.RutaActual)
-       // console.log(this.RutaModelo)
+        console.log(this.RutaActual)
+       console.log(this.RutaModelo)
     }
 
   }
