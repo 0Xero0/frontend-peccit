@@ -22,4 +22,9 @@ import { Injectable } from "@angular/core";
        console.log(this.RutaModelo)
     }
 
+    get RutaModuloP()
+    {
+      return this.RutaModelo
+    }
+
   }

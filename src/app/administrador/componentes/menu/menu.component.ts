@@ -11,7 +11,7 @@ import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-servic
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit ,AfterViewChecked{
+export class MenuComponent implements OnInit,AfterViewInit ,AfterViewChecked{
   rol?: Rol | null;
   usuario?: Usuario | null;
   isCollapsed = false;
@@ -51,11 +51,23 @@ export class MenuComponent implements OnInit ,AfterViewChecked{
     this.desplegado = false
   }
   /*** CODIGO DE PAOLO************************************* */
+  OnQuitarMarcaP()
+  {
+    let carouselItem = document.querySelector(".ActiveP2");
+    carouselItem?.classList.remove('ActiveP2');
+    
+  }
+  ngAfterContentChecked (){
+    
+  }
+  ngAfterViewInit()
+  {
+    
+  }
   ngAfterViewChecked()
   {
-    console.log(this.ServiceMenuP.RutaModelo)
-    console.log('****')
-    this.ActivarMenuP(this.ServiceMenuP.RutaModelo)
+    
+    //console.log('desdeinit')
   }
   public SeleccionarMenuP(rutaModelo:string) :boolean
   {
