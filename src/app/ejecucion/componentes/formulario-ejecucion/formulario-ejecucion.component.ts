@@ -16,6 +16,7 @@ import { ImportarEmpresasComponent } from '../importar-empresas/importar-empresa
 import { TipoImportacion } from '../../TipoImportacion';
 import { RespuestaErrorImportacion } from '../../modelos/ErrorImportacion';
 import { Observable, catchError, forkJoin, observable, of } from 'rxjs'
+import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 
 @Component({
   selector: 'app-formulario-ejecucion',
@@ -46,7 +47,9 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
   usuario: Usuario
   colaDeMensajes: ((param: Function) => void)[] = []
 
-  constructor(private servicio: ServicioEjecucion, private router: Router, private servicioLocalStorage: ServicioLocalStorage){
+  constructor(private servicio: ServicioEjecucion, private router: Router, 
+    private servicioLocalStorage: ServicioLocalStorage,
+    private ServiceMenuP:MenuHeaderPService){
     const usuario = this.servicioLocalStorage.obtenerUsuario()
     if(!usuario) throw new ErrorAutorizacion();
     this.usuario = usuario
@@ -63,6 +66,7 @@ export class FormularioEjecucionComponent implements OnInit, OnChanges{
 
   ngOnInit(): void {
     this.idMes = this.idMesInicial
+    this.ServiceMenuP.RutaModelo=`/reportes-ejecucion`;//paolo
   }
 
   guardar(){

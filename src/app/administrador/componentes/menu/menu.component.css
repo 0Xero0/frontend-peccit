@@ -55,10 +55,15 @@
     padding: 8px 15px;
 }
 
-.paolo {
+.ActiveP2 {
   background-color: #fff !important;
   color: #004884;
 }
+
+.ActiveLinkP{
+    background-color: #fff !important;
+    color: #004884;
+  }
 
 .logoP {
   display: flex;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ServicioEncuestas } from '../../servicios/encuestas.service';
 import { Encuesta } from '../../modelos/Encuesta';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
@@ -24,7 +24,7 @@ import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-servic
   templateUrl: './pagina-encuesta.component.html',
   styleUrls: ['./pagina-encuesta.component.css']
 })
-export class PaginaEncuestaComponent implements OnInit {
+export class PaginaEncuestaComponent implements OnInit ,AfterViewInit{
   @ViewChild('popup') popup!: PopupComponent
   @ViewChild('modalConfirmar') modalConfirmar!: ModalConfirmarEnviarComponent
   @ViewChild('componenteEncuesta') componenteEncuesta!: EncuestaComponent
@@ -50,7 +50,7 @@ export class PaginaEncuestaComponent implements OnInit {
     private servicioUsuarios: ServicioUsuarios,
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private ServiceMenuP:MenuHeaderPService
+    public ServiceMenuP:MenuHeaderPService
   ) {
     const usuario = this.servicioLocalStorage.obtenerUsuario()
     const rol = this.servicioLocalStorage.obtenerRol()
@@ -68,8 +68,10 @@ export class PaginaEncuestaComponent implements OnInit {
       next: (parametros)=>{
         this.idEncuesta = parametros['idEncuestaDiligenciada']
         if(this.idEncuesta == 2){
+          //this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
           this.obtenerEncuestaCuantitativa()
         }else{
+          //this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
           this.obtenerEncuesta()
         }
       }
@@ -81,12 +83,20 @@ export class PaginaEncuestaComponent implements OnInit {
     if(this.esAdministrador){
       this.obtenerMunicipiosReportados()
     }
+    
+    //this.ServiceMenuP.RutaModelo='xxx'
+    //console.log(this.ServiceMenuP.RutaModelo)
+    this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
+    
  
-    //this.ServiceMenuP.RutaModelo=`/administrar/encuestas/${this.idEncuesta}`;//paolo
-    console.log(this.ServiceMenuP.RutaModelo)
-    console.log('yo')
   }
-
+  ngAfterViewInit()
+  {
+    ///console.log(this.ServiceMenuP.RutaModelo)
+    //this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
+    
+  }
+  
   //Manejadores de eventos
   manejarEncuestaGuardada(){
     this.obtenerEncuesta()
@@ -180,30 +190,34 @@ export class PaginaEncuestaComponent implements OnInit {
 
   //Obtener información
   obtenerEncuestaCuantitativa(){
+        
     this.servicioEncuesta.obtenerEncuestaCuantitativa(this.idReporte!, this.idVigilado!).subscribe({
       next: (encuesta)=>{
         this.encuestaCuantitativa = encuesta
         this.soloLectura = encuesta.soloLectura
         this.vigencia = encuesta.vigencia
+        //this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
       }
     })
-    this.ServiceMenuP.RutaModelo=`/administrar/encuestas/${this.idEncuesta}`;//paolo
-    console.log(this.ServiceMenuP.RutaModelo)
-    console.log('cuantica')
+    
+    
   }
 
   obtenerEncuesta(){
+    
     this.servicioEncuesta.obtenerEncuesta(this.idVigilado!, this.idEncuesta!, this.idReporte!).subscribe({
       next: ( encuesta )=>{
         this.encuesta = encuesta
         this.soloLectura = !encuesta.encuestaEditable
         this.camposDeVerificacion = encuesta.verificacionEditable
         this.camposDeVerificacionVisibles = encuesta.verificacionVisible
+        //this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
       }
     })
-    this.ServiceMenuP.RutaModelo=`/administrar/encuestas/${this.idEncuesta}`;//paolo
-    console.log(this.ServiceMenuP.RutaModelo)
-    console.log('encuenta')
+    //
+    //console.log('desde encuenta sola')
+    //console.log(this.ServiceMenuP.RutaModelo)
+    this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
   }
 
   obtenerMunicipiosReportados(){

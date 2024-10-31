@@ -3,7 +3,9 @@
     <li class="logosuperP">
       <img src="assets/img/menu/logo.png" class="logoP">
     </li>
-    <li [routerLinkActive]="'paolo'" [ngClass]="{'modulo':true, 'paolo':ActivarMenuP(modulo.ruta)===true }" *ngFor="let modulo of this.rol.modulos;  let i=index ">
+    <li 
+       (click)="OnQuitarMarcaP()"
+       [routerLinkActive]="'ActiveLinkP'" [ngClass]="{'modulo':true, 'ActiveP2':ServiceMenuP.RutaModuloP===modulo.ruta }" *ngFor="let modulo of this.rol.modulos;  let i=index ">
       <span
       [ngClass]="{'nombre-modulo':true}"
       routerLink="/administrar{{modulo.ruta}}"

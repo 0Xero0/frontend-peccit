@@ -9,6 +9,7 @@ import { DialogosEjecucion } from '../../DialogosEjecucion';
 import { DateTime } from 'luxon';
 import { ActivatedRoute } from '@angular/router';
 import { Mes } from 'src/app/encuestas/modelos/Mes';
+import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 
 @Component({
   selector: 'app-pagina-ejecucion',
@@ -27,7 +28,8 @@ export class PaginaEjecucionComponent implements OnInit{
   constructor(
     private servicio: ServicioEjecucion, 
     private servicioLocalStorage: ServicioLocalStorage,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private ServiceMenuP:MenuHeaderPService
     ){
     const usuario = this.servicioLocalStorage.obtenerUsuario();
     const rol = this.servicioLocalStorage.obtenerRol();
@@ -39,6 +41,7 @@ export class PaginaEjecucionComponent implements OnInit{
   formulario?: FormularioEjecucion
 
   ngOnInit(): void {
+    
     this.activatedRoute.queryParams.subscribe({
       next: (params) =>{
         this.idReporte = params['reporte']
@@ -65,9 +68,12 @@ export class PaginaEjecucionComponent implements OnInit{
         })    
       }
     })
+    this.ServiceMenuP.RutaModelo=`/reportes-ejecucio`;//paolo
   }
 
   obtenerEjecucion(idReporte: number, idVigilado: string, idMes: number){
+    this.ServiceMenuP.RutaModelo=`/reportes-ejecucio`;//paolo
+    
     this.servicio.consultarEjecucion(idReporte, idVigilado, idMes, this.historico).subscribe({
       next: (formulario)=>{
         this.formulario = formulario
