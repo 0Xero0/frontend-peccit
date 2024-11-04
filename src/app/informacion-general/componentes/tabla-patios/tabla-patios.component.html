@@ -2,7 +2,7 @@
     <div class="table-responsive">
         <table class="tabla-informacionP w-100"> <!--tabla-modalidad-radio table border mb-1-->
             <thead>
-                <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
+                <tr height="38px" class="fs-14px  fondo-secundario texto-primario ">
                     <th *ngIf="!soloLectura" colspan="2" class="fw-semibold"></th>
                     <th>Id</th>
                     <th class="fw-semibold">
@@ -51,9 +51,7 @@
                         </span>
                         <span *ngIf="!esRegistroAEliminar(patio.id)" class="text-danger cursor-pointer"
                             (click)="eliminarRegistro(patio.id)">
-                            <span class="material-symbols-outlined">
-                                delete
-                            </span>
+                                <span _ngcontent-ows-c44="" class="material-symbols-outlined text-primary"> delete </span>
                         </span>
                     </td>
                     <td>{{ patio.id }}</td>
