@@ -14,12 +14,12 @@ import { Observable } from 'rxjs';
 })
 export class ServicioPoliza extends Autenticable {
   private readonly host = environment.urlBackend
-  private readonly llaveLocalStorage = 'soporte'
+  private readonly llaveLocalStorage = 'soportePeccit'
 
   constructor(private http: HttpClient) {
     super()
   }
-  
+
   obtenerListadodeEmpresaP(txtbuscar:string,usuario:string,pag_inicio:number,numero_items:number)
     :Observable<any>{
         let endpoint = `/api/v1/empresas/listarempresas?usuario_id=${usuario}&find=${txtbuscar}&page=${pag_inicio}&numero_items=${numero_items}`
@@ -32,7 +32,7 @@ export class ServicioPoliza extends Autenticable {
     obtenerListadodePolizaxEmpresaP(txtbuscar:string,nit:string,pag_inicio:number,numero_items:number)
     :Observable<any>{
         let endpoint = `/api/v1/empresas/listarpoliza?usn_identificacion=${nit}&pol_numero=${txtbuscar}&limit=${numero_items}&page=${pag_inicio}`
-        
+
         return this.http.get<any>(
           `${this.host}${endpoint}`,
           { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
@@ -42,17 +42,17 @@ export class ServicioPoliza extends Autenticable {
     obtenerListadodeAmparoxPolizaP(poliza:string,pag_inicio:number,numero_items:number)
     :Observable<any>{
         let endpoint = `/api/v1/empresas/amparos_poliza?poliza_id=${poliza}&page=${pag_inicio}&numero_items=${numero_items}`
-      
+
         return this.http.get<any>(
           `${this.host}${endpoint}`,
           { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
         )
-    }    
+    }
 
     obtenerListadodeNovedadxPolizaP(poliza:string,tipoPolizaid:number,pag_inicio:number,numero_items:number)
     :Observable<any>{
         let endpoint = `/api/v1/empresas/novedades_poliza?poliza=${poliza}&tipoPoliza=${tipoPolizaid}&page=${pag_inicio}&numero_items=${numero_items}`
-      
+
         return this.http.get<any>(
           `${this.host}${endpoint}`,
           { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
@@ -62,15 +62,15 @@ export class ServicioPoliza extends Autenticable {
     obtenerResponsabilidadxPolizaP(poliza:string)
     :Observable<any>{
         let endpoint = `/api/v1/empresas/responsabilidad_poliza?poliza_id=${poliza}`
-       
+
         return this.http.get<any>(
           `${this.host}${endpoint}`,
           { headers: { Authorization: `Bearer ${this.obtenerTokenAutorizacion()}` } }
         )
     }
-    
 
-    
+
+
 }
 
 
