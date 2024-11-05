@@ -23,58 +23,55 @@
         </form>
     </div>
     <div class="d-flex mb-3">
-        <div class="table-responsiveP w-100">
-            <div class="table-responsive custom-scroll tabla-soportes">
-                <table class="table-informacioP tabla-primaria">
-                    <thead>
-                        <tr class="fs-14px">
-                            <th class=""></th>
-                            <th class="">Radicado</th>
-                            <th class="">Estado</th>
-                            <th class="">Fecha de creación</th>
-                            <th class="">NIT</th>
-                            <th class="th-razon-social">Razón social</th>
-                            <th class="th-descripcion">Descripción</th>
-                            <th class="">Email</th>
-                            <th class="">Teléfono</th>
-                            <th class="th-respuesta">Respuesta</th>
-                        </tr>
-                    </thead>
-                    <tbody class="fs-14px">
-                        <tr class="tdxP" *ngFor="let soporte of soportes ; let i = index" max-height="100px">
-                            <td><img
-                                (click)="irAResponderSoporte(soporte)"  
-                                class="cursor-pointer" src="assets/img/buscar-documento.png" alt="buscar-encuesta" draggable="false"></td>
-                            <td>{{ soporte.radicado }}</td>
-                            <td class="fw-semibold">{{ obtenerDescripcionEstado(soporte.idEstado) }}</td>
-                            <td>{{ soporte.fechaCreacion | fecha: 'dd/MM/yyyy' }}</td>
-                            <td>{{ soporte.nit }}</td>
-                            <td class="td-razon-social">{{ soporte.razonSocial }}</td>
-                            <td>
-                                <div class="contenedor-descripcion">
-                                    {{ soporte.descripcion }}
-                                </div>
-                            </td>
-                            <td>{{ soporte.email }}</td>
-                            <td>{{ soporte.telefono }}</td>
-                            <td>
-                                <div class="contenedor-respuesta">
-                                    {{ soporte.respuesta }}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr *ngIf="soportes.length < 1">
-                            <td colspan="10" class="text-center">
-                                <span class="fw-semibold">No se encontraron soportes con los criterios de búsqueda actuales.</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="table-responsive custom-scroll tabla-soportes">
+            <table class="table table-bordered tabla-primaria">
+                <thead>
+                    <tr class="fs-14px">
+                        <th class=""></th>
+                        <th class="">Radicado</th>
+                        <th class="">Estado</th>
+                        <th class="">Fecha de creación</th>
+                        <th class="">NIT</th>
+                        <th class="th-razon-social">Razón social</th>
+                        <th class="th-descripcion">Descripción</th>
+                        <th class="">Email</th>
+                        <th class="">Teléfono</th>
+                        <th class="th-respuesta">Respuesta</th>
+                    </tr>
+                </thead>
+                <tbody class="fs-14px">
+                    <tr *ngFor="let soporte of soportes ; let i = index" max-height="100px">
+                        <td><img
+                            (click)="irAResponderSoporte(soporte)"  
+                            class="cursor-pointer" src="assets/img/buscar-documento.png" alt="buscar-encuesta" draggable="false"></td>
+                        <td>{{ soporte.radicado }}</td>
+                        <td class="fw-semibold">{{ obtenerDescripcionEstado(soporte.idEstado) }}</td>
+                        <td>{{ soporte.fechaCreacion | fecha: 'dd/MM/yyyy' }}</td>
+                        <td>{{ soporte.nit }}</td>
+                        <td class="td-razon-social">{{ soporte.razonSocial }}</td>
+                        <td>
+                            <div class="contenedor-descripcion">
+                                {{ soporte.descripcion }}
+                            </div>
+                        </td>
+                        <td>{{ soporte.email }}</td>
+                        <td>{{ soporte.telefono }}</td>
+                        <td>
+                            <div class="contenedor-respuesta">
+                                {{ soporte.respuesta }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="soportes.length < 1">
+                        <td colspan="10" class="text-center">
+                            <span class="fw-semibold">No se encontraron soportes con los criterios de búsqueda actuales.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        
     </div>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-end">
         <ngb-pagination 
         [collectionSize]="this.paginador.totalRegistros ?? 0" 
         [page]="this.paginador.pagina"

@@ -27,7 +27,7 @@ export class ServicioTarifas extends Autenticable {
     }
   ]
   private readonly host = environment.urlBackend
-  private readonly llaveLocalStorage = 'soportePeccit'
+  private readonly llaveLocalStorage = 'soporte'
 
   constructor(private http: HttpClient) {
     super()

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ServicioEncuestas } from '../../servicios/encuestas.service';
 import { Encuesta } from '../../modelos/Encuesta';
 import { ServicioLocalStorage } from 'src/app/administrador/servicios/local-storage.service';
@@ -17,14 +17,13 @@ import { ErrorAutorizacion } from 'src/app/errores/ErrorAutorizacion';
 import { ID_ROLES } from 'src/app/compartido/Roles';
 import { MunicipioReportado } from 'src/app/usuarios/modelos/MunicipioReportado';
 import { ServicioUsuarios } from 'src/app/usuarios/servicios/usuarios.service';
-import { MenuHeaderPService } from 'src/app/services-menu-p/menu-header-p-service';
 
 @Component({
   selector: 'app-pagina-encuesta',
   templateUrl: './pagina-encuesta.component.html',
   styleUrls: ['./pagina-encuesta.component.css']
 })
-export class PaginaEncuestaComponent implements OnInit ,AfterViewInit{
+export class PaginaEncuestaComponent implements OnInit {
   @ViewChild('popup') popup!: PopupComponent
   @ViewChild('modalConfirmar') modalConfirmar!: ModalConfirmarEnviarComponent
   @ViewChild('componenteEncuesta') componenteEncuesta!: EncuestaComponent
@@ -49,8 +48,7 @@ export class PaginaEncuestaComponent implements OnInit ,AfterViewInit{
     private servicioLocalStorage: ServicioLocalStorage,
     private servicioUsuarios: ServicioUsuarios,
     private router: Router,
-    private activeRoute: ActivatedRoute,
-    public ServiceMenuP:MenuHeaderPService
+    private activeRoute: ActivatedRoute
   ) {
     const usuario = this.servicioLocalStorage.obtenerUsuario()
     const rol = this.servicioLocalStorage.obtenerRol()
@@ -68,10 +66,8 @@ export class PaginaEncuestaComponent implements OnInit ,AfterViewInit{
       next: (parametros)=>{
         this.idEncuesta = parametros['idEncuestaDiligenciada']
         if(this.idEncuesta == 2){
-          //this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
           this.obtenerEncuestaCuantitativa()
         }else{
-          //this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
           this.obtenerEncuesta()
         }
       }
@@ -83,20 +79,8 @@ export class PaginaEncuestaComponent implements OnInit ,AfterViewInit{
     if(this.esAdministrador){
       this.obtenerMunicipiosReportados()
     }
-    
-    //this.ServiceMenuP.RutaModelo='xxx'
-    //console.log(this.ServiceMenuP.RutaModelo)
-    this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
-    
- 
   }
-  ngAfterViewInit()
-  {
-    ///console.log(this.ServiceMenuP.RutaModelo)
-    //this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
-    
-  }
-  
+
   //Manejadores de eventos
   manejarEncuestaGuardada(){
     this.obtenerEncuesta()
@@ -190,34 +174,24 @@ export class PaginaEncuestaComponent implements OnInit ,AfterViewInit{
 
   //Obtener información
   obtenerEncuestaCuantitativa(){
-        
     this.servicioEncuesta.obtenerEncuestaCuantitativa(this.idReporte!, this.idVigilado!).subscribe({
       next: (encuesta)=>{
         this.encuestaCuantitativa = encuesta
         this.soloLectura = encuesta.soloLectura
         this.vigencia = encuesta.vigencia
-        //this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
       }
     })
-    
-    
   }
 
   obtenerEncuesta(){
-    
     this.servicioEncuesta.obtenerEncuesta(this.idVigilado!, this.idEncuesta!, this.idReporte!).subscribe({
       next: ( encuesta )=>{
         this.encuesta = encuesta
         this.soloLectura = !encuesta.encuestaEditable
         this.camposDeVerificacion = encuesta.verificacionEditable
         this.camposDeVerificacionVisibles = encuesta.verificacionVisible
-        //this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
       }
     })
-    //
-    //console.log('desde encuenta sola')
-    //console.log(this.ServiceMenuP.RutaModelo)
-    this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
   }
 
   obtenerMunicipiosReportados(){

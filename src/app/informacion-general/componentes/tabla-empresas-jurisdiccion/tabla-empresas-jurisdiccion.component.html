@@ -4,39 +4,39 @@
         <table class="tabla-informacionP ">
             <thead>
                 <!-- fondo-secundario texto-primario -->
-                <tr height="38px" class="fs-14px  encabezado-tabla left">
+                <tr height="38px" class="fs-14px  encabezado-tabla">
                     <th *ngIf="!soloLectura" colspan="2" class="fw-semibold"></th>
-                    <th class="fw-semibold justify-content-left">
+                    <th class="fw-semibold">
                         NIT
                     </th>
-                    <th class="fw-semibold left">
+                    <th class="fw-semibold">
                         Razón Social
                     </th>
-                    <th class="fw-semibold left">
+                    <th class="fw-semibold">
                         Correo electrónico de la empresa
                     </th>
-                    <th class="fw-semibold left">
+                    <th class="fw-semibold">
                         Tipo de Servicio / Modalidad
                     </th>
-                    <th class="fw-semibold left">
+                    <th class="fw-semibold">
                         Departamento
                     </th>
-                    <th class="fw-semibold left">
+                    <th class="fw-semibold">
                         Municipio
                     </th>
-                    <th class="fw-semibold left">
+                    <th class="fw-semibold">
                         Acto administrativo Tipo de Servicio / Modalidad
                     </th>
-                    <th class="fw-semibold left">
+                    <th class="fw-semibold">
                         Capacidad transportadora A
                     </th>
-                    <th class="fw-semibold left">
+                    <th class="fw-semibold">
                         Capacidad transportadora B
                     </th>
-                    <th class="fw-semibold left">
+                    <th class="fw-semibold">
                         Capacidad transportadora C
                     </th>
-                    <th class="fw-semibold left">
+                    <th class="fw-semibold">
                         Acto administrativo capacidad transportadora
                     </th>
                 </tr>
@@ -67,7 +67,9 @@
                         </span>
                         <span *ngIf="!esRegistroAEliminar(empresa.nit)" class="text-danger cursor-pointer"
                             (click)="eliminarRegistro(empresa.nit)">
-                            <span _ngcontent-ows-c44="" class="material-symbols-outlined text-primary"> delete </span>
+                            <span class="material-symbols-outlined">
+                                delete
+                            </span>
                         </span>
                     </td>
                     <td>{{ empresa.nit }}</td>

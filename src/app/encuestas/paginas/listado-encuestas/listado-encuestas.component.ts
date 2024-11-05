@@ -49,7 +49,6 @@ export class ListadoEncuestasComponent implements OnInit {
     this.activatedRoute.params.subscribe({
       next: (params) => {
         this.idEncuesta = params["idEncuesta"]
-        //this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
         this.servicioCategorizacion.informacionCategorizacion(this.idEncuesta).subscribe({
           next: (informacion) => {
             if (!informacion.categorizado && informacion.encuestaCategorizable) {
@@ -61,7 +60,6 @@ export class ListadoEncuestasComponent implements OnInit {
         })
       }
     })
-    //
   }
 
   obtenerEncuestas = (pagina: number, limite: number, filtros?: FiltrosReportes) => {
@@ -70,8 +68,12 @@ export class ListadoEncuestasComponent implements OnInit {
         next: (respuesta) => {
           this.reportes = respuesta.reportadas
           if(this.esUsuarioVigilado){
+            console.log('------DESDE ENCUESTA--------------')
+            //console.log(this.router.url)
+            //this.ServiceMenuP.RutaModelo=this.router.url
+            console.log('--------------------')
+            this.ServiceMenuP.AsginarRutas(this.router.url,`/administrar/encuesta/${this.idEncuesta}`);//paolo
             this.ServiceMenuP.OptionMenu=(this.idEncuesta==1) ? 1 :2/**paolo */          
-            this.ServiceMenuP.RutaModelo=`/encuestas/${this.idEncuesta}`;//paolo
             
             this.router.navigate(['/administrar', 'encuesta', this.idEncuesta], {
               queryParams: {

@@ -9,9 +9,9 @@
             <button class="boton primario relleno" (click)="actualizarFiltros()">Buscar</button>
         </fieldset>
     </div>
-    <div class="d-flex ">
-        <div class="table-responsive table-responsiveP w-100 custom-scroll">
-            <table class="tabla-informacionP w-100 ">
+    <div class="d-flex">
+        <div class="table-responsive custom-scroll">
+            <table class="table table-bordered tabla-primaria">
                 <thead>
                     <tr class="fs-14px">
                         <th class=""></th>
@@ -28,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody class="fs-14px">
-                    <tr class="tdxP" *ngFor="let reporte of reportes ; let i = index">
+                    <tr *ngFor="let reporte of reportes ; let i = index">
                         <td><img 
                             [routerLink]="['/administrar', 'encuesta', reporte.idEncuestaDiligenciada]"
                             [queryParams]="{ vigilado: reporte.idVigilado , reporte: reporte.numeroReporte }"  

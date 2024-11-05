@@ -15,7 +15,7 @@ import { AutenticacionService } from '../../servicios/autenticacion.service';
 export class ActualizarContrasenaComponent implements OnInit {
   @ViewChild('popup') popup!: PopupComponent
   public formulario: FormGroup
-  public readonly llaveUsuarioLocalStorage = 'UsuarioPeccit'
+  public readonly llaveUsuarioLocalStorage = 'Usuario'
 
 
 

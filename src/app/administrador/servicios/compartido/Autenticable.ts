@@ -1,7 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 
 export class Autenticable {
-    public readonly llaveTokenLocalStorage = 'jwtPeccit'
+    public readonly llaveTokenLocalStorage = 'jwt'
     public constructor(){}
 
     public obtenerTokenAutorizacion():string{
