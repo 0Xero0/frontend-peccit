@@ -13,12 +13,11 @@ import { AlertasModule } from '../alertas/alertas.module';
 import { InputsModule } from '../inputs/inputs.module';
 import { RouterModule } from '@angular/router';
 import { TemplatesModule } from '../templates/templates.module';
-import { InicioVigia2Component } from './componentes/inicio-vigia2/inicio-vigia2.component';
+
 
 
 @NgModule({
   declarations: [
-    InicioVigia2Component,
     InicioSesionComponent,
     ModalRecuperacionContrasenaComponent,
     ActualizarContrasenaComponent,
@@ -36,6 +35,7 @@ import { InicioVigia2Component } from './componentes/inicio-vigia2/inicio-vigia2
     AlertasModule,
     TemplatesModule,
     RouterModule
+    
   ]
 })
 export class AutenticacionModule { }

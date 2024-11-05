@@ -42,6 +42,7 @@ export class PaginaListadoEjecucionComponent implements OnInit{
   
   ngOnInit(){
     this.paginador.inicializar()
+    this.ServiceMenuP.RutaModelo=`/reportes-ejecucion`;//paolo
   }
 
   obtenerReportes = (pagina: number, limite: number, filtros?: FiltrosReportes): Observable<Paginacion> =>{
@@ -51,7 +52,7 @@ export class PaginaListadoEjecucionComponent implements OnInit{
           this.reportes = respuesta.reportadas
           if(this.esUsuarioVigilado && this.reportes.length > 0){
 
-            this.ServiceMenuP.AsginarRutas(this.router.url,'/administrar/ejecucion'); ///paolo
+            this.ServiceMenuP.RutaModelo=`/reportes-ejecucion`;//paolo
             this.router.navigate(['/administrar', 'ejecucion'], {queryParams: {
               reporte: this.reportes[0].numeroReporte,
               vigilado: this.reportes[0].idVigilado

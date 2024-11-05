@@ -163,38 +163,42 @@
             </button>
         </fieldset>
     </div>
-    <div class="table-responsive mb-3">
-        <table class="table lista-de-usuarios">
-            <thead>
-                <tr>
-                    <th>Documento</th>
-                    <th>Nombre</th>
-                    <th>¿Es departamental?</th>
-                    <th>Correo</th>
-                    <!-- <th>Fecha de nacimiento</th> -->
-                    <th>Editar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let usuario of usuarios">
-                    <td>{{ usuario.usuario }}</td>
-                    <td>{{ usuario.nombre }}</td>
-                    <td *ngIf="usuario.esDepartamental == 1">Si</td>
-                    <td *ngIf="usuario.esDepartamental == 2">No</td>
-                    <td *ngIf="!usuario.esDepartamental">??</td>
-                    <td>{{ usuario.correo }}</td>
-                    <!-- <td>{{ usuario.fechaNacimiento | fecha: 'dd/MM/yyyy' }}</td> -->
-                    <td>
-                        <span class="cursor-pointer" (click)="abrirModalActualizarUsuario(usuario)">Editar</span>
-                    </td>
-                </tr>
-                <tr *ngIf="usuarios.length === 0">
-                    <td colspan="6">No se encontraron usuarios con los filtros establecidos.</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="table-responsiveP w-100">
+        <div class="table-responsive">
+            <table class="table-informacionP w-100 lista-de-usuarios">
+                <thead>
+                    <tr class="encabezado-tabla">
+                        <th class="py-1">Documento</th>
+                        <th>Nombre</th>
+                        <th>¿Es departamental?</th>
+                        <th>Correo</th>
+                        <!-- <th>Fecha de nacimiento</th> -->
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+                <tbody class="fs-14px">
+                    <tr class="tdxP" *ngFor="let usuario of usuarios">
+                        <td class="py-1">{{ usuario.usuario }}</td>
+                        <td class="py-1">{{ usuario.nombre }}</td>
+                        <td class="py-1" *ngIf="usuario.esDepartamental == 1">Si</td>
+                        <td class="py-1" *ngIf="usuario.esDepartamental == 2">No</td>
+                        <td class="py-1" *ngIf="!usuario.esDepartamental">??</td>
+                        <td class="py-1">{{ usuario.correo }}</td>
+                        <!-- <td>{{ usuario.fechaNacimiento | fecha: 'dd/MM/yyyy' }}</td> -->
+                        <td class="py-1">
+                            <span class="cursor-pointer" (click)="abrirModalActualizarUsuario(usuario)">Editar</span>
+                        </td>
+                    </tr>
+                    <tr *ngIf="usuarios.length === 0">
+                        <td colspan="6">No se encontraron usuarios con los filtros establecidos.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="d-flex justify-content-end">
+    
+
+    <div class="d-flex justify-content-center py-2">
         <ngb-pagination
         [collectionSize]="this.paginador.totalRegistros ?? 0"
         [pageSize]="this.paginador.limite"
