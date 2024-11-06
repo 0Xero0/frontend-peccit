@@ -399,7 +399,7 @@ h1,h2{
 
 .tabla-linea-topP
 {
-  border-top: 1px solid #707070;
+  border-top: 1px solid #dcdcdc;
 }
 
 .buttonDerechaP
@@ -409,12 +409,12 @@ h1,h2{
 
 .tdyP
 {
-    border-right: 1px solid #707070;
+    border-right: 1px solid #dcdcdc;
     
 }
 .tdxP
 {
-    border-bottom: 1px solid #707070;
+    border-bottom: 1px solid #dcdcdc;
     
 }
 .encabezado-tabla{
@@ -435,7 +435,7 @@ h1,h2{
 }
 .borderbuttomP
 {
-  border-bottom: 1px solid #707070;
+  border-bottom: 1px solid #dcdcdc;
 }
 
 .hr{
@@ -551,5 +551,7 @@ height: 45px;
   height: 77px;
 }
 
-
+.izq{
+  text-align: left;
+}
 

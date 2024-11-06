@@ -54,9 +54,14 @@ export class InicioSesionComponent implements OnInit {
           if(respuesta.rol.modulos.length > 0){
             if(!respuesta.rol.modulos[0].ruta && respuesta.rol.modulos[0].submodulos.length > 0){
               //this.ServiceMenuP.RutaModelo =`/administrar/encuestas/${1}`
+              //this.ServiceMenuP.RutaModelo =`/encuestas/${1}`
+              
+              //localStorage.setItem("miRutaP", this.ServiceMenuP.RutaModelo);
               this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].submodulos[0].ruta}`);
             }else{
-              this.ServiceMenuP.RutaModelo =`/administrar/encuestas/${1}`
+              //this.ServiceMenuP.RutaModelo =`/administrar/encuestas/${1}`
+                //this.ServiceMenuP.RutaModelo =`/encuestas/${1}`
+             //localStorage.setItem("miRutaP", this.ServiceMenuP.RutaModelo);
               this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].ruta}`);
               
               

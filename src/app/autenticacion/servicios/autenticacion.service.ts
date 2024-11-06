@@ -13,9 +13,9 @@ import { Soporte } from 'src/app/soportes/modelos/Soporte';
 export class AutenticacionService {
   private urlBackend: string
   headers: HttpHeaders;
-  public readonly llaveTokenLocalStorage = 'jwt'
-  public readonly llaveUsuarioLocalStorage = 'Usuario'
-  public readonly llaveRolesLocalStorage = 'rol'
+  public readonly llaveTokenLocalStorage = 'jwtPeccit'
+  public readonly llaveUsuarioLocalStorage = 'UsuarioPeccit'
+  public readonly llaveRolesLocalStorage = 'rolPeccit'
 
 
   constructor(private clientHttp:HttpClient) {

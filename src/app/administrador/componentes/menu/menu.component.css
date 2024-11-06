@@ -55,10 +55,15 @@
     padding: 8px 15px;
 }
 
-.paolo {
+.ActiveP2 {
   background-color: #fff !important;
   color: #004884;
 }
+
+.ActiveLinkP{
+    background-color: #fff !important;
+    color: #004884;
+  }
 
 .logoP {
   display: flex;
@@ -103,7 +108,7 @@
     display: flex;
     align-items: center;
     padding: 23px 18px 26px;
-    font-size: 32px;
+    font-size: 40px;
     margin-left: -10px;
     /*padding: 10px 0px 0px 10px;*/
 }
@@ -128,4 +133,10 @@
     /* UI Properties */
     background: #004884 0% 0% no-repeat padding-box;
 
+}
+
+.borderMenu{
+
+    border-radius: 1px 1px 8px 8px;
+    border-top-left-radius: inherit;
 }
