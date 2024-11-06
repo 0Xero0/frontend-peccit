@@ -38,11 +38,19 @@ export class InicioSesionComponent implements OnInit {
       this.marcarFormularioComoSucio()
       return;
     }
+    Swal.fire({
+      icon: 'info',
+      allowOutsideClick: false,
+      text: 'Espere por favor...',
+    });
+    Swal.showLoading(null);
     this.servicioAutenticacion.iniciarSesion(
       this.formulario.controls['usuario'].value.toString(),
       this.formulario.controls['clave'].value,
     ).subscribe({
       next: (respuesta: IniciarSesionRespuesta) => {
+        Swal.close()
+        localStorage.setItem('inicio-sesion', JSON.stringify(true))
         this.servicioAutenticacion.guardarInformacionInicioSesion(
           respuesta.token,
           respuesta.rol,
@@ -55,7 +63,7 @@ export class InicioSesionComponent implements OnInit {
             if(!respuesta.rol.modulos[0].ruta && respuesta.rol.modulos[0].submodulos.length > 0){
               //this.ServiceMenuP.RutaModelo =`/administrar/encuestas/${1}`
               //this.ServiceMenuP.RutaModelo =`/encuestas/${1}`
-              
+
               //localStorage.setItem("miRutaP", this.ServiceMenuP.RutaModelo);
               this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].submodulos[0].ruta}`);
             }else{
@@ -63,8 +71,8 @@ export class InicioSesionComponent implements OnInit {
                 //this.ServiceMenuP.RutaModelo =`/encuestas/${1}`
              //localStorage.setItem("miRutaP", this.ServiceMenuP.RutaModelo);
               this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].ruta}`);
-              
-              
+
+
             }
           }
           else{

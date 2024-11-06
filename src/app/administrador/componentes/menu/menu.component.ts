@@ -38,6 +38,11 @@ export class MenuComponent implements OnInit,AfterViewInit ,AfterViewChecked{
   }
 
   ngOnInit(): void {
+    const inicioSesion = JSON.parse(localStorage.getItem('inicio-sesion') || 'false');
+    if(inicioSesion){this.inicioSesion = inicioSesion}
+    const inicioVigia2 = JSON.parse(localStorage.getItem('inicio-vigia2') || 'false');
+    if(inicioVigia2){this.inicioVigia2 = inicioVigia2}
+
     this.rol = this.servicioLocalStorage.obtenerRol()
     this.usuario = this.servicioLocalStorage.obtenerUsuario()
     this.rutasMenu=this.rol?.modulos
@@ -135,6 +140,9 @@ export class MenuComponent implements OnInit,AfterViewInit ,AfterViewChecked{
   public cerrarSesion(){
     /* this.servicioAutenticacion.cerrarSesion()
     this.router.navigateByUrl('/inicio-sesion') */
+    this.servicioAutenticacion.cerrarSesion()
+    localStorage.removeItem('inicio-sesion')
+    localStorage.removeItem('inicio-vigia2')
     if(this.inicioVigia2){
       window.location.href = environment.urlVigia2+'/administrar/administrar-aplicativos'
     }else if(this.inicioSesion){

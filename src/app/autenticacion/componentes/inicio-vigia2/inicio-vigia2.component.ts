@@ -27,10 +27,18 @@ export class InicioVigia2Component {
       this.token = params.get('token');
       console.log('Token:', this.token);
       // Aquí puedes hacer algo con el token, como almacenarlo en el localStorage
+      Swal.fire({
+        icon: 'info',
+        allowOutsideClick: false,
+        text: 'Espere por favor...',
+      });
+      Swal.showLoading(null);
       if (this.token) {
         localStorage.setItem('authToken', this.token);
         this.servicioAutenticacion.inicioVigia2(this.token).subscribe({
           next: (respuesta: IniciarSesionRespuesta) => {
+            Swal.close()
+            localStorage.setItem('inicio-vigia2', JSON.stringify(true))
             this.servicioAutenticacion.guardarInformacionInicioSesion(
               respuesta.token,
               respuesta.rol,
