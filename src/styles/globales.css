@@ -70,6 +70,7 @@ h1,h2{
 }
 .boton.primario.relleno{
   background-color: var(--azul);
+  background: #3366CC 0% 0% no-repeat padding-box;
   color: white;
 }
 .boton.primario.relleno:hover{
@@ -555,3 +556,28 @@ height: 45px;
   text-align: left;
 }
 
+
+.btnPRadiusDescaga
+{
+  /*
+  width: 132px;
+  height: 19px;
+   UI Properties */
+   text-align: center;
+   font: normal normal normal 16px/16px Montserrat;
+   letter-spacing: 0px;
+   color: #FFFFFF;
+   background: #3366CC 0% 0% no-repeat padding-box;
+   border-radius: 22px;
+   padding: 9px; 
+}
+
+.page-item .page-link
+{
+  border: none;
+  background: #fff;
+}
+
+.page-item.active .page-link {
+  background: #004884 !important;
+}
