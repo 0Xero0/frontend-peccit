@@ -16,20 +16,20 @@ export class ModalConfirmarEnviarComponent {
   sinPatios: boolean = false
   sinEmpresas: boolean = false
 
-  constructor(private servicioModal: NgbModal) {
+  constructor(private servicioModal: NgbModal) { 
   }
 
   abrir({
-    alAceptar,
-    alCancelar,
-    respuestasInvalidas,
-    seRequiereSede,
-    sinPatios = false,
+    alAceptar, 
+    alCancelar, 
+    respuestasInvalidas, 
+    seRequiereSede, 
+    sinPatios = false, 
     sinEmpresas = false
   }: {
-    respuestasInvalidas: RespuestaInvalida[],
-    seRequiereSede: boolean,
-    alAceptar: Function,
+    respuestasInvalidas: RespuestaInvalida[], 
+    seRequiereSede: boolean, 
+    alAceptar: Function, 
     alCancelar: Function,
     sinPatios?: boolean,
     sinEmpresas?: boolean
@@ -38,7 +38,7 @@ export class ModalConfirmarEnviarComponent {
     this.sinPatios = sinPatios
     this.respuestasInvalidas = respuestasInvalidas
     this.sedeRequerida = seRequiereSede
-    this.mensajeItemsInvalidos = respuestasInvalidas.map(res => res.numeroPregunta).join(", ")
+    this.mensajeItemsInvalidos = respuestasInvalidas.map(res => res.preguntaId).join(", ")
     this.servicioModal.open(this.modal, { centered: true, size: 'lg' }).result.then(
       (_) => {},
       (reason) => {
