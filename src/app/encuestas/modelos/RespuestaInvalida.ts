@@ -1,5 +1,5 @@
 export interface RespuestaInvalida{
     preguntaId: number
-    numeroPregunta: number
+    numeroPregunta?: number
     archivoObligatorio: boolean
 }
