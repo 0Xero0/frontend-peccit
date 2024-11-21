@@ -63,12 +63,12 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-between align-items-center ps-4 w-50" *ngIf="!soloLectura">
+    <div class="d-flex justify-content-between align-items-center ps-4 w-100" *ngIf="!soloLectura">
         <button type="button" class="boton primario relleno " (click)="enviarEncuesta()"
             [disabled]="hayCambios || soloLectura">Enviar</button>
-        <button type="button" class="boton primario relleno" (click)="guardarEncuesta()"
+        <button type="button" class="boton primario relleno " (click)="guardarEncuesta()"
             [disabled]="!hayCambios || soloLectura">Guardar</button>
-        <button type="button" class="boton primario delineado"
+        <button type="button" class="boton primario delineado "
             [routerLink]="['/administrar', 'encuestas', idEncuesta]">Volver</button>
     </div>
 

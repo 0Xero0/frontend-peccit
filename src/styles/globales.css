@@ -581,3 +581,6 @@ height: 45px;
 .page-item.active .page-link {
   background: #004884 !important;
 }
+.centrado{
+  text-align: center  !important;
+}

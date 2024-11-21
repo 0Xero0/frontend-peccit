@@ -1,8 +1,8 @@
 <div class="mb-3 table-responsiveP">
     <div class="table-responsive">
-        <table class="tabla-informacionP w-100"> <!--tabla-modalidad-radio table border mb-1-->
+        <table class="tabla-informacionP w-100 centrado"> <!--tabla-modalidad-radio table border mb-1-->
             <thead>
-                <tr height="38px" class="fs-14px  fondo-secundario texto-primario izq">
+                <tr height="38px" class="fs-14px  fondo-secundario texto-primario centrado">
                     <th *ngIf="!soloLectura" colspan="2" class="fw-semibold"></th>
                     <th>Id</th>
                     <th class="fw-semibold">
@@ -28,7 +28,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="centrado">
                 <tr class="fs-14px " *ngIf="patios.length === 0 && registrosACrear.length === 0 && !formularioVisible">
                     <td colspan="2" *ngIf="!soloLectura"></td>
                     <td>-</td>
