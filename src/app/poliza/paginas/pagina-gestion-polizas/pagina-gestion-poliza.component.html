@@ -237,13 +237,13 @@
                                 <!-- fondo-secundario texto-primario -->
                                 <tr height="38px" class="fs-14px  encabezado-tabla">
                                     <th class="fw-semibold">
-                                        TOTAL DE VEHÍCULOS ACTIVOS
+                                        Total de vehículos activos
                                     </th>
                                     <th class="fw-semibold">
-                                        TOTAL DE PÓLIZAS CONTRACTUALES DE VEHÍCULOS ACTIVOS
+                                        Total de pólizas contractualesde vehículos activos
                                     </th>
                                     <th class="fw-semibold">
-                                        TOTAL DE PÓLIZAS EXTRACONTRACTUALES DE VEHÍCULOS ACTIVOS
+                                        Total de pólizas extracontractualesde vehículos activos
                                     </th>
                                 </tr>
                             </thead>
@@ -268,8 +268,8 @@
                 <div class="d-block mb-3 ">
                     <table class="tabla-informacionP w-100" aria-describedby="tableDescResponsive">
                       <tbody>
-                        <tr class="cajaNpolizVisualizar fw-bold fs-14px" >
-                          <td scope="col" >PÓLIZA</td>
+                        <tr class="cajaNpolizVisualizar fw-bold fs-14px texto-azul-004884" >
+                          <td scope="col" >Póliza</td>
                           <td>{{ objPoliza?.n_poliza }}</td>
                         </tr>
                       </tbody>
@@ -284,7 +284,7 @@
                 <div class="borderP mt-1 tabla-informacionP w-100 table-responsiveP">
                     <div class="row encabezado-PModalidad borderP">
                       <div class="col-12 d-flex ">
-                        <h2 class="fs-14px fw-semibold texto-azul-004884 aligPModalidad">DATOS DE MODALIDAD</h2>
+                        <h2 class="fs-14px fw-semibold texto-azul-004884 aligPModalidad">Datos de modalidad</h2>
                       </div>
                     </div>
                     <div class="row py-2 alingFilaP">
@@ -320,7 +320,7 @@
             <div class="col ps-4">
                 <div>
                     <span class="fs-14px fw-semibold texto-azul-004884">
-                      INFORMACIÓN SOBRE PÓLIZAS VIGENTES {{  objPoliza?.tipo_poliza }}:
+                      INFORMACIÓN SOBRE PÓLIZAS VIGENTES {{  objPoliza?.tipo_poliza }}
                     </span>
                   </div>
             </div>
@@ -409,8 +409,8 @@
         <div class="row ps-4">
             <div class="col ps-4">
                 <div>
-                    <span class="fs-14px fw-semibold texto-azul-004884">
-                      AMPAROS BÁSICOS:
+                    <span class="fs-16px fw-semibold texto-azul-004884">
+                      Amparos básicos
                     </span>
                   </div>
             </div>
@@ -424,54 +424,54 @@
         </div>
 
         <div class="row ps-4">
-            <div class="col-4 ps-4">
+            <div class="col-4 ps-4 centrado">
                 <div>
-                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                    <span class=" fw-semibold texto-azul-004884 centrado">
                      Coberturas y/o amparos básicos
                     </span>
                   </div>
             </div>
-            <div class="col-3">
-                <div>
-                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+            <div class="col-3 centrado">
+                <div class="centrado">
+                    <span class=" fw-semibold texto-azul-004884 centrado">
                      Coberturas
                     </span>
                   </div>
             </div>
             <div class="col">
-                <div>                    
-                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                <div class="centrado">                    
+                    <span class=" fw-semibold texto-azul-004884 centrado">
                      Valor Asegurado (SMMLV)
                     </span>
                   </div>
             </div>
             <div class="col ">
-                <div>
-                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                <div class="centrado">
+                    <span class=" fw-semibold texto-azul-004884 centrado justify-content-center">
                      Limite (SMMLV POR PERSONA)
                     </span>
                   </div>
             </div>
             <div class="col">
-                <div>
-                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                <div class="centrado">
+                    <span class=" fw-semibold texto-azul-004884 centrado">
                         Deducible (Si lo tiene)
                     </span>
                   </div>
             </div>
         </div>
 
-        <div class="row ps-4 py-2" *ngFor="let amparoB of objAmparoPolizaBasico ; let i = index ">
+        <div class="row ps-4 py-2  centrado" *ngFor="let amparoB of objAmparoPolizaBasico ; let i = index ">
             <div class="col-4 ps-4" >
                 <div>
-                    <span class="fontTaPAmparo">
+                    <span class="fs-14px">
                       {{ amparoB.cobertura_descricpion }}
                     </span>
                   </div>
             </div>
             <div class="col-3 ">
                 <div>
-                    <span class="fontTaPAmparo">
+                    <span class="fs-14px">
                         {{ amparoB.cobertura_nombre }}
                     </span>                                             
                   </div>
@@ -502,8 +502,8 @@
         <div class="row ps-4">
             <div class="col ps-4">
                 <div>
-                    <span class="fs-14px fw-semibold texto-azul-004884">
-                      AMPAROS ADICIONALES:
+                    <span class="fs-16px fw-semibold texto-azul-004884">
+                      Amparos adicionales
                     </span>
                   </div>
             </div>
@@ -517,54 +517,54 @@
         </div>
 
         <div class="row ps-4">
-            <div class="col-4 ps-4">
-                <div>
-                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+            <div class="col-4 ps-4 centrado">
+                <div class="centrado">
+                    <span class="fw-semibold texto-azul-004884 centrado">
                      Coberturas y/o amparos básicos
                     </span>
                   </div>
             </div>
-            <div class="col-3">
-                <div>
-                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+            <div class="col-3 centrado">
+                <div class="centrado">
+                    <span class="fw-semibold texto-azul-004884 centrado">
                      Coberturas
                     </span>
                   </div>
             </div>
             <div class="col">
-                <div>                    
-                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                <div class="centrado">                    
+                    <span class="fw-semibold texto-azul-004884 centrado">
                      Valor Asegurado (SMMLV)
                     </span>
                   </div>
             </div>
             <div class="col ">
-                <div>
-                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                <div class="centrado">
+                    <span class="fw-semibold texto-azul-004884 centrado">
                      Limite (SMMLV POR PERSONA)
                     </span>
                   </div>
             </div>
             <div class="col">
-                <div>
-                    <span class="fontTaPAmparo fw-semibold texto-azul-004884">
+                <div class="centrado">
+                    <span class="fw-semibold texto-azul-004884 centrado">
                         Deducible (Si lo tiene)
                     </span>
                   </div>
             </div>
         </div>
 
-        <div class="row ps-4 py-2" *ngFor="let amparoB of objAmparoPolizaAdicionales ; let i = index ">
+        <div class="row ps-4 py-2 centrado" *ngFor="let amparoB of objAmparoPolizaAdicionales ; let i = index ">
             <div class="col-4 ps-4" >
                 <div>
-                    <span class="fontTaPAmparo">
+                    <span class="fs-14px">
                       {{ amparoB.cobertura_descricpion }}
                     </span>
                   </div>
             </div>
             <div class="col-3 ">
                 <div>
-                    <span class="fontTaPAmparo">
+                    <span class="fs-14px">
                         {{ amparoB.cobertura_nombre }}
                     </span>                                             
                   </div>
@@ -622,7 +622,7 @@
             <div class="row  ps-4 py-2">
                 <div class="col-12 ps-4 ">
                     <span class="fs-14px fw-semibold centrar">
-                        INFORMACIÓN SOBRE EL FONDO DE RESPONSABILIDAD
+                        Información sobre el fondo de responsabilidad
                       </span>
                       <hr>
                 </div>
@@ -718,6 +718,15 @@
             </div>
         </div>
         <!------NOVEDADES-------------------------------------------------------->
+        <div class="row ps-4">
+            <div class="col ps-4">
+                <div>
+                    <span class="fs-16px fw-semibold texto-azul-004884">
+                      Novedades de Póliza
+                    </span>
+                  </div>
+            </div>
+        </div>        
         <div class="row py-2 ps-4">
             <div class="col-12 ps-4">
                 <div class="mb-3 table-responsiveP ">
@@ -726,27 +735,25 @@
                         <table class="tabla-informacionP w-100">
                             <thead class="w-100">
                                 <!-- fondo-secundario texto-primario -->
-                                 <tr>
-                                    <th colspan="6" class="text-center">NOVEDADES DE POLIZA</th>
-                                 </tr>
+
                                 <tr height="38px" class="fs-14px  encabezado-tabla">
                                     <th class="fw-semibold">
-                                        TIPO DE PÓLIZA
+                                        Tipo de póliza
                                     </th>
                                     <th class="fw-semibold">
-                                        N° DE PÓLIZA
+                                        N° de póliza
                                     </th>
                                     <th class="fw-semibold">
-                                        PLACA
+                                        Placa
                                     </th>
                                     <th class="fw-semibold">
-                                        FECHA ACTUALIZACIÓN
+                                        Fecha actualización
                                     </th>
                                     <th class="fw-semibold">
-                                        ESTADO
+                                        Estado
                                     </th>
                                     <th class="fw-semibold">
-                                       OBSERVACIÓN
+                                       Observación
                                     </th>                           
                                     
                                     
