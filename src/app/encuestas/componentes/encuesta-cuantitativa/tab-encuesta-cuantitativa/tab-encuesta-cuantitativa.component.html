@@ -5,21 +5,21 @@
             <ul class="evidencias">
                 <li class="cabeceras-evidencia centrado">
                     <div class="row">
-                        <div class="col-3">Descripción de las evidencias</div>
-                        <div class="col-3">Tipo de evidencia</div>
-                        <div class="col-6">Evidencia</div>
+                        <div class="col-4">Descripción de las evidencias</div>
+                        <div class="col-4">Tipo de evidencia</div>
+                        <div class="col-4">Evidencia</div>
                     </div>
                 </li>
                 <li class="evidencia tdxP centrado" *ngFor="let evidencia of evidencias" [ngClass]="{ 'bg-invalido': evidenciasFaltantes.includes(evidencia.idEvidencia) }">
                     <div class="row centrado">
-                        <div class="col-3 centrado"><span class="validacion fw-semibold" *ngIf="evidencia.obligatoria">* </span>{{ evidencia.nombre }}</div>
-                        <div class="col-3 centrado">
+                        <div class="col-4 centrado"><span class="validacion fw-semibold" *ngIf="evidencia.obligatoria">* </span>{{ evidencia.nombre }}</div>
+                        <div class="col-4 centrado">
                             <ng-container *ngIf="evidencia.validacionesEvidencia">
                                 {{ evidencia.validacionesEvidencia.tipoDato }} 
                                 <span *ngIf="evidencia.validacionesEvidencia.tamanio"> - {{ evidencia.validacionesEvidencia.tamanio }} Mb</span>
                             </ng-container>
                         </div>
-                        <div class="col-6 row centrado">
+                        <div class="col-4 row centrado">
                             <div class="centrado">
                                 <app-evidencia-encuesta-cuantitativa
                                 [soloLectura]="soloLectura"
