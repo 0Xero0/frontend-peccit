@@ -11,7 +11,7 @@
     <!-- Pregunta -->
     <div [ngClass]="{'columna tabla-linea-topP':true, 'col-4':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } "  >
     <!--<div class="col-2 columna border-top">-->
-        <div class="d-flex justify-content-center centrado">
+        <div class="d-flex justify-content-start">
             <span class="validacion fw-semibold" *ngIf="pregunta.obligatoria">*</span>
             <span class="fs-14px">{{ pregunta.pregunta }}</span>
         </div>
@@ -24,7 +24,7 @@
         
         
             [ngClass]="clasesRespuestas">
-            <div class="d-flex justify-content-center centrado">
+            <div class="d-flex justify-content-start">
                 <div class="d-block w-100">
                     <select [disabled]="soloLectura || bloqueada" [(ngModel)]="valor" class="form-select" (change)="alCambiarRespuesta(this.valor)">
                         <option value="">Seleccione una opción.</option>
@@ -49,7 +49,7 @@
     <!-- Campos verificador -->
     <div [ngClass]="{'columna d-flex flex-column tabla-linea-topP':true, '':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } "    *ngIf="camposDeVerificacionVisibles">
     <!--<div class="col-2 columna d-flex flex-column border-top" *ngIf="camposDeVerificacionVisibles">-->
-        <div class="d-flex justify-content-center centrado">
+        <div class="d-flex justify-content-start">
             <select 
             [ngModel]="evidenciaCorresponde" 
             (ngModelChange)="alCambiarEvidenciaCorresponde($event)" 
@@ -61,7 +61,7 @@
         </div>
         <div> 
             <label class="fs-12px fw-semibold">Observación</label>
-            <div class="d-flex justify-content-center centrado">
+            <div class="d-flex justify-content-start">
                 <textarea
                 [disabled]="!camposDeVerificacion || observacionEvidenciaCorrespondeDeshabilitado || pregunta.respuesta == ''"
                 [ngModel]="observacionNoCorresponde"
@@ -75,7 +75,7 @@
     </div>
     <div [ngClass]="{'columna d-flex flex-column tabla-linea-topP':true, '':!camposDeVerificacionVisibles, 'col-2':camposDeVerificacionVisibles  } "    *ngIf="camposDeVerificacionVisibles">
     <!--<div class="col-2 columna d-flex flex-column border-top" *ngIf="camposDeVerificacionVisibles">-->
-        <div class="d-flex justify-content-center centrado">
+        <div class="d-flex justify-content-start">
             <select
             [ngModel]="documentoCumple" 
             (ngModelChange)="alCambiarDocumentoCumple($event)"  
@@ -87,7 +87,7 @@
         </div>
         <div> <!-- observacion documento cumple -->
             <label class="fs-12px fw-semibold">Observación</label>
-            <div class="d-flex justify-content-center centrado">
+            <div class="d-flex justify-content-start">
                 <textarea
                 [disabled]="!camposDeVerificacion || observacionDocumentoCumpleDeshabilitado || pregunta.respuesta == ''"
                 [ngModel]="observacionNoCumple"

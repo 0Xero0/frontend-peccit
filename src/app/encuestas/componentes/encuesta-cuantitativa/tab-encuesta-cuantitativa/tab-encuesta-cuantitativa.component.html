@@ -10,17 +10,17 @@
                         <div class="col-4">Evidencia</div>
                     </div>
                 </li>
-                <li class="evidencia tdxP centrado" *ngFor="let evidencia of evidencias" [ngClass]="{ 'bg-invalido': evidenciasFaltantes.includes(evidencia.idEvidencia) }">
-                    <div class="row centrado">
-                        <div class="col-4 centrado"><span class="validacion fw-semibold" *ngIf="evidencia.obligatoria">* </span>{{ evidencia.nombre }}</div>
-                        <div class="col-4 centrado">
+                <li class="evidencia tdxP fs-14px" *ngFor="let evidencia of evidencias" [ngClass]="{ 'bg-invalido': evidenciasFaltantes.includes(evidencia.idEvidencia) }">
+                    <div class="row izq">
+                        <div class="col-4 fs-14px"><span class="validacion fw-semibold" *ngIf="evidencia.obligatoria">* </span>{{ evidencia.nombre }}</div>
+                        <div class="col-4 fs-14px">
                             <ng-container *ngIf="evidencia.validacionesEvidencia">
                                 {{ evidencia.validacionesEvidencia.tipoDato }} 
                                 <span *ngIf="evidencia.validacionesEvidencia.tamanio"> - {{ evidencia.validacionesEvidencia.tamanio }} Mb</span>
                             </ng-container>
                         </div>
-                        <div class="col-4 row centrado">
-                            <div class="centrado">
+                        <div class="col-4 row fs-14px">
+                            <div class="fs-14px">
                                 <app-evidencia-encuesta-cuantitativa
                                 [soloLectura]="soloLectura"
                                 [idVigilado]="idVigilado" 
@@ -48,7 +48,7 @@
    
 
 
-<div class="contenedor-calendario centrado">
+<div class="contenedor-calendario izq">
     <app-calendario-actividades
     [soloLectura]="soloLectura"
     [actividadesFaltantes]="actividadesFaltantes"

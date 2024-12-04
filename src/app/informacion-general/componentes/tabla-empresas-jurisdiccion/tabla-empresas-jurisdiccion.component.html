@@ -59,13 +59,13 @@
                 <tr class="fs-14px tdxP" *ngFor="let empresa of empresas ; let i = index"
                     [ngClass]="{ 'bg-peligro': esRegistroAEliminar(empresa.nit) }">
                     <td *ngIf="!soloLectura" colspan="2">
-                        <span *ngIf="esRegistroAEliminar(empresa.nit)" class="text-danger cursor-pointer centrado"
+                        <span *ngIf="esRegistroAEliminar(empresa.nit)" class="text-danger cursor-pointer izq"
                             (click)="cancelarEliminacionRegistro(empresa.nit)">
                             <span class="material-symbols-outlined">
                                 close
                             </span>
                         </span>
-                        <span *ngIf="!esRegistroAEliminar(empresa.nit)" class="text-danger cursor-pointer centrado"
+                        <span *ngIf="!esRegistroAEliminar(empresa.nit)" class="text-danger cursor-pointer izq"
                             (click)="eliminarRegistro(empresa.nit)">
                             <!--<button _ngcontent-yrx-c61="" type="button" class="eliminar-ruta fw-semibold"><i _ngcontent-yrx-c61="" class="bi bi-trash"></i></button>
                             <i _ngcontent-yrx-c61="" class="bi bi-trash"></i>
@@ -73,22 +73,22 @@
                             <span _ngcontent-ows-c44="" class="material-symbols-outlined text-primary" style="color: #004884 !important;"> delete </span> 
                         </span>
                     </td>
-                    <td class="centrado">{{ empresa.nit }}</td>
-                    <td class="centrado">{{ empresa.razon_social }}</td>
-                    <td class="centrado">{{ empresa.correoelectronico }}</td>
-                    <td class="centrado">{{ empresa.tipo_servicio }} - {{ obtenerNombreServicioModalidad(empresa.tipo_servicio) }}</td>
-                    <td class="centrado">{{ obtenerNombreDepartamento(empresa.departamento) }}</td>
-                    <td class="centrado">{{ obtenerNombreCiudad(empresa.municipio) }}</td>
-                    <td class="centrado">
+                    <td class="izq">{{ empresa.nit }}</td>
+                    <td class="izq">{{ empresa.razon_social }}</td>
+                    <td class="izq">{{ empresa.correoelectronico }}</td>
+                    <td class="izq">{{ empresa.tipo_servicio }} - {{ obtenerNombreServicioModalidad(empresa.tipo_servicio) }}</td>
+                    <td class="izq">{{ obtenerNombreDepartamento(empresa.departamento) }}</td>
+                    <td class="izq">{{ obtenerNombreCiudad(empresa.municipio) }}</td>
+                    <td class="izq">
                         <span class="hipervinculo cursor-pointer"
                             (click)="descargarArchivo(empresa.documento_tipo_servicio, empresa.ruta_tipo_servicio, empresa.original_tipo_servicio)">
                             {{ empresa.original_tipo_servicio }}
                         </span>
                     </td>
-                    <td class="centrado">{{ empresa.capacidad_transportadora_a }}</td>
-                    <td class="centrado">{{ empresa.capacidad_transportadora_b }}</td>
-                    <td class="centrado">{{ empresa.capacidad_transportadora_c }}</td>
-                    <td class="centrado">
+                    <td class="izq">{{ empresa.capacidad_transportadora_a }}</td>
+                    <td class="izq">{{ empresa.capacidad_transportadora_b }}</td>
+                    <td class="izq">{{ empresa.capacidad_transportadora_c }}</td>
+                    <td class="izq">
                         <span class="hipervinculo cursor-pointer"
                             (click)="descargarArchivo(empresa.documento_transportadora, empresa.ruta_transportadora, empresa.original_transportadora)">
                             {{ empresa.original_transportadora }}

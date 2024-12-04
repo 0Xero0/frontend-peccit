@@ -461,7 +461,7 @@
             </div>
         </div>
 
-        <div class="row ps-4 py-2  centrado" *ngFor="let amparoB of objAmparoPolizaBasico ; let i = index ">
+        <div class="row ps-4 py-2  izq" *ngFor="let amparoB of objAmparoPolizaBasico ; let i = index ">
             <div class="col-4 ps-4" >
                 <div>
                     <span class="fs-14px">
@@ -554,7 +554,7 @@
             </div>
         </div>
 
-        <div class="row ps-4 py-2 centrado" *ngFor="let amparoB of objAmparoPolizaAdicionales ; let i = index ">
+        <div class="row ps-4 py-2 izq" *ngFor="let amparoB of objAmparoPolizaAdicionales ; let i = index ">
             <div class="col-4 ps-4" >
                 <div>
                     <span class="fs-14px">
@@ -759,15 +759,15 @@
                                     
                                 </tr>
                             </thead>
-                            <tbody class="">
+                            <tbody class="izq">
                                 <tr [ngClass]="{'fs-14px borderbuttomP':true, 'bgFilaPTable ':false }" *ngFor="let novedad of novedadePolizaP ; let i = index"
                                 >                                
-                                <td class="text-center">{{ novedad.tipoPoliza }}</td>
-                                <td class="text-center">{{ novedad.n_poliza}}</td>
-                                <td class="text-center">{{ novedad.placa }}</td>
-                                <td class="text-center">{{ novedad.fechaActualizacion| date:'dd/MM/yyyy' }}</td>
-                                <td class="text-center">{{ EstadoNovedadPoliza(novedad.estado)  }}</td>
-                                <td class="text-center">{{ novedad.observacion  }}</td>
+                                <td class="text-start">{{ novedad.tipoPoliza }}</td>
+                                <td class="text-start">{{ novedad.n_poliza}}</td>
+                                <td class="text-start">{{ novedad.placa }}</td>
+                                <td class="text-start">{{ novedad.fechaActualizacion| date:'dd/MM/yyyy' }}</td>
+                                <td class="text-start">{{ EstadoNovedadPoliza(novedad.estado)  }}</td>
+                                <td class="text-start">{{ novedad.observacion  }}</td>
                                
                                
 

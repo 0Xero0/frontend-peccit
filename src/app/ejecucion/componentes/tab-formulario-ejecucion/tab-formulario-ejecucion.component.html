@@ -1,5 +1,5 @@
 <!--mb-4-->
-<div class="table-responsive ps-4 py-4 centrado">
+<div class="table-responsive ps-4 py-4 izq">
     <app-tabla-actividades-form-ejec
     [idVigilado]="idVigilado"
     [soloLectura]="soloLectura"
@@ -7,7 +7,7 @@
     [actividadesFaltantes]="actividadesFaltantes"
     (nuevasRespuestas)="manejarNuevasActividades($event)"
     />
-    <div class="py-3 centrado"></div>
+    <div class="py-3 izq"></div>
     <app-tabla-items-adicionales-form-ejec
     (nuevasRespuestas)="manejarNuevosAdicionales($event)"
     [soloLectura]="soloLectura"
