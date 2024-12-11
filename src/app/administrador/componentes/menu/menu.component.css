@@ -10,7 +10,7 @@
 }
 .modulo{
     position: relative;
-    
+
 }
 .nombre-modulo{
     width: 100%;
@@ -27,7 +27,7 @@
     top: 4px;
     width: 100%;
     border-top: 3px solid #2DB2EA;
-    
+
 }
 .modulo .submodulos{
     display: none;
@@ -39,21 +39,38 @@
     top: 100%;
     background-color: #E6EFFD;
     color: #3366CC;
-    
+
 }
 .modulo:hover .submodulos{
     display: block;
-    
+
 }
 .submodulo{
     border-bottom: 1px solid black;
-    
+
     cursor: pointer;
 }
 .nombre-submodulo{
     display: block;
     padding: 8px 15px;
-    
+}
+
+.ActiveP2 {
+  background-color: #fff !important;
+  color: #004884;
+}
+
+.ActiveLinkP{
+    background-color: #fff !important;
+    color: #004884;
+  }
+
+.logoP {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  height: 90px;
 }
 
 /******CLASES DE PAOLO*********************************/
@@ -64,13 +81,13 @@
 }
 
 .logoP{
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
     height: 90px;
-    
+
 }
 
 .frajaP
@@ -88,10 +105,10 @@
     letter-spacing: 0px;
     color: #FFFFFF;
     text-transform: uppercase;
-    display: flex;    
-    align-items: center;    
+    display: flex;
+    align-items: center;
     padding: 23px 18px 26px;
-    font-size: 32px;
+    font-size: 40px;
     margin-left: -10px;
     /*padding: 10px 0px 0px 10px;*/
 }
@@ -99,11 +116,11 @@
 {
     text-align: left;
     font: normal normal normal 16px/32px Montserrat;
-    letter-spacing: 0px;    
+    letter-spacing: 0px;
     color: #FFFFFF;
     text-transform: uppercase;
-    display: flex;    
-    align-items: center;    
+    display: flex;
+    align-items: center;
     font-size: 16px;
     margin-top: 50px;
     margin-left: -140px;
@@ -116,4 +133,10 @@
     /* UI Properties */
     background: #004884 0% 0% no-repeat padding-box;
 
+}
+
+.borderMenu{
+
+    border-radius: 1px 1px 8px 8px;
+    border-top-left-radius: inherit;
 }

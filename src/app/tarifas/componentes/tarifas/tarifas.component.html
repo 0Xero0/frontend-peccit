@@ -12,7 +12,7 @@
         <div class="table-responsive">
             <!--tabla-informacionP-->
             <table class="tabla-informacionP w-100">
-                <thead>
+                <thead class="centrado">
                     <tr>
                         <th>Tipo de servicio / Modalidad</th>
                         <th>Tarifas autorizadas</th>
@@ -21,11 +21,11 @@
                         <th *ngIf="!soloLectura"></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="centrado">
                     <tr *ngIf="tarifas.length < 1">
                         <td colspan="5" class="text-center fw-semibold">No se encontraron tarifas para esta vigencia.</td>
                     </tr>
-                    <tr *ngFor="let tarifa of tarifas">
+                    <tr class="tdxP" *ngFor="let tarifa of tarifas">
                         <td>{{ tarifa.idServicioModalidad }} - {{ obtenerNombreServicioModalidad(tarifa.idServicioModalidad) }}</td>
                         <td>${{ tarifa.tarifaAutorizada | currency: '' : '' : '0.0-0'}}</td>
                         <td> 

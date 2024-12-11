@@ -24,7 +24,7 @@ export class InicioSesionComponent implements OnInit {
 
   constructor(private servicioAutenticacion: AutenticacionService, private enrutador: Router, public ServiceMenuP:MenuHeaderPService) {
     this.formulario = new FormGroup({
-      usuario: new FormControl('', [Validators.required]),
+      usuario: new FormControl('', [Validators.required,Validators.minLength(6)]),
       clave: new FormControl('', [Validators.required]),
       captcha: new FormControl(undefined, [Validators.required])
     })
@@ -53,10 +53,17 @@ export class InicioSesionComponent implements OnInit {
         } else {
           if(respuesta.rol.modulos.length > 0){
             if(!respuesta.rol.modulos[0].ruta && respuesta.rol.modulos[0].submodulos.length > 0){
+              //this.ServiceMenuP.RutaModelo =`/administrar/encuestas/${1}`
+              //this.ServiceMenuP.RutaModelo =`/encuestas/${1}`
+              
+              //localStorage.setItem("miRutaP", this.ServiceMenuP.RutaModelo);
               this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].submodulos[0].ruta}`);
             }else{
+              //this.ServiceMenuP.RutaModelo =`/administrar/encuestas/${1}`
+                //this.ServiceMenuP.RutaModelo =`/encuestas/${1}`
+             //localStorage.setItem("miRutaP", this.ServiceMenuP.RutaModelo);
               this.enrutador.navigateByUrl(`/administrar${respuesta.rol.modulos[0].ruta}`);
-              this.ServiceMenuP.RutaModelo =(this.ServiceMenuP.RutaModelo==='') ?`/administrar/encuestas/${1}` : this.ServiceMenuP.RutaActual
+              
               
             }
           }

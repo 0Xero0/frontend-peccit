@@ -9,8 +9,8 @@
         </fieldset>
     </div>
     <div class="d-flex">
-        <div class="table-responsive custom-scroll">
-            <table class="table table-bordered tabla-primaria">
+        <div class="table-responsiveP w-100 custom-scroll">
+            <table class="tabla-informacionP w-100 tabla-primaria">
                 <thead>
                     <tr class="fs-14px">
                         <th class=""></th>
@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody class="fs-14px">
-                    <tr *ngFor="let reporte of reportes ; let i = index">
+                    <tr class="tdxP" *ngFor="let reporte of reportes ; let i = index">
                         <td><img 
                             [routerLink]="['/administrar', 'ejecucion']"
                             [queryParams]="{ reporte: reporte.numeroReporte, vigilado: reporte.idVigilado }"  

@@ -11,7 +11,7 @@ input[type="file"]{
     height: 36px;
     box-sizing: border-box;
    /* padding: 5px 15px; */
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     line-height: 1.5;
     color: #212529;
@@ -26,22 +26,23 @@ input[type="file"]{
 }
 .input-archivo .boton-adjuntar{
     box-sizing: border-box;
-    width: 85px;
+    width: 155px;
     padding: 5px 10px;
     border: 1px solid var(--azul);
-    color: var(--azul);
-    background-color: #ffff;
-    border-radius: 6px;
+    color:  #ffff;
+    background-color:#3366CC;
+    border-radius: 6px 0px 0px 6px; 
     font-size: 11px;
     font-weight: 600;
 }
+
 .input-archivo>.boton-adjuntar:hover{
-    background-color: var(--azul);
+    background-color: var(--azul-oscuro);
     color: #ffff;
 }
 .archivos{
     display: flex;
-    width: calc(100% - 85px);
+    width: calc(100% - 134px);
     align-items: center;
     padding: 5px 15px;
     overflow: hidden;
@@ -90,3 +91,5 @@ input[type="file"]{
     color: #878787;
     border-color: #C4C4C4;
 }
+
+

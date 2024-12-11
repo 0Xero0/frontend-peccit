@@ -4,39 +4,39 @@
         <table class="tabla-informacionP ">
             <thead>
                 <!-- fondo-secundario texto-primario -->
-                <tr height="38px" class="fs-14px  encabezado-tabla">
+                <tr height="38px" class="fs-14px  encabezado-tabla centrado">
                     <th *ngIf="!soloLectura" colspan="2" class="fw-semibold"></th>
-                    <th class="fw-semibold">
+                    <th class="fw-semibold justify-content-left">
                         NIT
                     </th>
-                    <th class="fw-semibold">
+                    <th class="fw-semibold ">
                         Razón Social
                     </th>
-                    <th class="fw-semibold">
-                        Correo electrónico
+                    <th class="fw-semibold ">
+                        Correo electrónico de la empresa
                     </th>
-                    <th class="fw-semibold">
+                    <th class="fw-semibold ">
                         Tipo de Servicio / Modalidad
                     </th>
-                    <th class="fw-semibold">
+                    <th class="fw-semibold ">
                         Departamento
                     </th>
-                    <th class="fw-semibold">
+                    <th class="fw-semibold ">
                         Municipio
                     </th>
-                    <th class="fw-semibold">
+                    <th class="fw-semibold ">
                         Acto administrativo Tipo de Servicio / Modalidad
                     </th>
-                    <th class="fw-semibold">
+                    <th class="fw-semibold ">
                         Capacidad transportadora A
                     </th>
-                    <th class="fw-semibold">
+                    <th class="fw-semibold ">
                         Capacidad transportadora B
                     </th>
-                    <th class="fw-semibold">
+                    <th class="fw-semibold ">
                         Capacidad transportadora C
                     </th>
-                    <th class="fw-semibold">
+                    <th class="fw-semibold ">
                         Acto administrativo capacidad transportadora
                     </th>
                 </tr>
@@ -56,38 +56,39 @@
                     <td>-</td>
                     <td>-</td>
                 </tr>
-                <tr class="fs-14px" *ngFor="let empresa of empresas ; let i = index"
+                <tr class="fs-14px tdxP" *ngFor="let empresa of empresas ; let i = index"
                     [ngClass]="{ 'bg-peligro': esRegistroAEliminar(empresa.nit) }">
                     <td *ngIf="!soloLectura" colspan="2">
-                        <span *ngIf="esRegistroAEliminar(empresa.nit)" class="text-danger cursor-pointer"
+                        <span *ngIf="esRegistroAEliminar(empresa.nit)" class="text-danger cursor-pointer centrado"
                             (click)="cancelarEliminacionRegistro(empresa.nit)">
                             <span class="material-symbols-outlined">
                                 close
                             </span>
                         </span>
-                        <span *ngIf="!esRegistroAEliminar(empresa.nit)" class="text-danger cursor-pointer"
+                        <span *ngIf="!esRegistroAEliminar(empresa.nit)" class="text-danger cursor-pointer centrado"
                             (click)="eliminarRegistro(empresa.nit)">
-                            <span class="material-symbols-outlined">
-                                delete
-                            </span>
+                            <!--<button _ngcontent-yrx-c61="" type="button" class="eliminar-ruta fw-semibold"><i _ngcontent-yrx-c61="" class="bi bi-trash"></i></button>
+                            <i _ngcontent-yrx-c61="" class="bi bi-trash"></i>
+                            -->
+                            <span _ngcontent-ows-c44="" class="material-symbols-outlined text-primary" style="color: #004884 !important;"> delete </span> 
                         </span>
                     </td>
-                    <td>{{ empresa.nit }}</td>
-                    <td>{{ empresa.razon_social }}</td>
-                    <td>{{ empresa.correoelectronico }}</td>
-                    <td>{{ empresa.tipo_servicio }} - {{ obtenerNombreServicioModalidad(empresa.tipo_servicio) }}</td>
-                    <td>{{ obtenerNombreDepartamento(empresa.departamento) }}</td>
-                    <td>{{ obtenerNombreCiudad(empresa.municipio) }}</td>
-                    <td>
+                    <td class="centrado">{{ empresa.nit }}</td>
+                    <td class="centrado">{{ empresa.razon_social }}</td>
+                    <td class="centrado">{{ empresa.correoelectronico }}</td>
+                    <td class="centrado">{{ empresa.tipo_servicio }} - {{ obtenerNombreServicioModalidad(empresa.tipo_servicio) }}</td>
+                    <td class="centrado">{{ obtenerNombreDepartamento(empresa.departamento) }}</td>
+                    <td class="centrado">{{ obtenerNombreCiudad(empresa.municipio) }}</td>
+                    <td class="centrado">
                         <span class="hipervinculo cursor-pointer"
                             (click)="descargarArchivo(empresa.documento_tipo_servicio, empresa.ruta_tipo_servicio, empresa.original_tipo_servicio)">
                             {{ empresa.original_tipo_servicio }}
                         </span>
                     </td>
-                    <td>{{ empresa.capacidad_transportadora_a }}</td>
-                    <td>{{ empresa.capacidad_transportadora_b }}</td>
-                    <td>{{ empresa.capacidad_transportadora_c }}</td>
-                    <td>
+                    <td class="centrado">{{ empresa.capacidad_transportadora_a }}</td>
+                    <td class="centrado">{{ empresa.capacidad_transportadora_b }}</td>
+                    <td class="centrado">{{ empresa.capacidad_transportadora_c }}</td>
+                    <td class="centrado">
                         <span class="hipervinculo cursor-pointer"
                             (click)="descargarArchivo(empresa.documento_transportadora, empresa.ruta_transportadora, empresa.original_transportadora)">
                             {{ empresa.original_transportadora }}
@@ -249,7 +250,7 @@
         <span class="validacion" *ngIf="empresaRequerida">Debe agregar al menos una empresa.</span>
     </div>
     
-    <div class="d-flex py-3 ps-4 tabla-linea-topP" *ngIf="!formularioVisible && !soloLectura">
+    <div class="d-flex py-3 ps-4 " *ngIf="!formularioVisible && !soloLectura">
         <button type="button" class="boton primario relleno" (click)="mostrarFormulario()">
             Agregar
         </button>

@@ -38,7 +38,7 @@
 <ng-template #modal2>
     <div class="card">
         <div class="card-body p-4">
-            <h4 class="fw-semibold mb-4">Registre todos los municipios de los que reportará información.
+            <h4 class="fw-semibold mb-4">Registre todos los municipios de los que reportará información
             </h4>
             <div class="d-block mb-3">
                 <div class="table-responsive">
@@ -86,7 +86,7 @@
                                 </td>
                                 <td>
                                     <select formControlName="departamento" class="form-select">
-                                        <option value="">Selecciona un departamento.</option>
+                                        <option value="">Selecciona un departamento</option>
                                         <option *ngFor="let departamento of departamentos" [value]="departamento.id">
                                             {{ departamento.id }} - {{ departamento.name }}
                                         </option>
@@ -96,27 +96,27 @@
                                 </td>
                                 <td>
                                     <select formControlName="municipio" class="form-select">
-                                        <option value="">Selecciona un departamento.</option>
+                                        <option value="">Selecciona un municipio</option>
                                         <option *ngFor="let ciudad of ciudades" [value]="ciudad.id">
                                             {{ ciudad.id }} - {{ ciudad.name }}
                                         </option>
                                     </select>
                                     <app-validacion [control]="this.formulario.controls.municipio"
-                                        [validacion]="'required'" [texto]="'Selecciona un municipio.'" />
+                                        [validacion]="'required'" [texto]="'Selecciona un municipio'" />
                                 </td>
                                 <td>
                                     <input type="text" formControlName="numeroConvenio"
                                         placeholder="Número del convenio" class="form-control fs-12px">
                                     <app-validacion [control]="this.formulario.controls.numeroConvenio"
                                         [validacion]="'required'"
-                                        [texto]="'Debes especificar un número de convenio.'" />
+                                        [texto]="'Debes especificar un número de convenio'" />
                                 </td>
                                 <td>
                                     <app-input-archivo formControlName="convenioPDF" [nombre]="'convenioPDF'"
                                         [acepta]="['.pdf']" />
                                     <app-validacion [control]="this.formulario.controls.convenioPDF"
                                         [validacion]="'required'" 
-                                        [texto]="'El documento es requerido.'" />
+                                        [texto]="'El documento es requerido'" />
                                 </td>
                             </tr>
                         </tbody>

@@ -8,6 +8,7 @@
 }
 body{
     background-color: #FFF;
+    position: relative;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -69,6 +70,7 @@ h1,h2{
 }
 .boton.primario.relleno{
   background-color: var(--azul);
+  background: #3366CC 0% 0% no-repeat padding-box;
   color: white;
 }
 .boton.primario.relleno:hover{
@@ -398,7 +400,7 @@ h1,h2{
 
 .tabla-linea-topP
 {
-  border-top: 1px solid #707070;
+  border-top: 1px solid #dcdcdc;
 }
 
 .buttonDerechaP
@@ -408,12 +410,12 @@ h1,h2{
 
 .tdyP
 {
-    border-right: 1px solid gainsboro;
+    border-right: 1px solid #dcdcdc;
     
 }
 .tdxP
 {
-    border-bottom: 1px solid rgb(9, 9, 9);
+    border-bottom: 1px solid #dcdcdc;
     
 }
 .encabezado-tabla{
@@ -434,7 +436,7 @@ h1,h2{
 }
 .borderbuttomP
 {
-  border-bottom: 1px solid gainsboro;
+  border-bottom: 1px solid #dcdcdc;
 }
 
 .hr{
@@ -458,7 +460,7 @@ h1,h2{
   height: 60px;
 }
 
-borderP
+.borderP
 {
   border: 2px solid #E6EFFD !important;
 }
@@ -492,4 +494,93 @@ borderP
   border-radius: 10px;
   color: white;
 }
+.alinh1P
+{
+  margin-left: 3px !important;
+}
 
+.logosuperP
+{
+  margin-left: -25px;
+}
+.htmlP{
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 77px;
+}
+
+.footerP
+{
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+.inicioMigaPanP
+{
+  margin-left: 20px;
+}
+.migaPanP
+{
+  color: #004884;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.icono-usuario{
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.colorUserP{
+
+color: white;
+}
+
+.escudoGoP
+{
+height: 45px;
+}
+
+.navbar{
+  position: relative;
+  height: var(--alto-barra-navegacion);
+  z-index: var(--z-index-barra-navegacion);
+  box-shadow: 0px 3px 6px #00000029;
+  background-color: var(--azul-cabecera);
+  height: 77px;
+}
+
+.izq{
+  text-align: left;
+}
+
+
+.btnPRadiusDescaga
+{
+  /*
+  width: 132px;
+  height: 19px;
+   UI Properties */
+   text-align: center;
+   font: normal normal normal 16px/16px Montserrat;
+   letter-spacing: 0px;
+   color: #FFFFFF;
+   background: #3366CC 0% 0% no-repeat padding-box;
+   border-radius: 22px;
+   padding: 9px; 
+}
+
+.page-item .page-link
+{
+  border: none;
+  background: #fff;
+}
+
+.page-item.active .page-link {
+  background: #004884 !important;
+}
+.centrado{
+  text-align: center  !important;
+}

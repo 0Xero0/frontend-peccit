@@ -10,7 +10,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let actividad of actividades ; let i = index">
+                <tr class="tdxP" *ngFor="let actividad of actividades ; let i = index">
                     <td>
                         <div class="actividad">
                         <span class="fw-semibold validacion" *ngIf="actividad.obligatoria">* </span>{{ actividad.nombre }}

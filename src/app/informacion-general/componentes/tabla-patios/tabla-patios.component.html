@@ -1,8 +1,8 @@
 <div class="mb-3 table-responsiveP">
     <div class="table-responsive">
-        <table class="tabla-informacionP w-100"> <!--tabla-modalidad-radio table border mb-1-->
+        <table class="tabla-informacionP w-100 centrado"> <!--tabla-modalidad-radio table border mb-1-->
             <thead>
-                <tr height="38px" class="fs-14px  fondo-secundario texto-primario">
+                <tr height="38px" class="fs-14px  fondo-secundario texto-primario centrado">
                     <th *ngIf="!soloLectura" colspan="2" class="fw-semibold"></th>
                     <th>Id</th>
                     <th class="fw-semibold">
@@ -28,8 +28,8 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="fs-14px" *ngIf="patios.length === 0 && registrosACrear.length === 0 && !formularioVisible">
+            <tbody class="centrado">
+                <tr class="fs-14px " *ngIf="patios.length === 0 && registrosACrear.length === 0 && !formularioVisible">
                     <td colspan="2" *ngIf="!soloLectura"></td>
                     <td>-</td>
                     <td>-</td>
@@ -40,20 +40,18 @@
                     <td>-</td>
                     <td>-</td>
                 </tr>
-                <tr class="fs-14px" *ngFor="let patio of patios ; let i = index"
+                <tr class="fs-14px tdxP" *ngFor="let patio of patios ; let i = index"
                     [ngClass]="{ 'bg-peligro': esRegistroAEliminar(patio.id) }">
                     <td *ngIf="!soloLectura" colspan="2">
                         <span *ngIf="esRegistroAEliminar(patio.id)" class="text-danger cursor-pointer"
                             (click)="cancelarEliminacionRegistro(patio.id)">
-                            <span class="material-symbols-outlined">
+                            <span class="material-symbols-outlined" >
                                 close
                             </span>
                         </span>
                         <span *ngIf="!esRegistroAEliminar(patio.id)" class="text-danger cursor-pointer"
                             (click)="eliminarRegistro(patio.id)">
-                            <span class="material-symbols-outlined">
-                                delete
-                            </span>
+                                <span _ngcontent-ows-c44="" class="material-symbols-outlined text-primary"  style="color: #004884 !important;"> delete </span>
                         </span>
                     </td>
                     <td>{{ patio.id }}</td>
@@ -168,7 +166,7 @@
     <div class="d-flex">
         <span class="validacion" *ngIf="patioRequerido">Debe agregar al menos un patio.</span>
     </div>
-    <div class="d-flex py-3 ps-4 tabla-linea-topP" *ngIf="!formularioVisible && !soloLectura">
+    <div class="d-flex py-3 ps-4" *ngIf="!formularioVisible && !soloLectura">
         <button type="button" class="boton primario relleno" (click)="mostrarFormulario()">
             Agregar
         </button>

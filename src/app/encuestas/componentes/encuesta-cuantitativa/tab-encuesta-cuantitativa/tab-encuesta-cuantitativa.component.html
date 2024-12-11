@@ -1,26 +1,26 @@
 
 <div class="mb-3 table-responsiveP"> <!--CODIGO DE PAOLO-->
     <div class="table-responsive"> <!--CODIGO DE PAOLO-->
-        <div class="contenedor-evidencias" *ngIf="evidencias.length > 0">
+        <div class="contenedor-evidencias centrado" *ngIf="evidencias.length > 0">
             <ul class="evidencias">
-                <li class="cabeceras-evidencia">
+                <li class="cabeceras-evidencia centrado">
                     <div class="row">
                         <div class="col-3">Descripción de las evidencias</div>
-                        <div class="col-2">Tipo de evidencia</div>
-                        <div class="col-7">Evidencia</div>
+                        <div class="col-3">Tipo de evidencia</div>
+                        <div class="col-6">Evidencia</div>
                     </div>
                 </li>
-                <li class="evidencia" *ngFor="let evidencia of evidencias" [ngClass]="{ 'bg-invalido': evidenciasFaltantes.includes(evidencia.idEvidencia) }">
-                    <div class="row">
-                        <div class="col-3"><span class="validacion fw-semibold" *ngIf="evidencia.obligatoria">* </span>{{ evidencia.nombre }}</div>
-                        <div class="col-2">
+                <li class="evidencia tdxP centrado" *ngFor="let evidencia of evidencias" [ngClass]="{ 'bg-invalido': evidenciasFaltantes.includes(evidencia.idEvidencia) }">
+                    <div class="row centrado">
+                        <div class="col-3 centrado"><span class="validacion fw-semibold" *ngIf="evidencia.obligatoria">* </span>{{ evidencia.nombre }}</div>
+                        <div class="col-3 centrado">
                             <ng-container *ngIf="evidencia.validacionesEvidencia">
                                 {{ evidencia.validacionesEvidencia.tipoDato }} 
                                 <span *ngIf="evidencia.validacionesEvidencia.tamanio"> - {{ evidencia.validacionesEvidencia.tamanio }} Mb</span>
                             </ng-container>
                         </div>
-                        <div class="col-7 row">
-                            <div class="col-4">
+                        <div class="col-6 row centrado">
+                            <div class="centrado">
                                 <app-evidencia-encuesta-cuantitativa
                                 [soloLectura]="soloLectura"
                                 [idVigilado]="idVigilado" 
@@ -38,7 +38,7 @@
 </div>
 
 
-<div class="contenedor-objetivos mb-4">
+<div class="contenedor-objetivos mb-4 centrado">
     <app-tabla-objetivos
     [objetivosRequeridos]="objetivosRequeridos"
     [objetivos]="objetivos" 
@@ -48,7 +48,7 @@
    
 
 
-<div class="contenedor-calendario">
+<div class="contenedor-calendario centrado">
     <app-calendario-actividades
     [soloLectura]="soloLectura"
     [actividadesFaltantes]="actividadesFaltantes"

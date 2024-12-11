@@ -8,6 +8,7 @@ import { Injectable } from "@angular/core";
     constructor() {}
     public RutaModelo:string='';
     public RutaActual:string='';
+    public OptionMenu:number=0;
     ActivarOpcionMenuPpal(rutaModelo:string,rutaActual:string): boolean
     {
         return true;
@@ -17,6 +18,13 @@ import { Injectable } from "@angular/core";
     {
         this.RutaActual=rutaActual;
         this.RutaModelo=rutaModelo;
+        console.log(this.RutaActual)
+       console.log(this.RutaModelo)
+    }
+
+    get RutaModuloP()
+    {
+      return this.RutaModelo
     }
 
   }
